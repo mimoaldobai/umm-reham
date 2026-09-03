@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/UmmReham.API/UmmReham.API.csproj" />
+    <Project Path="src/UmmReham.Application/UmmReham.Application.csproj" />
+    <Project Path="src/UmmReham.Domain/UmmReham.Domain.csproj" />
+    <Project Path="src/UmmReham.Infrastructure/UmmReham.Infrastructure.csproj" />
+  </Folder>
+</Solution>

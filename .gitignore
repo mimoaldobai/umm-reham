@@ -1,0 +1,34 @@
+# ==========================================
+# Root .gitignore for Umm Reham Platform
+# ==========================================
+
+# Angular & Frontend
+**/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/tmp/
+frontend/out-tsc/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# .NET & Backend
+**/bin/
+**/obj/
+**/.vs/
+**/*.user
+**/*.userosscache
+**/*.suo
+**/*.userprefs
+**/*.db-shm
+**/*.db-wal
+
+# Environment & Local Secrets
+appsettings.Development.json
+*.local
+
+# IDEs & System
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

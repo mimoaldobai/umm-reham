@@ -1,0 +1,55 @@
+.app-viewport {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+}
+
+.page-content {
+  flex: 1;
+}
+
+.page-content.admin-mode {
+  padding: 0;
+}
+
+.floating-whatsapp-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  left: auto;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  color: #FFFFFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.35);
+  z-index: 990;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.floating-whatsapp-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.5);
+}
+
+.floating-whatsapp-btn svg {
+  width: 26px;
+  height: 26px;
+}
+
+@media (max-width: 768px) {
+  .floating-whatsapp-btn {
+    bottom: 16px;
+    right: 14px;
+    width: 42px;
+    height: 42px;
+  }
+  .floating-whatsapp-btn svg {
+    width: 22px;
+    height: 22px;
+  }
+}
