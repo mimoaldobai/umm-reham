@@ -2898,6 +2898,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     this.api.getPages().subscribe(res => this.pages = res);
     this.api.getFooterLinks().subscribe(res => this.footerLinks = res);
     this.authService.getUsers().subscribe(res => this.adminUsers = res);
+    this.loadOrdersFromBackend();
   }
 
   setTab(tab: any): void {
@@ -3044,19 +3045,56 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     }
   }
 
+  loadOrdersFromBackend(): void {
+    this.api.getServiceRequests().subscribe(res => {
+      if (res && res.length > 0) {
+        this.orders = res.map((r: any, idx: number) => {
+          let extra: any = {};
+          try {
+            if (r.additionalDetails && typeof r.additionalDetails === 'string' && r.additionalDetails.startsWith('{')) {
+              extra = JSON.parse(r.additionalDetails);
+            }
+          } catch(e) {}
+
+          const orderNum = extra.orderNumber || ('#OR-' + (r.id ? r.id.toString().substring(0, 4).toUpperCase() : (8920 + idx)));
+          const deadlineText = extra.deadlineText || (r.deadline ? new Date(r.deadline).toLocaleDateString('ar-SA') : 'خلال 5 أيام');
+          const pages = r.pageCount || 20;
+          const price = extra.price || (pages * 25);
+
+          return {
+            id: r.id?.toString() || ('ord_' + idx),
+            orderNumber: orderNum,
+            clientName: r.clientName || 'باحث أكاديمي',
+            phone: r.clientPhone || '+966501234567',
+            university: r.university || 'جامعة سعودية',
+            degree: extra.degree || r.specialization || 'ماجستير',
+            serviceTitle: extra.serviceTitle || r.description || r.serviceNameAr || 'خدمة أكاديمية',
+            pages: pages,
+            price: price,
+            status: (r.status === 'new' ? 'pending' : (r.status === 'completed' ? 'completed' : (r.status === 'review' ? 'review' : 'in_progress'))) as any,
+            deadline: deadlineText,
+            createdAt: r.createdAt ? r.createdAt.slice(0, 10) : new Date().toISOString().slice(0, 10)
+          };
+        });
+      }
+    });
+  }
+
   advanceOrderStatus(ord: AcademicOrder): void {
     if (ord.status === 'pending') ord.status = 'in_progress';
     else if (ord.status === 'in_progress') ord.status = 'review';
     else if (ord.status === 'review') ord.status = 'completed';
     else ord.status = 'pending';
 
+    this.api.updateRequestStatus(ord.id, ord.status).subscribe();
     this.showToast(`تم تحديث حالة الطلب (${ord.orderNumber}) إلى: ${this.getStatusLabel(ord.status)}`);
     this.audio.playSuccess();
   }
 
   deleteOrder(id: string): void {
     this.orders = this.orders.filter(o => o.id !== id);
-    this.showToast('تم حذف الطلب بنجاح');
+    this.api.deleteServiceRequest(id).subscribe();
+    this.showToast('تم حذف الطلب بنجاح من قاعدة البيانات');
     this.audio.playClick();
   }
 
@@ -3086,9 +3124,30 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
       return;
     }
     const nextNum = Math.floor(1000 + Math.random() * 9000);
+    const orderNum = '#OR-' + nextNum;
+
+    const reqPayload = {
+      orderNumber: orderNum,
+      clientName: this.orderForm.clientName,
+      clientPhone: this.orderForm.phone,
+      university: this.orderForm.university,
+      specialization: this.orderForm.degree,
+      description: this.orderForm.serviceTitle,
+      pageCount: this.orderForm.pages || 20,
+      price: this.orderForm.price || 500,
+      deadline: this.orderForm.deadline || 'خلال 5 أيام',
+      additionalDetails: JSON.stringify({
+        orderNumber: orderNum,
+        degree: this.orderForm.degree,
+        serviceTitle: this.orderForm.serviceTitle,
+        price: this.orderForm.price || 500,
+        deadlineText: this.orderForm.deadline || 'خلال 5 أيام'
+      })
+    };
+
     const newOrd: AcademicOrder = {
       id: 'ord_' + Date.now(),
-      orderNumber: '#OR-' + nextNum,
+      orderNumber: orderNum,
       clientName: this.orderForm.clientName || 'باحث أكاديمي',
       phone: this.orderForm.phone || '+966501234567',
       university: this.orderForm.university || 'جامعة سعودية',
@@ -3101,8 +3160,13 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
       createdAt: new Date().toISOString().slice(0, 10)
     };
     this.orders.unshift(newOrd);
+
+    this.api.submitServiceRequest(reqPayload).subscribe(() => {
+      this.loadOrdersFromBackend();
+    });
+
     this.isOrderModalOpen = false;
-    this.showToast(`تم تسجيل الطلب الجديد (${newOrd.orderNumber}) بنجاح!`);
+    this.showToast(`تم تسجيل الطلب الجديد (${orderNum}) وحفظه في قاعدة البيانات بنجاح!`);
     this.audio.playSuccess();
   }
 

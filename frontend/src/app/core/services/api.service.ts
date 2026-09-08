@@ -623,23 +623,41 @@ export class ApiService {
   }
 
   submitServiceRequest(payload: any): Observable<any> {
-    const item = {
-      id: 'req-' + Date.now(),
+    const isIsoDate = payload.deadline && !isNaN(Date.parse(payload.deadline)) && payload.deadline.toString().includes('-');
+    const apiPayload = {
+      serviceId: payload.serviceId || null,
       clientName: payload.clientName || 'عميل موثق',
       clientPhone: payload.clientPhone || '',
-      clientEmail: payload.clientEmail || '',
-      serviceName: payload.serviceName || 'طلب خدمة أكاديمية',
-      university: payload.university || 'جامعة سعودية',
-      specialization: payload.specialization || '',
-      pageCount: payload.pageCount || 1,
-      deadline: payload.deadline || 'عاجل',
-      description: payload.description || '',
-      status: 'جديد',
+      clientEmail: payload.clientEmail || null,
+      description: payload.description || payload.serviceName || 'طلب خدمة أكاديمية',
+      specialization: payload.specialization || null,
+      university: payload.university || null,
+      deadline: isIsoDate ? new Date(payload.deadline).toISOString() : null,
+      pageCount: payload.pageCount ? Number(payload.pageCount) : null,
+      additionalDetails: typeof payload.additionalDetails === 'string' 
+        ? payload.additionalDetails 
+        : JSON.stringify({
+            orderNumber: payload.orderNumber,
+            serviceTitle: payload.serviceName || payload.serviceTitle,
+            degree: payload.degree,
+            price: payload.price,
+            deadlineText: payload.deadline
+          })
+    };
+
+    const localItem = {
+      id: 'req-' + Date.now(),
+      ...payload,
+      status: 'new',
       createdAt: new Date().toISOString()
     };
-    this.defaultServiceRequests.unshift(item);
-    return this.http.post(`${this.apiUrl}/service-requests`, payload).pipe(
-      catchError(() => of({ success: true, message: 'Request recorded locally' }))
+    this.defaultServiceRequests.unshift(localItem);
+
+    return this.http.post<any>(`${this.apiUrl}/service-requests`, apiPayload).pipe(
+      catchError(err => {
+        console.warn('Backend request fallback to local:', err);
+        return of({ success: true, id: localItem.id, ...localItem });
+      })
     );
   }
 

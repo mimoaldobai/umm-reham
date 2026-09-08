@@ -3376,17 +3376,25 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     };
     const price = this.calculateSimPrice();
     const duration = this.calculateSimDuration();
-    const deg = degreeMap[this.simDegree];
-    const svc = serviceMap[this.simService];
-    const msg = `السلام عليكم ورحمة الله، قمت بحساب طلبي عبر المحاكي الأكاديمي الذكي:
-- الخدمة: ${svc}
-- الدرجة العلمية: ${deg}
-- عدد الصفحات: ${this.simPages} صفحة
-- التكلفة التقديرية: ${price} ر.س (${duration})
-أرغب بالبدء وحجز المستشار الأكاديمي المعتمد.`;
+    const deg = degreeMap[this.simDegree] || 'ماجستير';
+    const svc = serviceMap[this.simService] || 'إعداد بحث متكامل';
 
-    const encoded = encodeURIComponent(msg);
-    window.open(`https://wa.me/?text=${encoded}`, '_blank');
+    this.selectedService = {
+      id: 'sim_' + Date.now(),
+      slug: 'sim-request',
+      nameAr: `${svc} (${deg})`,
+      shortDescriptionAr: `طلب استشارة وبحث أكاديمي بمقدار ${this.simPages} صفحة لدرجة ${deg}.`,
+      fullDescriptionAr: `طلب تم حسابه عبر المحاكي الأكاديمي الذكي: خدمة ${svc} لدرجة ${deg}، بعدد صفحات تقديري ${this.simPages} صفحة، ومدة إنجاز ${duration}.`,
+      priceType: 'fixed',
+      priceMin: price,
+      priceMax: price,
+      priceCurrency: 'ر.س',
+      estimatedDuration: duration,
+      categoryNameAr: 'المحاكي الذكي',
+      targetAudienceAr: `طلبة وباحثي ${deg} في كافة الجامعات السعودية`,
+      requirementsAr: 'تزويدنا بمحاور وتوجيهات مشرفك الأكاديمي، والدليل الإرشادي لجامعتك.',
+      isFeatured: false
+    };
   }
 
   onHover(): void {
