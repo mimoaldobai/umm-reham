@@ -269,6 +269,16 @@ import confetti from 'canvas-confetti';
 
           <!-- Golden Rewards Pack Voucher Card -->
           <div class="golden-voucher-card">
+            <div class="voucher-brand-header">
+              <div class="voucher-brand-avatar-box">
+                <img src="assets/images/reham_profile_luxury.jpg" alt="أم رهام" class="voucher-avatar-img" />
+              </div>
+              <div class="voucher-brand-titles">
+                <strong>أم رهام • المنصة الأكاديمية الأولى 🇸🇦</strong>
+                <small>وثيقة الاعتماد والترحيب بالباحث الجديد</small>
+              </div>
+            </div>
+
             <div class="voucher-top">
               <div class="voucher-badge">🎁 باقة ترحيب الباحث الجديد</div>
               <div class="voucher-code-copy" (click)="copyCouponCode()" title="اضغط لنسخ الكود">
@@ -768,6 +778,51 @@ import confetti from 'canvas-confetti';
       padding: 1rem 1.2rem;
       text-align: right;
       box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .voucher-brand-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding-bottom: 0.65rem;
+      margin-bottom: 0.65rem;
+      border-bottom: 1px solid rgba(201, 169, 110, 0.25);
+    }
+
+    .voucher-brand-avatar-box {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      padding: 1.5px;
+      background: linear-gradient(135deg, #FBE6B3 0%, #C9A96E 50%, #96753C 100%);
+      box-shadow: 0 2px 8px rgba(201, 169, 110, 0.4);
+      flex-shrink: 0;
+    }
+
+    .voucher-avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      border: 1px solid #FFFFFF;
+      transform: scale(1.05);
+    }
+
+    .voucher-brand-titles {
+      display: flex;
+      flex-direction: column;
+      text-align: right;
+    }
+
+    .voucher-brand-titles strong {
+      font-size: 0.88rem;
+      color: #FFFFFF;
+    }
+
+    .voucher-brand-titles small {
+      font-size: 0.72rem;
+      color: #DFC698;
     }
 
     .voucher-top {

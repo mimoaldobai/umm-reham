@@ -57,7 +57,9 @@ import { AudioService } from '../../../core/services/audio.service';
           <!-- Brand Column -->
           <div class="footer-brand-col">
             <div class="footer-logo">
-              <div class="logo-feather-icon">🪶</div>
+              <div class="footer-brand-avatar-box">
+                <img src="assets/images/reham_profile_luxury.jpg" alt="أم رهام" class="footer-avatar-img" />
+              </div>
               <div class="logo-text">
                 <h3>أم رهام</h3>
                 <span>تعليم • تطوير • استشارات</span>
@@ -207,8 +209,27 @@ import { AudioService } from '../../../core/services/audio.service';
       margin-bottom: 1rem;
     }
 
-    .logo-feather-icon {
-      font-size: 2rem;
+    .footer-brand-avatar-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      padding: 2px;
+      background: linear-gradient(135deg, #FBE6B3 0%, #C9A96E 50%, #96753C 100%);
+      box-shadow: 0 4px 15px rgba(201, 169, 110, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .footer-avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      border: 1.5px solid #FFFFFF;
+      transform: scale(1.05);
     }
 
     .logo-text h3 {

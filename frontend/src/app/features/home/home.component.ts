@@ -41,6 +41,21 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
             <span>المملكة العربية السعودية • خدمات أكاديمية وبحثية معتمدة</span>
           </div>
 
+          <!-- Brand Identity Profile Seal -->
+          <div class="ls-hero-brand-capsule">
+            <div class="hero-brand-avatar-frame">
+              <img src="assets/images/reham_profile_luxury.jpg" alt="أم رهام" class="hero-avatar-photo" />
+              <span class="hero-avatar-status-dot" title="متاح الآن للاستشارات"></span>
+            </div>
+            <div class="hero-brand-meta">
+              <div class="meta-title-row">
+                <span class="brand-name">دار أم رهام للخدمات الأكاديمية</span>
+                <span class="brand-seal-badge">الهوية المعتمدة 🇸🇦</span>
+              </div>
+              <span class="brand-promise">إشراف أكاديمي مباشر • أصالة وتميز • سرية تامة 100%</span>
+            </div>
+          </div>
+
           <!-- Platform Brand Title & Slogan -->
           <h1 class="ls-hero-title">
             معرفة تصنع الفرق،<br>
@@ -1314,6 +1329,101 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
 
     .badge-trophy {
       font-size: 1.1rem;
+    }
+
+    .ls-hero-brand-capsule {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(14px);
+      border: 1.5px solid rgba(201, 169, 110, 0.45);
+      padding: 0.55rem 1.4rem 0.55rem 0.75rem;
+      border-radius: 9999px;
+      box-shadow: 0 10px 30px rgba(27, 67, 50, 0.08), 0 0 20px rgba(201, 169, 110, 0.25);
+      margin-bottom: 1.5rem;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .ls-hero-brand-capsule:hover {
+      transform: translateY(-3px) scale(1.02);
+      border-color: #C9A96E;
+      box-shadow: 0 16px 40px rgba(27, 67, 50, 0.12), 0 0 30px rgba(201, 169, 110, 0.4);
+    }
+
+    .hero-brand-avatar-frame {
+      position: relative;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      padding: 2.5px;
+      background: linear-gradient(135deg, #FBE6B3 0%, #C9A96E 50%, #96753C 100%);
+      box-shadow: 0 4px 15px rgba(201, 169, 110, 0.45);
+      flex-shrink: 0;
+    }
+
+    .hero-avatar-photo {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      border: 1.5px solid #FFFFFF;
+      transform: scale(1.05);
+    }
+
+    .hero-avatar-status-dot {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 13px;
+      height: 13px;
+      background: #10B981;
+      border-radius: 50%;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.85);
+      animation: pulseGreenGlow 2s infinite;
+    }
+
+    @keyframes pulseGreenGlow {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.8; }
+    }
+
+    .hero-brand-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.15rem;
+      text-align: right;
+    }
+
+    .meta-title-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .brand-name {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #0B2516;
+    }
+
+    .brand-seal-badge {
+      font-size: 0.72rem;
+      background: rgba(16, 185, 129, 0.15);
+      color: #065F46;
+      padding: 0.15rem 0.6rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .brand-promise {
+      font-size: 0.78rem;
+      color: #52665C;
+      font-weight: 600;
     }
 
     .ls-hero-title {

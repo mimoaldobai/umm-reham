@@ -41,9 +41,7 @@ export interface AcademicOrder {
         <!-- Brand Header -->
         <div class="sidebar-brand">
           <div class="brand-crest">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-            </svg>
+            <img src="assets/images/reham_profile_luxury.jpg" alt="أم رهام" class="admin-brand-avatar" />
           </div>
           <div class="brand-text">
             <h2>أم رهام</h2>
@@ -54,10 +52,7 @@ export interface AcademicOrder {
         <!-- Executive User Capsule (Dynamic Authenticated User) -->
         <div class="user-card">
           <div class="user-avatar">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-              <circle cx="12" cy="7" r="4"/>
-            </svg>
+            <img src="assets/images/reham_profile_luxury.jpg" alt="أم رهام" class="admin-user-avatar-img" />
             <span class="user-live-dot"></span>
           </div>
           <div class="user-meta">
@@ -1716,14 +1711,24 @@ export interface AcademicOrder {
     .brand-crest {
       width: 38px;
       height: 38px;
-      border-radius: 10px;
+      border-radius: 50%;
       background: var(--dash-crest-bg, linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(3, 46, 30, 0.95)));
       border: 1.5px solid #10B981;
-      color: #10B981;
       display: flex;
       align-items: center;
       justify-content: center;
       box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .admin-brand-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      transform: scale(1.08);
+      display: block;
     }
 
     .brand-text h2 {
@@ -1756,16 +1761,25 @@ export interface AcademicOrder {
 
     .user-avatar {
       position: relative;
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       background: var(--dash-avatar-bg, #022417);
       border: 1.5px solid #10B981;
-      color: #10B981;
       display: flex;
       align-items: center;
       justify-content: center;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      flex-shrink: 0;
+    }
+
+    .admin-user-avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      transform: scale(1.08);
+      display: block;
     }
 
     .user-live-dot {

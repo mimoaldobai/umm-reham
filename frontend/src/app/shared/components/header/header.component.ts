@@ -18,12 +18,9 @@ import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.compone
           <!-- Brand Logo Group -->
           <div class="ls-brand-group">
             <a routerLink="/" class="ls-brand-logo" (click)="onNavClick()">
-              <div class="ls-logo-icon">
-                <svg width="24" height="24" viewBox="0 0 32 32" fill="none" class="ls-logo-svg">
-                  <path d="M28 4C28 4 19 5 12 12C5 19 4 28 4 28C4 28 13 27 20 20C27 13 28 4 28 4Z" stroke="#C9A96E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M12 20L4 28" stroke="#C9A96E" stroke-width="2.5" stroke-linecap="round"/>
-                  <path d="M17 15L11 21" stroke="#DFC698" stroke-width="2" stroke-linecap="round"/>
-                </svg>
+              <div class="ls-brand-avatar-box">
+                <img src="assets/images/reham_profile_luxury.jpg" alt="أم رهام" class="ls-brand-avatar-img" />
+                <span class="ls-avatar-verified-badge" title="علامة أكاديمية معتمدة">✓</span>
               </div>
               <div class="ls-brand-text">
                 <span class="ls-brand-title">أم رهام</span>
@@ -193,20 +190,53 @@ import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.compone
       text-decoration: none;
     }
 
-    .ls-logo-icon {
-      width: 40px;
-      height: 40px;
+    .ls-brand-avatar-box {
+      position: relative;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      padding: 2px;
+      background: linear-gradient(135deg, #FBE6B3 0%, #C9A96E 50%, #96753C 100%);
+      box-shadow: 0 4px 15px rgba(201, 169, 110, 0.4), 0 0 0 1px rgba(27, 67, 50, 0.1);
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #1B4332 0%, #0F2A1F 100%);
-      border-radius: 12px;
-      border: 1px solid #C9A96E;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      flex-shrink: 0;
+      overflow: visible;
     }
 
-    .ls-logo-svg {
-      width: 24px;
-      height: 24px;
+    .ls-brand-logo:hover .ls-brand-avatar-box {
+      transform: scale(1.08) rotate(3deg);
+      box-shadow: 0 6px 20px rgba(201, 169, 110, 0.6);
+    }
+
+    .ls-brand-avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      border: 1.5px solid #FFFFFF;
+      transform: scale(1.05);
+    }
+
+    .ls-avatar-verified-badge {
+      position: absolute;
+      bottom: -1px;
+      left: -1px;
+      width: 16px;
+      height: 16px;
+      background: #059669;
+      color: #FFFFFF;
+      border-radius: 50%;
+      font-size: 10px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid #FFFFFF;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
     }
 
     .ls-brand-text {
