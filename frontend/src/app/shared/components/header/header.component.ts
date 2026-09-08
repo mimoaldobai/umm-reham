@@ -20,19 +20,7 @@ import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.compone
             <a routerLink="/" class="ls-brand-logo" (click)="onNavClick()">
               <div class="ls-brand-avatar-box">
                 <img src="assets/images/reham_profile_luxury.jpg" alt="أم رهام" class="ls-brand-avatar-img" />
-                <span class="ls-avatar-verified-badge" title="علامة أكاديمية معتمدة">✓</span>
-              </div>
-              <div class="academic-crest-icon" title="دار أم رهام للخدمات الأكاديمية والبحثية">
-                <svg viewBox="0 0 36 36" fill="none" class="academic-cap-book-svg">
-                  <!-- Graduation Cap Mortarboard -->
-                  <path d="M18 4.5L5 10.5L18 16.5L31 10.5L18 4.5Z" fill="#0A2F24" stroke="#C5A869" stroke-width="2" stroke-linejoin="round"/>
-                  <!-- Cap Skull Base & Tassel -->
-                  <path d="M11 13.5V17C11 20 14 22 18 22C22 22 25 20 25 17V13.5" stroke="#C5A869" stroke-width="1.6" stroke-linecap="round"/>
-                  <path d="M28 11.5V18.5C28 19.5 29 20.5 30 20.5" stroke="#C5A869" stroke-width="1.6" stroke-linecap="round"/>
-                  <circle cx="30" cy="20.5" r="1.2" fill="#C5A869"/>
-                  <!-- Open Academic Book Meeting at Cap Apex -->
-                  <path d="M18 29V17M18 29C14.5 26.2 8 26 4 28V14C8 12 14.5 12.2 18 14.5M18 29C21.5 26.2 28 26 32 28V14C28 12 21.5 12.2 18 14.5" stroke="#C5A869" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+                <span class="ls-avatar-verified-badge" title="علامة معتمدة">✓</span>
               </div>
               <div class="ls-brand-text">
                 <span class="ls-brand-title">أم رهام</span>

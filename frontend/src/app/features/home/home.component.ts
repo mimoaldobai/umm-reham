@@ -37,23 +37,8 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
           
           <!-- Top National Accreditation Badge -->
           <div class="ls-hero-top-badge">
-            <span class="badge-trophy">🇸🇦</span>
+            <span class="badge-sa">SA</span>
             <span>المملكة العربية السعودية • خدمات أكاديمية وبحثية معتمدة</span>
-          </div>
-
-          <!-- Brand Identity Profile Seal -->
-          <div class="ls-hero-brand-capsule">
-            <div class="hero-brand-avatar-frame">
-              <img src="assets/images/reham_profile_luxury.jpg" alt="أم رهام" class="hero-avatar-photo" />
-              <span class="hero-avatar-status-dot" title="متاح الآن للاستشارات"></span>
-            </div>
-            <div class="hero-brand-meta">
-              <div class="meta-title-row">
-                <span class="brand-name">دار أم رهام للخدمات الأكاديمية</span>
-                <span class="brand-seal-badge">الهوية المعتمدة 🇸🇦</span>
-              </div>
-              <span class="brand-promise">إشراف أكاديمي مباشر • أصالة وتميز • سرية تامة 100%</span>
-            </div>
           </div>
 
           <!-- Platform Brand Title & Slogan -->
@@ -64,48 +49,8 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
 
           <!-- Platform Subtext -->
           <p class="ls-hero-subtext">
-            دار سعودية رائدة في الخدمات التعليمية والبحثية، نجمع بين الأصالة والمعرفة لنحول أفكارك إلى إنجازات أكاديمية ومهنية حقيقية تفخر بها.
+            منصة سعودية رائدة في الخدمات التعليمية والبحثية، نجمع بين الأصالة والمعرفة لنحول أفكارك إلى إنجازات أكاديمية ومهنية حقيقية تفخر بها.
           </p>
-
-          <!-- Interactive Academic Services Search Bar (البحث عن الخدمة الأكاديمية) -->
-          <div class="ls-hero-search-capsule" id="hero-search-bar">
-            
-            <!-- Search Button (Gold Circle) -->
-            <button type="button" class="ls-search-submit-btn" (click)="filterFromHero()" title="بحث عن الخدمة">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-            </button>
-
-            <!-- Academic Service Dropdown -->
-            <div class="ls-dropdown-field">
-              <select [(ngModel)]="heroServiceType" class="ls-select">
-                <option value="">نوع الخدمة: رسائل ماجستير، تحليل SPSS، مشاريع تخرج، تدقيق... ⌄</option>
-                <option value="thesis">إعداد رسائل الماجستير والدكتوراه والخطط البحثية</option>
-                <option value="proposal">صياغة المقترحات وخطة البحث (Proposal)</option>
-                <option value="spss">التحليل الإحصائي ومناقشة الفرضيات (SPSS & AMOS)</option>
-                <option value="projects">مشاريع التخرج والأنظمة والبرمجة</option>
-                <option value="proofreading">التدقيق اللغوي والترجمة الأكاديمية المعتمدة</option>
-                <option value="publishing">إعداد ونشر الأوراق العلمية في المجلات المحكمة</option>
-                <option value="presentation">تصميم العروض التقديمية والإنفوجرافيك</option>
-              </select>
-            </div>
-
-            <div class="ls-dropdown-divider"></div>
-
-            <!-- Degree Level Dropdown -->
-            <div class="ls-dropdown-field">
-              <select [(ngModel)]="heroDegree" class="ls-select">
-                <option value="">المرحلة الأكاديمية ⌄</option>
-                <option value="master">الدراسات العليا — ماجستير</option>
-                <option value="phd">الدراسات العليا — دكتوراه</option>
-                <option value="bachelor">مشاريع تخرج وبكالوريوس</option>
-                <option value="promotion">أبحاث نشر وترقية علمية</option>
-              </select>
-            </div>
-
-          </div>
 
           <!-- Hero Dual Action Buttons (Platform Brand CTAs) -->
           <div class="ls-hero-action-btns">
@@ -114,13 +59,13 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
               target="_blank" 
               class="ls-btn-green-primary" 
               (click)="onClick()">
-              <span>ابدأ طلبك المعتمد عبر واتساب</span>
               <span class="btn-arrow-icon">💬</span>
+              <span>ابدأ طلبك المعتمد عبر واتساب</span>
             </a>
 
             <a href="#quick-intent" class="ls-btn-gold-secondary" (click)="onClick()">
+              <span class="btn-arrow-icon">⬇</span>
               <span>استكشف المحاكي الذكي</span>
-              <span class="btn-arrow-icon">🎛️</span>
             </a>
           </div>
 
@@ -1315,215 +1260,55 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     .ls-hero-top-badge {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.65rem;
       background: #FFFFFF;
-      border: 1px solid rgba(226, 232, 240, 0.9);
-      padding: 0.45rem 1.2rem;
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      padding: 0.35rem 1.15rem 0.35rem 0.75rem;
       border-radius: 9999px;
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       font-weight: 700;
-      color: #334155;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
-      margin-bottom: 1.5rem;
+      color: #0A2F24;
+      box-shadow: 0 4px 18px rgba(10, 47, 36, 0.05);
+      margin-bottom: 2rem;
+      direction: rtl;
     }
 
-    .badge-trophy {
-      font-size: 1.1rem;
-    }
-
-    .ls-hero-brand-capsule {
-      display: inline-flex;
-      align-items: center;
-      gap: 1rem;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(14px);
-      border: 1.5px solid rgba(201, 169, 110, 0.45);
-      padding: 0.55rem 1.4rem 0.55rem 0.75rem;
+    .badge-sa {
+      background: linear-gradient(135deg, #0A2F24 0%, #154737 100%);
+      color: #FBF9F5;
+      padding: 0.18rem 0.62rem;
       border-radius: 9999px;
-      box-shadow: 0 10px 30px rgba(27, 67, 50, 0.08), 0 0 20px rgba(201, 169, 110, 0.25);
-      margin-bottom: 1.5rem;
-      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .ls-hero-brand-capsule:hover {
-      transform: translateY(-3px) scale(1.02);
-      border-color: #C9A96E;
-      box-shadow: 0 16px 40px rgba(27, 67, 50, 0.12), 0 0 30px rgba(201, 169, 110, 0.4);
-    }
-
-    .hero-brand-avatar-frame {
-      position: relative;
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      padding: 2.5px;
-      background: linear-gradient(135deg, #FBE6B3 0%, #C9A96E 50%, #96753C 100%);
-      box-shadow: 0 4px 15px rgba(201, 169, 110, 0.45);
-      flex-shrink: 0;
-    }
-
-    .hero-avatar-photo {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      display: block;
-      border: 1.5px solid #FFFFFF;
-      transform: scale(1.05);
-    }
-
-    .hero-avatar-status-dot {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 13px;
-      height: 13px;
-      background: #10B981;
-      border-radius: 50%;
-      border: 2px solid #FFFFFF;
-      box-shadow: 0 0 8px rgba(16, 185, 129, 0.85);
-      animation: pulseGreenGlow 2s infinite;
-    }
-
-    @keyframes pulseGreenGlow {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.2); opacity: 0.8; }
-    }
-
-    .hero-brand-meta {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.15rem;
-      text-align: right;
-    }
-
-    .meta-title-row {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .brand-name {
-      font-size: 1.05rem;
+      font-size: 0.75rem;
       font-weight: 800;
-      color: #0B2516;
-    }
-
-    .brand-seal-badge {
-      font-size: 0.72rem;
-      background: rgba(16, 185, 129, 0.15);
-      color: #065F46;
-      padding: 0.15rem 0.6rem;
-      border-radius: 9999px;
-      font-weight: 700;
-      border: 1px solid rgba(16, 185, 129, 0.3);
-    }
-
-    .brand-promise {
-      font-size: 0.78rem;
-      color: #52665C;
-      font-weight: 600;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 6px rgba(10, 47, 36, 0.25);
     }
 
     .ls-hero-title {
       font-size: clamp(2.4rem, 5.2vw, 4.2rem);
       font-weight: 900;
-      color: #0B2516;
+      color: #0A2F24;
       line-height: 1.25;
       margin-bottom: 1.2rem;
       letter-spacing: -1px;
     }
 
+    .hero-accent-gold {
+      color: #C5A869;
+      background: linear-gradient(135deg, #C5A869 0%, #9E7D3B 50%, #C5A869 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+      font-weight: 950;
+      text-shadow: 0 2px 10px rgba(197, 168, 105, 0.2);
+    }
+
     .ls-hero-subtext {
       font-size: clamp(1rem, 1.8vw, 1.2rem);
-      color: #52665C;
-      line-height: 1.8;
+      color: #3D5A50;
+      line-height: 1.85;
       max-width: 780px;
       margin-bottom: 2.2rem;
-    }
-
-    /* 4-Part Interactive Search Capsule (Platform Green & Gold) */
-    .ls-hero-search-capsule {
-      background: #FFFFFF;
-      border-radius: 9999px;
-      box-shadow: 0 12px 35px rgba(27, 67, 50, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
-      border: 1.5px solid rgba(201, 169, 110, 0.4);
-      padding: 0.45rem 0.6rem 0.45rem 1.2rem;
-      display: flex;
-      align-items: center;
-      width: 100%;
-      max-width: 860px;
-      gap: 0.6rem;
-      margin-bottom: 2rem;
-      transition: all 0.3s ease;
-    }
-
-    .ls-hero-search-capsule:focus-within,
-    .ls-hero-search-capsule:hover {
-      box-shadow: 0 16px 45px rgba(201, 169, 110, 0.25);
-      border-color: #C9A96E;
-    }
-
-    .ls-search-submit-btn {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #D4AF37 0%, #A48348 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      border: none;
-      flex-shrink: 0;
-      transition: all 0.25s ease;
-      box-shadow: 0 4px 15px rgba(201, 169, 110, 0.4);
-    }
-
-    .ls-search-submit-btn:hover {
-      transform: scale(1.08);
-      box-shadow: 0 6px 20px rgba(201, 169, 110, 0.6);
-    }
-
-    .ls-dropdown-field {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .ls-select {
-      width: 100%;
-      background: transparent;
-      border: none;
-      outline: none;
-      font-family: inherit;
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: #1B4332;
-      cursor: pointer;
-      padding: 0.4rem 0.6rem;
-    }
-
-    .ls-dropdown-divider {
-      width: 1px;
-      height: 24px;
-      background: #E2ECE6;
-      flex-shrink: 0;
-    }
-
-    @media (max-width: 768px) {
-      .ls-hero-search-capsule {
-        flex-direction: column;
-        border-radius: 20px;
-        padding: 1rem;
-        gap: 0.8rem;
-      }
-      .ls-dropdown-divider {
-        display: none;
-      }
-      .ls-search-submit-btn {
-        width: 100%;
-        border-radius: 9999px;
-      }
     }
 
     /* Hero Dual Action Buttons (Platform Brand CTAs) */
@@ -1537,60 +1322,51 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     .ls-btn-green-primary {
-      background: linear-gradient(135deg, #1B4332 0%, #0F2A1F 100%);
+      background: linear-gradient(135deg, #0A2F24 0%, #124032 100%);
       color: #FFFFFF;
-      border: 1.5px solid #C9A96E;
-      padding: 0.8rem 2.2rem;
+      border: 1px solid rgba(197, 168, 105, 0.4);
+      padding: 0.85rem 2.2rem;
       border-radius: 9999px;
       font-size: 1.05rem;
       font-weight: 800;
       display: inline-flex;
       align-items: center;
       gap: 0.65rem;
-      box-shadow: 0 6px 25px rgba(27, 67, 50, 0.35);
+      box-shadow: 0 6px 22px rgba(10, 47, 36, 0.28);
       transition: all 0.25s ease;
       cursor: pointer;
+      text-decoration: none;
     }
 
     .ls-btn-green-primary:hover {
       transform: translateY(-2px);
-      background: linear-gradient(135deg, #2D6A4F 0%, #1B4332 100%);
-      box-shadow: 0 10px 30px rgba(201, 169, 110, 0.4);
-      color: #DFC698;
-    }
-
-    .hero-accent-gold {
-      color: #8C6221;
-      background: linear-gradient(135deg, #A47833 0%, #7E5616 50%, #9C722B 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      display: inline-block;
-      font-weight: 950;
-      text-shadow: 0 2px 10px rgba(140, 98, 33, 0.15);
+      background: linear-gradient(135deg, #154737 0%, #0A2F24 100%);
+      box-shadow: 0 10px 30px rgba(10, 47, 36, 0.38);
+      color: #FBF9F5;
     }
 
     .ls-btn-gold-secondary {
-      background: #F4EAE0;
-      color: #0B2516;
-      border: 1.5px solid #C9A96E;
-      padding: 0.8rem 2.2rem;
+      background: #FFFFFF;
+      color: #0A2F24;
+      border: 1.5px solid #C5A869;
+      padding: 0.85rem 2.2rem;
       border-radius: 9999px;
       font-size: 1.05rem;
       font-weight: 800;
       display: inline-flex;
       align-items: center;
       gap: 0.65rem;
-      box-shadow: 0 4px 15px rgba(201, 169, 110, 0.2);
+      box-shadow: 0 4px 15px rgba(197, 168, 105, 0.15);
       transition: all 0.25s ease;
       cursor: pointer;
+      text-decoration: none;
     }
 
     .ls-btn-gold-secondary:hover {
-      background: #EEDDC9;
+      background: #FAF7F2;
+      border-color: #B8964C;
+      box-shadow: 0 8px 25px rgba(197, 168, 105, 0.25);
       transform: translateY(-2px);
-      border-color: #A47E3B;
-      box-shadow: 0 8px 25px rgba(201, 169, 110, 0.35);
-      color: #06180E;
     }
 
     .btn-arrow-icon {

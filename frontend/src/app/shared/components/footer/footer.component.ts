@@ -66,7 +66,7 @@ import { AudioService } from '../../../core/services/audio.service';
               </div>
             </div>
             <p class="brand-desc">
-              دار سعودية رائدة في تقديم الحلول والخدمات التعليمية والبحثية والتقنية. نجمع بين أصالة الهوية ودقة الإنجاز لنصنع مستقبلك الأكاديمي والمهني.
+              منصة سعودية رائدة في تقديم الحلول والخدمات التعليمية والبحثية والتقنية. نجمع بين أصالة الهوية ودقة الإنجاز لنصنع مستقبلك الأكاديمي والمهني.
             </p>
             <div class="social-links">
               <a href="https://wa.me/" target="_blank" class="social-btn" (mouseenter)="onHover()" (click)="onClick()" title="واتساب">💬</a>

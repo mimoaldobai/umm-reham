@@ -199,7 +199,7 @@ public static class SeedData
             new SiteSetting { Key = "site_name_ar", Value = "أم رهام", ValueType = "text", GroupName = "general", DescriptionAr = "اسم الموقع بالعربي" },
             new SiteSetting { Key = "site_name_en", Value = "Umm Reham", ValueType = "text", GroupName = "general", DescriptionAr = "اسم الموقع بالإنجليزي" },
             new SiteSetting { Key = "site_tagline_ar", Value = "تعليم • تطوير • استشارات", ValueType = "text", GroupName = "general", DescriptionAr = "شعار الموقع" },
-            new SiteSetting { Key = "site_description_ar", Value = "دار سعودية رائدة في الخدمات التعليمية والبحثية. نجمع بين الأصالة والمعرفة، ونحوّل أفكارك إلى إنجازات حقيقية", ValueType = "text", GroupName = "general" },
+            new SiteSetting { Key = "site_description_ar", Value = "منصة سعودية رائدة في الخدمات التعليمية والبحثية. نجمع بين الأصالة والمعرفة، ونحوّل أفكارك إلى إنجازات حقيقية", ValueType = "text", GroupName = "general" },
             new SiteSetting { Key = "whatsapp_number", Value = "", ValueType = "text", GroupName = "contact", DescriptionAr = "رقم الواتساب" },
             new SiteSetting { Key = "contact_email", Value = "info@ummreham.com", ValueType = "text", GroupName = "contact", DescriptionAr = "البريد الإلكتروني" },
             new SiteSetting { Key = "hero_subtitle_ar", Value = "معرفة تُصنع الفرق.. ودقة تبني الثقة.", ValueType = "text", GroupName = "hero" },
