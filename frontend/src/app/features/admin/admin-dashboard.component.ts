@@ -8,6 +8,7 @@ import { ThemeService } from '../../core/services/theme.service';
 import { AuthService, AdminUser } from '../../core/services/auth.service';
 import { ThemeSwitcherComponent } from '../../shared/components/theme-switcher/theme-switcher.component';
 import { SaudFarahAgentService } from '../../core/services/saud-farah-agent.service';
+import { RewardsService, CouponItem, WelcomeRewardConfig } from '../../core/services/rewards.service';
 
 
 export interface AcademicOrder {
@@ -89,6 +90,20 @@ export interface AcademicOrder {
             </span>
             <span class="btn-text">طلبات وأبحاث الباحثين</span>
             <span class="btn-badge">{{ orders.length }}</span>
+          </button>
+
+          <button class="nav-btn" [class.active]="activeTab === 'coupons'" (click)="setTab('coupons')">
+            <span class="btn-icon">
+              <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 12 20 22 4 22 4 12"/>
+                <rect x="2" y="7" width="20" height="5"/>
+                <line x1="12" y1="22" x2="12" y2="7"/>
+                <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/>
+                <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
+              </svg>
+            </span>
+            <span class="btn-text">الخصومات والمكافآت</span>
+            <span class="btn-badge" style="background: #C9A96E; color: #06130D;">🎁 {{ couponsList.length }}</span>
           </button>
 
           <button class="nav-btn" [class.active]="activeTab === 'portfolio'" (click)="setTab('portfolio')">
@@ -446,6 +461,137 @@ export interface AcademicOrder {
                             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                           </button>
                           <button class="btn-icon-action del" (click)="deleteOrder(ord.id)" title="حذف">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===================================================
+               TAB 2.5: REWARDS & COUPONS MANAGEMENT
+               =================================================== -->
+          <div *ngIf="activeTab === 'coupons'" class="dash-pane">
+            <!-- 1. Welcome Rewards Pack Configuration -->
+            <div class="section-card">
+              <div class="section-card-head">
+                <div>
+                  <h3>🎁 باقة الترحيب بمكافآت وخصومات الباحثين والعملاء الجدد</h3>
+                  <small>الخصومات والهدايا المجانية التي تُمنح تلقائياً لكل باحث يسجل بياناته أو يطلب خدمة لأول مرة</small>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.8rem;">
+                  <label class="toggle-label-inline">
+                    <input type="checkbox" [(ngModel)]="welcomeConfig.isEnabled" />
+                    <span class="toggle-text">{{ welcomeConfig.isEnabled ? 'الباقة مفعلة حالياً ✓' : 'الباقة معطلة' }}</span>
+                  </label>
+                  <button class="btn-action-primary" (click)="saveWelcomeRewardsSettings()">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span>حفظ باقة الترحيب 💾✓</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="two-column-section" style="margin-top: 1rem;">
+                <div class="form-row">
+                  <label>كود الخصم الترحيبي الافتراضي (الذي يظهر للعميل في النموذج):</label>
+                  <input type="text" class="form-input" style="font-weight: 700; color: #DFC698; letter-spacing: 1px;" [(ngModel)]="welcomeConfig.couponCode" placeholder="مثال: REHAM15" />
+                </div>
+                <div class="form-row">
+                  <label>نوع وقيمة الخصم الترحيبي:</label>
+                  <div style="display: flex; gap: 0.8rem;">
+                    <select class="form-input" style="flex: 1;" [(ngModel)]="welcomeConfig.discountType">
+                      <option value="percentage">نسبة مئوية (%)</option>
+                      <option value="fixed">مبلغ مقطوع (ر.س)</option>
+                    </select>
+                    <input type="number" class="form-input" style="flex: 1;" [(ngModel)]="welcomeConfig.discountValue" placeholder="15" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row" style="margin-top: 0.5rem;">
+                <label>رسالة التهنئة والترحيب التي تظهر للباحث الجديد وتُرفق برسالة الواتساب:</label>
+                <textarea class="form-textarea" rows="2" [(ngModel)]="welcomeConfig.welcomeMessage" placeholder="اكتب نص رسالة الترحيب التي تظهر للعميل في بطاقة الخصم..."></textarea>
+              </div>
+
+              <div style="margin-top: 1.2rem;">
+                <label style="display: block; font-weight: 700; color: #DFC698; margin-bottom: 0.6rem; font-size: 0.95rem;">
+                  ✨ الخدمات والمكافآت الأكاديمية الممنوحة مجاناً مع أول طلب (يمكنك تفعيل/تعطيل كل ميزة):
+                </label>
+                <div class="perks-config-grid">
+                  <div class="perk-config-card" *ngFor="let perk of welcomeConfig.freePerks" [class.active]="perk.enabled">
+                    <label class="perk-checkbox-label">
+                      <input type="checkbox" [(ngModel)]="perk.enabled" />
+                      <span class="perk-icon">{{ perk.icon }}</span>
+                      <div class="perk-text-box">
+                        <strong class="perk-title">{{ perk.title }}</strong>
+                        <small class="perk-sub">{{ perk.subtitle }}</small>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Coupons Studio Management -->
+            <div class="section-card" style="margin-top: 1.5rem;">
+              <div class="section-card-head" style="flex-wrap: wrap; gap: 1rem;">
+                <div class="search-input-box" style="flex: 1; min-width: 260px;">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <input type="text" [(ngModel)]="couponSearchQuery" placeholder="ابحث بكود الخصم أو وصف العرض..." />
+                </div>
+                <button class="btn-action-primary" (click)="openAddCouponModal()">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  <span>إنشاء كود خصم جديد</span>
+                </button>
+              </div>
+
+              <div class="table-frame">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th class="th-nowrap">كود الكوبون</th>
+                      <th>الوصف ونطاق العرض</th>
+                      <th class="th-nowrap">قيمة الخصم</th>
+                      <th class="th-nowrap">مرات الاستخدام</th>
+                      <th class="th-nowrap">حالة الكود</th>
+                      <th class="th-nowrap text-center">الإجراءات</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let c of filteredCouponsList()">
+                      <td class="cell-nowrap">
+                        <span class="coupon-tag-badge">{{ c.code }}</span>
+                      </td>
+                      <td>
+                        <strong class="cell-primary-text">{{ c.description }}</strong>
+                        <small class="d-block cell-phone-text">أنشئ في: {{ c.createdAt }}</small>
+                      </td>
+                      <td class="cell-nowrap">
+                        <strong class="text-accent-green" *ngIf="c.discountType === 'percentage'">{{ c.discountValue }}% خصم</strong>
+                        <strong class="text-accent-green" *ngIf="c.discountType === 'fixed'">{{ c.discountValue }} ر.س خصم</strong>
+                      </td>
+                      <td class="cell-nowrap">
+                        <span class="ord-pages-plain">{{ c.currentUsage }} / {{ c.maxUsage }}</span>
+                      </td>
+                      <td class="cell-nowrap">
+                        <span class="status-chip" [class]="c.isActive ? 'completed' : 'pending'">
+                          <span class="status-dot"></span>
+                          {{ c.isActive ? 'نشط ويعمل ✓' : 'معطل مؤقتاً' }}
+                        </span>
+                      </td>
+                      <td class="cell-nowrap">
+                        <div class="table-actions">
+                          <button class="btn-icon-action step" (click)="toggleCouponStatus(c)" [title]="c.isActive ? 'تعطيل الكود' : 'تفعيل الكود'">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
+                          </button>
+                          <button class="btn-icon-action step" (click)="editCoupon(c)" title="تعديل">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                          </button>
+                          <button class="btn-icon-action del" (click)="deleteCoupon(c.id)" title="حذف الكوبون">
                             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                           </button>
                         </div>
@@ -1450,6 +1596,74 @@ export interface AcademicOrder {
         </div>
       </div>
 
+      <!-- 5. Coupon Modal -->
+      <div *ngIf="isCouponModalOpen" class="dash-modal-backdrop" (click)="closeCouponModal()">
+        <div class="dash-modal-box" (click)="$event.stopPropagation()">
+          <div class="modal-header-bar">
+            <div class="modal-title-with-icon">
+              <div class="modal-icon-badge">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+              </div>
+              <div>
+                <h3>{{ editingCouponId ? 'تعديل كود الخصم' : 'إنشاء كود خصم ترويجي جديد' }}</h3>
+                <small>ضبط رمز الكوبون ونسبة التخفيض وصلاحيات الاستخدام</small>
+              </div>
+            </div>
+            <button class="modal-close-btn" (click)="closeCouponModal()">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+
+          <div class="modal-content-form">
+            <div class="form-row">
+              <label>رمز الكوبون (بالإنجليزية وبدون مسافات):</label>
+              <input type="text" class="form-input" style="text-transform: uppercase; font-weight: 700; color: #DFC698;" [(ngModel)]="couponForm.code" placeholder="مثال: SUMMER25" />
+            </div>
+
+            <div class="two-column-section">
+              <div class="form-row">
+                <label>نوع الخصم:</label>
+                <select class="form-input" [(ngModel)]="couponForm.discountType">
+                  <option value="percentage">نسبة مئوية (%)</option>
+                  <option value="fixed">مبلغ مقطوع (ر.س)</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <label>قيمة الخصم:</label>
+                <input type="number" class="form-input" [(ngModel)]="couponForm.discountValue" placeholder="15" />
+              </div>
+            </div>
+
+            <div class="two-column-section">
+              <div class="form-row">
+                <label>الحد الأقصى لعدد مرات الاستخدام:</label>
+                <input type="number" class="form-input" [(ngModel)]="couponForm.maxUsage" placeholder="100" />
+              </div>
+              <div class="form-row">
+                <label>حالة الكوبون:</label>
+                <select class="form-input" [(ngModel)]="couponForm.isActive">
+                  <option [ngValue]="true">نشط وفعّال ✓</option>
+                  <option [ngValue]="false">معطل مؤقتاً</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label>وصف العرض أو المناسبة:</label>
+              <input type="text" class="form-input" [(ngModel)]="couponForm.description" placeholder="مثال: خصم خاص لطلاب الماجستير في جامعة الملك سعود" />
+            </div>
+          </div>
+
+          <div class="modal-footer-bar">
+            <button class="btn-ghost" (click)="closeCouponModal()">إلغاء</button>
+            <button class="btn-action-primary" (click)="saveCoupon()">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>حفظ الكوبون في قاعدة البيانات</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
     </div>
   `,
   styles: [`
@@ -1982,6 +2196,69 @@ export interface AcademicOrder {
 
     .tile-btn strong { display: block; font-size: 0.8rem; color: var(--dash-text-main, #0F291E) !important; margin-bottom: 2px; font-weight: 700; }
     .tile-btn small { font-size: 0.66rem; color: var(--dash-text-muted, #52796F); }
+
+    /* Coupons & Perks Styling */
+    .toggle-label-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #DFC698;
+      background: rgba(201, 169, 110, 0.12);
+      border: 1px solid rgba(201, 169, 110, 0.35);
+      padding: 0.4rem 0.9rem;
+      border-radius: var(--radius-full);
+      user-select: none;
+    }
+    .toggle-label-inline input { cursor: pointer; accent-color: #C9A96E; }
+
+    .perks-config-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 0.85rem;
+      margin-top: 0.5rem;
+    }
+
+    .perk-config-card {
+      background: var(--dash-tile-bg, rgba(255, 255, 255, 0.04));
+      border: 1px solid var(--dash-card-border, rgba(201, 169, 110, 0.2));
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      transition: all 0.25s ease;
+    }
+
+    .perk-config-card.active {
+      border-color: #52B788;
+      background: rgba(82, 183, 136, 0.08);
+      box-shadow: 0 4px 14px rgba(82, 183, 136, 0.1);
+    }
+
+    .perk-checkbox-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .perk-checkbox-label input { margin-top: 4px; accent-color: #52B788; }
+    .perk-icon { font-size: 1.5rem; line-height: 1; }
+    .perk-text-box strong { display: block; font-size: 0.85rem; color: var(--dash-text-main, #FFFFFF); margin-bottom: 2px; }
+    .perk-text-box small { display: block; font-size: 0.72rem; color: var(--dash-text-muted, #94A3B8); line-height: 1.4; }
+
+    .coupon-tag-badge {
+      display: inline-block;
+      background: rgba(201, 169, 110, 0.15);
+      border: 1px solid rgba(201, 169, 110, 0.4);
+      color: #DFC698;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+    }
 
     /* Tables & Inputs */
     .search-input-box {
@@ -2688,9 +2965,39 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   themeService = inject(ThemeService);
   authService = inject(AuthService);
   agentService = inject(SaudFarahAgentService);
+  rewardsService = inject(RewardsService);
   router = inject(Router);
 
-  activeTab: 'analytics' | 'orders' | 'portfolio' | 'pages' | 'services' | 'testimonials' | 'users' | 'footer' | 'agents' | 'settings' = 'analytics';
+  activeTab: 'analytics' | 'orders' | 'coupons' | 'portfolio' | 'pages' | 'services' | 'testimonials' | 'users' | 'footer' | 'agents' | 'settings' = 'analytics';
+
+  welcomeConfig: WelcomeRewardConfig = {
+    isEnabled: true,
+    couponCode: 'REHAM15',
+    discountType: 'percentage',
+    discountValue: 15,
+    welcomeMessage: 'أهلاً وسهلاً بك في منصة أم رهام! كباحث جديد، نهديك خصم 15% فوري مع حزمة التميز الأكاديمي الشاملة مجاناً 🎁',
+    guideDownloadUrl: 'https://wa.me/966501234567?text=' + encodeURIComponent('السلام عليكم، أود استلام دليل الباحث الأكاديمي المجاني هدية التسجيل 📚'),
+    freePerks: [
+      { id: 'turnitin', title: 'تقرير Turnitin أصالة 0% مجاناً', subtitle: 'فحص استلال علمي دقيق معتمد دولياً (بقيمة 100 ر.س مجاناً)', icon: '📜', enabled: true },
+      { id: 'apa7', title: 'تنسيق وتوثيق مراجع APA 7th مجاناً', subtitle: 'مطابقة تامة لدليل عمادة الدراسات العليا بجامعتك', icon: '🏛️', enabled: true },
+      { id: 'revisions', title: 'مراجعات واستشارات مفتوحة مجاناً', subtitle: 'تعديلات مستمرة حتى موافقة المشرف الأكاديمي الجامعي', icon: '🔄', enabled: true },
+      { id: 'guide', title: 'دليل الباحث للأطروحات والنشر العلمي', subtitle: 'كتاب رقمي حصري شامل لخطوات البحث الأكاديمي الرصين', icon: '🎁', enabled: true }
+    ]
+  };
+
+  couponsList: CouponItem[] = [];
+  couponSearchQuery = '';
+  isCouponModalOpen = false;
+  editingCouponId: string | null = null;
+  couponForm: Partial<CouponItem> = {
+    code: '',
+    discountType: 'percentage',
+    discountValue: 15,
+    maxUsage: 100,
+    currentUsage: 0,
+    isActive: true,
+    description: ''
+  };
 
   agentMascotForm = {
     maleName: 'سعود',
@@ -2899,6 +3206,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     this.api.getFooterLinks().subscribe(res => this.footerLinks = res);
     this.authService.getUsers().subscribe(res => this.adminUsers = res);
     this.loadOrdersFromBackend();
+    this.loadRewardsConfig();
   }
 
   setTab(tab: any): void {
@@ -2910,6 +3218,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     switch (this.activeTab) {
       case 'analytics': return 'لوحة التحليلات والعمليات الأكاديمية المباشرة';
       case 'orders': return 'إدارة أبحاث وطلبات الباحثين والطلاب';
+      case 'coupons': return 'إدارة الخصومات، الكوبونات ومكافآت العملاء الجدد 🎁';
       case 'portfolio': return 'معرض الأعمال السابقة ورفع الملفات والفيديوهات';
       case 'pages': return 'محرر نصوص وصفحات الموقع (من نحن • الركائز • الضمانات)';
       case 'services': return 'استوديو الخدمات والتسعير الأكاديمي';
@@ -2920,6 +3229,109 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
       case 'settings': return 'إعدادات قاعدة البيانات (ummreham_dev.db) والنسخ الاحتياطي';
       default: return 'لوحة التحكم الأكاديمية';
     }
+  }
+
+  // Rewards & Coupons Methods
+  loadRewardsConfig(): void {
+    this.welcomeConfig = { ...this.rewardsService.welcomeConfig() };
+    this.couponsList = [...this.rewardsService.coupons()];
+  }
+
+  saveWelcomeRewardsSettings(): void {
+    this.rewardsService.saveWelcomeConfig(this.welcomeConfig).subscribe(() => {
+      this.showToast('تم حفظ باقة مكافآت وخصومات الترحيب في قاعدة البيانات بنجاح! 🎁');
+      this.audio.playSuccess();
+    });
+  }
+
+  openAddCouponModal(): void {
+    this.editingCouponId = null;
+    this.couponForm = {
+      code: '',
+      discountType: 'percentage',
+      discountValue: 15,
+      maxUsage: 200,
+      currentUsage: 0,
+      isActive: true,
+      description: 'كود خصم ترويجي جديد'
+    };
+    this.isCouponModalOpen = true;
+    this.audio.playClick();
+  }
+
+  editCoupon(c: CouponItem): void {
+    this.editingCouponId = c.id;
+    this.couponForm = { ...c };
+    this.isCouponModalOpen = true;
+    this.audio.playClick();
+  }
+
+  closeCouponModal(): void {
+    this.isCouponModalOpen = false;
+  }
+
+  saveCoupon(): void {
+    if (!this.couponForm.code || !this.couponForm.discountValue) {
+      this.showToast('يرجى ملء كود الخصم ونسبة/قيمة الخصم');
+      return;
+    }
+    const cleanCode = this.couponForm.code.trim().toUpperCase();
+
+    if (this.editingCouponId) {
+      const idx = this.couponsList.findIndex(c => c.id === this.editingCouponId);
+      if (idx !== -1) {
+        this.couponsList[idx] = {
+          ...this.couponsList[idx],
+          ...this.couponForm,
+          code: cleanCode
+        } as CouponItem;
+      }
+    } else {
+      const newCoupon: CouponItem = {
+        id: 'cp_' + Date.now(),
+        code: cleanCode,
+        discountType: this.couponForm.discountType || 'percentage',
+        discountValue: Number(this.couponForm.discountValue) || 15,
+        maxUsage: Number(this.couponForm.maxUsage) || 100,
+        currentUsage: 0,
+        isActive: this.couponForm.isActive ?? true,
+        description: this.couponForm.description || 'كود خصم مخصص',
+        createdAt: new Date().toISOString().slice(0, 10)
+      };
+      this.couponsList.unshift(newCoupon);
+    }
+
+    this.rewardsService.saveCouponsList(this.couponsList).subscribe(() => {
+      this.showToast(`تم حفظ الكوبون (${cleanCode}) في قاعدة البيانات بنجاح! ✓`);
+      this.audio.playSuccess();
+    });
+
+    this.isCouponModalOpen = false;
+  }
+
+  toggleCouponStatus(c: CouponItem): void {
+    c.isActive = !c.isActive;
+    this.rewardsService.saveCouponsList(this.couponsList).subscribe(() => {
+      this.showToast(`تم ${c.isActive ? 'تفعيل' : 'تعطيل'} الكوبون (${c.code})`);
+      this.audio.playClick();
+    });
+  }
+
+  deleteCoupon(id: string): void {
+    this.couponsList = this.couponsList.filter(c => c.id !== id);
+    this.rewardsService.saveCouponsList(this.couponsList).subscribe(() => {
+      this.showToast('تم حذف الكوبون من قاعدة البيانات');
+      this.audio.playClick();
+    });
+  }
+
+  filteredCouponsList(): CouponItem[] {
+    if (!this.couponSearchQuery) return this.couponsList;
+    const q = this.couponSearchQuery.toLowerCase();
+    return this.couponsList.filter(c =>
+      c.code.toLowerCase().includes(q) ||
+      (c.description && c.description.toLowerCase().includes(q))
+    );
   }
 
   // User Management Methods

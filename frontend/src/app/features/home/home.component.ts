@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ApiService, ServiceItem, Category, Statistic, Testimonial } from '../../core/services/api.service';
 import { AudioService } from '../../core/services/audio.service';
 import { SaudFarahAgentService } from '../../core/services/saud-farah-agent.service';
+import { RewardsService } from '../../core/services/rewards.service';
 import { SaudiMapCanvasComponent } from '../../shared/components/saudi-map-canvas/saudi-map-canvas.component';
 import { SaudFarahAgentComponent } from '../../shared/components/saud-farah-agent/saud-farah-agent.component';
 import { ServiceModalComponent } from '../../shared/components/service-modal/service-modal.component';
@@ -317,15 +318,22 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
                 <div class="result-details">
                   <div class="result-metric">
                     <small>التكلفة التقديرية الذكية:</small>
-                    <strong class="gold-gradient-text price-big">{{ calculateSimPrice() }} <span class="curr">ر.س</span></strong>
+                    <div style="display: flex; align-items: baseline; gap: 0.6rem;" *ngIf="rewardsService.welcomeConfig().isEnabled">
+                      <strong class="gold-gradient-text price-big">{{ getDiscountedSimPrice() }} <span class="curr">ر.س</span></strong>
+                      <del style="color: #94A3B8; font-size: 0.95rem; font-weight: 600;">{{ calculateSimPrice() }} ر.س</del>
+                    </div>
+                    <strong class="gold-gradient-text price-big" *ngIf="!rewardsService.welcomeConfig().isEnabled">{{ calculateSimPrice() }} <span class="curr">ر.س</span></strong>
                   </div>
                   <div class="result-metric">
                     <small>المدة المتوقعة للتسليم:</small>
                     <strong class="text-white">{{ calculateSimDuration() }}</strong>
                   </div>
                   <div class="result-metric">
-                    <small>الضمانات المرفقة:</small>
-                    <span class="check-pill">✓ فحص Turnitin مجاني + تعديلات مستمرة</span>
+                    <small>الضمانات وهدية الباحث الجديد:</small>
+                    <span class="check-pill" *ngIf="rewardsService.welcomeConfig().isEnabled" style="border-color: rgba(201, 169, 110, 0.4); color: #DFC698;">
+                      🎁 خصم {{ rewardsService.welcomeConfig().discountValue }}% بكود ({{ rewardsService.welcomeConfig().couponCode }}) + Turnitin مجاني
+                    </span>
+                    <span class="check-pill" *ngIf="!rewardsService.welcomeConfig().isEnabled">✓ فحص Turnitin مجاني + تعديلات مستمرة</span>
                   </div>
                 </div>
 
@@ -3171,6 +3179,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   api = inject(ApiService);
   audio = inject(AudioService);
   agentService = inject(SaudFarahAgentService);
+  rewardsService = inject(RewardsService);
 
   @ViewChild('heroCanvas', { static: false }) heroCanvasRef!: ElementRef<HTMLCanvasElement>;
 
@@ -3350,6 +3359,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.simUrgency === 'urgent') base *= 1.25;
 
     return Math.round(base);
+  }
+
+  getDiscountedSimPrice(): number {
+    const base = this.calculateSimPrice();
+    const res = this.rewardsService.calculateDiscount(base);
+    return res.discountedPrice;
   }
 
   calculateSimDuration(): string {
