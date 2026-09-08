@@ -5,50 +5,71 @@
    ========================================================================== */
 
 :root {
-  /* Color Palette - Royal Saudi Green & Champagne Gold Luxury Identity */
-  --saudi-green-950: #06180E;
-  --saudi-green-900: #0B2516;
-  --saudi-green-800: #113822;
-  --saudi-green-700: #1B4332;
-  --saudi-green-600: #2D6A4F;
-  --saudi-green-500: #40916C;
-  --saudi-green-400: #52B788;
-  --saudi-green-100: #E8F5E9;
+  /* ==========================================================================
+     SOVEREIGN BRAND COLOR PALETTE (الهوية السيادية المعتمدة)
+     ========================================================================== */
+  --saudi-green-deep: #0A2F24;     /* Deep Saudi Green - السيادي الأساسي */
+  --saudi-green-secondary: #0D3B2E; /* Secondary Saudi Green */
+  --saudi-green-950: #051A14;
+  --saudi-green-900: #0A2F24;
+  --saudi-green-800: #0D3B2E;
+  --saudi-green-700: #124E3D;
+  --saudi-green-600: #1A6B54;
+  --saudi-green-500: #238A6D;
+  --saudi-green-400: #34AA88;
+  --saudi-green-100: #EBF7F3;
   
-  --gold-primary: #C9A96E;
-  --gold-bright: #D4AF37;
-  --gold-light: #FBE6B3;
-  --gold-dark: #96753C;
-  --gold-glow: rgba(201, 169, 110, 0.35);
+  /* Champagne Gold (ذهب الشمبانيا الدافئ) */
+  --gold-champagne: #C5A869;      /* Champagne Gold - المعتمد للتفاعلات والشارات */
+  --gold-primary: #C5A869;
+  --gold-bright: #D4B97B;
+  --gold-light: #F3EBD8;
+  --gold-dark: #9B7E3E;
+  --gold-glow: rgba(197, 168, 105, 0.35);
 
-  --brand-green: #1B4332;
-  --brand-green-hover: #113822;
-  --brand-gold: #C9A96E;
+  --brand-green: #0A2F24;
+  --brand-green-hover: #0D3B2E;
+  --brand-gold: #C5A869;
   
-  --ivory-warm: #FBF9F5;
-  --ivory-surface: #F4EFE6;
+  /* Warm Ivory (العاجي الدافئ) */
+  --ivory-warm: #FBF9F5;          /* Warm Ivory للقراءة والبطاقات النصية */
+  --ivory-surface: #F5F1E8;
   --ivory-card: #FFFFFF;
   
-  --text-main: #0B2516;
-  --text-muted: #52665C;
+  /* Soft Obsidian (الأسود المعماري الناعم) */
+  --obsidian-soft: #121816;       /* نصوص العناوين الرئيسية المتباينة */
+  --text-main: #121816;
+  --text-muted: #485A53;
   --text-light: #FFFFFF;
-  --text-light-muted: #B4CDC3;
+  --text-light-muted: #CBDAD3;
   
-  /* Typography - Ultra-Modern Clean Saudi Executive */
-  --font-family-arabic: 'Alexandria', 'IBM Plex Sans Arabic', 'Readex Pro', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-family-latin: 'Outfit', -apple-system, sans-serif;
+  /* Emerald Glow (الأخضر الزمردي الحيوي) */
+  --emerald-glow: #16A34A;        /* للإشعارات الإيجابية ومؤشرات الاتصال */
+  --emerald-status: #16A34A;
   
-  /* Shadows & Geometry */
-  --ls-shadow-sm: 0 4px 15px rgba(27, 67, 50, 0.05);
-  --ls-shadow-md: 0 10px 30px rgba(27, 67, 50, 0.08);
-  --ls-shadow-lg: 0 20px 50px rgba(27, 67, 50, 0.12);
-  --ls-shadow-gold: 0 8px 25px rgba(201, 169, 110, 0.3);
+  /* ==========================================================================
+     TYPOGRAPHY ARCHITECTURE (IBM Plex Sans Arabic حصرياً)
+     ========================================================================== */
+  --font-family-arabic: 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-latin: 'IBM Plex Sans Arabic', 'Outfit', sans-serif;
+  
+  /* Materiality & Glassmorphism */
+  --glass-bg: rgba(10, 47, 36, 0.75);
+  --glass-border: rgba(197, 168, 105, 0.2);
+  --glass-blur: blur(12px);
+  --glass-shadow: 0 10px 30px -5px rgba(10, 47, 36, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04);
+  
+  /* Architectural Shadows & Spatial Depth */
+  --ls-shadow-sm: 0 2px 8px rgba(10, 47, 36, 0.04);
+  --ls-shadow-md: 0 8px 24px -4px rgba(10, 47, 36, 0.08);
+  --ls-shadow-lg: 0 16px 40px -6px rgba(10, 47, 36, 0.12);
+  --ls-shadow-gold: 0 8px 25px rgba(197, 168, 105, 0.3);
   
   /* Radius & Transitions */
-  --radius-sm: 10px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
-  --radius-xl: 32px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
   --radius-full: 9999px;
   --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -67,8 +88,8 @@ html {
 }
 
 body {
-  font-family: var(--font-family-arabic);
-  background-color: var(--ls-white);
+  font-family: var(--font-family-arabic) !important;
+  background-color: var(--ivory-warm);
   color: var(--text-main);
   line-height: 1.7;
   overflow-x: hidden;
@@ -82,17 +103,45 @@ app-root {
   width: 100%;
 }
 
-/* Typography Helpers */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 800;
+/* Typography Helpers — Strict Architecture */
+h1 {
+  font-family: var(--font-family-arabic) !important;
+  font-size: clamp(2.75rem, 5vw, 4rem); /* 48px to 64px Bold */
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--obsidian-soft);
+}
+
+h2, .ls-section-title {
+  font-family: var(--font-family-arabic) !important;
+  font-size: clamp(1.75rem, 3.2vw, 2.25rem); /* 28px to 36px SemiBold */
+  font-weight: 600;
   line-height: 1.35;
   letter-spacing: -0.01em;
-  color: var(--ls-navy-dark);
+  color: var(--obsidian-soft);
+}
+
+h3 {
+  font-family: var(--font-family-arabic) !important;
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--obsidian-soft);
+}
+
+h4, h5, h6 {
+  font-family: var(--font-family-arabic) !important;
+  font-weight: 600;
+  color: var(--obsidian-soft);
 }
 
 p {
+  font-family: var(--font-family-arabic) !important;
   color: var(--text-muted);
-  font-size: 1.05rem;
+  font-size: clamp(1rem, 1.1vw, 1.125rem); /* 16px to 18px */
+  font-weight: 400; /* Regular to Medium */
+  line-height: 1.7; /* تباعد أسطر واسع لمنع إجهاد العين */
 }
 
 a {
@@ -529,66 +578,67 @@ html, body, .admin-layout, .admin-sidebar, .admin-topbar, .content-box, .metric-
   --dash-btn-primary-shadow: rgba(184, 139, 74, 0.3);
 }
 
-/* --- 1. EMERALD & GOLD THEME (الأخضر الملكي والذهب الشامباني) --- */
+/* --- 1. SOVEREIGN PRIMARY IDENTITY (الهوية السيادية الأساسية: الأخضر السعودي العميق وذهب الشمبانيا الدافئ) --- */
 [data-theme="emerald"], body.theme-emerald {
-  --saudi-green-950: #06180E;
-  --saudi-green-900: #0B2516;
-  --saudi-green-800: #113822;
-  --saudi-green-700: #1B4332;
-  --saudi-green-600: #2D6A4F;
-  --saudi-green-500: #40916C;
-  --saudi-green-400: #52B788;
-  --saudi-green-100: #E8F5E9;
+  --saudi-green-950: #051A14;
+  --saudi-green-900: #0A2F24;
+  --saudi-green-800: #0D3B2E;
+  --saudi-green-700: #124E3D;
+  --saudi-green-600: #1A6B54;
+  --saudi-green-500: #238A6D;
+  --saudi-green-400: #34AA88;
+  --saudi-green-100: #EBF7F3;
   
-  --gold-primary: #C9A96E;
-  --gold-bright: #D4AF37;
-  --gold-light: #FBE6B3;
-  --gold-dark: #96753C;
-  --gold-glow: rgba(201, 169, 110, 0.35);
+  --gold-primary: #C5A869;
+  --gold-bright: #D4B97B;
+  --gold-light: #F3EBD8;
+  --gold-dark: #9B7E3E;
+  --gold-glow: rgba(197, 168, 105, 0.35);
 
-  --brand-green: #1B4332;
-  --brand-green-hover: #113822;
-  --brand-gold: #C9A96E;
+  --brand-green: #0A2F24;
+  --brand-green-hover: #0D3B2E;
+  --brand-gold: #C5A869;
   
   --ivory-warm: #FBF9F5;
-  --ivory-surface: #F4EFE6;
+  --ivory-surface: #F5F1E8;
   --ivory-card: #FFFFFF;
   
-  --text-main: #0B2516;
-  --text-muted: #52665C;
+  --obsidian-soft: #121816;
+  --text-main: #121816;
+  --text-muted: #485A53;
   --text-light: #FFFFFF;
-  --text-light-muted: #B4CDC3;
+  --text-light-muted: #CBDAD3;
 
   /* Dashboard Tokens */
-  --dash-sidebar-bg: #0B2516;
-  --dash-sidebar-border: rgba(201, 169, 110, 0.35);
+  --dash-sidebar-bg: #0A2F24;
+  --dash-sidebar-border: rgba(197, 168, 105, 0.35);
   --dash-body-bg: #FBF9F5;
   --dash-card-bg: #FFFFFF;
-  --dash-card-border: rgba(201, 169, 110, 0.25);
-  --dash-text-main: #0B2516;
-  --dash-text-muted: #52665C;
-  --dash-accent-gold: #C9A96E;
-  --dash-crest-bg: linear-gradient(135deg, rgba(201, 169, 110, 0.3), rgba(11, 37, 22, 0.9));
-  --dash-avatar-bg: #0B2516;
+  --dash-card-border: rgba(197, 168, 105, 0.22);
+  --dash-text-main: #121816;
+  --dash-text-muted: #485A53;
+  --dash-accent-gold: #C5A869;
+  --dash-crest-bg: linear-gradient(135deg, rgba(197, 168, 105, 0.35), rgba(10, 47, 36, 0.95));
+  --dash-avatar-bg: #0A2F24;
   --dash-user-card-bg: rgba(255, 255, 255, 0.08);
   --dash-topbar-bg: #FFFFFF;
-  --dash-nav-text: #DFC698;
-  --dash-nav-hover-bg: rgba(201, 169, 110, 0.15);
-  --dash-nav-active-bg: rgba(201, 169, 110, 0.25);
-  --dash-nav-active-border: #C9A96E;
-  --dash-input-bg: #F8F5EE;
-  --dash-input-border: rgba(201, 169, 110, 0.35);
-  --dash-table-th-bg: #F8F5EE;
-  --dash-table-border: rgba(201, 169, 110, 0.2);
-  --dash-table-hover-bg: #F4EFE6;
+  --dash-nav-text: #F3EBD8;
+  --dash-nav-hover-bg: rgba(197, 168, 105, 0.15);
+  --dash-nav-active-bg: rgba(197, 168, 105, 0.25);
+  --dash-nav-active-border: #C5A869;
+  --dash-input-bg: #FBF9F5;
+  --dash-input-border: rgba(197, 168, 105, 0.35);
+  --dash-table-th-bg: #F5F1E8;
+  --dash-table-border: rgba(197, 168, 105, 0.2);
+  --dash-table-hover-bg: #FBF9F5;
   --dash-modal-bg: #FFFFFF;
-  --dash-tile-bg: #F8F5EE;
-  --dash-tile-hover-bg: #EFE8DA;
-  --dash-icon-wrap-bg: rgba(201, 169, 110, 0.2);
-  --dash-cms-item-bg: #F8F5EE;
-  --dash-btn-primary-bg: linear-gradient(135deg, #1B4332 0%, #0B2516 100%);
+  --dash-tile-bg: #F5F1E8;
+  --dash-tile-hover-bg: #EAE2D2;
+  --dash-icon-wrap-bg: rgba(197, 168, 105, 0.2);
+  --dash-cms-item-bg: #FBF9F5;
+  --dash-btn-primary-bg: linear-gradient(135deg, #0A2F24 0%, #0D3B2E 100%);
   --dash-btn-primary-text: #FFFFFF;
-  --dash-btn-primary-shadow: rgba(27, 67, 50, 0.3);
+  --dash-btn-primary-shadow: rgba(10, 47, 36, 0.35);
 }
 
 /* --- 2. WHITE & GREEN THEME (الأخضر والأبيض النقي) --- */

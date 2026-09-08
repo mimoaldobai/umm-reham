@@ -22,6 +22,18 @@ import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.compone
                 <img src="assets/images/reham_profile_luxury.jpg" alt="أم رهام" class="ls-brand-avatar-img" />
                 <span class="ls-avatar-verified-badge" title="علامة أكاديمية معتمدة">✓</span>
               </div>
+              <div class="academic-crest-icon" title="دار أم رهام للخدمات الأكاديمية والبحثية">
+                <svg viewBox="0 0 36 36" fill="none" class="academic-cap-book-svg">
+                  <!-- Graduation Cap Mortarboard -->
+                  <path d="M18 4.5L5 10.5L18 16.5L31 10.5L18 4.5Z" fill="#0A2F24" stroke="#C5A869" stroke-width="2" stroke-linejoin="round"/>
+                  <!-- Cap Skull Base & Tassel -->
+                  <path d="M11 13.5V17C11 20 14 22 18 22C22 22 25 20 25 17V13.5" stroke="#C5A869" stroke-width="1.6" stroke-linecap="round"/>
+                  <path d="M28 11.5V18.5C28 19.5 29 20.5 30 20.5" stroke="#C5A869" stroke-width="1.6" stroke-linecap="round"/>
+                  <circle cx="30" cy="20.5" r="1.2" fill="#C5A869"/>
+                  <!-- Open Academic Book Meeting at Cap Apex -->
+                  <path d="M18 29V17M18 29C14.5 26.2 8 26 4 28V14C8 12 14.5 12.2 18 14.5M18 29C21.5 26.2 28 26 32 28V14C28 12 21.5 12.2 18 14.5" stroke="#C5A869" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
               <div class="ls-brand-text">
                 <span class="ls-brand-title">أم رهام</span>
                 <span class="ls-brand-sub">تعليم • تطوير • استشارات</span>
@@ -239,6 +251,33 @@ import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.compone
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
     }
 
+    .academic-crest-icon {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(10, 47, 36, 0.7);
+      border: 1px solid rgba(197, 168, 105, 0.35);
+      border-radius: 8px;
+      padding: 3px;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+      backdrop-filter: blur(8px);
+    }
+
+    .ls-brand-logo:hover .academic-crest-icon {
+      border-color: #C5A869;
+      box-shadow: 0 0 12px rgba(197, 168, 105, 0.45);
+      transform: translateY(-1px);
+    }
+
+    .academic-cap-book-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
     .ls-brand-text {
       display: flex;
       flex-direction: column;
@@ -246,16 +285,18 @@ import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.compone
 
     .ls-brand-title {
       font-size: 1.35rem;
-      font-weight: 900;
-      color: #1B4332;
+      font-weight: 800;
+      color: var(--obsidian-soft, #121816);
       line-height: 1.1;
       letter-spacing: -0.5px;
+      font-family: var(--font-family-arabic) !important;
     }
 
     .ls-brand-sub {
       font-size: 0.68rem;
-      color: #A48348;
+      color: var(--gold-champagne, #C5A869);
       font-weight: 700;
+      font-family: var(--font-family-arabic) !important;
     }
 
     /* Green Pill Button (الجامعات) */

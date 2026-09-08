@@ -20,35 +20,35 @@ export class ThemeService {
   public readonly themeOptions: ThemeOption[] = [
     {
       id: 'emerald',
-      nameAr: 'الأخضر والذهب الشامباني 🇸🇦✨',
+      nameAr: 'الهوية السيادية الأساسية 🇸🇦👑',
       icon: '👑',
-      desc: 'أخضر سعودي ملكي فاخر مع لمسات ذهب شامباني راقية',
-      previewColor: '#1B4332',
-      accentColor: '#C9A96E'
+      desc: 'الأخضر السعودي العميق (#0A2F24) مع ذهب الشمبانيا الدافئ (#C5A869) والعاجي',
+      previewColor: '#0A2F24',
+      accentColor: '#C5A869'
     },
     {
       id: 'white-green',
-      nameAr: 'الأخضر والأبيض النقي 🤍🌿',
+      nameAr: 'العاجي والأبيض النقي 🤍🌿',
       icon: '☀️',
-      desc: 'أخضر ملكي صافٍ مع خلفيات وبطاقات بيضاء ناصعة ومريحة',
-      previewColor: '#059669',
-      accentColor: '#FFFFFF'
+      desc: 'عاجي دافئ مريح للقراءة مع نصوص الأسود المعماري ومساحات ناصعة',
+      previewColor: '#FBF9F5',
+      accentColor: '#0A2F24'
     },
     {
       id: 'emerald-night',
-      nameAr: 'الأخضر والزمرد الليلي 🌙🌿',
+      nameAr: 'الزمرد الليلي الهادئ 🌙🌿',
       icon: '🌌',
-      desc: 'أخضر زمردي داكن مع إضاءات وتفاصيل نعناعية متوهجة',
-      previewColor: '#06180E',
-      accentColor: '#10B981'
+      desc: 'أخضر زمردي داكن مع إضاءات خافتة تركيزية للمذاكرة والأبحاث الليلية',
+      previewColor: '#051A14',
+      accentColor: '#16A34A'
     },
     {
       id: 'forest-bronze',
-      nameAr: 'الأخضر والبرونز الدافئ 🏛️🍂',
+      nameAr: 'العنبر والتراث المعماري 🏛️🍂',
       icon: '📜',
-      desc: 'أخضر غابات أكاديمي مع برونز وعنبر دافئ متناسق',
-      previewColor: '#143829',
-      accentColor: '#D97706'
+      desc: 'مستوحى من أصالة العمارة التراثية والدرعية مع لمسات برونز وعنبر',
+      previewColor: '#0D3B2E',
+      accentColor: '#C5A869'
     }
   ];
 
