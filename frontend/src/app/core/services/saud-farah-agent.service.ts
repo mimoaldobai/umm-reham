@@ -63,7 +63,7 @@ export class SaudFarahAgentService {
 
   public isListening = signal<boolean>(false);
   public recognizedText = signal<string>('');
-  public isVoiceMuted = signal<boolean>(false);
+  public isVoiceMuted = signal<boolean>(true);
 
   private messagesSubject = new BehaviorSubject<AgentChatMessage[]>([]);
   public messages$: Observable<AgentChatMessage[]> = this.messagesSubject.asObservable();
@@ -241,56 +241,10 @@ export class SaudFarahAgentService {
   }
 
   public speak(text: string, agent: 'saud' | 'farah', onComplete?: () => void): void {
-    if (this.isVoiceMuted()) {
-      if (onComplete) setTimeout(onComplete, 2500);
-      return;
-    }
-
-    if (!this.speechSynth) {
-      this.simulateSpeechWithoutTTS(agent, text.length, onComplete);
-      return;
-    }
-
-    if (this.cachedVoices.length === 0) {
-      this.cachedVoices = this.speechSynth.getVoices();
-    }
-
-    this.speechSynth.cancel();
-    this.currentSpeakingAgent.set(agent);
-    this.startLipSyncAnimation(agent);
-
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'ar-SA';
-
-    if (agent === 'saud') {
-      utterance.pitch = 0.88;
-      utterance.rate = 0.98;
-      const maleVoice = this.cachedVoices.find(v => (v.lang.startsWith('ar') || v.lang.includes('SA')) && (v.name.toLowerCase().includes('male') || v.name.toLowerCase().includes('hamed') || v.name.toLowerCase().includes('maged') || v.name.toLowerCase().includes('tariq'))) || this.cachedVoices.find(v => v.lang.startsWith('ar'));
-      if (maleVoice) utterance.voice = maleVoice;
-    } else {
-      utterance.pitch = 1.38;
-      utterance.rate = 1.05;
-      const femaleVoice = this.cachedVoices.find(v => (v.lang.startsWith('ar') || v.lang.includes('SA')) && (v.name.toLowerCase().includes('female') || v.name.toLowerCase().includes('hoda') || v.name.toLowerCase().includes('salma') || v.name.toLowerCase().includes('zari') || v.name.toLowerCase().includes('laila'))) || this.cachedVoices.find(v => v.lang.startsWith('ar'));
-      if (femaleVoice) utterance.voice = femaleVoice;
-    }
-
-    utterance.onend = () => {
-      this.stopLipSyncAnimation();
-      this.currentSpeakingAgent.set(null);
-      if (onComplete) onComplete();
-    };
-
-    utterance.onerror = (e) => {
-      console.warn('Speech synthesis note:', e);
-      this.stopLipSyncAnimation();
-      this.currentSpeakingAgent.set(null);
-      if (onComplete) onComplete();
-    };
-
-    try {
-      this.speechSynth.speak(utterance);
-    } catch (e) {
-      this.simulateSpeechWithoutTTS(agent, text.length, onComplete);
+    // User explicitly requested complete deletion/disabling of Saud and Farah voice/audio
+    this.stopSpeaking();
+    if (onComplete) {
+      setTimeout(() => onComplete(), 500);
     }
   }
 

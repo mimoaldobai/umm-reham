@@ -633,8 +633,6 @@ export class SaudFarahWelcomeComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.farahEntered = true;
       this.saudEntered = true;
-      // Auto-start speaking sequence
-      this.playAudioGreeting();
     }, 400);
   }
 

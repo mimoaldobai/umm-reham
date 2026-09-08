@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ApiService, ServiceItem, Category, Statistic, Testimonial } from '../../core/services/api.service';
 import { AudioService } from '../../core/services/audio.service';
+import { ThemeService } from '../../core/services/theme.service';
 import { SaudFarahAgentService } from '../../core/services/saud-farah-agent.service';
 import { RewardsService } from '../../core/services/rewards.service';
 import { SaudiMapCanvasComponent } from '../../shared/components/saudi-map-canvas/saudi-map-canvas.component';
@@ -32,111 +33,360 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       <!-- ==========================================
            SCENE 01: HERO SECTION (PLATFORM CONTENT + LUXURY SAUDI GREEN & GOLD)
            ========================================== -->
-      <section class="ls-hero-section bg-ivory-warm">
-        <div class="container ls-hero-container">
+      <!-- ==========================================
+           SCENE 01: CINEMATIC SOVEREIGN HERO (PANORAMIC SAUDI LANDSCAPE)
+           ========================================== -->
+      <section class="cinematic-hero-section">
+        <!-- Panoramic Background Image with Atmospheric Lighting -->
+        <div class="hero-panoramic-backdrop">
+          <img src="assets/images/saudi_panoramic_hero.jpg" alt="المملكة العربية السعودية" class="hero-bg-img" />
+          <div class="hero-atmospheric-gradient"></div>
+          <div class="hero-vignette-overlay"></div>
+        </div>
+
+        <div class="container hero-content-container">
           
-          <!-- Top National Accreditation Badge -->
-          <div class="ls-hero-top-badge">
-            <span class="badge-sa">SA</span>
-            <span>المملكة العربية السعودية • خدمات أكاديمية وبحثية معتمدة</span>
+          <div class="hero-brand-headline-wrap">
+            <!-- Majestic Brand Title -->
+            <h1 class="cinematic-hero-title">أم رهام</h1>
+            <!-- Slogan with Gold Glow -->
+            <h2 class="cinematic-hero-slogan">
+              معرفة تصنع الفرق، <span class="gold-slogan-accent">ودقة تبني الثقة.</span>
+            </h2>
+            <!-- Subtext -->
+            <p class="cinematic-hero-subtext">
+              منصة سعودية رائدة في الخدمات التعليمية والبحثية، نجمع بين الأصالة والمعرفة لنحول أفكارك إلى إنجازات حقيقية.
+            </p>
+
+            <!-- Primary CTA WhatsApp Button -->
+            <div class="hero-cta-group">
+              <a 
+                href="https://wa.me/?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%20%D8%A3%D9%85%20%D8%B1%D9%87%D8%A7%D9%85" 
+                target="_blank" 
+                class="btn-cinematic-whatsapp" 
+                (click)="onClick()">
+                <span>ابدأ طلبك عبر واتساب</span>
+                <span class="wa-icon-glow">💬</span>
+              </a>
+              <div class="response-speed-indicator">
+                <span class="bolt-icon">⚡</span>
+                <span>استجابة خلال دقائق</span>
+              </div>
+            </div>
           </div>
 
-          <!-- Platform Brand Title & Slogan -->
-          <h1 class="ls-hero-title">
-            معرفة تصنع الفرق،<br>
-            <span class="hero-accent-gold">ودقة تبني الثقة.</span>
-          </h1>
+          <!-- Bottom Hero Row: Left (Watch in 60s) & Right (25,000 Stories Badge) -->
+          <div class="hero-bottom-flanks">
+            <!-- Left Flank: Watch in 60s -->
+            <button type="button" class="btn-watch-story-glass" (click)="openVideoModal()">
+              <span class="play-circle-icon">▶</span>
+              <span>شاهد من نحن في 60 ثانية</span>
+            </button>
 
-          <!-- Platform Subtext -->
-          <p class="ls-hero-subtext">
-            منصة سعودية رائدة في الخدمات التعليمية والبحثية، نجمع بين الأصالة والمعرفة لنحول أفكارك إلى إنجازات أكاديمية ومهنية حقيقية تفخر بها.
-          </p>
-
-          <!-- Hero Dual Action Buttons (Platform Brand CTAs) -->
-          <div class="ls-hero-action-btns">
-            <a 
-              href="https://wa.me/?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%20%D8%A3%D9%85%20%D8%B1%D9%87%D8%A7%D9%85" 
-              target="_blank" 
-              class="ls-btn-green-primary" 
-              (click)="onClick()">
-              <span class="btn-arrow-icon">💬</span>
-              <span>ابدأ طلبك المعتمد عبر واتساب</span>
-            </a>
-
-            <a href="#quick-intent" class="ls-btn-gold-secondary" (click)="onClick()">
-              <span class="btn-arrow-icon">⬇</span>
-              <span>استكشف المحاكي الذكي</span>
-            </a>
+            <!-- Right Flank: +25,000 Stories Glass Badge -->
+            <div class="stories-counter-glass-badge">
+              <div class="badge-number-col">
+                <span class="big-counter-num">+25,000</span>
+                <span class="counter-label">قصة بدأها عملاؤنا معنا</span>
+                <span class="counter-sublabel">من الرياض إلى الطائف ومن أول واجب إلى آخر مشروع</span>
+              </div>
+              <div class="globe-crest-icon">🌐</div>
+            </div>
           </div>
 
         </div>
       </section>
 
       <!-- ==========================================
-           SCENE 02: CORE ACADEMIC PILLARS (أبرز مجالاتنا وخدماتنا الأكاديمية)
+           SCENE 02: DUAL INTENT & VALUES STRIP (وش تحتاج اليوم؟ + ليست مجرد خدمة)
            ========================================== -->
-      <section class="ls-universities-section" id="academic-fields-section">
+      <section class="intent-values-strip-section">
+        <div class="container">
+          <div class="intent-values-bar glass-card-luxury">
+            
+            <!-- Right Part: وش تحتاج اليوم؟ -->
+            <div class="needs-selector-side">
+              <div class="needs-header">
+                <h3 class="needs-title">وش تحتاج اليوم؟</h3>
+              </div>
+              <div class="needs-chips-grid">
+                <button 
+                  type="button" 
+                  *ngFor="let need of needsList" 
+                  class="need-chip-btn" 
+                  [class.active]="selectedNeedId === need.id"
+                  (click)="selectNeed(need)">
+                  <span class="need-icon">{{ need.icon }}</span>
+                  <span class="need-name">{{ need.name }}</span>
+                </button>
+              </div>
+              <div class="needs-cta-wrap">
+                <button type="button" class="btn-know-details" (click)="openNeedDetails()">
+                  <span>خلنا نعرف التفاصيل</span>
+                  <span class="details-arrow">←</span>
+                  <span class="details-icon">💬</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Center Divider Line -->
+            <div class="strip-vertical-divider"></div>
+
+            <!-- Left Part: ليست مجرد خدمة -->
+            <div class="service-philosophy-side">
+              <h4 class="philosophy-title">ليست مجرد خدمة.</h4>
+              <div class="philosophy-steps-row">
+                <div class="phil-step-node">
+                  <span class="phil-icon">💡</span>
+                  <span class="phil-text">فكرة</span>
+                </div>
+                <span class="phil-arrow">»</span>
+                <div class="phil-step-node">
+                  <span class="phil-icon">🔍</span>
+                  <span class="phil-text">بحث</span>
+                </div>
+                <span class="phil-arrow">«</span>
+                <div class="phil-step-node">
+                  <span class="phil-icon">⚙️</span>
+                  <span class="phil-text">عمل</span>
+                </div>
+                <span class="phil-arrow">»</span>
+                <div class="phil-step-node">
+                  <span class="phil-icon">🏆</span>
+                  <span class="phil-text">إنجاز</span>
+                </div>
+              </div>
+              <p class="philosophy-caption">نأخذ ما بدأ في ذهنك، ونحوله إلى عمل يليق بك.</p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           SCENE 03: عوالم أم رهام (REALMS OF UMM REHAM + DYNAMIC CITY & AUDIO CARDS)
+           ========================================== -->
+      <section class="realms-section-cinematic" id="realms-ecosystem">
         <div class="container">
           
-          <div class="ls-section-head">
-            <h2 class="ls-section-title">أبرز مجالاتنا وخدماتنا الأكاديمية</h2>
-            <div class="ls-title-swoosh"></div>
-            <p class="ls-section-subtitle">
-              نقدم خدمات استشارية وبحثية شاملة لطلاب الدراسات العليا والباحثين تواكب أعلى معايير الجودة والاعتماد
-            </p>
-          </div>
-
-          <!-- 4 Core Service Cards Matrix (Royal Green & Champagne Gold) -->
-          <div class="ls-universities-grid">
-            
-            <!-- Card 1: Master & PhD Research (Featured Selected Royal Saudi Green Card) -->
-            <div class="ls-uni-card active-green" (click)="scrollToService('أبحاث')">
-              <div class="uni-crest-circle">
-                <span class="uni-crest-icon">🎓</span>
-              </div>
-              <h3 class="uni-name">رسائل الماجستير والدكتوراه</h3>
-              <p class="field-card-desc">إعداد متكامل مع خطة البحث، وتوثيق APA ومراجع حديثة، ومرافقة حتى المناقشة النهائية.</p>
-              <span class="uni-count-sub">استكشف الخدمة والضمانات ›</span>
-            </div>
-
-            <!-- Card 2: Statistical Analysis SPSS -->
-            <div class="ls-uni-card" (click)="scrollToService('إحصائ')">
-              <div class="uni-crest-circle">
-                <span class="uni-crest-icon">📊</span>
-              </div>
-              <h3 class="uni-name">التحليل الإحصائي (SPSS & AMOS)</h3>
-              <p class="field-card-desc">اختبار الفرضيات، تحليل عاملي، وتفسير ومناقشة الجداول والنتائج بدقة أكاديمية 100%.</p>
-              <span class="uni-count-sub">استكشف التحليل الإحصائي ›</span>
-            </div>
-
-            <!-- Card 3: Graduation Projects -->
-            <div class="ls-uni-card" (click)="scrollToService('تخرج')">
-              <div class="uni-crest-circle">
-                <span class="uni-crest-icon">💻</span>
-              </div>
-              <h3 class="uni-name">مشاريع التخرج والأنظمة البرمجية</h3>
-              <p class="field-card-desc">بناء وتطوير الأنظمة، كود نظيف معتمد، إعداد التقرير والعرض التقديمي وتجهيز المناقشة.</p>
-              <span class="uni-count-sub">استكشف مشاريع التخرج ›</span>
-            </div>
-
-            <!-- Card 4: Proofreading & Turnitin -->
-            <div class="ls-uni-card" (click)="scrollToService('تدقيق')">
-              <div class="uni-crest-circle">
-                <span class="uni-crest-icon">🛡️</span>
-              </div>
-              <h3 class="uni-name">التدقيق اللغوي وفحص Turnitin</h3>
-              <p class="field-card-desc">سلامة لغوية وبلاغية تامة، تدقيق مراجع، وفحص نسبة الاقتباس وضمان أصالة 0% استلال.</p>
-              <span class="uni-count-sub">استكشف خدمات التدقيق ›</span>
-            </div>
-
-          </div>
-
-          <!-- All Services Pill Button -->
-          <div class="ls-uni-bottom-btn">
-            <a href="#services-ecosystem" class="ls-btn-green-pill" (click)="onClick()">
-              <span>استكشف كافة الخدمات والأسعار</span>
-              <span class="btn-arrow-icon">›</span>
+          <!-- Section Top Bar -->
+          <div class="realms-top-bar">
+            <h2 class="realms-main-title">عوالم أم رهام</h2>
+            <a href="#services-ecosystem" class="realms-explore-link">
+              <span>استكشف جميع العوالم</span>
+              <span class="explore-arrow">←</span>
             </a>
+          </div>
+
+          <!-- 7 Realms Carousel Slider -->
+          <div class="realms-carousel-wrapper">
+            <button type="button" class="carousel-nav-btn prev-btn" (click)="scrollRealms('prev')" title="السابق">
+              <span>‹</span>
+            </button>
+
+            <div class="realms-cards-track" #realmsTrack>
+              <div 
+                class="realm-card-item" 
+                *ngFor="let realm of realmsList"
+                [class.active]="selectedRealmId === realm.id"
+                (click)="onSelectRealm(realm)">
+                <div class="realm-card-image-wrap">
+                  <img [src]="realm.image" [alt]="realm.title" class="realm-card-img" />
+                  <div class="realm-image-gradient"></div>
+                  <div class="realm-card-number">{{ realm.number }}</div>
+                </div>
+                <div class="realm-card-info">
+                  <h3 class="realm-card-title">{{ realm.title }}</h3>
+                  <span class="realm-card-count">{{ realm.count }}</span>
+                </div>
+              </div>
+            </div>
+
+            <button type="button" class="carousel-nav-btn next-btn" (click)="scrollRealms('next')" title="التالي">
+              <span>›</span>
+            </button>
+          </div>
+
+          <!-- Dynamic 3-Card Ecosystem Grid -->
+          <div class="dynamic-triad-grid">
+            
+            <!-- Card 1: Map & City Selector (أين تبدأ قصتك؟) -->
+            <div class="triad-card map-selector-card">
+              <div class="triad-card-head">
+                <h3 class="triad-title">أين تبدأ قصتك؟</h3>
+                <p class="triad-subtitle">اختر مدينتك واكتشف قصص عملائنا</p>
+              </div>
+
+              <div class="mini-holographic-map-box">
+                <img src="assets/images/saudi_hologram_map.jpg" alt="خريطة السعودية" class="mini-map-img" />
+                <!-- Glowing Interactive City Pins -->
+                <button 
+                  type="button" 
+                  *ngFor="let city of citiesList"
+                  class="map-city-pin" 
+                  [class.active]="selectedCityId === city.id"
+                  [style.top]="city.mapTop"
+                  [style.right]="city.mapRight"
+                  (click)="selectCity(city.id)"
+                  [title]="city.name">
+                  <span class="pin-pulse"></span>
+                  <span class="pin-dot"></span>
+                </button>
+              </div>
+
+              <div class="triad-city-picker-row">
+                <select class="city-select-dropdown" [ngModel]="selectedCityId" (ngModelChange)="selectCity($event)">
+                  <option *ngFor="let city of citiesList" [value]="city.id">{{ city.name }} ({{ city.region }})</option>
+                </select>
+                <button type="button" class="btn-triad-action" (click)="openCityDetails()">
+                  <span>استكشف الآن</span>
+                  <span class="action-arrow">←</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Card 2: Dynamic City Spotlight (الطائف / المدينة المختارة) -->
+            <div class="triad-card city-spotlight-card">
+              <div class="city-bg-image-wrap">
+                <img [src]="activeCityData.image" [alt]="activeCityData.name" class="city-spotlight-img" />
+                <div class="city-bg-gradient-overlay"></div>
+              </div>
+              <div class="city-spotlight-content">
+                <div class="city-header-pill">
+                  <h3 class="city-name-big">{{ activeCityData.name }}</h3>
+                  <span class="city-region-tag">{{ activeCityData.region }}</span>
+                </div>
+                <div class="city-counter-box">
+                  <span class="city-projects-num">{{ activeCityData.projectsCount }}</span>
+                  <span class="city-projects-label">قصص نجاح حقيقية من مدينتك</span>
+                </div>
+                <button type="button" class="btn-view-city-stories" (click)="scrollToService(activeCityData.name)">
+                  <span>مشاهدة القصص</span>
+                  <span class="stories-arrow">←</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Card 3: Real Client Testimonial with Audio Player -->
+            <div class="triad-card client-audio-testimonial-card">
+              <div class="triad-card-head">
+                <div class="head-tag-live">
+                  <span class="live-pulse-dot"></span>
+                  <span class="tag-text">قصة عميل حقيقي</span>
+                </div>
+              </div>
+
+              <div class="client-profile-row">
+                <div class="client-avatar-frame">
+                  <img [src]="currentTestimonialData.avatar" [alt]="currentTestimonialData.clientName" class="client-avatar-img" />
+                </div>
+                <div class="client-meta-info">
+                  <h4 class="client-city-role">{{ currentTestimonialData.location }} • {{ currentTestimonialData.role }}</h4>
+                  <span class="client-service-tag">{{ currentTestimonialData.service }}</span>
+                </div>
+              </div>
+
+              <blockquote class="client-quote-text">
+                "{{ currentTestimonialData.quote }}"
+              </blockquote>
+
+              <!-- Interactive Audio Equalizer & Wave Player -->
+              <div class="audio-player-widget">
+                <button type="button" class="btn-audio-toggle" [class.playing]="isAudioPlaying" (click)="toggleAudioPlayer()">
+                  <span class="audio-btn-icon">{{ isAudioPlaying ? '⏸' : '▶' }}</span>
+                </button>
+
+                <div class="audio-waveform-bar" [class.animating]="isAudioPlaying">
+                  <span *ngFor="let bar of audioWaveBars; let i = index" class="wave-bar" [style.height.px]="getWaveHeight(i)"></span>
+                </div>
+
+                <span class="audio-time-display">{{ formatAudioTime(audioCurrentTime) }} / {{ formatAudioTime(audioDuration) }}</span>
+              </div>
+
+              <div class="transcript-link-row">
+                <button type="button" class="link-read-transcript" (click)="openTranscriptModal()">اقرأ النص الكامل</button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Workflow Journey 6 Steps -->
+          <div class="realms-workflow-strip">
+            <div class="workflow-header-cta">
+              <a 
+                href="https://wa.me/?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%AC%D8%A7%D9%87%D8%B2%20%D8%A3%D8%A8%D8%AF%D8%A3%20%D9%85%D8%B9%20%D8%A3%D9%85%20%D8%B1%D9%87%D8%A7%D9%85" 
+                target="_blank" 
+                class="btn-ready-cta">
+                <span>جاهز تبدأ؟</span>
+                <span class="cta-sub">تواصل مع أم رهام الآن</span>
+                <span class="wa-bubble">💬</span>
+              </a>
+            </div>
+
+            <div class="workflow-steps-nodes">
+              <div class="wf-node">
+                <div class="wf-circle">💬</div>
+                <span class="wf-label">1. نستقبل فكرتك</span>
+              </div>
+              <div class="wf-connector"></div>
+
+              <div class="wf-node">
+                <div class="wf-circle">👥</div>
+                <span class="wf-label">2. نفهم احتياجك</span>
+              </div>
+              <div class="wf-connector"></div>
+
+              <div class="wf-node">
+                <div class="wf-circle">👤</div>
+                <span class="wf-label">3. نختار المختص</span>
+              </div>
+              <div class="wf-connector"></div>
+
+              <div class="wf-node">
+                <div class="wf-circle">✍️</div>
+                <span class="wf-label">4. يبدأ العمل</span>
+              </div>
+              <div class="wf-connector"></div>
+
+              <div class="wf-node">
+                <div class="wf-circle">📋</div>
+                <span class="wf-label">5. مراجعة دقيقة</span>
+              </div>
+              <div class="wf-connector"></div>
+
+              <div class="wf-node">
+                <div class="wf-circle">🎁</div>
+                <span class="wf-label">6. تسليم يليق بك</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- National Guarantees Bar -->
+          <div class="realms-guarantees-bar">
+            <div class="guarantee-item">
+              <span class="guarantee-icon">🛡️</span>
+              <span class="guarantee-text">سرية تامة وأمان للمعلومات</span>
+            </div>
+            <div class="guarantee-item">
+              <span class="guarantee-icon">👥</span>
+              <span class="guarantee-text">فريق أكاديمي متخصص</span>
+            </div>
+            <div class="guarantee-item">
+              <span class="guarantee-icon">🏅</span>
+              <span class="guarantee-text">جودة ودقة في كل خطوة</span>
+            </div>
+            <div class="guarantee-item">
+              <span class="guarantee-icon">⏱️</span>
+              <span class="guarantee-text">التزام بالمواعيد</span>
+            </div>
+            <div class="guarantee-item">
+              <span class="guarantee-icon">🎧</span>
+              <span class="guarantee-text">دعم بعد التسليم</span>
+            </div>
+            <div class="guarantee-item vision-item">
+              <span class="vision-logo-text">رؤية VISION 2030</span>
+              <span class="vision-sub">المملكة العربية السعودية</span>
+            </div>
           </div>
 
         </div>
@@ -757,6 +1007,234 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
         (closeEvent)="isAddReviewModalOpen = false" 
         (reviewAdded)="onReviewAdded($event)">
       </app-add-review-modal>
+
+      <!-- ==========================================
+           FLOATING 3D PHONE TRIGGER & WELCOME CAPSULE (IMAGE 2)
+           ========================================== -->
+      <!-- Floating Welcome Coupon Capsule (Top Right) -->
+      <div class="floating-welcome-gift-capsule" (click)="openDiscountModal()" title="اضغط للحصول على الخصم">
+        <span class="gift-icon-bounce">🎁</span>
+        <div class="gift-texts">
+          <strong>خصم خاص</strong>
+          <small>للمتواجدين الجدد</small>
+        </div>
+      </div>
+
+      <!-- Floating 3D Phone App Preview Trigger Button (Bottom Left) -->
+      <button type="button" class="floating-phone-trigger-btn" (click)="openPhoneModal()" title="معاينة تطبيق المنصة الذكي 3D">
+        <span class="phone-3d-icon">📱</span>
+        <span class="phone-trigger-text">تطبيق المنصة الذكي 3D</span>
+        <span class="hot-badge">تفاعلي</span>
+      </button>
+
+      <!-- 3D Smartphone Device Modal (Image 2 Device Showcase) -->
+      <div class="phone-modal-backdrop" *ngIf="isPhoneModalOpen" (click)="closePhoneModal()">
+        <div class="phone-modal-container" (click)="$event.stopPropagation()">
+          <button type="button" class="btn-close-phone" (click)="closePhoneModal()">✕</button>
+          
+          <!-- Realistic Gold-Beveled Smartphone Device Frame -->
+          <div class="iphone-hardware-frame">
+            <div class="iphone-screen">
+              <!-- iOS Status Bar -->
+              <div class="ios-status-bar">
+                <span class="time-txt">9:41</span>
+                <div class="dynamic-island-notch"></div>
+                <div class="ios-icons">
+                  <span>📶</span>
+                  <span>🔋</span>
+                </div>
+              </div>
+
+              <!-- Phone App Inner Screen -->
+              <div class="phone-app-inner">
+                <div class="phone-app-header">
+                  <button type="button" class="phone-menu-icon">☰</button>
+                  <div class="phone-app-brand">
+                    <span class="app-title">منصة إبداع • أم رهام</span>
+                    <small class="app-sub">خليك... تستفيد</small>
+                  </div>
+                  <div class="phone-avatar-mini">👑</div>
+                </div>
+
+                <!-- Phone Hero Card with Saudi Skyline Backdrop -->
+                <div class="phone-hero-banner">
+                  <img src="assets/images/saudi_panoramic_hero.jpg" alt="سعودية" class="phone-hero-bg" />
+                  <div class="phone-hero-content">
+                    <h4>أهلاً بك في عالم الفرص</h4>
+                    <p>اختر تخصصك واستكشف خدماتنا</p>
+                  </div>
+                </div>
+
+                <!-- Specialization Dropdown & CTA -->
+                <div class="phone-specialization-box">
+                  <select class="phone-select" [(ngModel)]="phoneSpecialization">
+                    <option value="all">قم بالتخصص ⌵</option>
+                    <option value="grad">رسائل ماجستير ودكتوراه</option>
+                    <option value="cs">برمجة وتقنية وذكاء اصطناعي</option>
+                    <option value="bus">إدارة أعمال ومشاريع</option>
+                    <option value="spss">تحليل إحصائي SPSS</option>
+                  </select>
+                  <button type="button" class="btn-phone-start" (click)="startPhoneOrder()">ابدأ الآن</button>
+                </div>
+
+                <!-- 4 Live App Statistics -->
+                <div class="phone-stats-grid">
+                  <div class="stat-cell">
+                    <span class="s-icon">🏛️</span>
+                    <strong>+40</strong>
+                    <small>مدينة سعودية</small>
+                  </div>
+                  <div class="stat-cell">
+                    <span class="s-icon">🤝</span>
+                    <strong>98%</strong>
+                    <small>رضا العملاء</small>
+                  </div>
+                  <div class="stat-cell">
+                    <span class="s-icon">💼</span>
+                    <strong>+1,500</strong>
+                    <small>مشروع منجز</small>
+                  </div>
+                  <div class="stat-cell">
+                    <span class="s-icon">👥</span>
+                    <strong>+25,000</strong>
+                    <small>عميل</small>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 60-Second Video Showcase Modal (Image 1 Hero Link) -->
+      <div class="video-modal-backdrop" *ngIf="isVideoModalOpen" (click)="closeVideoModal()">
+        <div class="video-modal-container glass-card-dark" (click)="$event.stopPropagation()">
+          <button type="button" class="btn-close-video" (click)="closeVideoModal()">✕</button>
+          <div class="video-player-header">
+            <h3>منصة أم رهام في 60 ثانية 🇸🇦👑</h3>
+            <p>جولة تعريفية بالخدمات الأكاديمية والبحثية والتقنية المعتمدة</p>
+          </div>
+          
+          <div class="video-screen-simulation">
+            <img src="assets/images/saudi_panoramic_hero.jpg" alt="فيديو أم رهام" class="video-poster-img" />
+            <div class="video-play-overlay">
+              <div class="video-pulse-glow"></div>
+              <a 
+                href="https://wa.me/?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%B4%D8%A7%D9%87%D8%AF%D8%AA%20%D8%B9%D8%B1%D8%B6%20%D8%A7%D9%84%D9%85%D9%86%D8%B5%D8%A9%20%D9%88%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A8%D8%AF%D8%A1%20%D8%B7%D9%84%D8%A8%D9%8A" 
+                target="_blank" 
+                class="btn-big-play-glow">
+                ▶
+              </a>
+            </div>
+            <div class="video-timer-track">
+              <span class="video-time">0:00 / 1:00</span>
+              <div class="video-progress-bar"><div class="video-fill-anim"></div></div>
+            </div>
+          </div>
+
+          <div class="video-footer-cta">
+            <span>جاهز لبدء بحثك أو مشروعك؟</span>
+            <a 
+              href="https://wa.me/?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%20%D8%A3%D9%85%20%D8%B1%D9%87%D8%A7%D9%85" 
+              target="_blank" 
+              class="btn-video-wa">
+              تواصل عبر واتساب فوراً 💬
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Welcome Coupon Gift Modal -->
+      <div class="coupon-modal-backdrop" *ngIf="isDiscountModalOpen" (click)="closeDiscountModal()">
+        <div class="coupon-modal-card" (click)="$event.stopPropagation()">
+          <button type="button" class="btn-close-coupon" (click)="closeDiscountModal()">✕</button>
+          <div class="coupon-gift-icon">🎁</div>
+          <h3 class="coupon-title">هدية ترحيبية خاصة بالمتواجدين الجدد!</h3>
+          <p class="coupon-desc">احصل على خصم 15% فوري على كافة خدمات الأبحاث والدراسات العليا ومشاريع التخرج.</p>
+          
+          <div class="coupon-code-box" (click)="copyCouponCode()">
+            <span class="code-txt">SAUDI2026</span>
+            <button type="button" class="btn-copy-code">{{ couponCopied ? 'تم النسخ! ✓' : 'نسخ الكوبون 📋' }}</button>
+          </div>
+          
+          <div class="coupon-actions">
+            <a 
+              href="https://wa.me/?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%AD%D8%B5%D9%84%D8%AA%20%D8%B9%D9%84%D9%89%20%D9%83%D9%88%D8%A8%D9%88%D9%86%20%D8%AE%D8%B5%D9%85%20SAUDI2026%20%D9%88%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%AA%D8%B7%D8%A8%D9%8A%D9%82%D9%87%20%D8%B9%D9%84%D9%89%20%D8%B7%D9%84%D8%A8%D9%8A" 
+              target="_blank" 
+              class="btn-use-coupon-wa" 
+              (click)="closeDiscountModal()">
+              استخدم الكوبون في واتساب 💬
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial Transcript Modal -->
+      <div class="transcript-modal-backdrop" *ngIf="isTranscriptOpen" (click)="closeTranscriptModal()">
+        <div class="transcript-modal-card" (click)="$event.stopPropagation()">
+          <button type="button" class="btn-close-transcript" (click)="closeTranscriptModal()">✕</button>
+          <div class="transcript-head">
+            <img [src]="currentTestimonialData.avatar" alt="عميل" class="transcript-avatar" />
+            <div>
+              <h4>{{ currentTestimonialData.clientName }}</h4>
+              <p>{{ currentTestimonialData.location }} • {{ currentTestimonialData.role }}</p>
+            </div>
+          </div>
+          <div class="transcript-body">
+            <h5>النص الكامل للتسجيل الصوتي والشهادة المعتمدة:</h5>
+            <p class="transcript-full-text">
+              "السلام عليكم ورحمة الله، أود أن أشارككم تجربتي الحقيقية مع منصة أم رهام. تواصلت معهم في مرحلة حرجة من إعداد رسالة الماجستير والتحليل الإحصائي، وكنت بحاجة لضبط فرضيات البحث وتوثيق دقيق بنظام APA وفحص turnitin. تم التجاوب معي بسرعة استثنائية، وتم إسناد طلبي لمشرف أكاديمي متخصص فاهم لكل تفاصيل دليلي الجامعي. المراجعة كانت دقيقة جداً، وتسلمت العمل قبل الموعد المحدد، وخرجت بفضل الله بتقدير ممتاز مع مرتبة الشرف. شكراً من القلب لفريق أم رهام على هذا الاحتراف والصدق والأمانة العلمية."
+            </p>
+          </div>
+          <button type="button" class="btn-close-card" (click)="closeTranscriptModal()">إغلاق</button>
+        </div>
+      </div>
+
+      <!-- Floating Bottom Accessibility & Comfort Toolbar (Image 2) -->
+      <div class="floating-accessibility-toolbar" [class.reduced-motion]="isReducedMotion">
+        <div class="toolbar-capsule-glass">
+          
+          <!-- Theme Toggle -->
+          <div class="toolbar-theme-switch">
+            <button 
+              type="button" 
+              class="btn-theme-mode" 
+              [class.active]="themeService.currentTheme() === 'emerald-night'"
+              (click)="setDarkTheme()" 
+              title="الوضع الداكن">
+              🌙
+            </button>
+            <button 
+              type="button" 
+              class="btn-theme-mode" 
+              [class.active]="themeService.currentTheme() === 'emerald'"
+              (click)="setEmeraldTheme()" 
+              title="الوضع النهاري السيادي">
+              ☀️
+            </button>
+          </div>
+
+          <div class="toolbar-divider"></div>
+
+          <!-- Label -->
+          <span class="toolbar-comfort-label">تجربة مريحة للجميع</span>
+
+          <div class="toolbar-divider"></div>
+
+          <!-- Motion Preferences -->
+          <button 
+            type="button" 
+            class="btn-motion-toggle" 
+            [class.active]="isReducedMotion"
+            (click)="toggleReducedMotion()" 
+            title="تفضيلات الحركة والأنيميشن">
+            <span class="motion-icon">{{ isReducedMotion ? '🛑' : '⚡' }}</span>
+            <span>تفضيلات الحركة</span>
+          </button>
+
+        </div>
+      </div>
     </div>
   `,
   styles: [`
@@ -765,7 +1243,1786 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     /* ==========================================
-       HERO CINEMATIC SECTION
+       SCENE 01: CINEMATIC SOVEREIGN HERO (PANORAMIC)
+       ========================================== */
+    .cinematic-hero-section {
+      min-height: 88vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding-top: 6.5rem;
+      padding-bottom: 4rem;
+      overflow: hidden;
+    }
+
+    .hero-panoramic-backdrop {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .hero-bg-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 25%;
+      transform: scale(1.03);
+      filter: saturate(1.15) brightness(0.85);
+      animation: panoramicDrift 30s ease-in-out infinite alternate;
+    }
+
+    @keyframes panoramicDrift {
+      0% { transform: scale(1.03) translate(0, 0); }
+      100% { transform: scale(1.08) translate(-10px, -6px); }
+    }
+
+    .hero-atmospheric-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, 
+        rgba(10, 47, 36, 0.45) 0%, 
+        rgba(10, 47, 36, 0.72) 45%, 
+        rgba(7, 26, 20, 0.95) 100%);
+    }
+
+    .hero-vignette-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, transparent 40%, rgba(0, 0, 0, 0.65) 100%);
+    }
+
+    .hero-content-container {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 72vh;
+      width: 100%;
+    }
+
+    .hero-brand-headline-wrap {
+      max-width: 820px;
+      text-align: right;
+      margin-top: 1.5rem;
+    }
+
+    .cinematic-hero-title {
+      font-family: 'Amiri', 'Playfair Display', serif;
+      font-size: clamp(3.2rem, 6.8vw, 5.4rem);
+      font-weight: 900;
+      color: #FFFFFF;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.8), 0 0 35px rgba(197, 168, 105, 0.45);
+      margin: 0 0 0.6rem 0;
+      letter-spacing: -1px;
+      line-height: 1.1;
+    }
+
+    .cinematic-hero-slogan {
+      font-size: clamp(1.35rem, 2.7vw, 2.1rem);
+      font-weight: 700;
+      color: #F4EEDD;
+      margin: 0 0 1.25rem 0;
+      line-height: 1.45;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+    }
+
+    .gold-slogan-accent {
+      color: #DFC698;
+      background: linear-gradient(135deg, #FFF0CF 0%, #DFC698 50%, #C5A869 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    .cinematic-hero-subtext {
+      font-size: clamp(1rem, 1.3vw, 1.18rem);
+      color: rgba(244, 238, 221, 0.92);
+      line-height: 1.8;
+      max-width: 680px;
+      margin: 0 0 2.2rem 0;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+    }
+
+    .hero-cta-group {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      align-items: flex-start;
+    }
+
+    .btn-cinematic-whatsapp {
+      background: linear-gradient(135deg, #25D366 0%, #1EBE5D 100%);
+      color: #FFFFFF;
+      padding: 0.95rem 2.2rem;
+      border-radius: 9999px;
+      font-weight: 800;
+      font-size: 1.12rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4), 0 0 20px rgba(37, 211, 102, 0.25);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .btn-cinematic-whatsapp:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 16px 36px rgba(37, 211, 102, 0.55), 0 0 30px rgba(37, 211, 102, 0.4);
+    }
+
+    .wa-icon-glow {
+      font-size: 1.35rem;
+      filter: drop-shadow(0 0 6px rgba(255,255,255,0.7));
+    }
+
+    .response-speed-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: #DFC698;
+      font-size: 0.88rem;
+      font-weight: 700;
+      padding-right: 0.5rem;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.7);
+    }
+
+    .bolt-icon {
+      color: #FFE066;
+      animation: boltPulse 1.8s infinite;
+    }
+
+    @keyframes boltPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.25); opacity: 0.75; }
+    }
+
+    .hero-bottom-flanks {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 3.5rem;
+      padding-bottom: 1.25rem;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-watch-story-glass {
+      background: rgba(10, 47, 36, 0.72);
+      backdrop-filter: blur(16px);
+      border: 1.5px solid rgba(197, 168, 105, 0.55);
+      color: #F4EEDD;
+      padding: 0.85rem 1.8rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.45);
+    }
+
+    .btn-watch-story-glass:hover {
+      background: rgba(20, 70, 55, 0.9);
+      border-color: #DFC698;
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.55), 0 0 18px rgba(197, 168, 105, 0.35);
+    }
+
+    .play-circle-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #C5A869;
+      color: #0A2F24;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.82rem;
+      font-weight: 900;
+      box-shadow: 0 0 10px rgba(197, 168, 105, 0.5);
+    }
+
+    .stories-counter-glass-badge {
+      background: rgba(10, 47, 36, 0.72);
+      backdrop-filter: blur(16px);
+      border: 1.5px solid rgba(197, 168, 105, 0.45);
+      border-radius: 1.25rem;
+      padding: 1rem 1.6rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+      max-width: 440px;
+    }
+
+    .badge-number-col {
+      display: flex;
+      flex-direction: column;
+      text-align: right;
+    }
+
+    .big-counter-num {
+      font-family: 'Amiri', serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: #DFC698;
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .counter-label {
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .counter-sublabel {
+      color: rgba(244, 238, 221, 0.75);
+      font-size: 0.78rem;
+      margin-top: 0.15rem;
+    }
+
+    .globe-crest-icon {
+      font-size: 2rem;
+      opacity: 0.9;
+      filter: drop-shadow(0 0 8px rgba(197, 168, 105, 0.5));
+    }
+
+    /* ==========================================
+       SCENE 02: DUAL INTENT & VALUES STRIP
+       ========================================== */
+    .intent-values-strip-section {
+      padding: 2.2rem 0;
+      background: linear-gradient(180deg, #071A14 0%, #0A2F24 50%, #071A14 100%);
+      position: relative;
+      z-index: 10;
+      margin-top: -1.5rem;
+    }
+
+    .intent-values-bar {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 2.5rem;
+      align-items: center;
+      background: rgba(13, 59, 46, 0.75);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(197, 168, 105, 0.35);
+      border-radius: 1.5rem;
+      padding: 1.8rem 2.4rem;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+    }
+
+    .needs-selector-side {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      text-align: right;
+    }
+
+    .needs-header .needs-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #DFC698;
+      margin: 0;
+    }
+
+    .needs-chips-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .need-chip-btn {
+      background: rgba(10, 47, 36, 0.75);
+      border: 1px solid rgba(197, 168, 105, 0.3);
+      border-radius: 9999px;
+      padding: 0.5rem 1.1rem;
+      color: #F4EEDD;
+      font-size: 0.88rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .need-chip-btn.active, .need-chip-btn:hover {
+      background: linear-gradient(135deg, #C5A869 0%, #A88944 100%);
+      color: #0A2F24;
+      border-color: #DFC698;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(197, 168, 105, 0.35);
+    }
+
+    .needs-cta-wrap {
+      margin-top: 0.3rem;
+    }
+
+    .btn-know-details {
+      background: transparent;
+      border: none;
+      color: #DFC698;
+      font-weight: 700;
+      font-size: 0.92rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      padding: 0.3rem 0;
+      transition: color 0.2s ease;
+    }
+
+    .btn-know-details:hover {
+      color: #FFE8B6;
+    }
+
+    .strip-vertical-divider {
+      width: 1px;
+      height: 85%;
+      background: linear-gradient(180deg, transparent 0%, rgba(197, 168, 105, 0.45) 50%, transparent 100%);
+    }
+
+    .service-philosophy-side {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      text-align: right;
+    }
+
+    .philosophy-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin: 0;
+    }
+
+    .philosophy-steps-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .phil-step-node {
+      background: rgba(10, 47, 36, 0.8);
+      border: 1px solid rgba(197, 168, 105, 0.3);
+      border-radius: 0.75rem;
+      padding: 0.45rem 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: #F4EEDD;
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .phil-arrow {
+      color: #C5A869;
+      font-weight: 900;
+      font-size: 1.15rem;
+    }
+
+    .philosophy-caption {
+      color: rgba(244, 238, 221, 0.8);
+      font-size: 0.88rem;
+      margin: 0;
+    }
+
+    /* ==========================================
+       SCENE 03: عوالم أم رهام (REALMS & ECOSYSTEM)
+       ========================================== */
+    .realms-section-cinematic {
+      padding: 4rem 0 5rem;
+      background: #071A14;
+      position: relative;
+    }
+
+    .realms-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.8rem;
+    }
+
+    .realms-main-title {
+      font-family: 'Amiri', serif;
+      font-size: clamp(2rem, 3.5vw, 2.5rem);
+      font-weight: 800;
+      color: #FFFFFF;
+      margin: 0;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    .realms-explore-link {
+      color: #DFC698;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: color 0.2s;
+    }
+
+    .realms-explore-link:hover {
+      color: #FFF0CF;
+    }
+
+    .realms-carousel-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .carousel-nav-btn {
+      position: absolute;
+      z-index: 10;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(13, 59, 46, 0.9);
+      backdrop-filter: blur(10px);
+      border: 1.5px solid rgba(197, 168, 105, 0.5);
+      color: #DFC698;
+      font-size: 1.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+    }
+
+    .carousel-nav-btn.prev-btn { left: -16px; }
+    .carousel-nav-btn.next-btn { right: -16px; }
+
+    .carousel-nav-btn:hover {
+      background: #C5A869;
+      color: #0A2F24;
+      transform: scale(1.1);
+    }
+
+    .realms-cards-track {
+      display: flex;
+      gap: 1.25rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+      scroll-behavior: smooth;
+      padding: 0.75rem 0.25rem;
+      width: 100%;
+    }
+
+    .realms-cards-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .realm-card-item {
+      flex: 0 0 215px;
+      background: rgba(13, 59, 46, 0.65);
+      backdrop-filter: blur(12px);
+      border: 1.5px solid rgba(197, 168, 105, 0.28);
+      border-radius: 1.25rem;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    }
+
+    .realm-card-item:hover, .realm-card-item.active {
+      border-color: #DFC698;
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.5), 0 0 20px rgba(197, 168, 105, 0.3);
+      background: rgba(20, 70, 55, 0.85);
+    }
+
+    .realm-card-image-wrap {
+      position: relative;
+      height: 160px;
+      overflow: hidden;
+    }
+
+    .realm-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .realm-card-item:hover .realm-card-img {
+      transform: scale(1.08);
+    }
+
+    .realm-image-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 35%, rgba(7, 26, 20, 0.95) 100%);
+    }
+
+    .realm-card-number {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(10, 47, 36, 0.85);
+      border: 1px solid #DFC698;
+      color: #DFC698;
+      font-weight: 800;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(8px);
+    }
+
+    .realm-card-info {
+      padding: 1rem;
+      text-align: right;
+    }
+
+    .realm-card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin: 0 0 0.3rem 0;
+    }
+
+    .realm-card-count {
+      font-size: 0.82rem;
+      color: #DFC698;
+      font-weight: 600;
+    }
+
+    /* ==========================================
+       DYNAMIC TRIAD GRID (3 CARDS)
+       ========================================== */
+    .dynamic-triad-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    @media (max-width: 992px) {
+      .dynamic-triad-grid {
+        grid-template-columns: 1fr;
+      }
+      .intent-values-bar {
+        grid-template-columns: 1fr;
+      }
+      .strip-vertical-divider {
+        display: none;
+      }
+    }
+
+    .triad-card {
+      background: rgba(13, 59, 46, 0.65);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(197, 168, 105, 0.3);
+      border-radius: 1.5rem;
+      padding: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 420px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      text-align: right;
+    }
+
+    .triad-card:hover {
+      border-color: rgba(197, 168, 105, 0.65);
+      transform: translateY(-4px);
+    }
+
+    /* Triad Card 1: Interactive Map */
+    .map-selector-card .triad-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin: 0 0 0.3rem;
+    }
+
+    .map-selector-card .triad-subtitle {
+      font-size: 0.88rem;
+      color: rgba(244, 238, 221, 0.75);
+      margin: 0 0 1rem;
+    }
+
+    .mini-holographic-map-box {
+      position: relative;
+      border-radius: 1rem;
+      overflow: hidden;
+      height: 220px;
+      background: #05140F;
+      border: 1px solid rgba(197, 168, 105, 0.2);
+    }
+
+    .mini-map-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+    }
+
+    .map-city-pin {
+      position: absolute;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transform: translate(50%, -50%);
+      z-index: 5;
+    }
+
+    .pin-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #C5A869;
+      display: block;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 0 10px #C5A869;
+      transition: all 0.25s ease;
+    }
+
+    .pin-pulse {
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 2px solid #DFC698;
+      animation: pinPulse 2s infinite;
+      opacity: 0;
+    }
+
+    @keyframes pinPulse {
+      0% { transform: scale(0.8); opacity: 0.8; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+
+    .map-city-pin.active .pin-dot {
+      background: #25D366;
+      box-shadow: 0 0 14px #25D366;
+      transform: scale(1.3);
+    }
+
+    .triad-city-picker-row {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+
+    .city-select-dropdown {
+      flex: 1;
+      background: rgba(10, 47, 36, 0.85);
+      border: 1px solid rgba(197, 168, 105, 0.4);
+      border-radius: 0.75rem;
+      color: #F4EEDD;
+      padding: 0.65rem 0.9rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      outline: none;
+    }
+
+    .btn-triad-action {
+      background: linear-gradient(135deg, #C5A869 0%, #A88944 100%);
+      color: #0A2F24;
+      border: none;
+      border-radius: 0.75rem;
+      padding: 0.65rem 1.1rem;
+      font-weight: 800;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-triad-action:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(197, 168, 105, 0.4);
+    }
+
+    /* Triad Card 2: City Spotlight */
+    .city-spotlight-card {
+      padding: 0;
+    }
+
+    .city-bg-image-wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+
+    .city-spotlight-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .city-bg-gradient-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10, 47, 36, 0.2) 0%, rgba(7, 26, 20, 0.94) 75%);
+    }
+
+    .city-spotlight-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 1rem;
+    }
+
+    .city-header-pill {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+    }
+
+    .city-name-big {
+      font-family: 'Amiri', serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: #FFFFFF;
+      margin: 0;
+    }
+
+    .city-region-tag {
+      color: #DFC698;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .city-counter-box {
+      background: rgba(10, 47, 36, 0.75);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(197, 168, 105, 0.35);
+      border-radius: 0.75rem;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+
+    .city-projects-num {
+      font-family: 'Amiri', serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #DFC698;
+    }
+
+    .city-projects-label {
+      color: #FFFFFF;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .btn-view-city-stories {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(10px);
+      border: 1px solid #DFC698;
+      color: #FFFFFF;
+      border-radius: 9999px;
+      padding: 0.75rem 1.4rem;
+      font-weight: 700;
+      font-size: 0.92rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .btn-view-city-stories:hover {
+      background: #C5A869;
+      color: #0A2F24;
+    }
+
+    /* Triad Card 3: Customer Testimonial & Audio Waveform */
+    .head-tag-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(37, 211, 102, 0.15);
+      border: 1px solid rgba(37, 211, 102, 0.4);
+      border-radius: 9999px;
+      padding: 0.35rem 0.85rem;
+      color: #25D366;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .live-pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #25D366;
+      animation: pinPulse 1.6s infinite;
+    }
+
+    .client-profile-row {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-top: 0.85rem;
+    }
+
+    .client-avatar-frame {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid #C5A869;
+      flex-shrink: 0;
+    }
+
+    .client-avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .client-meta-info h4 {
+      color: #FFFFFF;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin: 0 0 0.2rem;
+    }
+
+    .client-service-tag {
+      color: #DFC698;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .client-quote-text {
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: rgba(244, 238, 221, 0.92);
+      font-style: italic;
+      margin: 0.85rem 0;
+      text-align: right;
+    }
+
+    .audio-player-widget {
+      background: rgba(10, 47, 36, 0.85);
+      border: 1px solid rgba(197, 168, 105, 0.35);
+      border-radius: 1rem;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .btn-audio-toggle {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #C5A869;
+      color: #0A2F24;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+
+    .btn-audio-toggle:hover {
+      transform: scale(1.1);
+      background: #DFC698;
+    }
+
+    .btn-audio-toggle.playing {
+      background: #25D366;
+      color: #FFFFFF;
+    }
+
+    .audio-waveform-bar {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      height: 32px;
+    }
+
+    .wave-bar {
+      flex: 1;
+      width: 3px;
+      background: #DFC698;
+      border-radius: 3px;
+      transition: height 0.2s ease;
+      min-height: 4px;
+    }
+
+    .audio-waveform-bar.animating .wave-bar {
+      background: #25D366;
+    }
+
+    .audio-time-display {
+      font-family: monospace;
+      font-size: 0.82rem;
+      color: #DFC698;
+      font-weight: 700;
+    }
+
+    .transcript-link-row {
+      margin-top: 0.6rem;
+      text-align: left;
+    }
+
+    .link-read-transcript {
+      background: none;
+      border: none;
+      color: #DFC698;
+      font-size: 0.82rem;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    /* ==========================================
+       WORKFLOW STRIP & GUARANTEES
+       ========================================== */
+    .realms-workflow-strip {
+      background: rgba(13, 59, 46, 0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(197, 168, 105, 0.3);
+      border-radius: 1.5rem;
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 992px) {
+      .realms-workflow-strip {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .workflow-steps-nodes {
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+    }
+
+    .btn-ready-cta {
+      background: linear-gradient(135deg, #25D366 0%, #1EBE5D 100%);
+      color: #FFFFFF;
+      border-radius: 1.25rem;
+      padding: 0.85rem 1.6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 1rem;
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+
+    .btn-ready-cta:hover {
+      transform: scale(1.03);
+    }
+
+    .btn-ready-cta .cta-sub {
+      font-size: 0.75rem;
+      opacity: 0.9;
+      font-weight: 500;
+    }
+
+    .workflow-steps-nodes {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex: 1;
+      justify-content: space-around;
+    }
+
+    .wf-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      text-align: center;
+    }
+
+    .wf-circle {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(10, 47, 36, 0.9);
+      border: 1.5px solid #C5A869;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .wf-label {
+      color: #F4EEDD;
+      font-size: 0.78rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .wf-connector {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #C5A869, rgba(197, 168, 105, 0.2));
+      min-width: 15px;
+    }
+
+    .realms-guarantees-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10, 47, 36, 0.85);
+      border: 1px solid rgba(197, 168, 105, 0.3);
+      border-radius: 1.25rem;
+      padding: 1rem 1.8rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .guarantee-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #F4EEDD;
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+
+    .guarantee-icon {
+      font-size: 1.15rem;
+    }
+
+    .vision-item {
+      flex-direction: column;
+      align-items: flex-end;
+      border-right: 1px solid rgba(197, 168, 105, 0.3);
+      padding-right: 1rem;
+    }
+
+    .vision-logo-text {
+      font-weight: 900;
+      color: #DFC698;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+    }
+
+    .vision-sub {
+      font-size: 0.7rem;
+      color: rgba(244, 238, 221, 0.6);
+    }
+
+    /* ==========================================
+       FLOATING ELEMENTS (IMAGE 2)
+       ========================================== */
+    .floating-welcome-gift-capsule {
+      position: fixed;
+      top: 92px;
+      right: 24px;
+      z-index: 998;
+      background: linear-gradient(135deg, rgba(13, 59, 46, 0.95) 0%, rgba(10, 47, 36, 0.95) 100%);
+      border: 1.5px solid #DFC698;
+      border-radius: 9999px;
+      padding: 0.55rem 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5), 0 0 20px rgba(197, 168, 105, 0.3);
+      backdrop-filter: blur(14px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .floating-welcome-gift-capsule:hover {
+      transform: scale(1.05) translateY(-2px);
+      border-color: #FFE8B6;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.6), 0 0 25px rgba(197, 168, 105, 0.45);
+    }
+
+    .gift-icon-bounce {
+      font-size: 1.4rem;
+      animation: bounceGift 2s infinite ease-in-out;
+    }
+
+    @keyframes bounceGift {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    .gift-texts {
+      display: flex;
+      flex-direction: column;
+      text-align: right;
+    }
+
+    .gift-texts strong {
+      color: #DFC698;
+      font-size: 0.85rem;
+      font-weight: 800;
+    }
+
+    .gift-texts small {
+      color: #FFFFFF;
+      font-size: 0.72rem;
+    }
+
+    .floating-phone-trigger-btn {
+      position: fixed;
+      bottom: 85px;
+      left: 24px;
+      z-index: 998;
+      background: linear-gradient(135deg, #0D3B2E 0%, #0A2F24 100%);
+      border: 1.5px solid #C5A869;
+      border-radius: 9999px;
+      padding: 0.65rem 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5), 0 0 20px rgba(197, 168, 105, 0.25);
+      backdrop-filter: blur(14px);
+      color: #F4EEDD;
+      font-weight: 700;
+      font-size: 0.88rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .floating-phone-trigger-btn:hover {
+      transform: scale(1.05) translateY(-3px);
+      border-color: #DFC698;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.6), 0 0 25px rgba(197, 168, 105, 0.4);
+    }
+
+    .phone-3d-icon {
+      font-size: 1.25rem;
+    }
+
+    .hot-badge {
+      background: #E63946;
+      color: #FFFFFF;
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 0.15rem 0.45rem;
+      border-radius: 9999px;
+    }
+
+    .floating-accessibility-toolbar {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 997;
+    }
+
+    .toolbar-capsule-glass {
+      background: rgba(10, 47, 36, 0.88);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(197, 168, 105, 0.4);
+      border-radius: 9999px;
+      padding: 0.45rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), 0 0 20px rgba(197, 168, 105, 0.15);
+    }
+
+    .toolbar-theme-switch {
+      display: flex;
+      gap: 0.35rem;
+    }
+
+    .btn-theme-mode {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid transparent;
+      background: rgba(255,255,255,0.1);
+      color: #F4EEDD;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-theme-mode.active {
+      background: #C5A869;
+      color: #0A2F24;
+      border-color: #DFC698;
+      transform: scale(1.08);
+    }
+
+    .toolbar-divider {
+      width: 1px;
+      height: 22px;
+      background: rgba(197, 168, 105, 0.3);
+    }
+
+    .toolbar-comfort-label {
+      color: #DFC698;
+      font-size: 0.85rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .btn-motion-toggle {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(197, 168, 105, 0.3);
+      border-radius: 9999px;
+      padding: 0.35rem 0.85rem;
+      color: #F4EEDD;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-motion-toggle.active {
+      background: #E63946;
+      color: #FFFFFF;
+      border-color: #FFAAA6;
+    }
+
+    /* ==========================================
+       MODALS: SMARTPHONE 3D, VIDEO, COUPON, TRANSCRIPT
+       ========================================== */
+    .phone-modal-backdrop, .video-modal-backdrop, .coupon-modal-backdrop, .transcript-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(0, 0, 0, 0.82);
+      backdrop-filter: blur(14px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      animation: modalFadeIn 0.25s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .phone-modal-container {
+      position: relative;
+      perspective: 1200px;
+    }
+
+    .btn-close-phone, .btn-close-video, .btn-close-coupon, .btn-close-transcript {
+      position: absolute;
+      top: -15px;
+      right: -15px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #0A2F24;
+      border: 1.5px solid #DFC698;
+      color: #DFC698;
+      font-size: 1.1rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      transition: transform 0.2s;
+    }
+
+    .btn-close-phone:hover, .btn-close-video:hover, .btn-close-coupon:hover, .btn-close-transcript:hover {
+      transform: scale(1.1);
+      background: #C5A869;
+      color: #0A2F24;
+    }
+
+    /* 3D Hardware Smartphone Frame */
+    .iphone-hardware-frame {
+      width: 350px;
+      height: 690px;
+      background: #1C1F1E;
+      border: 4px solid #C5A869;
+      border-radius: 46px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.85), 0 0 45px rgba(197, 168, 105, 0.35), inset 0 0 10px rgba(0,0,0,0.9);
+      padding: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .iphone-screen {
+      width: 100%;
+      height: 100%;
+      background: #071A14;
+      border-radius: 36px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .ios-status-bar {
+      height: 38px;
+      padding: 0 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #F4EEDD;
+      font-size: 0.78rem;
+      font-weight: 700;
+      z-index: 10;
+      position: relative;
+    }
+
+    .dynamic-island-notch {
+      width: 90px;
+      height: 22px;
+      background: #000000;
+      border-radius: 9999px;
+      margin-top: 2px;
+    }
+
+    .phone-app-inner {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      scrollbar-width: none;
+    }
+
+    .phone-app-inner::-webkit-scrollbar {
+      display: none;
+    }
+
+    .phone-app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(197, 168, 105, 0.2);
+    }
+
+    .phone-menu-icon {
+      background: none;
+      border: none;
+      color: #DFC698;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .phone-app-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .app-title {
+      font-weight: 800;
+      color: #FFFFFF;
+      font-size: 0.88rem;
+    }
+
+    .app-sub {
+      color: #DFC698;
+      font-size: 0.68rem;
+    }
+
+    .phone-avatar-mini {
+      font-size: 1.2rem;
+    }
+
+    .phone-hero-banner {
+      position: relative;
+      height: 160px;
+      overflow: hidden;
+      border-radius: 1rem;
+      margin: 0.75rem;
+    }
+
+    .phone-hero-bg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .phone-hero-content {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 20%, rgba(10, 47, 36, 0.95) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0.85rem;
+      text-align: right;
+    }
+
+    .phone-hero-content h4 {
+      color: #FFFFFF;
+      font-weight: 800;
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    .phone-hero-content p {
+      color: #DFC698;
+      font-size: 0.75rem;
+      margin: 0.2rem 0 0;
+    }
+
+    .phone-specialization-box {
+      padding: 0.5rem 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .phone-select {
+      width: 100%;
+      background: rgba(10, 47, 36, 0.9);
+      border: 1px solid rgba(197, 168, 105, 0.4);
+      border-radius: 0.75rem;
+      color: #F4EEDD;
+      padding: 0.6rem 0.8rem;
+      font-size: 0.85rem;
+      outline: none;
+    }
+
+    .btn-phone-start {
+      width: 100%;
+      background: linear-gradient(135deg, #25D366 0%, #1EBE5D 100%);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 0.75rem;
+      padding: 0.65rem;
+      font-weight: 800;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .phone-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      padding: 0.5rem 0.75rem 1.5rem;
+    }
+
+    .stat-cell {
+      background: rgba(13, 59, 46, 0.6);
+      border: 1px solid rgba(197, 168, 105, 0.25);
+      border-radius: 0.75rem;
+      padding: 0.55rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .stat-cell strong {
+      color: #DFC698;
+      font-size: 1.15rem;
+      font-family: 'Amiri', serif;
+      margin: 0.15rem 0 0;
+    }
+
+    .stat-cell small {
+      color: #FFFFFF;
+      font-size: 0.72rem;
+    }
+
+    /* Video Showcase Modal */
+    .video-modal-container {
+      width: 92%;
+      max-width: 680px;
+      background: #071A14;
+      border: 1.5px solid #C5A869;
+      border-radius: 1.5rem;
+      padding: 1.75rem;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.85), 0 0 35px rgba(197, 168, 105, 0.35);
+      text-align: right;
+    }
+
+    .video-player-header h3 {
+      color: #FFFFFF;
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin: 0 0 0.3rem;
+    }
+
+    .video-player-header p {
+      color: #DFC698;
+      font-size: 0.88rem;
+      margin: 0;
+    }
+
+    .video-screen-simulation {
+      position: relative;
+      height: 320px;
+      border-radius: 1rem;
+      overflow: hidden;
+      margin: 1.25rem 0;
+      background: #000;
+    }
+
+    .video-poster-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.75;
+    }
+
+    .video-play-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-big-play-glow {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: #25D366;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      text-decoration: none;
+      box-shadow: 0 0 30px #25D366;
+      transition: transform 0.25s;
+    }
+
+    .btn-big-play-glow:hover {
+      transform: scale(1.15);
+    }
+
+    .video-timer-track {
+      position: absolute;
+      bottom: 0.75rem;
+      left: 1rem;
+      right: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .video-time {
+      color: #FFFFFF;
+      font-family: monospace;
+      font-size: 0.82rem;
+    }
+
+    .video-progress-bar {
+      flex: 1;
+      height: 4px;
+      background: rgba(255,255,255,0.25);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .video-fill-anim {
+      width: 45%;
+      height: 100%;
+      background: #DFC698;
+      animation: videoProgress 12s linear infinite;
+    }
+
+    @keyframes videoProgress {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+
+    .video-footer-cta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+    }
+
+    .btn-video-wa {
+      background: #25D366;
+      color: #FFFFFF;
+      padding: 0.65rem 1.4rem;
+      border-radius: 9999px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    /* Coupon Modal */
+    .coupon-modal-card {
+      width: 90%;
+      max-width: 440px;
+      background: #0A2F24;
+      border: 1.5px solid #DFC698;
+      border-radius: 1.5rem;
+      padding: 2rem;
+      position: relative;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.85), 0 0 30px rgba(197, 168, 105, 0.35);
+    }
+
+    .coupon-gift-icon {
+      font-size: 3.5rem;
+      animation: bounceGift 1.8s infinite;
+      margin-bottom: 0.5rem;
+    }
+
+    .coupon-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 0.5rem;
+    }
+
+    .coupon-desc {
+      color: rgba(244, 238, 221, 0.85);
+      font-size: 0.92rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .coupon-code-box {
+      background: rgba(13, 59, 46, 0.9);
+      border: 2px dashed #DFC698;
+      border-radius: 1rem;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      margin-bottom: 1.5rem;
+    }
+
+    .code-txt {
+      font-family: monospace;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #DFC698;
+      letter-spacing: 2px;
+    }
+
+    .btn-copy-code {
+      background: #C5A869;
+      color: #0A2F24;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.4rem 0.8rem;
+      font-weight: 800;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .btn-use-coupon-wa {
+      background: #25D366;
+      color: #FFFFFF;
+      padding: 0.85rem 1.5rem;
+      border-radius: 9999px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 1rem;
+      display: inline-block;
+      width: 100%;
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.35);
+    }
+
+    /* Transcript Modal */
+    .transcript-modal-card {
+      width: 90%;
+      max-width: 580px;
+      background: #0A2F24;
+      border: 1.5px solid #DFC698;
+      border-radius: 1.5rem;
+      padding: 2rem;
+      position: relative;
+      text-align: right;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.85);
+    }
+
+    .transcript-head {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(197, 168, 105, 0.3);
+      padding-bottom: 1rem;
+    }
+
+    .transcript-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 2px solid #C5A869;
+      object-fit: cover;
+    }
+
+    .transcript-head h4 {
+      color: #FFFFFF;
+      margin: 0 0 0.25rem;
+      font-size: 1.1rem;
+    }
+
+    .transcript-head p {
+      color: #DFC698;
+      margin: 0;
+      font-size: 0.85rem;
+    }
+
+    .transcript-body h5 {
+      color: #DFC698;
+      font-size: 0.95rem;
+      margin: 0 0 0.5rem;
+    }
+
+    .transcript-full-text {
+      font-size: 0.95rem;
+      line-height: 1.9;
+      color: rgba(244, 238, 221, 0.92);
+      margin: 1rem 0;
+    }
+
+    .btn-close-card {
+      background: #C5A869;
+      color: #0A2F24;
+      border: none;
+      border-radius: 0.75rem;
+      padding: 0.65rem 1.8rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    /* ==========================================
+       HERO CINEMATIC SECTION (ORIGINAL FALLBACK)
        ========================================== */
     .hero-cinematic-section {
       min-height: 100vh;
@@ -3064,10 +5321,12 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   api = inject(ApiService);
   audio = inject(AudioService);
+  themeService = inject(ThemeService);
   agentService = inject(SaudFarahAgentService);
   rewardsService = inject(RewardsService);
 
   @ViewChild('heroCanvas', { static: false }) heroCanvasRef!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('realmsTrack', { static: false }) realmsTrack!: ElementRef<HTMLDivElement>;
 
   services: ServiceItem[] = [];
   categories: Category[] = [];
@@ -3076,6 +5335,75 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedService: ServiceItem | null = null;
   isAddReviewModalOpen = false;
   isReviewPlaying = false;
+
+  // 60-Second Video Modal State
+  isVideoModalOpen = false;
+
+  // Floating 3D Phone Modal State
+  isPhoneModalOpen = false;
+  phoneSpecialization = 'all';
+
+  // Floating Welcome Coupon Modal State
+  isDiscountModalOpen = false;
+  couponCopied = false;
+
+  // Accessibility & Comfort Toolbar State
+  isReducedMotion = false;
+
+  // "وش تحتاج اليوم؟" Needs Chip State
+  selectedNeedId = 'research';
+  needsList = [
+    { id: 'research', name: 'بحث', icon: '📖', keyword: 'أبحاث' },
+    { id: 'uni', name: 'جامعة', icon: '🎓', keyword: 'ماجستير' },
+    { id: 'project', name: 'مشروع', icon: '💼', keyword: 'تخرج' },
+    { id: 'design', name: 'تصميم', icon: '🎨', keyword: 'تصميم' },
+    { id: 'programming', name: 'برمجة', icon: '💻', keyword: 'برمج' },
+    { id: 'cv', name: 'سيرة ذاتية', icon: '👤', keyword: 'سيرة' },
+    { id: 'other', name: 'شيء آخر', icon: '✨', keyword: 'استشارة' }
+  ];
+
+  // "عوالم أم رهام" Realms State
+  selectedRealmId = '01';
+  realmsList = [
+    { id: '01', number: '01', title: 'البحث والدراسات', count: '18 خدمة معتمدة', image: 'assets/images/saudi_researcher_testimonial.jpg', keyword: 'أبحاث' },
+    { id: '02', number: '02', title: 'التعليم والأكاديميا', count: '14 مساراً علمياً', image: 'assets/images/reham_avatar.jpg', keyword: 'ماجستير' },
+    { id: '03', number: '03', title: 'التقنية والبرمجة', count: '22 نظاماً وتقنية', image: 'assets/images/saud_3d.jpg', keyword: 'برمج' },
+    { id: '04', number: '04', title: 'التصميم والعروض', count: '16 مساراً سينمائياً', image: 'assets/images/farah_3d.jpg', keyword: 'تصميم' },
+    { id: '05', number: '05', title: 'العروض والتقارير', count: '12 تخصصاً تحليلياً', image: 'assets/images/saudi_hologram_map.jpg', keyword: 'عرض' },
+    { id: '06', number: '06', title: 'المسار المهني و ATS', count: '8 خدمات وظيفية', image: 'assets/images/reham_profile_luxury.jpg', keyword: 'سيرة' },
+    { id: '07', number: '07', title: 'المشاريع والتخرج', count: '25 مجالاً بحثياً', image: 'assets/images/saudi_panoramic_hero.jpg', keyword: 'تخرج' }
+  ];
+
+  // Dynamic Cities State
+  selectedCityId = 'taif';
+  citiesList = [
+    { id: 'taif', name: 'الطائف', region: 'مكة المكرمة', projectsCount: '+1,500', image: 'assets/images/taif_city_spotlight.jpg', mapTop: '60%', mapRight: '32%' },
+    { id: 'riyadh', name: 'الرياض', region: 'العاصمة', projectsCount: '+9,200', image: 'assets/images/saudi_panoramic_hero.jpg', mapTop: '48%', mapRight: '56%' },
+    { id: 'jeddah', name: 'جدة', region: 'عروس البحر الأحمر', projectsCount: '+4,800', image: 'assets/images/taif_city_spotlight.jpg', mapTop: '58%', mapRight: '22%' },
+    { id: 'dammam', name: 'الدمام والخبر', region: 'المنطقة الشرقية', projectsCount: '+3,400', image: 'assets/images/saudi_panoramic_hero.jpg', mapTop: '44%', mapRight: '76%' },
+    { id: 'makkah', name: 'مكة المكرمة', region: 'العاصمة المقدسة', projectsCount: '+2,900', image: 'assets/images/taif_city_spotlight.jpg', mapTop: '62%', mapRight: '26%' },
+    { id: 'madinah', name: 'المدينة المنورة', region: 'طيبة الطيبة', projectsCount: '+2,100', image: 'assets/images/saudi_panoramic_hero.jpg', mapTop: '42%', mapRight: '28%' },
+    { id: 'abha', name: 'أبها وعسير', region: 'المنطقة الجنوبية', projectsCount: '+1,200', image: 'assets/images/taif_city_spotlight.jpg', mapTop: '76%', mapRight: '36%' },
+    { id: 'qassim', name: 'القصيم وبريدة', region: 'منطقة القصيم', projectsCount: '+1,100', image: 'assets/images/saudi_panoramic_hero.jpg', mapTop: '38%', mapRight: '46%' },
+    { id: 'tabuk', name: 'تبوك ونيوم', region: 'المنطقة الشمالية', projectsCount: '+950', image: 'assets/images/saudi_panoramic_hero.jpg', mapTop: '26%', mapRight: '20%' }
+  ];
+
+  // Real Customer Audio Testimonial State
+  currentTestimonialData = {
+    clientName: 'أ. فهد العصيمي',
+    location: 'الطائف',
+    role: 'باحث أكاديمي',
+    service: 'إعداد رسالة ماجستير وتحليل إحصائي SPSS',
+    quote: 'تعامل راقٍ ودقة في المراجعة، وساعدوني أخرج ببحث احترافي فوق توقعاتي وتمت إجازته بامتياز مع مرتبة الشرف.',
+    avatar: 'assets/images/saudi_researcher_testimonial.jpg'
+  };
+
+  isAudioPlaying = false;
+  audioCurrentTime = 0;
+  audioDuration = 45;
+  audioTimerInterval: any = null;
+  audioWaveBars = Array.from({ length: 26 }, (_, i) => i);
+  isTranscriptOpen = false;
 
   // Active Theory Simulator State
   simulatorTab: 'quick' | 'calc' = 'quick';
@@ -3502,5 +5830,169 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       'تحليل إحصائي SPSS شامل وتفسير متقن للفرضيات 📊'
     ];
     return achievements[idx % achievements.length];
+  }
+
+  // 60-Second Video Modal Methods
+  openVideoModal(): void {
+    this.audio.playClick();
+    this.isVideoModalOpen = true;
+  }
+
+  closeVideoModal(): void {
+    this.audio.playClick();
+    this.isVideoModalOpen = false;
+  }
+
+  // Floating 3D Phone Modal Methods
+  openPhoneModal(): void {
+    this.audio.playClick();
+    this.isPhoneModalOpen = true;
+  }
+
+  closePhoneModal(): void {
+    this.audio.playClick();
+    this.isPhoneModalOpen = false;
+  }
+
+  startPhoneOrder(): void {
+    this.closePhoneModal();
+    const text = 'السلام عليكم ورحمة الله، أرغب بالاستفسار وطلب خدمة عبر تطبيق منصة أم رهام الذكي.';
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+  }
+
+  // Floating Welcome Coupon Modal Methods
+  openDiscountModal(): void {
+    this.audio.playSuccess();
+    this.isDiscountModalOpen = true;
+  }
+
+  closeDiscountModal(): void {
+    this.audio.playClick();
+    this.isDiscountModalOpen = false;
+  }
+
+  copyCouponCode(): void {
+    this.couponCopied = true;
+    this.audio.playSuccess();
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText('SAUDI2026');
+    }
+    setTimeout(() => this.couponCopied = false, 3000);
+  }
+
+  // Accessibility & Comfort Methods
+  toggleReducedMotion(): void {
+    this.isReducedMotion = !this.isReducedMotion;
+    this.audio.playClick();
+    if (typeof document !== 'undefined') {
+      if (this.isReducedMotion) {
+        document.body.classList.add('reduced-motion-mode');
+      } else {
+        document.body.classList.remove('reduced-motion-mode');
+      }
+    }
+  }
+
+  setDarkTheme(): void {
+    this.themeService.setTheme('emerald-night');
+    this.audio.playClick();
+  }
+
+  setEmeraldTheme(): void {
+    this.themeService.setTheme('emerald');
+    this.audio.playClick();
+  }
+
+  // "وش تحتاج اليوم؟" Needs Chip Methods
+  selectNeed(need: any): void {
+    this.selectedNeedId = need.id;
+    this.audio.playClick();
+    this.scrollToService(need.keyword);
+  }
+
+  openNeedDetails(): void {
+    this.audio.playClick();
+    const need = this.needsList.find(n => n.id === this.selectedNeedId) || this.needsList[0];
+    const text = `السلام عليكم ورحمة الله، أرغب بمعرفة تفاصيل مسار (${need.name}) عبر منصة أم رهام.`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+  }
+
+  // "عوالم أم رهام" Realms Slider Methods
+  scrollRealms(direction: 'prev' | 'next'): void {
+    this.audio.playClick();
+    if (this.realmsTrack && this.realmsTrack.nativeElement) {
+      const el = this.realmsTrack.nativeElement;
+      const scrollAmount = 260;
+      el.scrollBy({ left: direction === 'next' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
+    }
+  }
+
+  onSelectRealm(realm: any): void {
+    this.selectedRealmId = realm.id;
+    this.audio.playClick();
+    this.scrollToService(realm.keyword);
+  }
+
+  // Dynamic Cities Getter & Methods
+  get activeCityData() {
+    return this.citiesList.find(c => c.id === this.selectedCityId) || this.citiesList[0];
+  }
+
+  selectCity(cityId: string): void {
+    this.selectedCityId = cityId;
+    this.audio.playClick();
+  }
+
+  openCityDetails(): void {
+    this.audio.playClick();
+    const c = this.activeCityData;
+    const text = `السلام عليكم ورحمة الله، أنا من مدينة (${c.name}) وأرغب ببدء مشروعي وبحثي مع منصة أم رهام.`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+  }
+
+  // Customer Testimonial Audio Player Methods
+  toggleAudioPlayer(): void {
+    this.isAudioPlaying = !this.isAudioPlaying;
+    this.audio.playClick();
+
+    if (this.isAudioPlaying) {
+      if (this.audioTimerInterval) clearInterval(this.audioTimerInterval);
+      this.audioTimerInterval = setInterval(() => {
+        this.audioCurrentTime++;
+        if (this.audioCurrentTime >= this.audioDuration) {
+          this.audioCurrentTime = 0;
+          this.isAudioPlaying = false;
+          clearInterval(this.audioTimerInterval);
+        }
+      }, 1000);
+    } else {
+      if (this.audioTimerInterval) {
+        clearInterval(this.audioTimerInterval);
+      }
+    }
+  }
+
+  getWaveHeight(idx: number): number {
+    if (!this.isAudioPlaying) {
+      return 6 + ((idx * 5) % 18);
+    }
+    const seed = (idx * 7 + this.audioCurrentTime * 3) % 24;
+    return 6 + seed;
+  }
+
+  formatAudioTime(sec: number): string {
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return `${m}:${s < 10 ? '0' : ''}${s}`;
+  }
+
+  openTranscriptModal(): void {
+    this.audio.playClick();
+    this.isTranscriptOpen = true;
+  }
+
+  closeTranscriptModal(): void {
+    this.audio.playClick();
+    this.isTranscriptOpen = false;
   }
 }
