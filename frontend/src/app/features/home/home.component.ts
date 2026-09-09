@@ -42,26 +42,37 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
 
         <div class="container hero-content-container">
           
-          <!-- Balanced Centered Hero Stage: Centered Brand Text + Large Luxury Profile -->
-          <div class="hero-center-stage">
+          <!-- Unified Centered Hero Monument: Image and Details in the Center (مطابق تماماً لصورة المستخدم) -->
+          <div class="hero-unified-center-monument">
             
-            <!-- Side 1: Brand Content (Center-RTL aligned) -->
-            <div class="hero-brand-headline-wrap">
-              <!-- Sovereign Crest Tag -->
-              <div class="hero-sovereign-tag">
-                <span class="tag-flag">🇸🇦</span>
-                <span>المملكة العربية السعودية • المنصة التعليمية والأكاديمية الأولى</span>
+            <!-- 1. Circular Profile Emblem with Overlapping Graduation Badge -->
+            <div class="unified-avatar-wrapper">
+              <div class="unified-avatar-circle">
+                <img src="assets/images/profile.png" alt="أم رهام" class="unified-avatar-photo" />
               </div>
+              <!-- Graduation Cap Badge on Bottom Left -->
+              <div class="avatar-academic-badge" title="مستشار تعليمي معتمد">
+                <svg viewBox="0 0 24 24" width="26" height="26" fill="#DFC698" class="grad-cap-icon">
+                  <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+                </svg>
+              </div>
+            </div>
 
-              <!-- Majestic Brand Title -->
-              <h1 class="cinematic-hero-title">أم رهام</h1>
+            <!-- 2. The Text Details Directly Below and Centered -->
+            <div class="unified-hero-details">
+              
+              <!-- Name: ام رهام -->
+              <h1 class="unified-brand-name">ام رهام</h1>
+
+              <!-- Role: تعليم، مستشار تعليمي (نفس الصورة) -->
+              <div class="unified-brand-role">تعليم، مستشار تعليمي</div>
 
               <!-- Slogan with Gold Glow -->
               <h2 class="cinematic-hero-slogan">
                 معرفة تصنع الفرق، <span class="gold-slogan-accent">ودقة تبني الثقة.</span>
               </h2>
 
-              <!-- Subtext -->
+              <!-- Subtext Description -->
               <p class="cinematic-hero-subtext">
                 منصة سعودية رائدة في الخدمات التعليمية والبحثية، نجمع بين الأصالة والمعرفة لنحول أفكارك إلى إنجازات حقيقية معتمدة بأعلى المعايير الأكاديمية.
               </p>
@@ -81,32 +92,7 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
                   <span>استجابة خلال دقائق</span>
                 </div>
               </div>
-            </div>
 
-            <!-- Side 2: Large Luxury Profile Picture Showcase (صورة البروفيل حلوة وقوية وكبيرة) -->
-            <div class="hero-profile-side">
-              <div class="hero-profile-monument">
-                <!-- Glowing Ambient Aura Halo -->
-                <div class="profile-aura-halo"></div>
-                <!-- Dual Golden Frame Rings -->
-                <div class="profile-frame-rings">
-                  <div class="profile-image-wrap">
-                    <img src="assets/images/reham_profile_luxury.jpg" alt="بروفايل أم رهام" class="hero-reham-portrait" />
-                  </div>
-                </div>
-                <!-- Floating Luxury Badges -->
-                <div class="profile-float-badge top-badge">
-                  <span class="badge-icon">👑</span>
-                  <span>الهوية الرسمية المعتمدة</span>
-                </div>
-                <div class="profile-float-badge bottom-badge">
-                  <span class="badge-icon">🇸🇦</span>
-                  <span>منصة أم رهام • موثقة</span>
-                </div>
-                <div class="profile-micro-tag">
-                  <span>⭐ جودة 100%</span>
-                </div>
-              </div>
             </div>
 
           </div>
@@ -1101,184 +1087,106 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       width: 100%;
     }
 
-    /* Balanced Centered Hero Stage: Grid for Text and Large Profile */
-    .hero-center-stage {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
+    /* Unified Centered Hero Monument: Image and Details in Center (مطابق تماماً لصورة المستخدم) */
+    .hero-unified-center-monument {
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 3.5rem;
-      margin-top: auto;
-      margin-bottom: auto;
+      justify-content: center;
+      text-align: center;
+      margin: auto;
       padding: 1.5rem 0 2rem 0;
+      max-width: 820px;
       width: 100%;
+      z-index: 2;
     }
 
-    @media (max-width: 992px) {
-      .hero-center-stage {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 2.5rem;
-      }
-      .hero-brand-headline-wrap {
-        text-align: center !important;
-        margin: 0 auto;
-      }
-      .hero-cta-group {
-        justify-content: center;
-      }
-      .hero-profile-side {
-        order: -1;
-        margin: 0 auto;
-      }
-    }
-
-    .hero-sovereign-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(197, 168, 105, 0.15);
-      border: 1px solid rgba(197, 168, 105, 0.4);
-      padding: 0.35rem 0.95rem;
-      border-radius: 9999px;
-      color: #DFC698;
-      font-size: 0.84rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    }
-
-    .hero-brand-headline-wrap {
-      max-width: 780px;
-      text-align: right;
-    }
-
-    /* Large Luxury Profile Showcase Styling */
-    .hero-profile-side {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    /* 1. Circular Avatar with Graduation Badge (Exactly matching user screenshot) */
+    .unified-avatar-wrapper {
       position: relative;
-    }
-
-    .hero-profile-monument {
-      position: relative;
-      width: 360px;
-      height: 360px;
-      max-width: 85vw;
-      max-height: 85vw;
+      width: 210px;
+      height: 210px;
+      margin-bottom: 1.25rem;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .profile-aura-halo {
-      position: absolute;
-      inset: -25px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(197, 168, 105, 0.38) 0%, rgba(13, 59, 46, 0.55) 50%, transparent 75%);
-      filter: blur(28px);
-      animation: auraBreathe 6s ease-in-out infinite alternate;
-      pointer-events: none;
-    }
-
-    @keyframes auraBreathe {
-      0% { transform: scale(0.94); opacity: 0.65; }
-      100% { transform: scale(1.08); opacity: 1; }
-    }
-
-    .profile-frame-rings {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      padding: 7px;
-      background: linear-gradient(135deg, #FFF0CF 0%, #C5A869 35%, #0A2F24 70%, #DFC698 100%);
-      box-shadow: 0 25px 60px rgba(0,0,0,0.75), 0 0 40px rgba(197, 168, 105, 0.5);
-      transition: transform 0.4s ease;
-    }
-
-    .profile-image-wrap {
+    .unified-avatar-circle {
       width: 100%;
       height: 100%;
       border-radius: 50%;
       overflow: hidden;
-      border: 3px solid #0A2F24;
-      background: #0A2F24;
-      position: relative;
+      border: 4px solid #DFC698;
+      box-shadow: 0 16px 45px rgba(0,0,0,0.7), 0 0 35px rgba(197, 168, 105, 0.4);
+      background: #FFFFFF;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .hero-reham-portrait {
+    .unified-avatar-wrapper:hover .unified-avatar-circle {
+      transform: scale(1.035);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 45px rgba(197, 168, 105, 0.55);
+    }
+
+    .unified-avatar-photo {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transform: scale(1.02);
-      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      object-position: center 25%;
+      display: block;
     }
 
-    .hero-profile-monument:hover .hero-reham-portrait {
-      transform: scale(1.07);
-    }
-
-    .profile-float-badge {
+    .avatar-academic-badge {
       position: absolute;
-      background: rgba(10, 47, 36, 0.94);
-      backdrop-filter: blur(14px);
-      border: 1.2px solid #DFC698;
-      border-radius: 9999px;
-      padding: 0.4rem 1rem;
-      color: #F4EEDD;
-      font-size: 0.8rem;
-      font-weight: 700;
+      bottom: 5px;
+      left: 5px;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #0A2F24;
+      border: 2.5px solid #DFC698;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.65);
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.65), 0 0 18px rgba(197, 168, 105, 0.35);
-      white-space: nowrap;
+      justify-content: center;
       z-index: 5;
-      animation: floatBadge 4s ease-in-out infinite alternate;
+      transition: transform 0.25s ease;
     }
 
-    .profile-float-badge.top-badge {
-      top: -12px;
-      right: 12px;
+    .unified-avatar-wrapper:hover .avatar-academic-badge {
+      transform: scale(1.12);
     }
 
-    .profile-float-badge.bottom-badge {
-      bottom: -12px;
-      left: 12px;
-      animation-delay: -2s;
+    .grad-cap-icon {
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
     }
 
-    .profile-micro-tag {
-      position: absolute;
-      top: 50%;
-      right: -20px;
-      transform: translateY(-50%);
-      background: linear-gradient(135deg, #DFC698 0%, #C5A869 100%);
-      color: #0A2F24;
-      border-radius: 9999px;
-      padding: 0.28rem 0.75rem;
-      font-size: 0.74rem;
-      font-weight: 900;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
-      z-index: 5;
+    /* 2. Unified Hero Details */
+    .unified-hero-details {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 100%;
     }
 
-    @keyframes floatBadge {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-7px); }
-    }
-
-    .cinematic-hero-title {
+    .unified-brand-name {
       font-family: 'Amiri', 'Playfair Display', serif;
-      font-size: clamp(3rem, 6vw, 4.8rem);
+      font-size: clamp(2.8rem, 5.2vw, 4.4rem);
       font-weight: 900;
       color: #FFFFFF;
-      text-shadow: 0 4px 20px rgba(0,0,0,0.8), 0 0 35px rgba(197, 168, 105, 0.45);
-      margin: 0 0 0.5rem 0;
-      letter-spacing: -1px;
-      line-height: 1.1;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.85), 0 0 35px rgba(197, 168, 105, 0.45);
+      margin: 0 0 0.35rem 0;
+      line-height: 1.15;
+    }
+
+    .unified-brand-role {
+      font-size: clamp(1.15rem, 2vw, 1.45rem);
+      font-weight: 700;
+      color: #DFC698;
+      margin-bottom: 0.9rem;
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.65);
     }
 
     .cinematic-hero-slogan {
@@ -1303,15 +1211,18 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       color: rgba(244, 238, 221, 0.92);
       line-height: 1.8;
       max-width: 660px;
-      margin: 0 0 1.8rem 0;
+      margin: 0 auto 1.8rem auto;
+      text-align: center;
       text-shadow: 0 2px 8px rgba(0,0,0,0.8);
     }
 
     .hero-cta-group {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 1.25rem;
       flex-wrap: wrap;
+      margin: 0 auto;
     }
 
     .btn-cinematic-whatsapp {
