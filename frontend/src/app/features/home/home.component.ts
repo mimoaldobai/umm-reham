@@ -76,23 +76,6 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
               <p class="cinematic-hero-subtext">
                 منصة سعودية رائدة في الخدمات التعليمية والبحثية، نجمع بين الأصالة والمعرفة لنحول أفكارك إلى إنجازات حقيقية معتمدة بأعلى المعايير الأكاديمية.
               </p>
-
-              <!-- Primary CTA WhatsApp Button & Fast Response -->
-              <div class="hero-cta-group">
-                <a 
-                  href="https://wa.me/?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%20%D8%A3%D9%85%20%D8%B1%D9%87%D8%A7%D9%85" 
-                  target="_blank" 
-                  class="btn-cinematic-whatsapp" 
-                  (click)="onClick()">
-                  <span>ابدأ طلبك عبر واتساب</span>
-                  <span class="wa-icon-glow">💬</span>
-                </a>
-                <div class="response-speed-indicator">
-                  <span class="bolt-icon">⚡</span>
-                  <span>استجابة خلال دقائق</span>
-                </div>
-              </div>
-
             </div>
 
           </div>
@@ -143,109 +126,6 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
               <span>›</span>
             </button>
           </div>
-
-          <!-- Dynamic 3-Card Ecosystem Grid -->
-          <div class="dynamic-triad-grid">
-            
-            <!-- Card 1: Map & City Selector (أين تبدأ قصتك؟) -->
-            <div class="triad-card map-selector-card">
-              <div class="triad-card-head">
-                <h3 class="triad-title">أين تبدأ قصتك؟</h3>
-                <p class="triad-subtitle">اختر مدينتك واكتشف قصص عملائنا</p>
-              </div>
-
-              <div class="mini-holographic-map-box">
-                <img src="assets/images/saudi_hologram_map.jpg" alt="خريطة السعودية" class="mini-map-img" />
-                <!-- Glowing Interactive City Pins -->
-                <button 
-                  type="button" 
-                  *ngFor="let city of citiesList"
-                  class="map-city-pin" 
-                  [class.active]="selectedCityId === city.id"
-                  [style.top]="city.mapTop"
-                  [style.right]="city.mapRight"
-                  (click)="selectCity(city.id)"
-                  [title]="city.name">
-                  <span class="pin-pulse"></span>
-                  <span class="pin-dot"></span>
-                </button>
-              </div>
-
-              <div class="triad-city-picker-row">
-                <select class="city-select-dropdown" [ngModel]="selectedCityId" (ngModelChange)="selectCity($event)">
-                  <option *ngFor="let city of citiesList" [value]="city.id">{{ city.name }} ({{ city.region }})</option>
-                </select>
-                <button type="button" class="btn-triad-action" (click)="openCityDetails()">
-                  <span>استكشف الآن</span>
-                  <span class="action-arrow">←</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Card 2: Dynamic City Spotlight (الطائف / المدينة المختارة) -->
-            <div class="triad-card city-spotlight-card">
-              <div class="city-bg-image-wrap">
-                <img [src]="activeCityData.image" [alt]="activeCityData.name" class="city-spotlight-img" />
-                <div class="city-bg-gradient-overlay"></div>
-              </div>
-              <div class="city-spotlight-content">
-                <div class="city-header-pill">
-                  <h3 class="city-name-big">{{ activeCityData.name }}</h3>
-                  <span class="city-region-tag">{{ activeCityData.region }}</span>
-                </div>
-                <div class="city-counter-box">
-                  <span class="city-projects-num">{{ activeCityData.projectsCount }}</span>
-                  <span class="city-projects-label">قصص نجاح حقيقية من مدينتك</span>
-                </div>
-                <button type="button" class="btn-view-city-stories" (click)="scrollToService(activeCityData.name)">
-                  <span>مشاهدة القصص</span>
-                  <span class="stories-arrow">←</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Card 3: Real Client Testimonial with Audio Player -->
-            <div class="triad-card client-audio-testimonial-card">
-              <div class="triad-card-head">
-                <div class="head-tag-live">
-                  <span class="live-pulse-dot"></span>
-                  <span class="tag-text">قصة عميل حقيقي</span>
-                </div>
-              </div>
-
-              <div class="client-profile-row">
-                <div class="client-avatar-frame">
-                  <img [src]="currentTestimonialData.avatar" [alt]="currentTestimonialData.clientName" class="client-avatar-img" />
-                </div>
-                <div class="client-meta-info">
-                  <h4 class="client-city-role">{{ currentTestimonialData.location }} • {{ currentTestimonialData.role }}</h4>
-                  <span class="client-service-tag">{{ currentTestimonialData.service }}</span>
-                </div>
-              </div>
-
-              <blockquote class="client-quote-text">
-                "{{ currentTestimonialData.quote }}"
-              </blockquote>
-
-              <!-- Interactive Audio Equalizer & Wave Player -->
-              <div class="audio-player-widget">
-                <button type="button" class="btn-audio-toggle" [class.playing]="isAudioPlaying" (click)="toggleAudioPlayer()">
-                  <span class="audio-btn-icon">{{ isAudioPlaying ? '⏸' : '▶' }}</span>
-                </button>
-
-                <div class="audio-waveform-bar" [class.animating]="isAudioPlaying">
-                  <span *ngFor="let bar of audioWaveBars; let i = index" class="wave-bar" [style.height.px]="getWaveHeight(i)"></span>
-                </div>
-
-                <span class="audio-time-display">{{ formatAudioTime(audioCurrentTime) }} / {{ formatAudioTime(audioDuration) }}</span>
-              </div>
-
-              <div class="transcript-link-row">
-                <button type="button" class="link-read-transcript" (click)="openTranscriptModal()">اقرأ النص الكامل</button>
-              </div>
-            </div>
-
-          </div>
         </div>
       </section>
 
@@ -255,21 +135,6 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       <section class="smart-app-showcase-section" id="smart-app">
         <div class="smart-app-ambient-glow"></div>
         <div class="container">
-          
-          <!-- Section Header -->
-          <div class="smart-app-header-block">
-            <div class="app-tag-pill">
-              <span>📱</span>
-              <span>التحول الرقمي وتجربة الهاتف الذكي 3D</span>
-            </div>
-            <h2 class="app-section-title">
-              تطبيق منصة أم رهام الذكي <span class="gold-gradient-text">3D التفاعلي</span>
-            </h2>
-            <p class="app-section-sub">
-              واجهة تفاعلية ذكية تضع كافة الحلول الأكاديمية والبحثية بين يديك — تصفح الخدمات، اطلب فورياً، وتابع تقدم إنجازك بكل سلاسة وأمان
-            </p>
-          </div>
-
           <!-- Showcase Grid: Interactive Image Mockup + Features & Launch Action -->
           <div class="smart-app-showcase-grid">
             
@@ -316,16 +181,6 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
                     <p>خبرة معمقة في لوائح وشروط الدراسات العليا في جامعة الملك سعود، أم القرى، وغيرها.</p>
                   </div>
                 </div>
-              </div>
-
-              <!-- Launch Smart App Button -->
-              <div class="app-action-launch-box">
-                <button type="button" class="btn-launch-smart-app" (click)="openPhoneModal()">
-                  <span class="launch-icon">🚀</span>
-                  <span>افتح تطبيق المنصة الذكي 3D الآن</span>
-                  <span class="launch-arrow">←</span>
-                </button>
-                <span class="launch-hint-txt">💡 اضغط على الزر للدخول الفوري وتجربة الهاتف التفاعلي ثلاثي الأبعاد</span>
               </div>
 
             </div>
