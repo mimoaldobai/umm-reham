@@ -7,8 +7,6 @@ import { AudioService } from '../../core/services/audio.service';
 import { ThemeService } from '../../core/services/theme.service';
 import { SaudFarahAgentService } from '../../core/services/saud-farah-agent.service';
 import { RewardsService } from '../../core/services/rewards.service';
-import { SaudiMapCanvasComponent } from '../../shared/components/saudi-map-canvas/saudi-map-canvas.component';
-import { SaudFarahAgentComponent } from '../../shared/components/saud-farah-agent/saud-farah-agent.component';
 import { ServiceModalComponent } from '../../shared/components/service-modal/service-modal.component';
 import { AddReviewModalComponent } from '../../shared/components/add-review-modal/add-review-modal.component';
 
@@ -20,8 +18,6 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     CommonModule,
     FormsModule,
     RouterModule, 
-    SaudiMapCanvasComponent, 
-    SaudFarahAgentComponent, 
     ServiceModalComponent,
     AddReviewModalComponent
   ],
@@ -308,85 +304,6 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
               </div>
             </div>
 
-          </div>
-
-          <!-- Workflow Journey 6 Steps -->
-          <div class="realms-workflow-strip">
-            <div class="workflow-header-cta">
-              <a 
-                href="https://wa.me/?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%AC%D8%A7%D9%87%D8%B2%20%D8%A3%D8%A8%D8%AF%D8%A3%20%D9%85%D8%B9%20%D8%A3%D9%85%20%D8%B1%D9%87%D8%A7%D9%85" 
-                target="_blank" 
-                class="btn-ready-cta">
-                <span>جاهز تبدأ؟</span>
-                <span class="cta-sub">تواصل مع أم رهام الآن</span>
-                <span class="wa-bubble">💬</span>
-              </a>
-            </div>
-
-            <div class="workflow-steps-nodes">
-              <div class="wf-node">
-                <div class="wf-circle">💬</div>
-                <span class="wf-label">1. نستقبل فكرتك</span>
-              </div>
-              <div class="wf-connector"></div>
-
-              <div class="wf-node">
-                <div class="wf-circle">👥</div>
-                <span class="wf-label">2. نفهم احتياجك</span>
-              </div>
-              <div class="wf-connector"></div>
-
-              <div class="wf-node">
-                <div class="wf-circle">👤</div>
-                <span class="wf-label">3. نختار المختص</span>
-              </div>
-              <div class="wf-connector"></div>
-
-              <div class="wf-node">
-                <div class="wf-circle">✍️</div>
-                <span class="wf-label">4. يبدأ العمل</span>
-              </div>
-              <div class="wf-connector"></div>
-
-              <div class="wf-node">
-                <div class="wf-circle">📋</div>
-                <span class="wf-label">5. مراجعة دقيقة</span>
-              </div>
-              <div class="wf-connector"></div>
-
-              <div class="wf-node">
-                <div class="wf-circle">🎁</div>
-                <span class="wf-label">6. تسليم يليق بك</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- National Guarantees Bar -->
-          <div class="realms-guarantees-bar">
-            <div class="guarantee-item">
-              <span class="guarantee-icon">🛡️</span>
-              <span class="guarantee-text">سرية تامة وأمان للمعلومات</span>
-            </div>
-            <div class="guarantee-item">
-              <span class="guarantee-icon">👥</span>
-              <span class="guarantee-text">فريق أكاديمي متخصص</span>
-            </div>
-            <div class="guarantee-item">
-              <span class="guarantee-icon">🏅</span>
-              <span class="guarantee-text">جودة ودقة في كل خطوة</span>
-            </div>
-            <div class="guarantee-item">
-              <span class="guarantee-icon">⏱️</span>
-              <span class="guarantee-text">التزام بالمواعيد</span>
-            </div>
-            <div class="guarantee-item">
-              <span class="guarantee-icon">🎧</span>
-              <span class="guarantee-text">دعم بعد التسليم</span>
-            </div>
-            <div class="guarantee-item vision-item">
-              <span class="vision-logo-text">رؤية VISION 2030</span>
-              <span class="vision-sub">المملكة العربية السعودية</span>
-            </div>
           </div>
 
         </div>
@@ -764,156 +681,9 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       </section>
 
       <!-- ==========================================
-           SCENE 06: SAUDI DIGITAL NETWORK & MAP
+           SCENE 06: HOW IT WORKS (THE 6-STEP WORKFLOW JOURNEY)
            ========================================== -->
-      <section class="saudi-network-section section-padding bg-ivory-warm">
-        <div class="container">
-          <!-- Top Row: Info Column & 3D Hologram Map -->
-          <div class="network-grid">
-            <!-- Left Info Column -->
-            <div class="network-info-col">
-              <div class="badge-national-row">
-                <span class="badge-green">🇸🇦 شبكة التغطية الوطنية المتكاملة</span>
-                <span class="badge-cities-count">+40 مدينة ومحافظة</span>
-              </div>
-              <h2 class="network-heading">نخدم جميع مناطق <span class="green-gradient-text">المملكة العربية السعودية</span></h2>
-              <p class="network-desc">
-                أينما كنت في أرجاء وطننا الغالي، من الرياض وجدة إلى الطائف، مكة، الدمام، أبها، وتبوك، نصل إليك بأسرع وقت وأعلى دقة أكاديمية ومعايير عالمية.
-              </p>
-
-              <!-- National Network Quick Highlights -->
-              <div class="network-features-bullets">
-                <div class="bullet-item">
-                  <span class="bullet-icon">⚡</span>
-                  <div>
-                    <strong>استجابة وتنفيذ فوري</strong>
-                    <small>ربط مباشر مع باحثك الأكاديمي خلال دقائق معدودة</small>
-                  </div>
-                </div>
-                <div class="bullet-item">
-                  <span class="bullet-icon">🏛️</span>
-                  <div>
-                    <strong>تغطية لكافة الجامعات السعودية</strong>
-                    <small>مطابقة معايير عمادات الدراسات العليا والبحث العلمي</small>
-                  </div>
-                </div>
-                <div class="bullet-item">
-                  <span class="bullet-icon">🛡️</span>
-                  <div>
-                    <strong>فحص أصالة وضمان 0% استلال</strong>
-                    <small>تقرير Turnitin رسمي مع توثيق APA 7th وسرية تامة</small>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Direct City Consultation Pill Card -->
-              <div class="network-city-quote-card">
-                <div class="ncqc-text">
-                  <strong>هل تبحث عن خدمة في مدينتك أو جامعتك؟</strong>
-                  <small>مستشارونا متاحون للتواصل الفوري وتقديم خطة عمل مخصصة لجامعتك.</small>
-                </div>
-                <a 
-                  href="https://wa.me/?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D8%A3%D9%85%20%D8%B1%D9%87%D8%A7%D9%85%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%AE%D8%AF%D9%85%D8%A9%20%D8%A3%D9%83%D8%A7%D8%AF%D9%8A%D9%85%D9%8A%D8%A9%20%D9%81%D9%8A%20%D9%85%D8%AF%D9%8A%D9%86%D8%AA%D9%8A" 
-                  target="_blank" 
-                  class="ls-btn-green-pill" 
-                  (click)="onClick()">
-                  <span>اطلب الآن في منطقتك</span>
-                  <span class="btn-arrow-icon">💬</span>
-                </a>
-              </div>
-            </div>
-
-            <!-- Right Interactive Real Leaflet Map -->
-            <div class="network-map-col">
-              <app-saudi-map-canvas></app-saudi-map-canvas>
-            </div>
-          </div>
-
-          <!-- Bottom Row: LearnSpace-Grade Dynamic Verified Client Stories & Testimonials -->
-          <div class="client-story-wrapper-bottom">
-            
-            <!-- Metrics Summary Ribbon -->
-            <div class="testimonials-metrics-ribbon">
-              <div class="metric-ribbon-item">
-                <span class="rib-num gold-gradient-text">4.98 ★</span>
-                <span class="rib-label">متوسط تقييم الباحثين والطلاب</span>
-              </div>
-              <div class="metric-ribbon-item">
-                <span class="rib-num green-gradient-text">+25,000</span>
-                <span class="rib-label">طالب وباحث تم خدمتهم بنجاح</span>
-              </div>
-              <div class="metric-ribbon-item">
-                <span class="rib-num gold-gradient-text">0%</span>
-                <span class="rib-label">نسبة الاقتباس في فحص Turnitin</span>
-              </div>
-              <div class="metric-ribbon-item">
-                <span class="rib-num green-gradient-text">99.9%</span>
-                <span class="rib-label">الالتزام بمواعيد التسليم الدقيقة</span>
-              </div>
-            </div>
-
-            <div class="reviews-section-header">
-              <div class="reviews-title-block">
-                <span class="badge-green">آراء وتجارب موثقة</span>
-                <h3 class="reviews-heading">ماذا يقول باحثو وطلاب <span class="green-gradient-text">الجامعات السعودية</span> عنا؟</h3>
-              </div>
-              <button class="btn-saudi-primary btn-add-review" (click)="openAddReviewModal()">
-                <span>✍️ شاركنا رأيك وتجربتك الأكاديمية</span>
-              </button>
-            </div>
-
-            <!-- Dynamic Animated Interactive Review Cards Deck -->
-            <div class="testimonials-dynamic-grid">
-              <div *ngFor="let t of testimonials; let idx = index" class="learnspace-review-card glass-card-light" (mouseenter)="onHover()">
-                
-                <div class="review-top-meta">
-                  <div class="client-avatar-luxury">
-                    <div class="avatar-ring"></div>
-                    <span class="avatar-icon">{{ idx % 2 === 0 ? '👨‍🎓' : '👩‍🎓' }}</span>
-                    <span class="avatar-verified-check">✓</span>
-                  </div>
-                  
-                  <div class="client-details">
-                    <div class="client-name-row">
-                      <strong>{{ t.clientName }}</strong>
-                      <span class="verified-tag">✓ موثق واتساب</span>
-                    </div>
-                    <small class="client-sub">{{ t.clientTitle || t.clientUniversity || 'جامعة الملك سعود' }}</small>
-                  </div>
-
-                  <div class="rating-stars-gold">
-                    <span *ngFor="let star of [1,2,3,4,5]">{{ star <= (t.rating || 5) ? '★' : '☆' }}</span>
-                  </div>
-                </div>
-
-                <div class="review-achievement-badge">
-                  <span class="achieve-icon">🏆</span>
-                  <span>{{ getReviewAchievement(t, idx) }}</span>
-                </div>
-                
-                <p class="story-quote">"{{ t.contentAr }}"</p>
-
-                <div class="review-card-foot">
-                  <span *ngIf="t.city" class="city-pill">📍 {{ t.city }}</span>
-                  <button class="btn-voice-quote" (click)="toggleAudioReview()" title="استمع للتقييم الصوتي">
-                    <span>🎙️ استمع للتقييم</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ==========================================
-           SCENE 07: SAUD & FARAH SMART AGENTS
-           ========================================== -->
-      <app-saud-farah-agent></app-saud-farah-agent>
-
-      <!-- ==========================================
-           SCENE 08: HOW IT WORKS (WORKFLOW)
-           ========================================== -->
-      <section class="workflow-section section-padding bg-ivory-warm">
+      <section class="workflow-section section-padding bg-ivory-warm" id="workflow">
         <div class="container">
           <div class="section-badge-center">
             <span class="badge-gold">رحلة طلب سهلة ومضمونة</span>
@@ -925,50 +695,90 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
             <div class="timeline-step glass-panel">
               <div class="t-icon">💭</div>
               <div class="t-num">01</div>
-              <h4>نستقبل فكرتك</h4>
-              <p>تواصل معنا وزودنا بمتطلبات طلبك أو فكرتك الأكاديمية.</p>
+              <h4>1. نستقبل فكرتك</h4>
+              <p>تواصل معنا وزودنا بمتطلبات طلبك أو فكرتك الأكاديمية والبحثية.</p>
             </div>
 
             <div class="timeline-step glass-panel">
               <div class="t-icon">👥</div>
               <div class="t-num">02</div>
-              <h4>نفهم احتياجك</h4>
-              <p>نقوم بدراسة المتطلبات ووضع الخطة الزمنية والفنية للعمل.</p>
+              <h4>2. نفهم احتياجك</h4>
+              <p>نقوم بدراسة المتطلبات الجامعية ووضع الخطة الزمنية والفنية للعمل.</p>
             </div>
 
             <div class="timeline-step glass-panel">
               <div class="t-icon">🎓</div>
               <div class="t-num">03</div>
-              <h4>نختار المختص</h4>
-              <p>توجيه طلبك إلى مستشار متخصص وحامل مؤهل علمي في مجالك.</p>
+              <h4>3. نختار المختص</h4>
+              <p>توجيه طلبك إلى مستشار متخصص وحامل مؤهل علمي رفيع في مجالك.</p>
             </div>
 
             <div class="timeline-step glass-panel">
               <div class="t-icon">✍️</div>
               <div class="t-num">04</div>
-              <h4>يبدأ العمل</h4>
-              <p>تنفيذ العمل بأعلى معايير الدقة والتوثيق العلمي المعتمد.</p>
+              <h4>4. يبدأ العمل</h4>
+              <p>تنفيذ العمل بأعلى معايير الدقة والتوثيق العلمي المعتمد بنظام APA.</p>
             </div>
 
             <div class="timeline-step glass-panel">
               <div class="t-icon">📋</div>
               <div class="t-num">05</div>
-              <h4>مراجعة وتدقيق</h4>
-              <p>فحص لغوي ونسبة اقتباس وتأكد من مطابقة شروط جامعتك.</p>
+              <h4>5. مراجعة وتدقيق</h4>
+              <p>فحص لغوي ونسبة اقتباس Turnitin 0% وتأكد من مطابقة شروط جامعتك.</p>
             </div>
 
             <div class="timeline-step glass-panel highlighted">
               <div class="t-icon">🎁</div>
               <div class="t-num">06</div>
-              <h4>تسليم يليق بك</h4>
-              <p>استلام العمل في الموعد المحدد مع دعم وتعديلات مجانية.</p>
+              <h4>6. تسليم يليق بك</h4>
+              <p>استلام العمل في الموعد المحدد مع دعم وتعديلات مجانية مستمرة.</p>
             </div>
           </div>
         </div>
       </section>
 
       <!-- ==========================================
-           FINAL CTA BANNER
+           SCENE 07: SOVEREIGN GUARANTEES & SAUDI VISION 2030
+           ========================================== -->
+      <section class="guarantees-vision-section section-padding bg-deep-saudi">
+        <div class="container">
+          <div class="section-badge-center">
+            <span class="badge-gold">موثوقية وطنية معتمدة</span>
+            <h2 class="section-title">ضماناتنا <span class="gold-gradient-text">السيادية</span></h2>
+            <p class="section-desc">نلتزم بأعلى معايير الأمانة الأكاديمية والموثوقية الوطنية في كل مشروع بحثي.</p>
+          </div>
+
+          <div class="realms-guarantees-bar glass-card-luxury">
+            <div class="guarantee-item">
+              <span class="guarantee-icon">🛡️</span>
+              <span class="guarantee-text">سرية تامة وأمان للمعلومات</span>
+            </div>
+            <div class="guarantee-item">
+              <span class="guarantee-icon">👥</span>
+              <span class="guarantee-text">فريق أكاديمي متخصص</span>
+            </div>
+            <div class="guarantee-item">
+              <span class="guarantee-icon">🏅</span>
+              <span class="guarantee-text">جودة ودقة في كل خطوة</span>
+            </div>
+            <div class="guarantee-item">
+              <span class="guarantee-icon">⏱️</span>
+              <span class="guarantee-text">التزام صارم بالمواعيد</span>
+            </div>
+            <div class="guarantee-item">
+              <span class="guarantee-icon">🎧</span>
+              <span class="guarantee-text">دعم وتعديلات بعد التسليم</span>
+            </div>
+            <div class="guarantee-item vision-item">
+              <span class="vision-logo-text">رؤية VISION 2030</span>
+              <span class="vision-sub">المملكة العربية السعودية</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           SCENE 08: FINAL CTA BANNER
            ========================================== -->
       <section class="final-cta-section section-padding bg-ivory-surface">
         <div class="container">
@@ -1299,33 +1109,35 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 72vh;
+      min-height: calc(100vh - 6.5rem);
       width: 100%;
     }
 
     .hero-brand-headline-wrap {
       max-width: 820px;
       text-align: right;
-      margin-top: 1.5rem;
+      margin-top: auto;
+      margin-bottom: auto;
+      padding: 1.5rem 0;
     }
 
     .cinematic-hero-title {
       font-family: 'Amiri', 'Playfair Display', serif;
-      font-size: clamp(3.2rem, 6.8vw, 5.4rem);
+      font-size: clamp(3rem, 6vw, 4.8rem);
       font-weight: 900;
       color: #FFFFFF;
       text-shadow: 0 4px 20px rgba(0,0,0,0.8), 0 0 35px rgba(197, 168, 105, 0.45);
-      margin: 0 0 0.6rem 0;
+      margin: 0 0 0.5rem 0;
       letter-spacing: -1px;
       line-height: 1.1;
     }
 
     .cinematic-hero-slogan {
-      font-size: clamp(1.35rem, 2.7vw, 2.1rem);
+      font-size: clamp(1.3rem, 2.4vw, 1.95rem);
       font-weight: 700;
       color: #F4EEDD;
-      margin: 0 0 1.25rem 0;
-      line-height: 1.45;
+      margin: 0 0 1rem 0;
+      line-height: 1.4;
       text-shadow: 0 2px 10px rgba(0,0,0,0.7);
     }
 
@@ -1338,28 +1150,28 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     .cinematic-hero-subtext {
-      font-size: clamp(1rem, 1.3vw, 1.18rem);
+      font-size: clamp(0.95rem, 1.2vw, 1.12rem);
       color: rgba(244, 238, 221, 0.92);
       line-height: 1.8;
-      max-width: 680px;
-      margin: 0 0 2.2rem 0;
+      max-width: 660px;
+      margin: 0 0 1.8rem 0;
       text-shadow: 0 2px 8px rgba(0,0,0,0.8);
     }
 
     .hero-cta-group {
       display: inline-flex;
-      flex-direction: column;
-      gap: 0.65rem;
-      align-items: flex-start;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
     }
 
     .btn-cinematic-whatsapp {
       background: linear-gradient(135deg, #25D366 0%, #1EBE5D 100%);
       color: #FFFFFF;
-      padding: 0.95rem 2.2rem;
+      padding: 0.9rem 2.2rem;
       border-radius: 9999px;
       font-weight: 800;
-      font-size: 1.12rem;
+      font-size: 1.1rem;
       display: inline-flex;
       align-items: center;
       gap: 0.75rem;
@@ -1384,9 +1196,8 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       align-items: center;
       gap: 0.4rem;
       color: #DFC698;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       font-weight: 700;
-      padding-right: 0.5rem;
       text-shadow: 0 1px 6px rgba(0,0,0,0.7);
     }
 
@@ -1403,9 +1214,10 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     .hero-bottom-flanks {
       display: flex;
       justify-content: space-between;
-      align-items: flex-end;
-      margin-top: 3.5rem;
-      padding-bottom: 1.25rem;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 1rem;
+      padding-bottom: 0.5rem;
       gap: 1.5rem;
       flex-wrap: wrap;
     }
@@ -2338,40 +2150,40 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     /* ==========================================
-       FLOATING ELEMENTS (IMAGE 2)
+       FLOATING ELEMENTS (OPTIMIZED & HARMONIZED)
        ========================================== */
     .floating-welcome-gift-capsule {
       position: fixed;
-      top: 92px;
-      right: 24px;
-      z-index: 998;
-      background: linear-gradient(135deg, rgba(13, 59, 46, 0.95) 0%, rgba(10, 47, 36, 0.95) 100%);
-      border: 1.5px solid #DFC698;
+      bottom: 84px;
+      right: 20px;
+      z-index: 995;
+      background: linear-gradient(135deg, rgba(13, 59, 46, 0.96) 0%, rgba(10, 47, 36, 0.96) 100%);
+      border: 1.2px solid #DFC698;
       border-radius: 9999px;
-      padding: 0.55rem 1.2rem;
+      padding: 0.42rem 1rem;
       display: flex;
       align-items: center;
-      gap: 0.65rem;
+      gap: 0.55rem;
       cursor: pointer;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5), 0 0 20px rgba(197, 168, 105, 0.3);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.45), 0 0 15px rgba(197, 168, 105, 0.25);
       backdrop-filter: blur(14px);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .floating-welcome-gift-capsule:hover {
-      transform: scale(1.05) translateY(-2px);
+      transform: scale(1.04) translateY(-2px);
       border-color: #FFE8B6;
-      box-shadow: 0 14px 30px rgba(0,0,0,0.6), 0 0 25px rgba(197, 168, 105, 0.45);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.55), 0 0 20px rgba(197, 168, 105, 0.4);
     }
 
     .gift-icon-bounce {
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       animation: bounceGift 2s infinite ease-in-out;
     }
 
     @keyframes bounceGift {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-4px); }
+      50% { transform: translateY(-3px); }
     }
 
     .gift-texts {
@@ -2382,88 +2194,100 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
 
     .gift-texts strong {
       color: #DFC698;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 800;
+      line-height: 1.2;
     }
 
     .gift-texts small {
       color: #FFFFFF;
-      font-size: 0.72rem;
+      font-size: 0.68rem;
+      line-height: 1.2;
     }
 
     .floating-phone-trigger-btn {
       position: fixed;
-      bottom: 85px;
-      left: 24px;
-      z-index: 998;
+      bottom: 74px;
+      left: 20px;
+      z-index: 995;
       background: linear-gradient(135deg, #0D3B2E 0%, #0A2F24 100%);
-      border: 1.5px solid #C5A869;
+      border: 1.2px solid #C5A869;
       border-radius: 9999px;
-      padding: 0.65rem 1.3rem;
+      padding: 0.42rem 0.95rem;
       display: flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.5rem;
       cursor: pointer;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5), 0 0 20px rgba(197, 168, 105, 0.25);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.45), 0 0 15px rgba(197, 168, 105, 0.2);
       backdrop-filter: blur(14px);
       color: #F4EEDD;
       font-weight: 700;
-      font-size: 0.88rem;
+      font-size: 0.8rem;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .floating-phone-trigger-btn:hover {
-      transform: scale(1.05) translateY(-3px);
+      transform: scale(1.04) translateY(-2px);
       border-color: #DFC698;
-      box-shadow: 0 14px 30px rgba(0,0,0,0.6), 0 0 25px rgba(197, 168, 105, 0.4);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.55), 0 0 20px rgba(197, 168, 105, 0.35);
     }
 
     .phone-3d-icon {
-      font-size: 1.25rem;
+      font-size: 1.1rem;
     }
 
     .hot-badge {
       background: #E63946;
       color: #FFFFFF;
-      font-size: 0.68rem;
+      font-size: 0.64rem;
       font-weight: 800;
-      padding: 0.15rem 0.45rem;
+      padding: 0.12rem 0.4rem;
       border-radius: 9999px;
     }
 
     .floating-accessibility-toolbar {
       position: fixed;
-      bottom: 20px;
+      bottom: 12px;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 997;
+      z-index: 900;
+      pointer-events: none;
     }
 
     .toolbar-capsule-glass {
-      background: rgba(10, 47, 36, 0.88);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(197, 168, 105, 0.4);
+      pointer-events: auto;
+      background: rgba(10, 47, 36, 0.92);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(197, 168, 105, 0.35);
       border-radius: 9999px;
-      padding: 0.45rem 1.25rem;
+      padding: 0.28rem 0.9rem;
       display: flex;
       align-items: center;
-      gap: 1rem;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.5), 0 0 20px rgba(197, 168, 105, 0.15);
+      gap: 0.75rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.45), 0 0 15px rgba(197, 168, 105, 0.12);
+      opacity: 0.9;
+      transition: all 0.25s ease;
+    }
+
+    .toolbar-capsule-glass:hover {
+      opacity: 1;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.6), 0 0 20px rgba(197, 168, 105, 0.25);
     }
 
     .toolbar-theme-switch {
       display: flex;
-      gap: 0.35rem;
+      gap: 0.3rem;
     }
 
     .btn-theme-mode {
-      width: 32px;
-      height: 32px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       border: 1px solid transparent;
       background: rgba(255,255,255,0.1);
       color: #F4EEDD;
-      font-size: 0.95rem;
+      font-size: 0.8rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -2475,18 +2299,18 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       background: #C5A869;
       color: #0A2F24;
       border-color: #DFC698;
-      transform: scale(1.08);
+      transform: scale(1.05);
     }
 
     .toolbar-divider {
       width: 1px;
-      height: 22px;
+      height: 16px;
       background: rgba(197, 168, 105, 0.3);
     }
 
     .toolbar-comfort-label {
       color: #DFC698;
-      font-size: 0.85rem;
+      font-size: 0.74rem;
       font-weight: 700;
       white-space: nowrap;
     }
@@ -2495,13 +2319,13 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       background: rgba(255,255,255,0.08);
       border: 1px solid rgba(197, 168, 105, 0.3);
       border-radius: 9999px;
-      padding: 0.35rem 0.85rem;
+      padding: 0.22rem 0.7rem;
       color: #F4EEDD;
-      font-size: 0.8rem;
+      font-size: 0.72rem;
       font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.35rem;
       cursor: pointer;
       transition: all 0.2s;
     }

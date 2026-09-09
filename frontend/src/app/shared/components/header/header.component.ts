@@ -6,7 +6,6 @@ import { AuthService } from '../../../core/services/auth.service';
 import { ThemeService } from '../../../core/services/theme.service';
 import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.component';
 
-
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -20,7 +19,7 @@ import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.compone
           <div class="ls-brand-group">
             <a routerLink="/" class="ls-brand-logo" (click)="onNavClick()">
               <div class="ls-brand-quill-box">
-                <svg viewBox="0 0 32 32" fill="none" class="quill-gold-svg">
+                <svg viewBox="0 0 32 32" width="34" height="34" fill="none" class="quill-gold-svg">
                   <path d="M26 3C26 3 24 9 19 14C14 19 8 23 4 25C7 22 10 18 12 14C14 10 18 5 26 3Z" fill="#C5A869" stroke="#E6C88A" stroke-width="1.5"/>
                   <path d="M12 14L4 28L9 24" stroke="#C5A869" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M16 11C18 13 21 15 23 15" stroke="#0A2F24" stroke-width="1.2" stroke-linecap="round"/>
@@ -33,7 +32,7 @@ import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.compone
             </a>
           </div>
 
-          <!-- Desktop Navigation Links matching Image 1 -->
+          <!-- Desktop Navigation Links -->
           <nav class="ls-nav-links">
             <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (mouseenter)="onHover()" (click)="onNavClick()">الرئيسية</a>
             <a routerLink="/contact" routerLinkActive="active" (mouseenter)="onHover()" (click)="onNavClick()">من نحن</a>
@@ -44,7 +43,7 @@ import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.compone
             <a routerLink="/contact" routerLinkActive="active" (mouseenter)="onHover()" (click)="onNavClick()">تواصل معنا</a>
           </nav>
 
-          <!-- Header Actions matching Image 1 -->
+          <!-- Header Actions -->
           <div class="ls-header-actions">
             <!-- Green WhatsApp Contact Button -->
             <a href="https://wa.me/?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%20%D8%A3%D9%85%20%D8%B1%D9%87%D8%A7%D9%85" 
@@ -58,14 +57,6 @@ import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.compone
             <button type="button" class="ls-theme-moon-btn" (click)="toggleTheme()" [title]="themeService.currentTheme() === 'emerald-night' ? 'الوضع النهاري' : 'الوضع الليلي'">
               <span>{{ themeService.currentTheme() === 'emerald-night' ? '☀️' : '🌙' }}</span>
             </button>
-
-            <!-- Search Trigger Icon -->
-            <a href="#services-ecosystem" class="ls-search-icon-btn" title="البحث السريع عن خدمة">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-            </a>
 
             <!-- Admin Icon -->
             <button type="button" class="ls-btn-admin-icon" (click)="openAdminPortal()" title="لوحة التحكم">
@@ -109,12 +100,12 @@ import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.compone
       left: 0;
       right: 0;
       z-index: 1000;
-      padding: 0.9rem 0;
+      padding: 0.75rem 0;
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .ls-floating-header-wrapper.scrolled {
-      padding: 0.28rem 0;
+      padding: 0.35rem 0;
     }
 
     .ls-nav-container {
@@ -124,12 +115,12 @@ import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.compone
     }
 
     .ls-navbar-capsule {
-      background: rgba(10, 47, 36, 0.92);
+      background: rgba(10, 47, 36, 0.94);
       backdrop-filter: blur(20px);
       border-radius: 9999px;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(197, 168, 105, 0.15);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(197, 168, 105, 0.2);
       border: 1.5px solid rgba(197, 168, 105, 0.35);
-      padding: 0.5rem 1.4rem;
+      padding: 0.45rem 1.4rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -140,8 +131,8 @@ import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.compone
     .ls-floating-header-wrapper.scrolled .ls-navbar-capsule {
       padding: 0.35rem 1.1rem;
       gap: 0.8rem;
-      background: rgba(10, 47, 36, 0.96);
-      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
+      background: rgba(10, 47, 36, 0.98);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65);
       border-color: #C5A869;
     }
 
@@ -161,18 +152,21 @@ import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.compone
     }
 
     .ls-brand-quill-box {
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
+      max-width: 42px;
+      max-height: 42px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.08);
       border: 1.5px solid #C5A869;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 7px;
+      padding: 6px;
       box-shadow: 0 2px 10px rgba(197, 168, 105, 0.35);
       transition: all 0.3s ease;
       flex-shrink: 0;
+      overflow: hidden;
     }
 
     .ls-brand-logo:hover .ls-brand-quill-box {
@@ -182,10 +176,13 @@ import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.compone
     }
 
     .quill-gold-svg {
-      width: 100%;
-      height: 100%;
+      width: 32px;
+      height: 32px;
+      max-width: 32px;
+      max-height: 32px;
       display: block;
       filter: drop-shadow(0 2px 4px rgba(197, 168, 105, 0.4));
+      flex-shrink: 0;
     }
 
     .ls-brand-text {
@@ -195,19 +192,18 @@ import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.compone
     }
 
     .ls-brand-title {
-      font-size: 1.32rem;
-      font-weight: 800;
+      font-size: 1.35rem;
+      font-weight: 900;
       color: #FBF9F5;
       line-height: 1.1;
       letter-spacing: -0.5px;
-      font-family: inherit;
+      font-family: 'Amiri', serif;
     }
 
     .ls-brand-sub {
-      font-size: 0.68rem;
+      font-size: 0.7rem;
       color: #C5A869;
       font-weight: 700;
-      font-family: inherit;
     }
 
     /* Desktop Navigation Links */
@@ -256,17 +252,17 @@ import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.compone
     }
 
     .ls-btn-green-cta {
-      background: linear-gradient(135deg, #154737 0%, #0A2F24 100%);
-      border: 1.5px solid #C5A869;
+      background: linear-gradient(135deg, #25D366 0%, #1EBE5D 100%);
+      border: 1px solid rgba(255,255,255,0.25);
       color: #FFFFFF;
-      padding: 0.48rem 1.15rem;
+      padding: 0.5rem 1.25rem;
       border-radius: 9999px;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       font-weight: 800;
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      box-shadow: 0 4px 15px rgba(197, 168, 105, 0.25);
+      gap: 0.45rem;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35);
       transition: all 0.25s ease;
       text-decoration: none;
       white-space: nowrap;
@@ -274,10 +270,8 @@ import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.compone
 
     .ls-btn-green-cta:hover {
       transform: translateY(-2px);
-      background: linear-gradient(135deg, #1E5C46 0%, #0E3A2D 100%);
-      border-color: #E6C88A;
-      box-shadow: 0 6px 20px rgba(197, 168, 105, 0.45);
-      color: #FBF9F5;
+      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.55);
+      color: #FFFFFF;
     }
 
     .ls-theme-moon-btn {
@@ -301,7 +295,6 @@ import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.compone
       transform: scale(1.08);
     }
 
-    .ls-search-icon-btn,
     .ls-btn-admin-icon {
       width: 38px;
       height: 38px;
@@ -314,66 +307,12 @@ import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.compone
       color: #FBF9F5;
       cursor: pointer;
       transition: all 0.25s ease;
-      text-decoration: none;
+      font-size: 1rem;
     }
 
-    .ls-search-icon-btn:hover,
     .ls-btn-admin-icon:hover {
       background: rgba(197, 168, 105, 0.25);
       border-color: #C5A869;
-      transform: scale(1.06);
-    }
-      justify-content: center;
-      color: #1B4332;
-      transition: all 0.2s ease;
-    }
-
-    .ls-search-icon-btn:hover {
-      color: #C9A96E;
-      background: #F4EFE6;
-    }
-
-    /* Royal Green CTA Button */
-    .ls-btn-green-cta {
-      background: linear-gradient(135deg, #1B4332 0%, #0F2A1F 100%);
-      color: #FFFFFF;
-      border: 1px solid #C9A96E;
-      padding: 0.55rem 1.4rem;
-      border-radius: 9999px;
-      font-size: 0.88rem;
-      font-weight: 800;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 15px rgba(27, 67, 50, 0.25);
-      transition: all 0.25s ease;
-      white-space: nowrap;
-      cursor: pointer;
-    }
-
-    .ls-btn-green-cta:hover {
-      transform: translateY(-2px);
-      background: linear-gradient(135deg, #2D6A4F 0%, #1B4332 100%);
-      box-shadow: 0 6px 20px rgba(201, 169, 110, 0.35);
-      color: #DFC698;
-    }
-
-    .ls-btn-admin-icon {
-      background: #F4EFE6;
-      border: 1px solid rgba(201, 169, 110, 0.4);
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: all 0.2s;
-    }
-
-    .ls-btn-admin-icon:hover {
-      background: #E8DEC8;
       transform: rotate(45deg);
     }
 
@@ -395,13 +334,13 @@ import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.compone
       transition: 0.3s;
     }
 
-    /* Mobile Drawer */
+    /* Mobile Drawer - strictly hidden on desktop */
     .mobile-drawer {
       display: none;
     }
 
     @media (max-width: 992px) {
-      .nav-links, .action-btn.audio-btn, .admin-link {
+      .ls-nav-links, .ls-btn-green-cta, .ls-btn-admin-icon {
         display: none;
       }
       .mobile-menu-btn {
@@ -413,28 +352,37 @@ import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.compone
         top: 100%;
         left: 0;
         right: 0;
-        background: rgba(11, 28, 21, 0.98);
+        background: rgba(10, 47, 36, 0.98);
         backdrop-filter: blur(20px);
-        border-bottom: 1px solid rgba(201, 169, 110, 0.3);
+        border-bottom: 1px solid rgba(197, 168, 105, 0.3);
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.4s ease;
       }
       .mobile-drawer.open {
-        max-height: 400px;
+        max-height: 480px;
       }
       .mobile-nav-links {
         display: flex;
         flex-direction: column;
         padding: 1.5rem 2rem;
         gap: 1rem;
+        text-align: right;
       }
       .mobile-nav-links a {
         color: #F9F7F1;
-        font-size: 1.1rem;
-        font-weight: 500;
+        font-size: 1.05rem;
+        font-weight: 600;
         padding: 0.5rem 0;
-        border-bottom: 1px solid rgba(255,255,255,0.05);
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        text-decoration: none;
+      }
+      .mobile-theme-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #DFC698;
+        padding: 0.5rem 0;
       }
     }
   `]
@@ -474,10 +422,6 @@ export class HeaderComponent {
     }
   }
 
-  toggleSound(): void {
-    this.audio.toggleSound();
-  }
-
   onHover(): void {
     this.audio.playHover();
   }
@@ -496,4 +440,3 @@ export class HeaderComponent {
     this.audio.playClick();
   }
 }
-
