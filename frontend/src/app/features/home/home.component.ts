@@ -801,33 +801,6 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
         </div>
       </section>
 
-      <!-- ==========================================
-           SCENE 08: FINAL CTA BANNER
-           ========================================== -->
-      <section class="final-cta-section section-padding bg-ivory-surface">
-        <div class="container">
-          <div class="cta-luxury-box">
-            <div class="cta-text-content">
-              <span class="cta-badge">جاهز تبدأ قصة نجاحك؟</span>
-              <h2>تواصل مع <span class="green-gradient-text">أم رهام</span> الآن</h2>
-              <p>فريقنا الأكاديمي جاهز للرد على استفسارك ومساعدتك في إنجاز بحوثك ومشاريعك بأعلى درجات التميز.</p>
-            </div>
-            <div class="cta-actions">
-              <a 
-                href="https://wa.me/?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%20%D8%A3%D9%85%20%D8%B1%D9%87%D8%A7%D9%85" 
-                target="_blank" 
-                class="btn-saudi-primary btn-large"
-                (mouseenter)="onHover()"
-                (click)="onClick()">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
-                </svg>
-                <span>تواصل عبر واتساب الآن</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <!-- Active Service Detail Modal -->
       <app-service-modal 
