@@ -246,6 +246,8 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
             </div>
 
           </div>
+        </div>
+      </section>
 
       <!-- ==========================================
            SCENE: SMART PLATFORM APP SHOWCASE (تطبيق المنصة الذكي 3D التفاعلي)
@@ -336,15 +338,15 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       <!-- ==========================================
            SCENE 05: ACTIVE THEORY SPATIAL SIMULATOR & QUICK INTENT
            ========================================== -->
-      <section class="quick-intent-section section-padding bg-ivory-surface" id="quick-intent">
+      <section class="quick-intent-section section-padding bg-deep-saudi" id="quick-intent">
         <div class="container">
-          <div class="intent-banner glass-card-light tilt-card-3d" (mousemove)="onCardTilt($event)" (mouseleave)="onCardTiltReset($event)">
+          <div class="intent-banner glass-card-luxury-emerald tilt-card-3d" (mousemove)="onCardTilt($event)" (mouseleave)="onCardTiltReset($event)">
             <div class="intent-header">
               <div class="intent-tag-pill">
                 <span class="pulse-dot"></span>
                 <span>المحاكي الأكاديمي الذكي الفوري</span>
               </div>
-              <h3 class="intent-title">وش تحتاج اليوم؟ <span class="green-gradient-text">احسب وقدّر طلبك فوراً</span></h3>
+              <h3 class="intent-title">وش تحتاج اليوم؟ <span class="gold-gradient-text">احسب وقدّر طلبك فوراً</span></h3>
               <p class="intent-subtitle">اختر مسارك الأكاديمي أو حرك المؤشرات لحساب التكلفة والمدة والتواصل المباشر مع مستشارك المعتمد</p>
             </div>
 
@@ -509,94 +511,9 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       <section class="ecosystem-section section-padding bg-deep-saudi" id="services-ecosystem">
         <div class="container">
           <div class="section-badge-center">
-            <span class="badge-gold">منظومة الخدمات المتكاملة</span>
-            <h2 class="section-title">عوالم <span class="gold-gradient-text">أم رهام</span></h2>
-            <p class="section-desc">منظومة أكاديمية وبحثية شاملة تغطي كافة مراحل دراستك ومسيرتك المهنية.</p>
-          </div>
-
-          <!-- Visual Ecosystem Sequence Flow (Luxury Interactive Golden Conduit) -->
-          <div class="ecosystem-flow-roadmap">
-            <div class="roadmap-conduit-line">
-              <div class="conduit-pulse-beam"></div>
-            </div>
-            
-            <div class="roadmap-nodes-container">
-              <div class="roadmap-node" (mouseenter)="onHover()">
-                <div class="node-badge-wrapper">
-                  <div class="node-glow-ring"></div>
-                  <div class="node-icon-box">💡</div>
-                  <span class="node-step-tag">01</span>
-                </div>
-                <div class="node-content">
-                  <strong class="node-title">فكرة</strong>
-                  <span class="node-sub">بلورة وتخطيط</span>
-                </div>
-              </div>
-
-              <div class="roadmap-connector">
-                <span class="connector-arrow">«</span>
-              </div>
-
-              <div class="roadmap-node" (mouseenter)="onHover()">
-                <div class="node-badge-wrapper">
-                  <div class="node-glow-ring"></div>
-                  <div class="node-icon-box">📝</div>
-                  <span class="node-step-tag">02</span>
-                </div>
-                <div class="node-content">
-                  <strong class="node-title">بحث</strong>
-                  <span class="node-sub">جمع وتحليل</span>
-                </div>
-              </div>
-
-              <div class="roadmap-connector">
-                <span class="connector-arrow">«</span>
-              </div>
-
-              <div class="roadmap-node" (mouseenter)="onHover()">
-                <div class="node-badge-wrapper">
-                  <div class="node-glow-ring"></div>
-                  <div class="node-icon-box">⚙️</div>
-                  <span class="node-step-tag">03</span>
-                </div>
-                <div class="node-content">
-                  <strong class="node-title">تطوير</strong>
-                  <span class="node-sub">صياغة وتنفيذ</span>
-                </div>
-              </div>
-
-              <div class="roadmap-connector">
-                <span class="connector-arrow">«</span>
-              </div>
-
-              <div class="roadmap-node" (mouseenter)="onHover()">
-                <div class="node-badge-wrapper">
-                  <div class="node-glow-ring"></div>
-                  <div class="node-icon-box">🔍</div>
-                  <span class="node-step-tag">04</span>
-                </div>
-                <div class="node-content">
-                  <strong class="node-title">تدقيق</strong>
-                  <span class="node-sub">مراجعة وفحص</span>
-                </div>
-              </div>
-
-              <div class="roadmap-connector">
-                <span class="connector-arrow">«</span>
-              </div>
-
-              <div class="roadmap-node highlighted" (mouseenter)="onHover()">
-                <div class="node-badge-wrapper">
-                  <div class="node-glow-ring gold-pulse"></div>
-                  <div class="node-icon-box gold-box">🏆</div>
-                  <span class="node-step-tag gold-tag">05</span>
-                </div>
-                <div class="node-content">
-                  <strong class="node-title gold-gradient-text">إنجاز ونجاح</strong>
-                  <span class="node-sub">تسليم واعتماد</span>
-                </div>
-              </div>
-            </div>
+            <span class="badge-gold">دليل المقررات والخدمات المعتمدة</span>
+            <h2 class="section-title">منظومة الأبحاث <span class="gold-gradient-text">والدراسات العليا</span></h2>
+            <p class="section-desc">تصفح كافة التخصصات والمسارات الأكاديمية المدعومة بإشراف نخبة من المستشارين المعتمدين.</p>
           </div>
 
           <!-- Category Filter Ribbon -->
@@ -707,55 +624,55 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       <!-- ==========================================
            SCENE 06: HOW IT WORKS (THE 6-STEP WORKFLOW JOURNEY)
            ========================================== -->
-      <section class="workflow-section section-padding bg-ivory-warm" id="workflow">
+      <section class="workflow-section section-padding bg-deep-saudi" id="workflow">
         <div class="container">
           <div class="section-badge-center">
             <span class="badge-gold">رحلة طلب سهلة ومضمونة</span>
-            <h2 class="section-title">كيف نعمل <span class="green-gradient-text">معك؟</span></h2>
-            <p class="section-desc">خطوات سلسة وواضحة من لحظة استقبال فكرتك حتى استلام عمل أكاديمي متقن يليق بك.</p>
+            <h2 class="section-title">مسار الرحلة الأكاديمية: <span class="gold-gradient-text">كيف نعمل معك؟</span></h2>
+            <p class="section-desc">خطوات سلسة وواضحة وموثوقة من لحظة استقبال فكرتك حتى استلام عمل أكاديمي متقن يليق بك.</p>
           </div>
 
           <div class="steps-timeline-grid">
-            <div class="timeline-step glass-panel">
+            <div class="timeline-step glass-card-step" (mouseenter)="onHover()">
+              <div class="step-num-pill">01</div>
               <div class="t-icon">💭</div>
-              <div class="t-num">01</div>
               <h4>1. نستقبل فكرتك</h4>
               <p>تواصل معنا وزودنا بمتطلبات طلبك أو فكرتك الأكاديمية والبحثية.</p>
             </div>
 
-            <div class="timeline-step glass-panel">
+            <div class="timeline-step glass-card-step" (mouseenter)="onHover()">
+              <div class="step-num-pill">02</div>
               <div class="t-icon">👥</div>
-              <div class="t-num">02</div>
               <h4>2. نفهم احتياجك</h4>
               <p>نقوم بدراسة المتطلبات الجامعية ووضع الخطة الزمنية والفنية للعمل.</p>
             </div>
 
-            <div class="timeline-step glass-panel">
+            <div class="timeline-step glass-card-step" (mouseenter)="onHover()">
+              <div class="step-num-pill">03</div>
               <div class="t-icon">🎓</div>
-              <div class="t-num">03</div>
               <h4>3. نختار المختص</h4>
               <p>توجيه طلبك إلى مستشار متخصص وحامل مؤهل علمي رفيع في مجالك.</p>
             </div>
 
-            <div class="timeline-step glass-panel">
+            <div class="timeline-step glass-card-step" (mouseenter)="onHover()">
+              <div class="step-num-pill">04</div>
               <div class="t-icon">✍️</div>
-              <div class="t-num">04</div>
               <h4>4. يبدأ العمل</h4>
               <p>تنفيذ العمل بأعلى معايير الدقة والتوثيق العلمي المعتمد بنظام APA.</p>
             </div>
 
-            <div class="timeline-step glass-panel">
+            <div class="timeline-step glass-card-step" (mouseenter)="onHover()">
+              <div class="step-num-pill">05</div>
               <div class="t-icon">📋</div>
-              <div class="t-num">05</div>
               <h4>5. مراجعة وتدقيق</h4>
               <p>فحص لغوي ونسبة اقتباس Turnitin 0% وتأكد من مطابقة شروط جامعتك.</p>
             </div>
 
-            <div class="timeline-step glass-panel highlighted">
-              <div class="t-icon">🎁</div>
-              <div class="t-num">06</div>
-              <h4>6. تسليم يليق بك</h4>
-              <p>استلام العمل في الموعد المحدد مع دعم وتعديلات مجانية مستمرة.</p>
+            <div class="timeline-step glass-card-step highlighted" (mouseenter)="onHover()">
+              <div class="step-num-pill gold-pill">06</div>
+              <div class="t-icon gold-glow">🎁</div>
+              <h4 class="gold-gradient-text">6. تسليم يليق بك</h4>
+              <p>استلام العمل في الموعد المحدد مع دعم وتعديلات مجانية ومستمرة.</p>
             </div>
           </div>
         </div>
@@ -2169,8 +2086,9 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
        ========================================== */
     .floating-welcome-gift-capsule {
       position: fixed;
-      bottom: 84px;
-      right: 20px;
+      bottom: 24px;
+      left: 24px;
+      right: auto;
       z-index: 995;
       background: linear-gradient(135deg, rgba(13, 59, 46, 0.96) 0%, rgba(10, 47, 36, 0.96) 100%);
       border: 1.2px solid #DFC698;
@@ -3616,9 +3534,10 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       padding: 2.5rem;
       border-radius: var(--radius-xl);
       position: relative;
-      background: #FFFFFF;
-      box-shadow: 0 20px 50px rgba(11, 28, 21, 0.08);
-      border: 1.5px solid rgba(212, 175, 55, 0.35);
+      background: linear-gradient(135deg, rgba(13, 59, 46, 0.85) 0%, rgba(7, 26, 20, 0.95) 100%);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(223, 198, 152, 0.2);
+      border: 1.5px solid rgba(223, 198, 152, 0.35);
+      backdrop-filter: blur(20px);
     }
 
     .intent-header {
@@ -3630,12 +3549,12 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       display: inline-flex;
       align-items: center;
       gap: 0.45rem;
-      background: rgba(16, 185, 129, 0.12);
-      border: 1px solid rgba(16, 185, 129, 0.35);
-      color: #0F5132;
-      padding: 0.3rem 0.9rem;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #34D399;
+      padding: 0.35rem 1rem;
       border-radius: 20px;
-      font-size: 0.76rem;
+      font-size: 0.78rem;
       font-weight: 700;
       margin-bottom: 0.6rem;
     }
@@ -3655,98 +3574,106 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     .intent-title {
-      font-size: 1.75rem;
-      color: #112A1F;
-      margin-bottom: 0.3rem;
+      font-size: 1.9rem;
+      color: #FFFFFF;
+      margin-bottom: 0.4rem;
       font-weight: 800;
     }
 
     .intent-subtitle {
-      color: #5C6E66;
-      font-size: 0.92rem;
+      color: #CBD5E1;
+      font-size: 0.95rem;
     }
 
     .simulator-mode-switch {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.6rem;
-      margin-bottom: 1.8rem;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
       flex-wrap: wrap;
     }
 
     .mode-btn {
-      padding: 0.65rem 1.4rem;
+      padding: 0.7rem 1.5rem;
       border-radius: 30px;
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       font-weight: 700;
-      border: 1.5px solid rgba(212, 175, 55, 0.3);
-      background: rgba(11, 28, 21, 0.04);
-      color: #1B4332;
+      border: 1.5px solid rgba(223, 198, 152, 0.3);
+      background: rgba(13, 59, 46, 0.65);
+      color: #E2E8F0;
       cursor: pointer;
-      transition: all 0.25s;
+      backdrop-filter: blur(10px);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       font-family: inherit;
     }
 
     .mode-btn:hover {
-      background: rgba(212, 175, 55, 0.12);
-      border-color: #D4AF37;
+      background: rgba(20, 75, 58, 0.85);
+      border-color: #DFC698;
+      color: #FFFFFF;
+      transform: translateY(-2px);
     }
 
     .mode-btn.active {
-      background: linear-gradient(135deg, #1B4332 0%, #0F2A1F 100%);
-      color: #FFFFFF;
-      border-color: #D4AF37;
-      box-shadow: 0 6px 20px rgba(27, 67, 50, 0.25);
+      background: linear-gradient(135deg, #DFC698 0%, #C5A869 100%);
+      color: #071A14;
+      border-color: #FFE8B6;
+      font-weight: 800;
+      box-shadow: 0 6px 20px rgba(223, 198, 152, 0.35);
     }
 
     .intent-options-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap: 1rem;
+      gap: 1.1rem;
     }
 
     .intent-card {
-      background: #FFFFFF;
-      border: 1.5px solid rgba(201, 169, 110, 0.25);
-      border-radius: var(--radius-md);
-      padding: 1.2rem 1rem;
+      background: rgba(13, 59, 46, 0.6);
+      border: 1.5px solid rgba(223, 198, 152, 0.25);
+      border-radius: 20px;
+      padding: 1.4rem 1.1rem;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      gap: 0.6rem;
+      gap: 0.65rem;
       cursor: pointer;
+      backdrop-filter: blur(12px);
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     .intent-card:hover {
-      transform: translateY(-5px);
-      border-color: #C9A96E;
-      box-shadow: 0 10px 25px rgba(27, 67, 50, 0.1);
+      transform: translateY(-6px);
+      border-color: #DFC698;
+      background: rgba(20, 75, 58, 0.8);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45), 0 0 20px rgba(197, 168, 105, 0.2);
     }
 
     .intent-icon {
-      font-size: 2rem;
+      font-size: 2.2rem;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
     }
 
     .intent-text strong {
       display: block;
-      color: #1B4332;
-      font-size: 0.96rem;
-      margin-bottom: 2px;
+      color: #FFFFFF;
+      font-size: 1rem;
+      margin-bottom: 3px;
       font-weight: 700;
     }
 
     .intent-text small {
-      color: #7A8C84;
-      font-size: 0.75rem;
-      line-height: 1.3;
+      color: #94A3B8;
+      font-size: 0.78rem;
+      line-height: 1.35;
     }
 
     .intent-card.cta-intent {
-      background: linear-gradient(135deg, #1B4332 0%, #0F2A1F 100%);
-      border-color: #C9A96E;
+      background: linear-gradient(135deg, rgba(20, 75, 58, 0.9) 0%, rgba(13, 59, 46, 0.95) 100%);
+      border-color: #DFC698;
+      box-shadow: 0 0 20px rgba(223, 198, 152, 0.2);
     }
 
     .intent-card.cta-intent .intent-text strong {
@@ -3754,17 +3681,18 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     .intent-card.cta-intent .intent-text small {
-      color: #FFFFFF;
+      color: #F1F5F9;
     }
 
-    /* Active Theory Interactive Simulator Box (Luxury Light Royal Green & Gold) */
+    /* Active Theory Interactive Simulator Box (Luxury Emerald & Champagne Gold) */
     .interactive-calc-box {
-      background: #FFFFFF;
-      border: 1.5px solid rgba(201, 169, 110, 0.4);
+      background: rgba(10, 42, 33, 0.7);
+      border: 1.5px solid rgba(223, 198, 152, 0.35);
       border-radius: 20px;
       padding: 2.2rem 2.4rem;
-      color: #0B2516;
-      box-shadow: 0 15px 45px rgba(27, 67, 50, 0.08);
+      color: #FFFFFF;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(14px);
       display: flex;
       flex-direction: column;
       gap: 1.8rem;
@@ -3792,8 +3720,8 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     .calc-label {
-      font-size: 0.88rem;
-      color: #1B4332;
+      font-size: 0.9rem;
+      color: #DFC698;
       font-weight: 800;
     }
 
@@ -3804,12 +3732,12 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     .calc-pill {
-      background: #F8F5EE;
-      border: 1.5px solid rgba(201, 169, 110, 0.35);
-      color: #1B4332;
-      padding: 0.5rem 1rem;
+      background: rgba(13, 59, 46, 0.7);
+      border: 1.5px solid rgba(223, 198, 152, 0.28);
+      color: #E2E8F0;
+      padding: 0.55rem 1.1rem;
       border-radius: 20px;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -3817,16 +3745,18 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     .calc-pill:hover {
-      background: #EFE8DA;
-      border-color: #C9A96E;
+      background: rgba(20, 75, 58, 0.85);
+      border-color: #DFC698;
+      color: #FFFFFF;
       transform: translateY(-2px);
     }
 
     .calc-pill.selected {
-      background: linear-gradient(135deg, #1B4332 0%, #0F2A1F 100%);
-      color: #FFFFFF;
-      border-color: #C9A96E;
-      box-shadow: 0 4px 15px rgba(27, 67, 50, 0.25);
+      background: linear-gradient(135deg, #DFC698 0%, #C5A869 100%);
+      color: #071A14;
+      border-color: #FFE8B6;
+      font-weight: 800;
+      box-shadow: 0 4px 15px rgba(223, 198, 152, 0.3);
     }
 
     .calc-pill.urgent.selected {
@@ -3842,19 +3772,20 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     .slider-val-badge {
-      background: rgba(201, 169, 110, 0.15);
-      border: 1.5px solid #C9A96E;
-      color: #8C6F32;
-      padding: 3px 12px;
+      background: rgba(223, 198, 152, 0.18);
+      border: 1.5px solid #DFC698;
+      color: #FFE8B6;
+      padding: 4px 14px;
       border-radius: 12px;
-      font-size: 0.88rem;
+      font-size: 0.92rem;
       font-weight: 800;
+      box-shadow: 0 0 12px rgba(223, 198, 152, 0.2);
     }
 
     .range-slider-wrapper {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.65rem;
     }
 
     .active-range-input {
@@ -3862,7 +3793,8 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       width: 100%;
       height: 8px;
       border-radius: 4px;
-      background: #EAE2D2;
+      background: rgba(13, 59, 46, 0.85);
+      border: 1px solid rgba(223, 198, 152, 0.3);
       outline: none;
       transition: background 0.2s;
     }
@@ -3873,10 +3805,10 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       width: 24px;
       height: 24px;
       border-radius: 50%;
-      background: #1B4332;
-      border: 2.5px solid #C9A96E;
+      background: linear-gradient(135deg, #DFC698 0%, #C5A869 100%);
+      border: 2px solid #FFFFFF;
       cursor: pointer;
-      box-shadow: 0 2px 8px rgba(27, 67, 50, 0.4);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4), 0 0 10px rgba(223, 198, 152, 0.6);
       transition: transform 0.15s;
     }
 
@@ -3887,23 +3819,23 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     .range-milestones {
       display: flex;
       justify-content: space-between;
-      font-size: 0.72rem;
-      color: #64748B;
+      font-size: 0.76rem;
+      color: #94A3B8;
       font-weight: 600;
     }
 
     /* Result Output Capsule (Royal Green Gradient with Champagne Gold) */
     .calc-result-capsule {
-      background: linear-gradient(135deg, #1B4332 0%, #0B2516 100%);
-      border: 1.5px solid #C9A96E;
-      border-radius: 16px;
-      padding: 1.4rem 1.8rem;
+      background: linear-gradient(135deg, rgba(13, 59, 46, 0.95) 0%, rgba(7, 26, 20, 0.98) 100%);
+      border: 1.5px solid #DFC698;
+      border-radius: 18px;
+      padding: 1.5rem 2rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1.5rem;
       flex-wrap: wrap;
-      box-shadow: 0 10px 30px rgba(27, 67, 50, 0.25);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(223, 198, 152, 0.2);
       color: #FFFFFF;
     }
 
@@ -3917,12 +3849,12 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     .result-metric {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 3px;
     }
 
     .result-metric small {
-      font-size: 0.75rem;
-      color: #B4CDC3;
+      font-size: 0.78rem;
+      color: #CBD5E1;
       font-weight: 600;
     }
 
@@ -4912,56 +4844,84 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     .steps-timeline-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1.2rem;
+      gap: 1.3rem;
+      position: relative;
+      z-index: 2;
     }
 
     .timeline-step {
-      padding: 1.8rem 1.2rem;
+      padding: 2.2rem 1.2rem 1.8rem;
       text-align: center;
       position: relative;
-      background: #FFFFFF;
-      border: 1.5px solid rgba(201, 169, 110, 0.35);
-      border-radius: 20px;
-      box-shadow: 0 8px 25px rgba(27, 67, 50, 0.05);
-      transition: all 0.3s ease;
+      background: rgba(13, 59, 46, 0.65);
+      border: 1.5px solid rgba(223, 198, 152, 0.28);
+      border-radius: 22px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(223, 198, 152, 0.15);
+      backdrop-filter: blur(16px);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .timeline-step:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 14px 35px rgba(27, 67, 50, 0.12);
-      border-color: #C9A96E;
+      transform: translateY(-8px);
+      border-color: #DFC698;
+      background: rgba(20, 75, 58, 0.85);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 25px rgba(223, 198, 152, 0.25);
     }
 
     .timeline-step.highlighted {
-      border-color: #C9A96E;
-      background: linear-gradient(135deg, #FFFFFF 0%, #F8F5EE 100%);
-      box-shadow: 0 10px 30px rgba(201, 169, 110, 0.2);
+      border-color: #DFC698;
+      background: linear-gradient(135deg, rgba(20, 75, 58, 0.9) 0%, rgba(13, 59, 46, 0.95) 100%);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(223, 198, 152, 0.3);
+    }
+
+    .step-num-pill {
+      background: rgba(223, 198, 152, 0.15);
+      border: 1px solid rgba(223, 198, 152, 0.4);
+      color: #DFC698;
+      font-size: 0.8rem;
+      font-weight: 800;
+      font-family: var(--font-family-latin);
+      padding: 3px 12px;
+      border-radius: 9999px;
+      margin-bottom: 0.8rem;
+    }
+
+    .step-num-pill.gold-pill {
+      background: linear-gradient(135deg, #DFC698 0%, #C5A869 100%);
+      color: #071A14;
+      border-color: #FFE8B6;
+      box-shadow: 0 2px 10px rgba(223, 198, 152, 0.4);
     }
 
     .t-icon {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
+      font-size: 2.3rem;
+      margin-bottom: 0.8rem;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.35));
+      transition: transform 0.3s ease;
     }
 
-    .t-num {
-      font-size: 0.85rem;
-      color: #C9A96E;
-      font-family: var(--font-family-latin);
-      font-weight: 800;
-      margin-bottom: 0.5rem;
+    .timeline-step:hover .t-icon {
+      transform: scale(1.15) rotate(5deg);
+    }
+
+    .t-icon.gold-glow {
+      filter: drop-shadow(0 0 14px rgba(223, 198, 152, 0.65));
     }
 
     .timeline-step h4 {
-      color: #1B4332;
-      font-size: 1.1rem;
+      color: #FFFFFF;
+      font-size: 1.12rem;
       font-weight: 800;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.5rem;
     }
 
     .timeline-step p {
-      color: #52665C;
-      font-size: 0.84rem;
-      line-height: 1.55;
+      color: #CBD5E1;
+      font-size: 0.86rem;
+      line-height: 1.6;
     }
 
     /* ==========================================

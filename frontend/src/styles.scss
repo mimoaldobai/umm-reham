@@ -180,16 +180,18 @@ button {
 }
 
 .bg-deep-saudi {
-  background: #0F172A;
+  background: #071A14;
   color: #FFFFFF;
 }
 
 .bg-ivory-warm {
-  background-color: #F8FAFC;
+  background: transparent;
+  color: #FFFFFF;
 }
 
 .bg-ivory-surface {
-  background-color: #F1F5F9;
+  background: transparent;
+  color: #FFFFFF;
 }
 
 .gold-gradient-text {
@@ -829,14 +831,14 @@ html, body, .admin-layout, .admin-sidebar, .admin-topbar, .content-box, .metric-
 
 /* Global Website Dynamic Theme Adaptation */
 .bg-ivory-warm {
-  background-color: var(--ivory-warm, #FBF9F5) !important;
-  color: var(--text-main, #0B2516);
+  background-color: transparent !important;
+  color: #FFFFFF;
   transition: background-color 0.35s ease, color 0.35s ease;
 }
 
 .bg-ivory-surface {
-  background-color: var(--ivory-surface, #F4EFE6) !important;
-  color: var(--text-main, #0B2516);
+  background-color: transparent !important;
+  color: #FFFFFF;
   transition: background-color 0.35s ease, color 0.35s ease;
 }
 
