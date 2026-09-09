@@ -42,33 +42,73 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
 
         <div class="container hero-content-container">
           
-          <div class="hero-brand-headline-wrap">
-            <!-- Majestic Brand Title -->
-            <h1 class="cinematic-hero-title">أم رهام</h1>
-            <!-- Slogan with Gold Glow -->
-            <h2 class="cinematic-hero-slogan">
-              معرفة تصنع الفرق، <span class="gold-slogan-accent">ودقة تبني الثقة.</span>
-            </h2>
-            <!-- Subtext -->
-            <p class="cinematic-hero-subtext">
-              منصة سعودية رائدة في الخدمات التعليمية والبحثية، نجمع بين الأصالة والمعرفة لنحول أفكارك إلى إنجازات حقيقية.
-            </p>
+          <!-- Balanced Centered Hero Stage: Centered Brand Text + Large Luxury Profile -->
+          <div class="hero-center-stage">
+            
+            <!-- Side 1: Brand Content (Center-RTL aligned) -->
+            <div class="hero-brand-headline-wrap">
+              <!-- Sovereign Crest Tag -->
+              <div class="hero-sovereign-tag">
+                <span class="tag-flag">🇸🇦</span>
+                <span>المملكة العربية السعودية • المنصة التعليمية والأكاديمية الأولى</span>
+              </div>
 
-            <!-- Primary CTA WhatsApp Button -->
-            <div class="hero-cta-group">
-              <a 
-                href="https://wa.me/?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%20%D8%A3%D9%85%20%D8%B1%D9%87%D8%A7%D9%85" 
-                target="_blank" 
-                class="btn-cinematic-whatsapp" 
-                (click)="onClick()">
-                <span>ابدأ طلبك عبر واتساب</span>
-                <span class="wa-icon-glow">💬</span>
-              </a>
-              <div class="response-speed-indicator">
-                <span class="bolt-icon">⚡</span>
-                <span>استجابة خلال دقائق</span>
+              <!-- Majestic Brand Title -->
+              <h1 class="cinematic-hero-title">أم رهام</h1>
+
+              <!-- Slogan with Gold Glow -->
+              <h2 class="cinematic-hero-slogan">
+                معرفة تصنع الفرق، <span class="gold-slogan-accent">ودقة تبني الثقة.</span>
+              </h2>
+
+              <!-- Subtext -->
+              <p class="cinematic-hero-subtext">
+                منصة سعودية رائدة في الخدمات التعليمية والبحثية، نجمع بين الأصالة والمعرفة لنحول أفكارك إلى إنجازات حقيقية معتمدة بأعلى المعايير الأكاديمية.
+              </p>
+
+              <!-- Primary CTA WhatsApp Button & Fast Response -->
+              <div class="hero-cta-group">
+                <a 
+                  href="https://wa.me/?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%20%D8%A3%D9%85%20%D8%B1%D9%87%D8%A7%D9%85" 
+                  target="_blank" 
+                  class="btn-cinematic-whatsapp" 
+                  (click)="onClick()">
+                  <span>ابدأ طلبك عبر واتساب</span>
+                  <span class="wa-icon-glow">💬</span>
+                </a>
+                <div class="response-speed-indicator">
+                  <span class="bolt-icon">⚡</span>
+                  <span>استجابة خلال دقائق</span>
+                </div>
               </div>
             </div>
+
+            <!-- Side 2: Large Luxury Profile Picture Showcase (صورة البروفيل حلوة وقوية وكبيرة) -->
+            <div class="hero-profile-side">
+              <div class="hero-profile-monument">
+                <!-- Glowing Ambient Aura Halo -->
+                <div class="profile-aura-halo"></div>
+                <!-- Dual Golden Frame Rings -->
+                <div class="profile-frame-rings">
+                  <div class="profile-image-wrap">
+                    <img src="assets/images/reham_profile_luxury.jpg" alt="بروفايل أم رهام" class="hero-reham-portrait" />
+                  </div>
+                </div>
+                <!-- Floating Luxury Badges -->
+                <div class="profile-float-badge top-badge">
+                  <span class="badge-icon">👑</span>
+                  <span>الهوية الرسمية المعتمدة</span>
+                </div>
+                <div class="profile-float-badge bottom-badge">
+                  <span class="badge-icon">🇸🇦</span>
+                  <span>منصة أم رهام • موثقة</span>
+                </div>
+                <div class="profile-micro-tag">
+                  <span>⭐ جودة 100%</span>
+                </div>
+              </div>
+            </div>
+
           </div>
 
           <!-- Bottom Hero Row: Left (Watch in 60s) & Right (25,000 Stories Badge) -->
@@ -306,11 +346,94 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
 
           </div>
 
+      <!-- ==========================================
+           SCENE: SMART PLATFORM APP SHOWCASE (تطبيق المنصة الذكي 3D التفاعلي)
+           ========================================== -->
+      <section class="smart-app-showcase-section" id="smart-app">
+        <div class="smart-app-ambient-glow"></div>
+        <div class="container">
+          
+          <!-- Section Header -->
+          <div class="smart-app-header-block">
+            <div class="app-tag-pill">
+              <span>📱</span>
+              <span>التحول الرقمي وتجربة الهاتف الذكي 3D</span>
+            </div>
+            <h2 class="app-section-title">
+              تطبيق منصة أم رهام الذكي <span class="gold-gradient-text">3D التفاعلي</span>
+            </h2>
+            <p class="app-section-sub">
+              واجهة تفاعلية ذكية تضع كافة الحلول الأكاديمية والبحثية بين يديك — تصفح الخدمات، اطلب فورياً، وتابع تقدم إنجازك بكل سلاسة وأمان
+            </p>
+          </div>
+
+          <!-- Showcase Grid: Interactive Image Mockup + Features & Launch Action -->
+          <div class="smart-app-showcase-grid">
+            
+            <!-- Side A: 3D Smartphone Image Mockup (معروضة بالموقع) -->
+            <div class="phone-showcase-visual-card" (click)="openPhoneModal()" title="انقر لتجربة التطبيق التفاعلي 3D">
+              <img src="assets/images/smart_app_showcase.jpg" alt="تطبيق منصة أم رهام الذكي ثلاثي الأبعاد" class="showcase-mockup-img" />
+              <div class="showcase-interactive-hint">
+                <span>🔍 انقر لتجربة شاشة الهاتف التفاعلية الحية</span>
+              </div>
+            </div>
+
+            <!-- Side B: Key Platform Capabilities & Launch Button (وادخل على التطبيق من الضغط على الزر) -->
+            <div class="smart-app-features-column">
+              
+              <div class="app-feature-pills-list">
+                <div class="app-feat-item">
+                  <div class="feat-icon-box">⚡</div>
+                  <div class="feat-text-box">
+                    <h4>طلب واستشارة أكاديمية فورية</h4>
+                    <p>اختر تخصصك الأكاديمي وحدد نوع دراستك أو مشروعك وتواصل مع المشرف المباشر فوراً.</p>
+                  </div>
+                </div>
+
+                <div class="app-feat-item">
+                  <div class="feat-icon-box">📊</div>
+                  <div class="feat-text-box">
+                    <h4>حاسبة تسعير ذكية وشفافة</h4>
+                    <p>تقدير دقيق للتكلفة وفترات التسليم وفق المعايير الإرشادية لجامعتك السعودية.</p>
+                  </div>
+                </div>
+
+                <div class="app-feat-item">
+                  <div class="feat-icon-box">🛡️</div>
+                  <div class="feat-text-box">
+                    <h4>سرية وخصوصية أكاديمية مطلقة</h4>
+                    <p>أمان وتشفير كامل لكافة الأبحاث والبيانات والملفات دون مشاركة مع أي طرف ثالث.</p>
+                  </div>
+                </div>
+
+                <div class="app-feat-item">
+                  <div class="feat-icon-box">🇸🇦</div>
+                  <div class="feat-text-box">
+                    <h4>شراكة وطنية مع كافة الجامعات</h4>
+                    <p>خبرة معمقة في لوائح وشروط الدراسات العليا في جامعة الملك سعود، أم القرى، وغيرها.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Launch Smart App Button -->
+              <div class="app-action-launch-box">
+                <button type="button" class="btn-launch-smart-app" (click)="openPhoneModal()">
+                  <span class="launch-icon">🚀</span>
+                  <span>افتح تطبيق المنصة الذكي 3D الآن</span>
+                  <span class="launch-arrow">←</span>
+                </button>
+                <span class="launch-hint-txt">💡 اضغط على الزر للدخول الفوري وتجربة الهاتف التفاعلي ثلاثي الأبعاد</span>
+              </div>
+
+            </div>
+
+          </div>
+
         </div>
       </section>
 
       <!-- ==========================================
-           SCENE 03: ACTIVE THEORY SPATIAL SIMULATOR & QUICK INTENT
+           SCENE 05: ACTIVE THEORY SPATIAL SIMULATOR & QUICK INTENT
            ========================================== -->
       <section class="quick-intent-section section-padding bg-ivory-surface" id="quick-intent">
         <div class="container">
@@ -830,12 +953,6 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
         </div>
       </div>
 
-      <!-- Floating 3D Phone App Preview Trigger Button (Bottom Left) -->
-      <button type="button" class="floating-phone-trigger-btn" (click)="openPhoneModal()" title="معاينة تطبيق المنصة الذكي 3D">
-        <span class="phone-3d-icon">📱</span>
-        <span class="phone-trigger-text">تطبيق المنصة الذكي 3D</span>
-        <span class="hot-badge">تفاعلي</span>
-      </button>
 
       <!-- 3D Smartphone Device Modal (Image 2 Device Showcase) -->
       <div class="phone-modal-backdrop" *ngIf="isPhoneModalOpen" (click)="closePhoneModal()">
@@ -1113,12 +1230,173 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       width: 100%;
     }
 
-    .hero-brand-headline-wrap {
-      max-width: 820px;
-      text-align: right;
+    /* Balanced Centered Hero Stage: Grid for Text and Large Profile */
+    .hero-center-stage {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: center;
+      gap: 3.5rem;
       margin-top: auto;
       margin-bottom: auto;
-      padding: 1.5rem 0;
+      padding: 1.5rem 0 2rem 0;
+      width: 100%;
+    }
+
+    @media (max-width: 992px) {
+      .hero-center-stage {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2.5rem;
+      }
+      .hero-brand-headline-wrap {
+        text-align: center !important;
+        margin: 0 auto;
+      }
+      .hero-cta-group {
+        justify-content: center;
+      }
+      .hero-profile-side {
+        order: -1;
+        margin: 0 auto;
+      }
+    }
+
+    .hero-sovereign-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(197, 168, 105, 0.15);
+      border: 1px solid rgba(197, 168, 105, 0.4);
+      padding: 0.35rem 0.95rem;
+      border-radius: 9999px;
+      color: #DFC698;
+      font-size: 0.84rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    .hero-brand-headline-wrap {
+      max-width: 780px;
+      text-align: right;
+    }
+
+    /* Large Luxury Profile Showcase Styling */
+    .hero-profile-side {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .hero-profile-monument {
+      position: relative;
+      width: 360px;
+      height: 360px;
+      max-width: 85vw;
+      max-height: 85vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-aura-halo {
+      position: absolute;
+      inset: -25px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(197, 168, 105, 0.38) 0%, rgba(13, 59, 46, 0.55) 50%, transparent 75%);
+      filter: blur(28px);
+      animation: auraBreathe 6s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    @keyframes auraBreathe {
+      0% { transform: scale(0.94); opacity: 0.65; }
+      100% { transform: scale(1.08); opacity: 1; }
+    }
+
+    .profile-frame-rings {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      padding: 7px;
+      background: linear-gradient(135deg, #FFF0CF 0%, #C5A869 35%, #0A2F24 70%, #DFC698 100%);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.75), 0 0 40px rgba(197, 168, 105, 0.5);
+      transition: transform 0.4s ease;
+    }
+
+    .profile-image-wrap {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid #0A2F24;
+      background: #0A2F24;
+      position: relative;
+    }
+
+    .hero-reham-portrait {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.02);
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .hero-profile-monument:hover .hero-reham-portrait {
+      transform: scale(1.07);
+    }
+
+    .profile-float-badge {
+      position: absolute;
+      background: rgba(10, 47, 36, 0.94);
+      backdrop-filter: blur(14px);
+      border: 1.2px solid #DFC698;
+      border-radius: 9999px;
+      padding: 0.4rem 1rem;
+      color: #F4EEDD;
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.65), 0 0 18px rgba(197, 168, 105, 0.35);
+      white-space: nowrap;
+      z-index: 5;
+      animation: floatBadge 4s ease-in-out infinite alternate;
+    }
+
+    .profile-float-badge.top-badge {
+      top: -12px;
+      right: 12px;
+    }
+
+    .profile-float-badge.bottom-badge {
+      bottom: -12px;
+      left: 12px;
+      animation-delay: -2s;
+    }
+
+    .profile-micro-tag {
+      position: absolute;
+      top: 50%;
+      right: -20px;
+      transform: translateY(-50%);
+      background: linear-gradient(135deg, #DFC698 0%, #C5A869 100%);
+      color: #0A2F24;
+      border-radius: 9999px;
+      padding: 0.28rem 0.75rem;
+      font-size: 0.74rem;
+      font-weight: 900;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+      z-index: 5;
+    }
+
+    @keyframes floatBadge {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-7px); }
     }
 
     .cinematic-hero-title {
@@ -2011,6 +2289,224 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     /* ==========================================
+       SMART PLATFORM APP SHOWCASE SECTION
+       ========================================== */
+    .smart-app-showcase-section {
+      position: relative;
+      padding: 5.5rem 0;
+      background: linear-gradient(180deg, #071D16 0%, #0A2F24 50%, #071A14 100%);
+      overflow: hidden;
+      border-top: 1px solid rgba(197, 168, 105, 0.2);
+      border-bottom: 1px solid rgba(197, 168, 105, 0.2);
+    }
+
+    .smart-app-ambient-glow {
+      position: absolute;
+      top: 30%;
+      left: 15%;
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, rgba(197, 168, 105, 0.15) 0%, rgba(37, 211, 102, 0.08) 40%, transparent 70%);
+      filter: blur(80px);
+      pointer-events: none;
+    }
+
+    .smart-app-header-block {
+      text-align: center;
+      max-width: 820px;
+      margin: 0 auto 3.5rem auto;
+    }
+
+    .app-tag-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(197, 168, 105, 0.14);
+      border: 1px solid rgba(197, 168, 105, 0.4);
+      border-radius: 9999px;
+      padding: 0.38rem 1.15rem;
+      color: #DFC698;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 1.1rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .app-section-title {
+      font-family: 'Amiri', serif;
+      font-size: clamp(2.1rem, 4vw, 3.2rem);
+      font-weight: 900;
+      color: #FFFFFF;
+      margin-bottom: 1rem;
+      line-height: 1.25;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+
+    .app-section-sub {
+      color: rgba(244, 238, 221, 0.88);
+      font-size: 1.08rem;
+      line-height: 1.8;
+      margin: 0;
+    }
+
+    .smart-app-showcase-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      align-items: center;
+      gap: 3.5rem;
+    }
+
+    @media (max-width: 992px) {
+      .smart-app-showcase-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+    }
+
+    .phone-showcase-visual-card {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1.5px solid rgba(197, 168, 105, 0.45);
+      background: rgba(10, 47, 36, 0.65);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.65), 0 0 35px rgba(197, 168, 105, 0.25);
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .phone-showcase-visual-card:hover {
+      transform: translateY(-6px) scale(1.015);
+      border-color: #DFC698;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.75), 0 0 45px rgba(197, 168, 105, 0.4);
+    }
+
+    .showcase-mockup-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .phone-showcase-visual-card:hover .showcase-mockup-img {
+      transform: scale(1.03);
+    }
+
+    .showcase-interactive-hint {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(10, 47, 36, 0.94);
+      border: 1px solid #DFC698;
+      border-radius: 9999px;
+      padding: 0.48rem 1.35rem;
+      color: #FFF0CF;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.55);
+      backdrop-filter: blur(10px);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .smart-app-features-column {
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+      text-align: right;
+    }
+
+    .app-feature-pills-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.95rem;
+    }
+
+    .app-feat-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.1rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(197, 168, 105, 0.25);
+      border-radius: 16px;
+      padding: 1.1rem 1.35rem;
+      transition: all 0.3s ease;
+    }
+
+    .app-feat-item:hover {
+      background: rgba(197, 168, 105, 0.08);
+      border-color: rgba(197, 168, 105, 0.55);
+      transform: translateX(-6px);
+    }
+
+    .feat-icon-box {
+      font-size: 1.5rem;
+      background: rgba(197, 168, 105, 0.15);
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid rgba(197, 168, 105, 0.3);
+    }
+
+    .feat-text-box h4 {
+      margin: 0 0 0.25rem 0;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #DFC698;
+    }
+
+    .feat-text-box p {
+      margin: 0;
+      font-size: 0.88rem;
+      color: rgba(244, 238, 221, 0.85);
+      line-height: 1.6;
+    }
+
+    .app-action-launch-box {
+      margin-top: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .btn-launch-smart-app {
+      background: linear-gradient(135deg, #C5A869 0%, #DFC698 50%, #B39250 100%);
+      color: #0A2F24;
+      border: none;
+      border-radius: 9999px;
+      padding: 1rem 2.2rem;
+      font-size: 1.15rem;
+      font-weight: 900;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(197, 168, 105, 0.4), 0 0 20px rgba(197, 168, 105, 0.25);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-launch-smart-app:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 15px 40px rgba(197, 168, 105, 0.6), 0 0 30px rgba(223, 198, 152, 0.5);
+      background: linear-gradient(135deg, #DFC698 0%, #FFF0CF 50%, #C5A869 100%);
+    }
+
+    .launch-hint-txt {
+      font-size: 0.82rem;
+      color: rgba(244, 238, 221, 0.75);
+      text-align: right;
+    }
+
+    /* ==========================================
        WORKFLOW STRIP & GUARANTEES
        ========================================== */
     .realms-workflow-strip {
@@ -2205,45 +2701,6 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       line-height: 1.2;
     }
 
-    .floating-phone-trigger-btn {
-      position: fixed;
-      bottom: 74px;
-      left: 20px;
-      z-index: 995;
-      background: linear-gradient(135deg, #0D3B2E 0%, #0A2F24 100%);
-      border: 1.2px solid #C5A869;
-      border-radius: 9999px;
-      padding: 0.42rem 0.95rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      cursor: pointer;
-      box-shadow: 0 8px 22px rgba(0,0,0,0.45), 0 0 15px rgba(197, 168, 105, 0.2);
-      backdrop-filter: blur(14px);
-      color: #F4EEDD;
-      font-weight: 700;
-      font-size: 0.8rem;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .floating-phone-trigger-btn:hover {
-      transform: scale(1.04) translateY(-2px);
-      border-color: #DFC698;
-      box-shadow: 0 12px 28px rgba(0,0,0,0.55), 0 0 20px rgba(197, 168, 105, 0.35);
-    }
-
-    .phone-3d-icon {
-      font-size: 1.1rem;
-    }
-
-    .hot-badge {
-      background: #E63946;
-      color: #FFFFFF;
-      font-size: 0.64rem;
-      font-weight: 800;
-      padding: 0.12rem 0.4rem;
-      border-radius: 9999px;
-    }
 
     .floating-accessibility-toolbar {
       position: fixed;
