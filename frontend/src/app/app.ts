@@ -32,6 +32,18 @@ export class App {
   isAdminRoute(): boolean {
     return this.router.url ? this.router.url.startsWith('/admin') : false;
   }
+
+  toggleAccessibility(): void {
+    this.audio.playClick();
+    if (typeof document !== 'undefined') {
+      const html = document.documentElement;
+      if (html.classList.contains('accessible-large-font')) {
+        html.classList.remove('accessible-large-font');
+      } else {
+        html.classList.add('accessible-large-font');
+      }
+    }
+  }
 }
 
 

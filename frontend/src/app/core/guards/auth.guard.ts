@@ -10,8 +10,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     return true;
   }
 
-  // Not authenticated: trigger login modal and redirect to home
-  authService.openLoginModal();
-  router.navigate(['/']);
+  // Not authenticated: redirect to dedicated admin login page
+  router.navigate(['/admin/login'], { queryParams: { returnUrl: state.url } });
   return false;
 };

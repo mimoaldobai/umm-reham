@@ -8,7 +8,7 @@ import { AudioService } from '../../core/services/audio.service';
   standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
-    <div class="about-experience-wrapper bg-deep-saudi" dir="rtl">
+    <div class="about-experience-wrapper" dir="rtl">
       
       <!-- ==========================================
            HERO: ACADEMIC HERITAGE & VISION
@@ -17,8 +17,11 @@ import { AudioService } from '../../core/services/audio.service';
         <div class="container">
           <div class="about-hero-content">
             <div class="hero-badge-row">
-              <span class="badge-gold">🇸🇦 الصرح الأكاديمي السعودي الرائد</span>
-              <span class="badge-glow">موثوقية • أصالة • تميز</span>
+              <span class="badge-gold">
+                <span>🇸🇦</span>
+                <span>الصرح الأكاديمي والتعليمي السعودي الرائد</span>
+              </span>
+              <span class="badge-glow">موثوقية • أصالة 100% • تميز</span>
             </div>
             
             <h1 class="about-hero-title">
@@ -27,11 +30,11 @@ import { AudioService } from '../../core/services/audio.service';
             </h1>
 
             <p class="about-hero-lead">
-              انطلقت <strong>أم رهام</strong> برؤية سعودية طموحة تهدف إلى إرساء معايير استثنائية في البحث العلمي، وتوفير الدعم الأكاديمي الرصين لطلاب الدراسات العليا والبكالوريوس والباحثين في كافة أرجاء المملكة.
+              انطلقت <strong>منظومة أم رهام</strong> برؤية سعودية طموحة تهدف إلى إرساء أعلى معايير الجودة في البحث العلمي والدراسات العليا والخدمات العامة، وتوفير الدعم الأكاديمي والمهني الرصين للباحثين والطلاب في كافة أنحاء المملكة.
             </p>
 
             <!-- Quick Trust Bar -->
-            <div class="hero-stats-capsule glass-panel">
+            <div class="hero-stats-capsule">
               <div class="stat-capsule-item">
                 <strong class="gold-gradient-text">+25,000</strong>
                 <span>قصة نجاح أكاديمية أنجزناها</span>
@@ -39,7 +42,7 @@ import { AudioService } from '../../core/services/audio.service';
               <div class="stat-divider"></div>
               <div class="stat-capsule-item">
                 <strong class="gold-gradient-text">100%</strong>
-                <span>أصالة وفحص Turnitin معتمد</span>
+                <span>أصالة وفحص Turnitin معتمد 0% اقتباس</span>
               </div>
               <div class="stat-divider"></div>
               <div class="stat-capsule-item">
@@ -54,17 +57,20 @@ import { AudioService } from '../../core/services/audio.service';
       <!-- ==========================================
            OUR 4 NOBLE PILLARS (أركان التميز الأكاديمي)
            ========================================== -->
-      <section class="pillars-section section-padding">
+      <section class="pillars-section section-padding" id="pillars">
         <div class="container">
           <div class="section-badge-center">
-            <span class="badge-gold">ميثاق التميز والجودة</span>
+            <span class="badge-gold">
+              <span>🛡️</span>
+              <span>ميثاق التميز والجودة</span>
+            </span>
             <h2 class="section-title">الأركان الأربعة لمنظومة <span class="gold-gradient-text">أم رهام</span></h2>
             <p class="section-desc">مبادئ وقيم راسخة توجه كل خطوة في رحلتنا لخدمة الباحثين والطلاب.</p>
           </div>
 
           <div class="pillars-grid">
             <!-- Pillar 1 -->
-            <div class="pillar-card glass-panel" (mouseenter)="onHover()">
+            <div class="pillar-card" (mouseenter)="onHover()">
               <div class="pillar-icon-box">
                 <span>📜</span>
                 <div class="icon-ring"></div>
@@ -77,7 +83,7 @@ import { AudioService } from '../../core/services/audio.service';
             </div>
 
             <!-- Pillar 2 -->
-            <div class="pillar-card glass-panel" (mouseenter)="onHover()">
+            <div class="pillar-card" (mouseenter)="onHover()">
               <div class="pillar-icon-box">
                 <span>🛡️</span>
                 <div class="icon-ring"></div>
@@ -90,7 +96,7 @@ import { AudioService } from '../../core/services/audio.service';
             </div>
 
             <!-- Pillar 3 -->
-            <div class="pillar-card glass-panel" (mouseenter)="onHover()">
+            <div class="pillar-card" (mouseenter)="onHover()">
               <div class="pillar-icon-box">
                 <span>⏰</span>
                 <div class="icon-ring"></div>
@@ -103,7 +109,7 @@ import { AudioService } from '../../core/services/audio.service';
             </div>
 
             <!-- Pillar 4 -->
-            <div class="pillar-card glass-panel" (mouseenter)="onHover()">
+            <div class="pillar-card" (mouseenter)="onHover()">
               <div class="pillar-icon-box">
                 <span>🎓</span>
                 <div class="icon-ring"></div>
@@ -123,7 +129,7 @@ import { AudioService } from '../../core/services/audio.service';
            ========================================== -->
       <section class="vision-national-section section-padding">
         <div class="container">
-          <div class="vision-luxury-container glass-panel">
+          <div class="vision-luxury-container">
             <div class="vision-grid">
               <div class="vision-text-col">
                 <span class="vision-badge">المملكة العربية السعودية 🇸🇦</span>
@@ -137,7 +143,7 @@ import { AudioService } from '../../core/services/audio.service';
                     <span class="vb-icon">🌱</span>
                     <div class="vb-text">
                       <strong>بناء القدرات البحثية الوطنية</strong>
-                      <small>تدريب وتوجيه منهجي يصنع باحثين متمكنين</small>
+                      <small>تدريب وتوجيه منهجي يصنع باحثين متمكنين ومتميزين</small>
                     </div>
                   </div>
 
@@ -145,15 +151,15 @@ import { AudioService } from '../../core/services/audio.service';
                     <span class="vb-icon">💻</span>
                     <div class="vb-text">
                       <strong>مواكبة التحول التقني والذكاء الاصطناعي</strong>
-                      <small>دمج أحدث الأدوات التكنولوجية في التحليل والتطوير</small>
+                      <small>دمج أحدث الأدوات التكنولوجية في التحليل والتطوير البرمجي</small>
                     </div>
                   </div>
 
                   <div class="v-bullet">
                     <span class="vb-icon">🏆</span>
                     <div class="vb-text">
-                      <strong>معايير نشر وتوثيق دولية</strong>
-                      <small>تهيئة الأبحاث للنشر في مجلات Scopus و Web of Science</small>
+                      <strong>معايير نشر وتوثيق دولية معتمدة</strong>
+                      <small>تهيئة الأبحاث للنشر في مجلات Scopus و Web of Science الرصينة</small>
                     </div>
                   </div>
                 </div>
@@ -175,7 +181,7 @@ import { AudioService } from '../../core/services/audio.service';
                     </div>
                     <div class="mk-item">
                       <strong>99.4%</strong>
-                      <small>نسبة القبول</small>
+                      <small>نسبة القبول والاعتماد</small>
                     </div>
                   </div>
                 </div>
@@ -190,17 +196,22 @@ import { AudioService } from '../../core/services/audio.service';
            ========================================== -->
       <section class="about-cta-section section-padding">
         <div class="container">
-          <div class="about-cta-box glass-panel">
+          <div class="about-cta-box">
             <div class="cta-content">
-              <h2>هل أنت مستعد لبدء قصة تميزك الأكاديمي؟</h2>
-              <p>تواصل مع فريق مستشارينا الأكاديميين الآن واحصل على خطة عمل واستشارة فورية.</p>
+              <h2>هل أنت مستعد لبدء قصة تميزك الأكاديمي والمهني؟</h2>
+              <p>تواصل مع فريق مستشارينا الأكاديميين الآن واحصل على خطة عمل واستشارة فورية معتمدة.</p>
             </div>
             <div class="cta-btns-group">
-              <a href="https://wa.me/?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%20%D8%A3%D9%85%20%D8%B1%D9%87%D8%A7%D9%85" 
+              <a href="https://wa.me/966572651058?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%20%D8%A3%D9%85%20%D8%B1%D9%87%D8%A7%D9%85" 
                  target="_blank" 
                  class="btn-saudi-gold"
-                 (click)="onClick()">
-                <span>💬 تواصل عبر واتساب الآن</span>
+                 (click)="onClick()"
+                 style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.472 14.382c-.301-.15-1.782-.879-2.057-.979-.276-.1-.476-.15-.676.15-.2.301-.776.98-1.026 1.281-.25.301-.45.301-.75.15-.301-.15-1.27-.468-2.42-1.493-.895-.798-1.5-1.784-1.675-2.085-.176-.3-.019-.462.131-.611.136-.135.301-.351.451-.527.151-.175.201-.3.301-.501.101-.2.05-.375-.025-.525-.075-.15-.676-1.63-1.002-2.23-.275-.6-.576-.525-.776-.525-.2 0-.426-.025-.651-.025-.226 0-.602.075-.927.426-.326.35-1.253 1.226-1.253 2.984 0 1.758 1.278 3.46 1.454 3.71.175.25 2.511 3.834 6.084 5.378.85.367 1.514.587 2.031.751.854.271 1.631.233 2.246.141.685-.102 1.782-.728 2.032-1.431.25-.702.25-1.303.175-1.43-.075-.126-.275-.226-.576-.376z"/>
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
+                </svg>
+                <span>تواصل عبر واتساب الآن</span>
               </a>
               <a routerLink="/services" class="btn-outline-gold" (click)="onClick()">
                 <span>استكشف دليل الخدمات ←</span>
@@ -215,12 +226,14 @@ import { AudioService } from '../../core/services/audio.service';
   styles: [`
     .about-experience-wrapper {
       min-height: 100vh;
-      padding-top: 6rem;
+      padding-top: 6.5rem;
       position: relative;
+      background: #FAF8F5;
+      color: #121816;
     }
 
     .about-hero-section {
-      padding: 4rem 0 3rem 0;
+      padding: 3.5rem 0 2.5rem 0;
       text-align: center;
     }
 
@@ -242,33 +255,34 @@ import { AudioService } from '../../core/services/audio.service';
     }
 
     .badge-glow {
-      background: rgba(37, 211, 102, 0.12);
-      border: 1px solid rgba(37, 211, 102, 0.35);
-      color: #25D366;
-      font-size: 0.8rem;
+      background: rgba(22, 163, 74, 0.08);
+      border: 1px solid rgba(22, 163, 74, 0.25);
+      color: #16A34A;
+      font-size: 0.85rem;
       font-weight: 700;
-      padding: 4px 12px;
+      padding: 4px 14px;
       border-radius: var(--radius-full);
     }
 
     .about-hero-title {
       font-size: clamp(2.2rem, 4.5vw, 3.4rem);
-      color: #FFFFFF;
-      line-height: 1.3;
+      color: #0A2F24;
+      line-height: 1.35;
       margin-bottom: 1.2rem;
       font-weight: 900;
     }
 
     .about-hero-lead {
-      font-size: 1.15rem;
-      color: #B8CCC4;
+      font-size: 1.12rem;
+      color: #485A53;
       line-height: 1.8;
       max-width: 780px;
       margin-bottom: 2.5rem;
     }
 
     .about-hero-lead strong {
-      color: #DFC698;
+      color: #0A2F24;
+      font-weight: 800;
     }
 
     .hero-stats-capsule {
@@ -276,106 +290,134 @@ import { AudioService } from '../../core/services/audio.service';
       align-items: center;
       justify-content: space-around;
       width: 100%;
-      max-width: 850px;
+      max-width: 880px;
       padding: 1.8rem 2.5rem;
-      border-radius: var(--radius-xl);
-      border: 1.5px solid rgba(201, 169, 110, 0.3);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+      border-radius: 24px;
+      background: #FFFFFF;
+      border: 1.5px solid rgba(197, 168, 105, 0.35);
+      box-shadow: 0 12px 35px rgba(10, 47, 36, 0.06);
     }
 
     .stat-capsule-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.2rem;
+      gap: 0.3rem;
     }
 
     .stat-capsule-item strong {
-      font-size: 2rem;
+      font-size: 2.1rem;
       font-weight: 900;
       font-family: var(--font-family-latin);
     }
 
     .stat-capsule-item span {
-      font-size: 0.85rem;
-      color: #A3B8B0;
-      font-weight: 600;
+      font-size: 0.88rem;
+      color: #485A53;
+      font-weight: 700;
     }
 
     .stat-divider {
-      width: 1px;
+      width: 1.5px;
       height: 45px;
-      background: rgba(201, 169, 110, 0.25);
+      background: rgba(15, 81, 50, 0.12);
     }
 
-    /* Pillars Grid */
+    /* ==========================================
+       PILLARS SECTION (الأركان الأربعة)
+       ========================================== */
+    .pillars-section {
+      background: #FAF8F5;
+      position: relative;
+    }
+
     .pillars-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 1024px) {
+      .pillars-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .pillars-grid {
+        grid-template-columns: 1fr;
+        gap: 1.3rem;
+      }
     }
 
     .pillar-card {
-      padding: 2.4rem 2rem;
-      border-radius: var(--radius-lg);
+      padding: 2.4rem 1.8rem;
+      border-radius: 22px;
+      background: #FFFFFF !important;
+      border: 1.5px solid rgba(15, 81, 50, 0.12) !important;
+      box-shadow: 0 10px 30px rgba(10, 47, 36, 0.05) !important;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      border: 1.5px solid rgba(201, 169, 110, 0.2);
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .pillar-card:hover {
       transform: translateY(-8px);
-      border-color: #C9A96E;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 25px rgba(201, 169, 110, 0.2);
+      border-color: #C5A869 !important;
+      box-shadow: 0 20px 45px rgba(10, 47, 36, 0.1), 0 0 20px rgba(197, 168, 105, 0.15) !important;
     }
 
     .pillar-icon-box {
-      width: 56px;
-      height: 56px;
-      border-radius: var(--radius-md);
-      background: rgba(201, 169, 110, 0.15);
-      border: 1.5px solid #C9A96E;
+      width: 62px;
+      height: 62px;
+      border-radius: 18px;
+      background: rgba(197, 168, 105, 0.12);
+      border: 1.5px solid #C5A869;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.8rem;
+      font-size: 2rem;
       margin-bottom: 1.4rem;
       position: relative;
+      box-shadow: 0 4px 12px rgba(197, 168, 105, 0.15);
     }
 
     .pillar-card h3 {
-      font-size: 1.35rem;
-      color: #FFFFFF;
-      margin-bottom: 0.8rem;
+      font-size: 1.28rem;
+      color: #0A2F24 !important;
+      margin-bottom: 0.85rem;
       font-weight: 800;
     }
 
     .pillar-card p {
-      color: #B8CCC4;
-      font-size: 0.95rem;
-      line-height: 1.7;
+      color: #485A53 !important;
+      font-size: 0.92rem;
+      line-height: 1.75;
       margin-bottom: 1.5rem;
     }
 
     .pillar-tag {
-      font-size: 0.78rem;
-      color: #52B788;
+      font-size: 0.82rem;
+      color: #16A34A;
       font-weight: 800;
-      background: rgba(37, 211, 102, 0.1);
-      padding: 4px 10px;
-      border-radius: var(--radius-sm);
+      background: rgba(22, 163, 74, 0.08);
+      padding: 6px 14px;
+      border-radius: 8px;
       width: fit-content;
-      border: 1px solid rgba(37, 211, 102, 0.25);
+      border: 1px solid rgba(22, 163, 74, 0.25);
     }
 
-    /* Vision 2030 Container */
+    /* ==========================================
+       VISION 2030 CONTAINER
+       ========================================== */
     .vision-luxury-container {
       padding: 3.5rem;
-      border-radius: var(--radius-xl);
-      border: 1.5px solid #C9A96E;
-      background: linear-gradient(135deg, rgba(27, 67, 50, 0.8) 0%, rgba(11, 28, 21, 0.95) 100%);
+      border-radius: 28px;
+      border: 1.5px solid rgba(197, 168, 105, 0.35);
+      background: #FFFFFF;
+      box-shadow: 0 16px 45px rgba(10, 47, 36, 0.06);
     }
 
     .vision-grid {
@@ -386,22 +428,26 @@ import { AudioService } from '../../core/services/audio.service';
     }
 
     .vision-badge {
-      font-size: 0.85rem;
-      color: #DFC698;
-      font-weight: 700;
-      display: block;
+      font-size: 0.88rem;
+      color: #9B7E3E;
+      font-weight: 800;
+      display: inline-block;
       margin-bottom: 0.8rem;
+      background: rgba(197, 168, 105, 0.12);
+      padding: 4px 14px;
+      border-radius: 9999px;
+      border: 1px solid rgba(197, 168, 105, 0.3);
     }
 
     .vision-text-col h2 {
       font-size: 2.2rem;
-      color: #FFFFFF;
+      color: #0A2F24;
       margin-bottom: 1.2rem;
       font-weight: 900;
     }
 
     .vision-text-col p {
-      color: #C1D6CD;
+      color: #485A53;
       font-size: 1.05rem;
       line-height: 1.8;
       margin-bottom: 2rem;
@@ -416,62 +462,66 @@ import { AudioService } from '../../core/services/audio.service';
     .v-bullet {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      background: rgba(255, 255, 255, 0.03);
-      padding: 0.9rem 1.2rem;
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(201, 169, 110, 0.15);
+      gap: 1.2rem;
+      background: #FAF8F5;
+      padding: 1rem 1.4rem;
+      border-radius: 14px;
+      border: 1.5px solid rgba(15, 81, 50, 0.1);
     }
 
     .vb-icon {
-      font-size: 1.6rem;
+      font-size: 1.8rem;
     }
 
     .vb-text strong {
       display: block;
-      color: #FFFFFF;
-      font-size: 0.95rem;
+      color: #0A2F24;
+      font-size: 1rem;
+      font-weight: 800;
     }
 
     .vb-text small {
-      color: #A3B8B0;
-      font-size: 0.8rem;
+      color: #485A53;
+      font-size: 0.84rem;
     }
 
     .emblem-card-box {
-      background: rgba(6, 19, 13, 0.8);
-      border: 1.5px solid rgba(201, 169, 110, 0.35);
-      border-radius: var(--radius-lg);
+      background: #FAF8F5;
+      border: 1.5px solid rgba(197, 168, 105, 0.35);
+      border-radius: 24px;
       padding: 2.5rem;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
+      box-shadow: 0 10px 30px rgba(10, 47, 36, 0.04);
     }
 
     .emblem-gold-circle {
-      width: 70px;
-      height: 70px;
+      width: 74px;
+      height: 74px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(201, 169, 110, 0.25) 0%, rgba(27, 67, 50, 0.8) 100%);
-      border: 2px solid #C9A96E;
+      background: radial-gradient(circle, rgba(197, 168, 105, 0.25) 0%, rgba(10, 47, 36, 0.1) 100%);
+      border: 2px solid #C5A869;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2rem;
+      font-size: 2.2rem;
       margin-bottom: 1.2rem;
+      box-shadow: 0 6px 18px rgba(197, 168, 105, 0.25);
     }
 
     .emblem-card-box h3 {
-      font-size: 1.3rem;
-      color: #FFFFFF;
+      font-size: 1.35rem;
+      color: #0A2F24;
       margin-bottom: 0.5rem;
+      font-weight: 800;
     }
 
     .emblem-card-box p {
-      font-size: 0.88rem;
-      color: #A3B8B0;
-      line-height: 1.6;
+      font-size: 0.92rem;
+      color: #485A53;
+      line-height: 1.65;
       margin-bottom: 1.8rem;
     }
 
@@ -480,43 +530,56 @@ import { AudioService } from '../../core/services/audio.service';
       align-items: center;
       justify-content: space-around;
       width: 100%;
-      border-top: 1px solid rgba(201, 169, 110, 0.2);
-      padding-top: 1.2rem;
+      border-top: 1.5px solid rgba(15, 81, 50, 0.1);
+      padding-top: 1.4rem;
+    }
+
+    .mk-item {
+      background: #FFFFFF;
+      padding: 0.8rem 1.4rem;
+      border-radius: 12px;
+      border: 1px solid rgba(15, 81, 50, 0.1);
     }
 
     .mk-item strong {
       display: block;
-      font-size: 1.4rem;
-      color: #DFC698;
+      font-size: 1.5rem;
+      color: #0A2F24;
+      font-weight: 900;
       font-family: var(--font-family-latin);
     }
 
     .mk-item small {
-      font-size: 0.75rem;
-      color: #839E93;
+      font-size: 0.78rem;
+      color: #485A53;
+      font-weight: 700;
     }
 
-    /* About CTA Box */
+    /* ==========================================
+       ABOUT CTA BOX
+       ========================================== */
     .about-cta-box {
-      padding: 3rem;
-      border-radius: var(--radius-xl);
-      border: 1.5px solid #C9A96E;
+      padding: 3.5rem;
+      border-radius: 28px;
+      border: 1.5px solid rgba(197, 168, 105, 0.45);
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 2rem;
-      background: linear-gradient(135deg, #1B4332 0%, #0B1C15 100%);
+      background: linear-gradient(135deg, #0A2F24 0%, #0D3B2E 100%);
+      box-shadow: 0 20px 50px rgba(10, 47, 36, 0.25);
     }
 
     .cta-content h2 {
-      font-size: 2rem;
+      font-size: 2.1rem;
       color: #FFFFFF;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.6rem;
+      font-weight: 800;
     }
 
     .cta-content p {
-      color: #B8CCC4;
-      font-size: 1rem;
+      color: #CBDAD3;
+      font-size: 1.05rem;
     }
 
     .cta-btns-group {
@@ -527,24 +590,36 @@ import { AudioService } from '../../core/services/audio.service';
     }
 
     .btn-saudi-gold {
-      background: linear-gradient(135deg, #C9A96E 0%, #A48348 100%);
-      color: #06130D;
-      padding: 0.9rem 1.8rem;
+      background: linear-gradient(135deg, #DFC698 0%, #C5A869 100%);
+      color: #0A2F24;
+      padding: 0.95rem 1.9rem;
       border-radius: var(--radius-full);
       font-weight: 800;
-      font-size: 0.95rem;
+      font-size: 0.96rem;
       text-decoration: none;
-      box-shadow: 0 4px 15px rgba(201, 169, 110, 0.4);
+      box-shadow: 0 4px 18px rgba(197, 168, 105, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .btn-saudi-gold:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(197, 168, 105, 0.55);
     }
 
     .btn-outline-gold {
-      border: 1.5px solid #C9A96E;
+      border: 1.5px solid #DFC698;
       color: #DFC698;
-      padding: 0.85rem 1.6rem;
+      padding: 0.9rem 1.7rem;
       border-radius: var(--radius-full);
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 0.96rem;
       text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline-gold:hover {
+      background: rgba(223, 198, 152, 0.15);
+      transform: translateY(-3px);
     }
 
     @media (max-width: 992px) {

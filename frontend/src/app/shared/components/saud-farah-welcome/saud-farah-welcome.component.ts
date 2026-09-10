@@ -135,7 +135,7 @@ import { AudioService } from '../../../core/services/audio.service';
         <div class="welcome-actions-deck">
           <button class="btn-hero-action btn-chat-now" (click)="openChatWithAgents()">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            <span>محادثة فورية مع سعود وفرح 💬</span>
+            <span>محادثة فورية مع سعود وفرح</span>
           </button>
           <button class="btn-hero-action btn-explore-site" (click)="skipWelcome()">
             <span>استكشاف خدمات المنصة 🚀</span>

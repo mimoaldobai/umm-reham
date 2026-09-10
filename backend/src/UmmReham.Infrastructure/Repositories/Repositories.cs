@@ -332,6 +332,18 @@ public class ServiceRequestRepository : Repository<ServiceRequest>, IServiceRequ
         await _context.SaveChangesAsync();
         return request;
     }
+
+    public async Task<ServiceRequest?> FindByTrackingCodeOrPhoneAsync(string query)
+    {
+        var clean = query.Trim();
+        var requests = await _dbSet.Include(r => r.Service).ToListAsync();
+        return requests.FirstOrDefault(r => 
+            (!string.IsNullOrEmpty(r.AdditionalDetails) && r.AdditionalDetails.Contains(clean, StringComparison.OrdinalIgnoreCase)) ||
+            (!string.IsNullOrEmpty(r.ClientPhone) && r.ClientPhone.Contains(clean, StringComparison.OrdinalIgnoreCase)) ||
+            r.Id.ToString().StartsWith(clean, StringComparison.OrdinalIgnoreCase) ||
+            (!string.IsNullOrEmpty(r.ClientName) && r.ClientName.Contains(clean, StringComparison.OrdinalIgnoreCase))
+        );
+    }
 }
 
 // ========================

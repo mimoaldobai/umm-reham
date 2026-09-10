@@ -1,0 +1,642 @@
+<div class="contact-page-wrapper bg-ivory-warm" dir="rtl">
+  <div class="container section-padding">
+    
+    <!-- Hero Header -->
+    <header class="contact-page-header">
+      <div class="badge-gold-pill">منصة أم رهام | بوابة الطلبات الموحدة</div>
+      <h1 class="page-title">
+        طلب خدمة ومتابعة <span class="green-gradient-text">الإنجاز الأكاديمي</span>
+      </h1>
+      <p class="page-desc">
+        اطلب خدمتك الآن واحصل على كود تتبع حصري وخصم فوري يتم تحديده من المنصة، وتابع مراحل التجهيز والاعتماد خطوة بخطوة.
+      </p>
+
+      <!-- Navigation Tabs Capsule -->
+      <div class="contact-tabs-capsule">
+        <button 
+          type="button" 
+          class="tab-btn" 
+          [class.active]="activeTab === 'new_order'" 
+          (click)="setTab('new_order')">
+          <span class="tab-icon">✍️</span>
+          <span>طلب خدمة جديدة</span>
+          <span class="tab-badge-discount">خصم {{ discountPercent }}% فوري</span>
+        </button>
+
+        <button 
+          type="button" 
+          class="tab-btn" 
+          [class.active]="activeTab === 'track_order'" 
+          (click)="setTab('track_order')">
+          <span class="tab-icon">🔍</span>
+          <span>متابعة حالة الطلب</span>
+          <span class="tab-badge-status">تتبع مباشر</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ==========================================
+         TAB 1: NEW SERVICE REQUEST (طلب خدمة جديدة)
+         ========================================== -->
+    <main *ngIf="activeTab === 'new_order'" class="tab-content-area animate-fade-in">
+      
+      <!-- Submission Success State Modal / Overlay -->
+      <div *ngIf="orderSubmitted" class="order-success-card glass-panel">
+        <div class="success-icon-wrap">
+          <span>🎉</span>
+        </div>
+        <div class="success-content">
+          <span class="success-tag">تم تسجيل طلبك بنجاح ✓</span>
+          <h2>مرحباً بك! تم إرسال طلبك إلى لوحة الإدارة ومستشارينا</h2>
+          <p>
+            تم توليد كود التتبع الخاص بك بنجاح، وفتح محادثة واتساب المباشرة لتأكيد التفاصيل. احتفظ بكود الطلب لمتابعة مراحل الإنجاز:
+          </p>
+
+          <div class="tracking-code-highlight-box">
+            <small>كود متابعة الطلب الخاص بك:</small>
+            <div class="code-and-copy">
+              <strong class="code-display">{{ submittedOrderDetails?.orderNumber || currentTrackingCode }}</strong>
+              <button type="button" class="btn-copy-code" (click)="copyTrackingCode()">
+                <span *ngIf="!copySuccess">📋 نسخ الكود</span>
+                <span *ngIf="copySuccess" class="copied">✓ تم النسخ!</span>
+              </button>
+            </div>
+            <div class="discount-applied-pill">
+              ✨ تم تطبيق خصم المنصة الحصري: {{ discountPercent }}%
+            </div>
+          </div>
+
+          <div class="success-actions-row">
+            <button type="button" class="btn-track-now" (click)="viewSubmittedOrder()">
+              <span>🔍 تتبع مسار هذا الطلب الآن ←</span>
+            </button>
+
+            <a [href]="getWhatsAppSupportUrl(submittedOrderDetails?.orderNumber)" target="_blank" class="btn-wa-direct">
+              <span>💬 متابعة مع المستشار عبر واتساب</span>
+            </a>
+
+            <button type="button" class="btn-new-order-another" (click)="resetOrderForm()">
+              <span>طلب خدمة أخرى +</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Two-Column Layout (Form + Summary & Support Channels) -->
+      <div *ngIf="!orderSubmitted" class="order-form-layout-grid">
+        
+        <!-- Right Column: Interactive Request Form -->
+        <div class="form-main-card glass-panel">
+          <div class="form-card-head">
+            <div class="head-title-wrap">
+              <h3>📝 تفاصيل الخدمة والبيانات الأكاديمية</h3>
+              <p>أدخل بيانات طلبك بدقة، وسنقوم بالربط الفوري مع لوحة الإدارة ومستشارك المختص.</p>
+            </div>
+            <div class="auto-tracking-pill" title="يتم ربطه تلقائياً مع هذا الطلب">
+              <small>كود الطلب المتوقع:</small>
+              <strong>{{ currentTrackingCode }}</strong>
+            </div>
+          </div>
+
+          <form (ngSubmit)="submitOrder()" class="academic-order-form">
+            
+            <!-- Section 1: Client Info & Location -->
+            <div class="form-section-title">
+              <span>1</span>
+              <h4>البيانات الشخصية ووسيلة التواصل</h4>
+            </div>
+
+            <!-- Row 1: Client Name & Email -->
+            <div class="two-fields-row">
+              <div class="form-group">
+                <label for="clientName">الاسم الكريم <span class="req">*</span></label>
+                <input 
+                  id="clientName"
+                  type="text" 
+                  class="lux-input" 
+                  [(ngModel)]="requestModel.clientName" 
+                  name="clientName" 
+                  placeholder="مثال: د. سلطان الشمري" 
+                  required />
+              </div>
+
+              <div class="form-group">
+                <label for="clientEmail">
+                  البريد الإلكتروني <span class="field-hint">(اختياري)</span>
+                </label>
+                <input 
+                  id="clientEmail"
+                  type="email" 
+                  class="lux-input ltr-input" 
+                  [(ngModel)]="requestModel.clientEmail" 
+                  name="clientEmail" 
+                  placeholder="example@domain.com" />
+              </div>
+            </div>
+
+            <!-- Row 2: Cascading Location Selector (الدولة - المنطقة / الولاية - المدينة) -->
+            <div class="three-fields-row location-cascading-row">
+              <div class="form-group">
+                <label for="locationCountry">
+                  <span class="loc-icon">🌐</span> الدولة:
+                </label>
+                <div class="select-with-code">
+                  <select 
+                    id="locationCountry"
+                    class="lux-select"
+                    [(ngModel)]="selectedCountry" 
+                    name="locationCountry"
+                    (change)="onCountryChange()">
+                    <option *ngFor="let c of countries" [ngValue]="c">
+                      {{ c.idCode ? c.idCode + '-' + c.nameAr : c.nameAr }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="locationRegion">
+                  <span class="loc-icon">📍</span> ولاية / المنطقة:
+                </label>
+                <div class="select-with-code">
+                  <select 
+                    id="locationRegion"
+                    class="lux-select"
+                    [(ngModel)]="selectedRegion" 
+                    name="locationRegion"
+                    (change)="onRegionChange()"
+                    [disabled]="availableRegions.length === 0">
+                    <option *ngFor="let r of availableRegions" [ngValue]="r">
+                      {{ r.idCode ? r.idCode + '-' + r.nameAr : r.nameAr }}
+                    </option>
+                    <option *ngIf="availableRegions.length === 0" [ngValue]="null">لا توجد مناطق محددة</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="locationCity">
+                  <span class="loc-icon">🏙️</span> المدينة:
+                </label>
+                <div class="select-with-code">
+                  <select 
+                    id="locationCity"
+                    class="lux-select"
+                    [(ngModel)]="selectedCity" 
+                    name="locationCity"
+                    (change)="onCityChange()"
+                    [disabled]="availableCities.length === 0">
+                    <option *ngFor="let ct of availableCities" [ngValue]="ct">
+                      {{ ct.idCode ? ct.idCode + '-' + ct.nameAr : ct.nameAr }}
+                    </option>
+                    <option *ngIf="availableCities.length === 0" [ngValue]="null">المدينة الرئيسية</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Row 3: Phone Number Placed Under Country Location Data with Auto-filled Dial Code -->
+            <div class="form-group phone-under-country-group">
+              <label for="phoneSubscriberNumber">
+                رقم الجوال والواتساب <span class="req">*</span>
+                <span class="field-hint">(رمز الدولة {{ selectedCountry.code }} {{ selectedCountry.dialCode }} يتعبأ تلقائياً عند اختيار الدولة أعلاه)</span>
+              </label>
+              <div class="phone-dial-group">
+                <!-- Auto-updating Country Dial Code Badge (Only Code & Flag) -->
+                <div class="dial-code-badge" dir="ltr" title="رمز الدولة المحدد تلقائياً">
+                  <span class="flag-icon">{{ selectedCountry.flag }}</span>
+                  <span class="country-short">{{ selectedCountry.code }}</span>
+                  <span class="code-number">{{ selectedCountry.dialCode }}</span>
+                </div>
+
+                <!-- Subscriber Number Input -->
+                <div class="subscriber-input-wrap">
+                  <input 
+                    id="phoneSubscriberNumber"
+                    type="tel" 
+                    class="lux-input ltr-input phone-subscriber-input" 
+                    [(ngModel)]="phoneSubscriberNumber" 
+                    (input)="onSubscriberPhoneChange()"
+                    name="phoneSubscriberNumber" 
+                    [placeholder]="selectedCountry.placeholder || '5XXXXXXXX'" 
+                    required />
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 2: Service Classification -->
+            <div class="form-section-title">
+              <span>2</span>
+              <h4>تصنيف ونوع الخدمة المطلوبة</h4>
+            </div>
+
+            <div class="two-fields-row">
+              <div class="form-group">
+                <label for="categorySelect">القسم والتصنيف العام:</label>
+                <select 
+                  id="categorySelect"
+                  class="lux-select" 
+                  [(ngModel)]="requestModel.categorySlug" 
+                  name="categorySlug" 
+                  (change)="onCategoryChange()">
+                  <option *ngFor="let cat of categories" [value]="cat.slug">{{ cat.nameAr }}</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="serviceSelect">الخدمة المحددة:</label>
+                <select 
+                  id="serviceSelect"
+                  class="lux-select" 
+                  [(ngModel)]="requestModel.serviceName" 
+                  name="serviceName"
+                  (change)="onServiceSelect()">
+                  <option *ngFor="let s of filteredServices" [value]="s.nameAr">{{ s.nameAr }}</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Section 3: Academic Details -->
+            <div class="form-section-title">
+              <span>3</span>
+              <h4>المتطلبات والجدول الزمني</h4>
+            </div>
+
+            <div class="three-fields-row">
+              <div class="form-group">
+                <label for="university">الجامعة / المدرسة / الجهة:</label>
+                <input 
+                  id="university"
+                  type="text" 
+                  class="lux-input" 
+                  [(ngModel)]="requestModel.university" 
+                  name="university" 
+                  placeholder="مثال: جامعة الملك سعود" />
+              </div>
+
+              <div class="form-group">
+                <label for="degree">المرحلة الدراسية:</label>
+                <select id="degree" class="lux-select" [(ngModel)]="requestModel.degree" name="degree">
+                  <option value="مدرسي">مدرسي (ابتدائي / متوسط / ثانوي)</option>
+                  <option value="بكالوريوس">بكالوريوس / دبلوم</option>
+                  <option value="ماجستير">دراسات عليا — ماجستير</option>
+                  <option value="دكتوراه">دراسات عليا — دكتوراه</option>
+                  <option value="مهني">مسار مهني ووظيفي</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="pageCount">عدد الصفحات التقريبي:</label>
+                <input 
+                  id="pageCount"
+                  type="number" 
+                  class="lux-input" 
+                  [(ngModel)]="requestModel.pageCount" 
+                  name="pageCount" 
+                  min="1" 
+                  max="500" />
+              </div>
+            </div>
+
+            <div class="two-fields-row">
+              <div class="form-group">
+                <label for="specialization">التخصص الأكاديمي الدقيق:</label>
+                <input 
+                  id="specialization"
+                  type="text" 
+                  class="lux-input" 
+                  [(ngModel)]="requestModel.specialization" 
+                  name="specialization" 
+                  placeholder="مثال: إدارة الموارد البشرية، الذكاء الاصطناعي..." />
+              </div>
+
+              <div class="form-group">
+                <label for="deadline">الموعد النهائي المطلوب:</label>
+                <input 
+                  id="deadline"
+                  type="text" 
+                  class="lux-input" 
+                  [(ngModel)]="requestModel.deadline" 
+                  name="deadline" 
+                  placeholder="مثال: خلال 5 أيام أو 2026-09-25" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="notes">شرح تفاصيل ومتطلبات العمل واشتراطات المشرف:</label>
+              <textarea 
+                id="notes"
+                class="lux-textarea" 
+                rows="4" 
+                [(ngModel)]="requestModel.description" 
+                name="description" 
+                placeholder="اشرح لنا فكرة البحث، أهداف العمل، المراجع المفضلة، وأي شروط خاصة من مشرفك أو كليتك..."></textarea>
+            </div>
+
+            <!-- Attachments Upload Zone (نظام رفع ملفات PDF والمرفقات) -->
+            <div class="form-group attachments-upload-section">
+              <label>
+                📎 إرفاق ملفات ومتطلبات البحث المباشرة (.pdf, .docx, .zip)
+                <span class="field-hint">(اختياري — يمكنك رفع أكثر من ملف للبحث)</span>
+              </label>
+
+              <div 
+                class="file-upload-dragzone"
+                [class.uploading]="isUploadingFile"
+                (drop)="onFileDrop($event)"
+                (dragover)="onDragOver($event)"
+                (click)="fileInput.click()">
+                
+                <input 
+                  type="file" 
+                  #fileInput 
+                  multiple 
+                  accept=".pdf,.doc,.docx,.zip,.rar,.png,.jpg,.jpeg" 
+                  (change)="onFileSelected($event)" 
+                  style="display: none;" />
+
+                <div class="dragzone-content" *ngIf="!isUploadingFile">
+                  <div class="drag-icon">📁</div>
+                  <div class="drag-text">
+                    <strong>اضغط هنا لاختيار الملفات</strong> أو اسحب واسقط الملفات في هذا المربع
+                  </div>
+                  <small class="drag-types">أنواع الملفات المدعومة: PDF, Word (DOCX/DOC), ZIP, RAR, الصور | الحجم الأقصى: 25MB</small>
+                </div>
+
+                <div class="dragzone-uploading" *ngIf="isUploadingFile">
+                  <div class="mini-spinner"></div>
+                  <span>جاري رفع وتشفير الملفات على السيرفر...</span>
+                </div>
+              </div>
+
+              <!-- List of attached files -->
+              <div class="attached-files-chips" *ngIf="attachedFiles.length > 0">
+                <div class="chip-item" *ngFor="let file of attachedFiles; let i = index">
+                  <span class="chip-icon">📄</span>
+                  <div class="chip-info">
+                    <span class="chip-name" [title]="file.fileName">{{ file.fileName }}</span>
+                    <span class="chip-size">{{ formatFileSize(file.fileSize) }}</span>
+                  </div>
+                  <button type="button" class="chip-remove-btn" (click)="removeFile(i); $event.stopPropagation()" title="حذف الملف">✕</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="terms-checkbox-wrap">
+              <label class="checkbox-label">
+                <input type="checkbox" [(ngModel)]="requestModel.agreedToTerms" name="agreedToTerms" required />
+                <span>أوافق على سياسة الخصوصية الأكاديمية وضمان السرية التامة للأبحاث 100%.</span>
+              </label>
+            </div>
+
+            <!-- Submit Button -->
+            <button 
+              type="submit" 
+              class="btn-submit-order" 
+              [disabled]="isSubmitting">
+              <span *ngIf="!isSubmitting">إرسال الطلب وحجز الخصم الفوري ({{ discountPercent }}%) ←</span>
+              <span *ngIf="isSubmitting">جاري تسجيل طلبك وإعداد كود التتبع...</span>
+            </button>
+
+          </form>
+        </div>
+
+        <!-- Left Column: Price Summary & VIP Channels -->
+        <aside class="order-side-column">
+          
+          <!-- Live Price Calculator Card -->
+          <div class="price-estimate-card glass-panel">
+            <div class="card-glow-badge">عرض الموقع الحصري</div>
+            <h3>💰 التقدير المالي للطلب</h3>
+            <p class="estimate-note">تسعير أولي تقديري بناءً على الحجم والمرحلة، ويخضع للمراجعة الدقيقة:</p>
+
+            <div class="price-breakdown-list">
+              <div class="breakdown-row">
+                <span>السعر الأساسي التقديري:</span>
+                <strong>{{ estimatedBasePrice }} ر.س</strong>
+              </div>
+              <div class="breakdown-row discount-row">
+                <span>خصم المنصة الفوري ({{ discountPercent }}%):</span>
+                <strong class="gold-text">- {{ discountAmount }} ر.س</strong>
+              </div>
+              <div class="divider-line"></div>
+              <div class="breakdown-row total-row">
+                <span>السعر بعد الخصم التقديري:</span>
+                <strong class="final-price">{{ finalEstimatedPrice }} ر.س</strong>
+              </div>
+            </div>
+
+            <div class="feature-ticks-list">
+              <div class="tick-item">✓ فحص Turnitin بنسبة اقتباس 0% مجاناً</div>
+              <div class="tick-item">✓ مراجعات وتعديلات غير محدودة حتى الاعتماد</div>
+              <div class="tick-item">✓ كود تتبع مباشر لمتابعة الإنجاز لحظة بلحظة</div>
+            </div>
+          </div>
+
+          <!-- Direct Fast-Track WhatsApp Card -->
+          <div class="vip-whatsapp-card">
+            <div class="wa-icon-large">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.301-.15-1.782-.879-2.057-.979-.276-.1-.476-.15-.676.15-.2.301-.776.98-1.026 1.281-.25.301-.45.301-.75.15-.301-.15-1.27-.468-2.42-1.493-.895-.798-1.5-1.784-1.675-2.085-.176-.3-.019-.462.131-.611.136-.135.301-.351.451-.527.151-.175.201-.3.301-.501.101-.2.05-.375-.025-.525-.075-.15-.676-1.63-1.002-2.23-.275-.6-.576-.525-.776-.525-.2 0-.426-.025-.651-.025-.226 0-.602.075-.927.426-.326.35-1.253 1.226-1.253 2.984 0 1.758 1.278 3.46 1.454 3.71.175.25 2.511 3.834 6.084 5.378.85.367 1.514.587 2.031.751.854.271 1.631.233 2.246.141.685-.102 1.782-.728 2.032-1.431.25-.702.25-1.303.175-1.43-.075-.126-.275-.226-.576-.376z"/>
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
+              </svg>
+            </div>
+            <h4>المسار العاجل والمباشر</h4>
+            <p>هل طلبك مستعجل أو ترغب بمناقشة الفكرة صوتياً مع المشرف؟</p>
+            <a [href]="getWhatsAppSupportUrl()" target="_blank" class="btn-wa-pill">
+              <span>تحدث مع المستشار عبر واتساب ←</span>
+            </a>
+          </div>
+
+          <!-- Official Guarantee Card -->
+          <div class="info-trust-card glass-panel">
+            <div class="info-row">
+              <span class="icon">🏛️</span>
+              <div>
+                <strong>الرياض — المملكة العربية السعودية</strong>
+                <p>نخدم كافة جامعات ومناطق المملكة والخليج العربي.</p>
+              </div>
+            </div>
+            <div class="info-row">
+              <span class="icon">⏰</span>
+              <div>
+                <strong>أوقات الاستقبال والتنفيذ</strong>
+                <p>يومياً من 8:00 صباحاً حتى 12:00 منتصف الليل.</p>
+              </div>
+            </div>
+          </div>
+
+        </aside>
+
+      </div>
+    </main>
+
+    <!-- ==========================================
+         TAB 2: TRACK ORDER (متابعة حالة الطلب)
+         ========================================== -->
+    <main *ngIf="activeTab === 'track_order'" class="tab-content-area animate-fade-in">
+      
+      <!-- Search Box Card -->
+      <div class="track-search-card glass-panel">
+        <div class="search-head">
+          <span class="search-badge">البحث في السجل الأكاديمي الموحد</span>
+          <h2>استعلام ومتابعة حالة طلبك</h2>
+          <p>أدخل كود المتابعة (مثال: UR-94215) أو رقم الجوال الذي استخدمته أثناء تقديم الطلب:</p>
+        </div>
+
+        <form (ngSubmit)="trackOrder()" class="track-search-form">
+          <div class="search-input-wrap">
+            <span class="search-icon">🔍</span>
+            <input 
+              type="text" 
+              class="track-search-input" 
+              [(ngModel)]="searchQuery" 
+              name="searchQuery" 
+              placeholder="مثال: UR-94215 أو 0501234567..." 
+              required />
+            <button type="submit" class="btn-track-submit" [disabled]="isSearching">
+              <span *ngIf="!isSearching">بحث واستعلام</span>
+              <span *ngIf="isSearching">جاري البحث...</span>
+            </button>
+          </div>
+        </form>
+
+        <!-- Error Alert -->
+        <div *ngIf="trackingError" class="track-error-alert animate-fade-in">
+          <span>⚠️</span>
+          <span>{{ trackingError }}</span>
+        </div>
+      </div>
+
+      <!-- Tracking Results Area -->
+      <div *ngIf="trackingResult" class="tracking-results-card glass-panel animate-fade-in">
+        
+        <!-- Result Header -->
+        <div class="result-header-bar">
+          <div class="order-id-group">
+            <span class="order-number-title">طلب رقم:</span>
+            <strong class="order-code-badge">{{ trackingResult.trackingCode || trackingResult.id }}</strong>
+            <span class="status-pill" [ngClass]="getStatusBadgeClass(trackingResult.status)">
+              {{ getStatusLabel(trackingResult.status) }}
+            </span>
+          </div>
+          <div class="order-date-tag">
+            <span>تاريخ التسجيل:</span>
+            <strong>{{ trackingResult.createdAt | date:'yyyy/MM/dd' }}</strong>
+          </div>
+        </div>
+
+        <!-- Visual Timeline Stepper -->
+        <div class="timeline-stepper-container">
+          <div class="stepper-track-line">
+            <div 
+              class="stepper-fill-bar" 
+              [style.width.%]="(getStatusStepIndex(trackingResult.status) - 1) * 25">
+            </div>
+          </div>
+
+          <div class="stepper-steps-grid">
+            
+            <!-- Step 1: Received -->
+            <div class="stepper-step-item" [class.completed]="getStatusStepIndex(trackingResult.status) >= 1" [class.current]="getStatusStepIndex(trackingResult.status) === 1">
+              <div class="step-circle">
+                <span *ngIf="getStatusStepIndex(trackingResult.status) > 1">✓</span>
+                <span *ngIf="getStatusStepIndex(trackingResult.status) <= 1">1</span>
+              </div>
+              <div class="step-label">
+                <strong>استلام الطلب</strong>
+                <small>تم التوثيق بالنظام</small>
+              </div>
+            </div>
+
+            <!-- Step 2: Approved / Review -->
+            <div class="stepper-step-item" [class.completed]="getStatusStepIndex(trackingResult.status) >= 2" [class.current]="getStatusStepIndex(trackingResult.status) === 2">
+              <div class="step-circle">
+                <span *ngIf="getStatusStepIndex(trackingResult.status) > 2">✓</span>
+                <span *ngIf="getStatusStepIndex(trackingResult.status) <= 2">2</span>
+              </div>
+              <div class="step-label">
+                <strong>مراجعة واعتماد</strong>
+                <small>تحديد خطة العمل</small>
+              </div>
+            </div>
+
+            <!-- Step 3: In Progress -->
+            <div class="stepper-step-item" [class.completed]="getStatusStepIndex(trackingResult.status) >= 3" [class.current]="getStatusStepIndex(trackingResult.status) === 3">
+              <div class="step-circle">
+                <span *ngIf="getStatusStepIndex(trackingResult.status) > 3">✓</span>
+                <span *ngIf="getStatusStepIndex(trackingResult.status) <= 3">3</span>
+              </div>
+              <div class="step-label">
+                <strong>جاري التنفيذ</strong>
+                <small>صياغة وبناء وتدقيق</small>
+              </div>
+            </div>
+
+            <!-- Step 4: Ready -->
+            <div class="stepper-step-item" [class.completed]="getStatusStepIndex(trackingResult.status) >= 4" [class.current]="getStatusStepIndex(trackingResult.status) === 4">
+              <div class="step-circle">
+                <span *ngIf="getStatusStepIndex(trackingResult.status) > 4">✓</span>
+                <span *ngIf="getStatusStepIndex(trackingResult.status) <= 4">4</span>
+              </div>
+              <div class="step-label">
+                <strong>جاهز للتسليم</strong>
+                <small>اكتمال الفحص النهائي</small>
+              </div>
+            </div>
+
+            <!-- Step 5: Completed -->
+            <div class="stepper-step-item" [class.completed]="getStatusStepIndex(trackingResult.status) >= 5" [class.current]="getStatusStepIndex(trackingResult.status) === 5">
+              <div class="step-circle">
+                <span>✓</span>
+              </div>
+              <div class="step-label">
+                <strong>تم التسليم</strong>
+                <small>نيل الرضا والاعتماد</small>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Order Details Grid -->
+        <div class="order-specs-grid">
+          <div class="spec-card">
+            <span class="spec-label">صاحب الطلب:</span>
+            <strong class="spec-val">{{ trackingResult.clientName || 'عميل موثق' }}</strong>
+          </div>
+          <div class="spec-card">
+            <span class="spec-label">الخدمة الأكاديمية:</span>
+            <strong class="spec-val">{{ trackingResult.serviceName || trackingResult.description || 'خدمة تعليمية' }}</strong>
+          </div>
+          <div class="spec-card">
+            <span class="spec-label">الجهة / الجامعة:</span>
+            <strong class="spec-val">{{ trackingResult.university || 'جامعة سعودية معتمدة' }}</strong>
+          </div>
+          <div class="spec-card">
+            <span class="spec-label">حالة الخصم:</span>
+            <strong class="spec-val gold-text">خصم {{ trackingResult.discountPercent || discountPercent }}% مفعل ✓</strong>
+          </div>
+        </div>
+
+        <!-- Direct Action Bar -->
+        <div class="tracking-action-bar">
+          <a [href]="getWhatsAppSupportUrl(trackingResult.trackingCode || trackingResult.id)" target="_blank" class="btn-wa-track-action">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.301-.15-1.782-.879-2.057-.979-.276-.1-.476-.15-.676.15-.2.301-.776.98-1.026 1.281-.25.301-.45.301-.75.15-.301-.15-1.27-.468-2.42-1.493-.895-.798-1.5-1.784-1.675-2.085-.176-.3-.019-.462.131-.611.136-.135.301-.351.451-.527.151-.175.201-.3.301-.501.101-.2.05-.375-.025-.525-.075-.15-.676-1.63-1.002-2.23-.275-.6-.576-.525-.776-.525-.2 0-.426-.025-.651-.025-.226 0-.602.075-.927.426-.326.35-1.253 1.226-1.253 2.984 0 1.758 1.278 3.46 1.454 3.71.175.25 2.511 3.834 6.084 5.378.85.367 1.514.587 2.031.751.854.271 1.631.233 2.246.141.685-.102 1.782-.728 2.032-1.431.25-.702.25-1.303.175-1.43-.075-.126-.275-.226-.576-.376z"/>
+              <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
+            </svg>
+            <span>متابعة مع المستشار الأكاديمي عبر واتساب حول هذا الطلب</span>
+          </a>
+
+          <button type="button" class="btn-new-order-link" (click)="setTab('new_order')">
+            <span>طلب خدمة أكاديمية جديدة +</span>
+          </button>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+</div>

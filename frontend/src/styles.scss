@@ -92,7 +92,7 @@ body {
   background-color: var(--ivory-warm);
   color: var(--text-main);
   line-height: 1.7;
-  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -180,18 +180,18 @@ button {
 }
 
 .bg-deep-saudi {
-  background: #071A14;
-  color: #FFFFFF;
+  background: #FAF8F5;
+  color: #121816;
 }
 
 .bg-ivory-warm {
-  background: transparent;
-  color: #FFFFFF;
+  background: #FBF9F5;
+  color: #121816;
 }
 
 .bg-ivory-surface {
-  background: transparent;
-  color: #FFFFFF;
+  background: #FFFFFF;
+  color: #121816;
 }
 
 .gold-gradient-text {
@@ -207,6 +207,50 @@ button {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
+}
+
+/* ==========================================
+   GLOBAL LUXURY SECTION HEADERS & BADGES
+   ========================================== */
+.section-badge-center {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  max-width: 840px;
+  margin: 0 auto 3.2rem auto;
+}
+
+.badge-gold {
+  background: rgba(197, 168, 105, 0.14) !important;
+  color: #9B7E3E !important;
+  border: 1.5px solid rgba(197, 168, 105, 0.45) !important;
+  padding: 0.4rem 1.4rem !important;
+  border-radius: 9999px !important;
+  font-size: 0.9rem !important;
+  font-weight: 700 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.45rem !important;
+  box-shadow: 0 2px 10px rgba(197, 168, 105, 0.15) !important;
+  margin-bottom: 0.9rem !important;
+}
+
+.section-title {
+  font-family: var(--font-family-arabic) !important;
+  font-size: clamp(2rem, 3.4vw, 2.75rem) !important;
+  font-weight: 800 !important;
+  color: #0A2F24 !important;
+  line-height: 1.35 !important;
+  margin-bottom: 0.85rem !important;
+}
+
+.section-desc {
+  color: #485A53 !important;
+  font-size: 1.05rem !important;
+  line-height: 1.75 !important;
+  max-width: 720px !important;
+  margin: 0 auto !important;
 }
 
 /* Glassmorphic Luxury Panels */
@@ -489,36 +533,36 @@ html, body, .admin-layout, .admin-sidebar, .admin-topbar, .content-box, .metric-
 
 /* --- ROYAL SAUDI GREEN & PURE WHITE THEME (Default Emerald) --- */
 :root, [data-theme="emerald"], body.theme-emerald {
-  /* Green & White Dashboard Design Tokens */
-  --dash-sidebar-bg: #032E1E; /* Deep Royal Saudi Emerald */
-  --dash-sidebar-border: rgba(16, 185, 129, 0.25);
-  --dash-body-bg: #F4F8F5; /* Crisp, Clean, Calm White/Mint */
+  /* Green & Gold Dashboard Design Tokens */
+  --dash-sidebar-bg: #0A2F24; /* Royal Saudi Emerald (Exact Header Color) */
+  --dash-sidebar-border: rgba(197, 168, 105, 0.28);
+  --dash-body-bg: #FAF8F4; /* Warm Calm Luxury Off-White / Ivory */
   --dash-card-bg: #FFFFFF; /* Pure Crisp White */
-  --dash-card-border: #E2ECE6; /* Soft border */
-  --dash-text-main: #0F291E; /* High contrast dark green-black */
-  --dash-text-muted: #52796F; /* Slate green */
-  --dash-accent-gold: #059669; /* Saudi Emerald Green */
-  --dash-crest-bg: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(3, 46, 30, 0.9));
-  --dash-avatar-bg: #032E1E;
-  --dash-user-card-bg: rgba(255, 255, 255, 0.08);
+  --dash-card-border: rgba(197, 168, 105, 0.25); /* Soft Gold Border */
+  --dash-text-main: #0A2F24; /* High contrast dark green */
+  --dash-text-muted: #526860; /* Slate emerald */
+  --dash-accent-gold: #C5A869; /* Saudi Emerald Gold */
+  --dash-crest-bg: linear-gradient(135deg, rgba(197, 168, 105, 0.3), rgba(10, 47, 36, 0.95));
+  --dash-avatar-bg: #0A2F24;
+  --dash-user-card-bg: rgba(197, 168, 105, 0.08);
   --dash-topbar-bg: #FFFFFF;
-  --dash-nav-text: #D1FAE5;
-  --dash-nav-hover-bg: rgba(255, 255, 255, 0.12);
-  --dash-nav-active-bg: rgba(16, 185, 129, 0.25);
-  --dash-nav-active-border: #10B981;
-  --dash-input-bg: #FFFFFF;
-  --dash-input-border: #CBD5E1;
-  --dash-table-th-bg: #ECFDF5;
-  --dash-table-border: #E2ECE6;
-  --dash-table-hover-bg: #F0FDF4;
+  --dash-nav-text: #E2ECE7;
+  --dash-nav-hover-bg: rgba(197, 168, 105, 0.12);
+  --dash-nav-active-bg: linear-gradient(135deg, rgba(197, 168, 105, 0.22) 0%, rgba(10, 47, 36, 0.95) 100%);
+  --dash-nav-active-border: #C5A869;
+  --dash-input-bg: #FAF8F4;
+  --dash-input-border: rgba(197, 168, 105, 0.35);
+  --dash-table-th-bg: #F5F1E8;
+  --dash-table-border: rgba(197, 168, 105, 0.2);
+  --dash-table-hover-bg: #FAF8F4;
   --dash-modal-bg: #FFFFFF;
-  --dash-tile-bg: #F0FDF4;
-  --dash-tile-hover-bg: #E1F7EC;
-  --dash-icon-wrap-bg: rgba(16, 185, 129, 0.15);
-  --dash-cms-item-bg: #F8FAF9;
-  --dash-btn-primary-bg: linear-gradient(135deg, #059669 0%, #047857 100%);
+  --dash-tile-bg: #FAF8F4;
+  --dash-tile-hover-bg: #F3EBD8;
+  --dash-icon-wrap-bg: rgba(197, 168, 105, 0.18);
+  --dash-cms-item-bg: #FAF8F4;
+  --dash-btn-primary-bg: linear-gradient(135deg, #0A2F24 0%, #124E3D 100%);
   --dash-btn-primary-text: #FFFFFF;
-  --dash-btn-primary-shadow: rgba(5, 150, 105, 0.35);
+  --dash-btn-primary-shadow: rgba(10, 47, 36, 0.3);
 }
 
 /* --- LIGHT IVORY / DESERT SAND THEME --- */
@@ -842,40 +886,201 @@ html, body, .admin-layout, .admin-sidebar, .admin-topbar, .content-box, .metric-
   transition: background-color 0.35s ease, color 0.35s ease;
 }
 
-[data-theme="emerald-night"] {
-  .ls-universities-section,
-  .intent-banner,
-  .interactive-calc-box,
-  .real-global-map-card,
-  .timeline-step,
-  .service-luxury-card,
-  .ls-uni-card,
-  .network-features-bullets,
-  .network-city-quote-card,
-  .ls-navbar-capsule {
-    background: #0A2315 !important;
-    border-color: rgba(16, 185, 129, 0.3) !important;
-    color: #FFFFFF !important;
-  }
-  
-  .ls-section-title,
-  .intent-title,
-  .network-heading,
-  .service-title,
-  .calc-title-box h3 {
-    color: #FFFFFF !important;
+/* ==========================================================================
+   GLOBAL WEBSITE THEME ADAPTATION (EMERALD NIGHT, FOREST BRONZE, WHITE-GREEN)
+   ========================================================================== */
+
+/* 1. EMERALD NIGHT THEME (الزمرد الليلي الهادئ 🌙) */
+[data-theme="emerald-night"], body.theme-emerald-night {
+  background-color: #06180E !important;
+  color: #E2ECE7 !important;
+
+  .site-topbar {
+    background: #030D08 !important;
+    border-bottom: 1px solid rgba(16, 185, 129, 0.2) !important;
+    color: #A7F3D0 !important;
+
+    .platform-text { color: #D1FAE5 !important; }
+    .meta-item { color: #A7F3D0 !important; }
+    .meta-sep { color: rgba(16, 185, 129, 0.3) !important; }
+    .date-highlight { color: #FFFFFF !important; }
   }
 
-  .ls-section-desc,
-  .intent-subtitle,
-  .network-desc,
-  .service-excerpt,
-  .calc-title-box small {
+  .main-site-header {
+    background: #06180E !important;
+    border-bottom: 1px solid rgba(16, 185, 129, 0.2) !important;
+
+    &.scrolled {
+      background: rgba(6, 24, 14, 0.96) !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45) !important;
+    }
+
+    .brand-name { color: #34D399 !important; }
+    .brand-subtext { color: #6EE7B7 !important; }
+
+    .header-nav-menu a {
+      color: #D1FAE5 !important;
+      &:hover, &.active { color: #34D399 !important; }
+      &.active::after { background: #34D399 !important; }
+    }
+
+    .dropdown-panel {
+      background: #0B2516 !important;
+      border-color: rgba(16, 185, 129, 0.3) !important;
+      a {
+        color: #D1FAE5 !important;
+        &:hover { background: #113822 !important; color: #34D399 !important; }
+      }
+    }
+
+    .btn-admin-icon, .btn-cart-icon, .btn-mobile-toggle, .btn-theme-trigger {
+      background: #0B2516 !important;
+      color: #A7F3D0 !important;
+      border-color: rgba(16, 185, 129, 0.3) !important;
+    }
+
+    .mobile-nav-drawer {
+      background: #06180E !important;
+      border-color: rgba(16, 185, 129, 0.2) !important;
+      a {
+        color: #D1FAE5 !important;
+        border-color: rgba(16, 185, 129, 0.12) !important;
+      }
+    }
+  }
+
+  /* Universal Cards in Night Mode */
+  .timeline-step,
+  .channel-card,
+  .contact-form-panel,
+  .testimonial-luxury-card,
+  .article-luxury-card,
+  .portfolio-card,
+  .luxury-white-card,
+  .service-card-luxury,
+  .pillar-card,
+  .order-success-card,
+  .form-main-card,
+  .order-summary-sidebar,
+  .store-service-card,
+  .hero-stats-capsule {
+    background: #0A2315 !important;
+    border-color: rgba(16, 185, 129, 0.25) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+    color: #FFFFFF !important;
+
+    h1, h2, h3, h4, strong { color: #FFFFFF !important; }
+    p, small, span:not(.channel-badge):not(.badge-gold):not(.badge-gold-pill):not(.tab-badge-discount):not(.spec-chip) {
+      color: #CBDAD3 !important;
+    }
+  }
+
+  .section-title, .page-title, h1, h2, h3 {
+    color: #FFFFFF !important;
+  }
+  .section-desc, .page-desc {
     color: #A7F3D0 !important;
   }
 
-  .ls-nav-links a {
-    color: #D1FAE5 !important;
+  .contact-us-wrapper,
+  .inner-page-wrapper,
+  .services-page-container,
+  .contact-page-wrapper,
+  .home-wrapper,
+  .about-page-wrapper,
+  .bg-ivory-warm {
+    background: #06180E !important;
+  }
+
+  .luxury-input, input, textarea, select {
+    background: #0B2516 !important;
+    border-color: rgba(16, 185, 129, 0.35) !important;
+    color: #FFFFFF !important;
+    &::placeholder { color: #52796F !important; }
+  }
+
+  .badge-gold {
+    background: rgba(16, 185, 129, 0.16) !important;
+    border-color: rgba(16, 185, 129, 0.4) !important;
+    color: #34D399 !important;
+  }
+}
+
+/* 2. FOREST BRONZE THEME (العنبر والتراث المعماري 🏛️) */
+[data-theme="forest-bronze"], body.theme-forest-bronze {
+  background-color: #0B1C15 !important;
+  color: #FEF3C7 !important;
+
+  .site-topbar {
+    background: #071510 !important;
+    border-bottom: 1px solid rgba(217, 119, 6, 0.25) !important;
+    color: #FDE68A !important;
+    .platform-text { color: #FEF3C7 !important; }
+    .date-highlight { color: #FFFFFF !important; }
+  }
+
+  .main-site-header {
+    background: #0B1C15 !important;
+    border-bottom: 1px solid rgba(217, 119, 6, 0.25) !important;
+
+    .brand-name { color: #F59E0B !important; }
+    .header-nav-menu a {
+      color: #FDE68A !important;
+      &:hover, &.active { color: #F59E0B !important; }
+      &.active::after { background: #F59E0B !important; }
+    }
+  }
+
+  .timeline-step,
+  .channel-card,
+  .contact-form-panel,
+  .testimonial-luxury-card,
+  .article-luxury-card,
+  .portfolio-card,
+  .pillar-card {
+    background: #0F281C !important;
+    border-color: rgba(217, 119, 6, 0.3) !important;
+    color: #FEF3C7 !important;
+    h1, h2, h3, h4, strong { color: #FFFFFF !important; }
+    p, small { color: #E5D5BA !important; }
+  }
+
+  .contact-us-wrapper,
+  .inner-page-wrapper,
+  .services-page-container,
+  .contact-page-wrapper,
+  .bg-ivory-warm {
+    background: #0B1C15 !important;
+  }
+}
+
+/* 3. WHITE & GREEN THEME (الأخضر والعاجي النقي 🤍) */
+[data-theme="white-green"], body.theme-white-green {
+  background-color: #FFFFFF !important;
+
+  .site-topbar {
+    background: #F8FAF9 !important;
+    border-bottom: 1px solid #E2ECE6 !important;
+    color: #4B6356 !important;
+  }
+
+  .main-site-header {
+    background: #FFFFFF !important;
+    border-bottom: 1px solid #E2ECE6 !important;
+    .brand-name { color: #059669 !important; }
+    .header-nav-menu a {
+      color: #082114 !important;
+      &:hover, &.active { color: #059669 !important; }
+      &.active::after { background: #059669 !important; }
+    }
+  }
+
+  .contact-us-wrapper,
+  .inner-page-wrapper,
+  .services-page-container,
+  .contact-page-wrapper,
+  .bg-ivory-warm {
+    background: #F8FAF9 !important;
   }
 }
 
@@ -939,3 +1144,51 @@ html, body, .admin-layout, .admin-sidebar, .admin-topbar, .content-box, .metric-
 }
 
 /* UMM REHAM — SOVEREIGN IDENTITY ACTIVE */
+
+/* ==========================================================================
+   MOBILE & IPHONE (iOS SAFARI) OPTIMIZATION UTILITIES
+   ========================================================================== */
+html, body {
+  max-width: 100vw;
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Safe area padding for iPhone with dynamic island and bottom indicator */
+.ls-floating-header-wrapper {
+  padding-top: max(0.75rem, env(safe-area-inset-top));
+}
+
+.floating-mobile-whatsapp {
+  bottom: max(1.2rem, calc(env(safe-area-inset-bottom) + 0.8rem)) !important;
+}
+
+/* Ensure no text clipping or awkward wraps on mobile screens */
+h1, h2, h3, h4, h5, p, span, button {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Smooth kinetic momentum scrolling for all scrollables on iOS */
+.cart-items-scrollable,
+.template-pills-row,
+.category-filters-container,
+.mobile-drawer {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent auto zoom on input focus on iOS Safari */
+@media screen and (max-width: 768px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+

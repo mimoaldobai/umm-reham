@@ -96,6 +96,7 @@ public interface IServiceRequestRepository : IRepository<ServiceRequest>
 {
     Task<IEnumerable<ServiceRequest>> GetByStatusAsync(string status);
     Task<ServiceRequest> UpdateStatusAsync(Guid id, string status);
+    Task<ServiceRequest?> FindByTrackingCodeOrPhoneAsync(string query);
 }
 
 public interface IArticleRepository : IRepository<Article>

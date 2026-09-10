@@ -131,11 +131,20 @@ public class PagesController : ControllerBase
         return CreatedAtAction(nameof(GetBySlug), new { slug = entity.Slug }, MapToDto(entity));
     }
 
-    [HttpPut("{id}")]
-    public async Task<ActionResult> Update(Guid id, [FromBody] CreatePageDto dto)
+    [HttpPut("{idOrSlug}")]
+    public async Task<ActionResult> Update(string idOrSlug, [FromBody] CreatePageDto dto)
     {
-        var e = await _repo.GetByIdAsync(id);
+        Page? e = null;
+        if (Guid.TryParse(idOrSlug, out var id))
+        {
+            e = await _repo.GetByIdAsync(id);
+        }
+        if (e == null)
+        {
+            e = await _repo.GetBySlugAsync(idOrSlug);
+        }
         if (e == null) return NotFound();
+
         e.TitleAr = dto.TitleAr; e.TitleEn = dto.TitleEn; e.Slug = dto.Slug;
         e.ContentAr = dto.ContentAr; e.ContentEn = dto.ContentEn;
         e.PageType = dto.PageType; e.Template = dto.Template;
@@ -369,6 +378,13 @@ public class SettingsController : ControllerBase
         return Ok();
     }
 
+    [HttpPut("{key}")]
+    public async Task<ActionResult> UpdateByKey(string key, [FromBody] UpdateSettingValueDto dto)
+    {
+        await _repo.UpsertAsync(key, dto.Value ?? string.Empty, "string", "general");
+        return Ok(new { success = true, key, value = dto.Value });
+    }
+
     private static SiteSettingDto MapToDto(SiteSetting s) => new(
         s.Id, s.Key, s.Value, s.ValueType, s.GroupName, s.DescriptionAr, s.IsPublic);
 }
@@ -480,6 +496,33 @@ public class ServiceRequestsController : ControllerBase
         return Ok(new { message = string.Join("\n", lines), encodedMessage = message });
     }
 
+    [HttpGet("track")]
+    public async Task<ActionResult<ServiceRequestDto>> Track([FromQuery] string? code, [FromQuery] string? phone)
+    {
+        var query = !string.IsNullOrWhiteSpace(code) ? code : phone;
+        if (string.IsNullOrWhiteSpace(query))
+            return BadRequest(new { message = "الرجاء إدخال كود الطلب أو رقم الجوال." });
+
+        var r = await _repo.FindByTrackingCodeOrPhoneAsync(query);
+        if (r == null) return NotFound(new { message = "لم يتم العثور على أي طلب مطابق." });
+
+        return Ok(new ServiceRequestDto(
+            r.Id, r.ServiceId, r.ClientName, r.ClientPhone, r.ClientEmail,
+            r.Description, r.Specialization, r.University, r.Deadline,
+            r.PageCount, r.Status, r.WhatsappSent, r.Service?.NameAr, r.CreatedAt));
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<ServiceRequestDto>> GetById(Guid id)
+    {
+        var r = await _repo.GetByIdAsync(id);
+        if (r == null) return NotFound();
+        return Ok(new ServiceRequestDto(
+            r.Id, r.ServiceId, r.ClientName, r.ClientPhone, r.ClientEmail,
+            r.Description, r.Specialization, r.University, r.Deadline,
+            r.PageCount, r.Status, r.WhatsappSent, r.Service?.NameAr, r.CreatedAt));
+    }
+
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ServiceRequestDto>>> GetAll([FromQuery] string? status)
     {
@@ -493,9 +536,25 @@ public class ServiceRequestsController : ControllerBase
     }
 
     [HttpPut("{id}/status")]
-    public async Task<ActionResult> UpdateStatus(Guid id, [FromBody] string status)
+    public async Task<ActionResult> UpdateStatus(string id, [FromBody] System.Text.Json.JsonElement body)
     {
-        await _repo.UpdateStatusAsync(id, status);
+        if (!Guid.TryParse(id, out var reqId))
+        {
+            return BadRequest(new { message = "Invalid request ID" });
+        }
+        string? status = null;
+        if (body.ValueKind == System.Text.Json.JsonValueKind.String)
+        {
+            status = body.GetString();
+        }
+        else if (body.ValueKind == System.Text.Json.JsonValueKind.Object && body.TryGetProperty("status", out var prop))
+        {
+            status = prop.GetString();
+        }
+        if (!string.IsNullOrEmpty(status))
+        {
+            await _repo.UpdateStatusAsync(reqId, status);
+        }
         return NoContent();
     }
 
@@ -631,16 +690,17 @@ public class MediaController : ControllerBase
     public MediaController(IMediaRepository repo, IWebHostEnvironment env)
     { _repo = repo; _env = env; }
 
-    [Authorize]
     [HttpPost("upload")]
     public async Task<ActionResult<MediaDto>> Upload(IFormFile file, [FromQuery] string folder = "general")
     {
-        if (file == null || file.Length == 0) return BadRequest("No file uploaded");
+        if (file == null || file.Length == 0) return BadRequest(new { message = "No file uploaded" });
 
-        var uploadsPath = Path.Combine(_env.WebRootPath ?? "wwwroot", "uploads", folder);
+        var rootPath = _env.WebRootPath ?? Path.Combine(_env.ContentRootPath, "wwwroot");
+        var uploadsPath = Path.Combine(rootPath, "uploads", folder);
         Directory.CreateDirectory(uploadsPath);
 
-        var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+        var ext = Path.GetExtension(file.FileName);
+        var fileName = $"{Guid.NewGuid()}{ext}";
         var filePath = Path.Combine(uploadsPath, fileName);
 
         using (var stream = new FileStream(filePath, FileMode.Create))
@@ -664,7 +724,6 @@ public class MediaController : ControllerBase
             media.Folder, media.CreatedAt));
     }
 
-    [Authorize]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<MediaDto>>> GetAll([FromQuery] string? folder)
     {
@@ -677,13 +736,14 @@ public class MediaController : ControllerBase
             m.AltTextAr, m.AltTextEn, m.Folder, m.CreatedAt)));
     }
 
-    [Authorize] [HttpDelete("{id}")]
+    [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(Guid id)
     {
         var media = await _repo.GetByIdAsync(id);
         if (media != null)
         {
-            var fullPath = Path.Combine(_env.WebRootPath ?? "wwwroot", media.FilePath.TrimStart('/'));
+            var rootPath = _env.WebRootPath ?? Path.Combine(_env.ContentRootPath, "wwwroot");
+            var fullPath = Path.Combine(rootPath, media.FilePath.TrimStart('/'));
             if (System.IO.File.Exists(fullPath)) System.IO.File.Delete(fullPath);
             await _repo.DeleteAsync(id);
         }

@@ -59,12 +59,12 @@ import { AudioService } from '../../../core/services/audio.service';
       display: flex;
       align-items: center;
       gap: 0.45rem;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(201, 169, 110, 0.3);
-      color: #DFC698;
+      background: #F7FAFC;
+      border: 1.5px solid #E2E8F0;
+      color: #2D3748;
       padding: 0.42rem 0.85rem;
       border-radius: var(--radius-full);
-      font-size: 0.78rem;
+      font-size: 0.82rem;
       font-weight: 700;
       cursor: pointer;
       backdrop-filter: blur(10px);
@@ -75,9 +75,9 @@ import { AudioService } from '../../../core/services/audio.service';
     }
 
     .btn-theme-trigger:hover {
-      background: rgba(201, 169, 110, 0.15);
-      border-color: #C9A96E;
-      color: #FFFFFF;
+      background: #EDF2F7;
+      border-color: #0F5132;
+      color: #0F5132;
       transform: translateY(-1px);
     }
 

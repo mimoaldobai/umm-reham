@@ -1279,6 +1279,6 @@ export class SaudiMapCanvasComponent implements OnInit, AfterViewInit, OnDestroy
   requestFromLocation(loc: AcademicLocation): void {
     this.audio.playClick();
     const text = encodeURIComponent(`السلام عليكم ورحمة الله وبركاته 🌿\nأرغب بطلب خدمة أكاديمية وبحثية معتمدة من منصة أم رهام لمنطقة (${loc.flag} ${loc.nameAr} — ${loc.countryAr}).`);
-    window.open(`https://wa.me/966501234567?text=${text}`, '_blank');
+    window.open(`https://wa.me/966572651058?text=${text}`, '_blank');
   }
 }

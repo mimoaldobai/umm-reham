@@ -32,74 +32,142 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       <!-- ==========================================
            SCENE 01: CINEMATIC SOVEREIGN HERO (PANORAMIC SAUDI LANDSCAPE)
            ========================================== -->
-      <section class="cinematic-hero-section">
-        <!-- Panoramic Background Image with Atmospheric Lighting -->
-        <div class="hero-panoramic-backdrop">
-          <img src="assets/images/saudi_panoramic_hero.jpg" alt="المملكة العربية السعودية" class="hero-bg-img" />
-          <div class="hero-atmospheric-gradient"></div>
-          <div class="hero-vignette-overlay"></div>
-        </div>
-
-        <div class="container hero-content-container">
-          
-          <!-- Unified Centered Hero Monument: Image and Details in the Center (مطابق تماماً لصورة المستخدم) -->
-          <div class="hero-unified-center-monument">
+      <!-- ==========================================
+           SCENE 01: HERO SECTION - ROUNDED BANNER (مطابق تماماً لصورة المستخدم)
+           ========================================== -->
+      <section class="hero-showcase-section">
+        <div class="hero-banner-container">
+          <div class="hero-rounded-banner">
             
-            <!-- 1. Circular Profile Emblem with Overlapping Graduation Badge -->
-            <div class="unified-avatar-wrapper">
-              <div class="unified-avatar-circle">
-                <img src="assets/images/profile.png" alt="أم رهام" class="unified-avatar-photo" />
-              </div>
-              <!-- Graduation Cap Badge on Bottom Left -->
-              <div class="avatar-academic-badge" title="مستشار تعليمي معتمد">
-                <svg viewBox="0 0 24 24" width="26" height="26" fill="#DFC698" class="grad-cap-icon">
-                  <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
-                </svg>
-              </div>
+            <!-- Campus Background Image with Dark Emerald Overlay -->
+            <div class="hero-campus-backdrop">
+              <img src="assets/images/saudi_campus_hero.jpg" alt="جامعة سعودية ومراكز بحثية" class="hero-campus-img" />
+              <div class="hero-campus-overlay"></div>
             </div>
 
-            <!-- 2. The Text Details Directly Below and Centered -->
-            <div class="unified-hero-details">
+            <div class="hero-banner-content">
               
-              <!-- Name: ام رهام -->
-              <h1 class="unified-brand-name">ام رهام</h1>
+              <!-- 1. Circular Avatar with Golden Yellow Ring and Overlapping UR Badge -->
+              <div class="hero-avatar-monument">
+                <div class="hero-avatar-ring">
+                  <img src="assets/images/profile.png" alt="أم رهام" class="hero-avatar-img" />
+                </div>
+                <!-- Overlapping Bottom UR Badge -->
+                <div class="hero-avatar-ur-badge">
+                  <svg viewBox="0 0 48 48" width="22" height="22">
+                    <g fill="#E5B94F" stroke="#E5B94F">
+                      <circle cx="34" cy="7" r="1.6" />
+                      <path d="M34 1.5 L34 4" stroke-width="1.8" stroke-linecap="round" />
+                      <path d="M39 3.5 L37 5.5" stroke-width="1.8" stroke-linecap="round" />
+                    </g>
+                    <path d="M7 13 V25 C7 31.5 11.5 35 16.5 35 C21.5 35 26 31.5 26 25 V13 H20.5 V24.8 C20.5 27.5 18.8 29.5 16.5 29.5 C14.2 29.5 12.5 27.5 12.5 24.8 V13 Z" fill="#0F5132" />
+                    <path d="M25 13 H34.5 C38.5 13 41.5 15.8 41.5 19.5 C41.5 22.8 39.2 24.8 36.2 25.4 L41.5 35 H35.2 L30.8 26.2 H29.5 V35 H25 Z M29.5 17.5 V22 H34 C35.8 22 36.8 21.2 36.8 19.8 C36.8 18.4 35.8 17.5 34 17.5 Z" fill="#0F5132" />
+                  </svg>
+                </div>
+              </div>
 
-              <!-- Role: تعليم، مستشار تعليمي (نفس الصورة) -->
-              <div class="unified-brand-role">تعليم، مستشار تعليمي</div>
+              <!-- 2. Main Title (أم رهام — شريكك في التميّز الأكاديمي) -->
+              <h1 class="hero-main-heading">
+                أم رهام — شريكك في التميّز الأكاديمي
+              </h1>
 
-              <!-- Slogan with Gold Glow -->
-              <h2 class="cinematic-hero-slogan">
-                معرفة تصنع الفرق، <span class="gold-slogan-accent">ودقة تبني الثقة.</span>
-              </h2>
-
-              <!-- Subtext Description -->
-              <p class="cinematic-hero-subtext">
-                منصة سعودية رائدة في الخدمات التعليمية والبحثية، نجمع بين الأصالة والمعرفة لنحول أفكارك إلى إنجازات حقيقية معتمدة بأعلى المعايير الأكاديمية.
+              <!-- 3. Subtitle Description -->
+              <p class="hero-main-subtext">
+                دعم أكاديمي شامل، واستشارات بحثية على يد مستشارين متخصصين، وتطوير للمهارات، ومتابعة حتى الإنجاز — في جميع مناطق المملكة.
               </p>
+
+              <!-- 4. Two Buttons (احجز استشارة & تعرّف على خدماتنا) -->
+              <div class="hero-buttons-row">
+                <a routerLink="/contact" [queryParams]="{type: 'consultation'}" class="btn-hero-white">
+                  احجز استشارة
+                </a>
+                <a routerLink="/services" class="btn-hero-translucent">
+                  تعرّف على خدماتنا
+                </a>
+              </div>
+
+              <!-- 5. 4 Pillars / Feature Cards (المسارات الأربعة: تعليم، استشارات، تطوير، إنجاز) -->
+              <div class="hero-four-pillars">
+                
+                <!-- Pillar 1: تعليم -->
+                <div class="pillar-card" (mouseenter)="onHover()">
+                  <div class="pillar-icon-circle">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0F5132" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                    </svg>
+                  </div>
+                  <span class="pillar-label">تعليم</span>
+                </div>
+
+                <!-- Pillar 2: استشارات -->
+                <div class="pillar-card" (mouseenter)="onHover()">
+                  <div class="pillar-icon-circle">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0F5132" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10"/>
+                      <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                  </div>
+                  <span class="pillar-label">استشارات</span>
+                </div>
+
+                <!-- Pillar 3: تطوير -->
+                <div class="pillar-card" (mouseenter)="onHover()">
+                  <div class="pillar-icon-circle">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0F5132" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="9" y1="18" x2="15" y2="18"/>
+                      <line x1="10" y1="22" x2="14" y2="22"/>
+                      <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/>
+                    </svg>
+                  </div>
+                  <span class="pillar-label">تطوير</span>
+                </div>
+
+                <!-- Pillar 4: إنجاز -->
+                <div class="pillar-card" (mouseenter)="onHover()">
+                  <div class="pillar-icon-circle">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0F5132" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10"/>
+                      <circle cx="12" cy="12" r="6"/>
+                      <circle cx="12" cy="12" r="2"/>
+                    </svg>
+                  </div>
+                  <span class="pillar-label">إنجاز</span>
+                </div>
+
+              </div>
+
             </div>
 
           </div>
-
         </div>
       </section>
 
       <!-- ==========================================
-           SCENE 03: عوالم أم رهام (REALMS OF UMM REHAM + DYNAMIC CITY & AUDIO CARDS)
+           SCENE 03: عوالم وخدمات أم رهام (ALL REAL SERVICES CAROUSEL - AUTO-MOVING)
            ========================================== -->
       <section class="realms-section-cinematic" id="realms-ecosystem">
         <div class="container">
           
           <!-- Section Top Bar -->
           <div class="realms-top-bar">
-            <h2 class="realms-main-title">عوالم أم رهام</h2>
-            <a href="#services-ecosystem" class="realms-explore-link">
-              <span>استكشف جميع العوالم</span>
+            <div>
+              <span class="realms-sub-tag">🏛️ متجر الخدمات والمسارات المعتمدة • الدفع بعد الإنجاز 🛡️</span>
+              <h2 class="realms-main-title">عوالم وخدمات أم رهام</h2>
+            </div>
+            <a routerLink="/services" class="realms-explore-link">
+              <span>استكشف كافة الخدمات بالمتجر ({{ services.length }})</span>
               <span class="explore-arrow">←</span>
             </a>
           </div>
 
-          <!-- 7 Realms Carousel Slider -->
-          <div class="realms-carousel-wrapper">
+          <!-- Services Carousel Slider (Auto-Moving & Real Services) -->
+          <div class="realms-carousel-wrapper"
+               (mouseenter)="pauseRealmsAutoScroll()"
+               (mouseleave)="resumeRealmsAutoScroll()"
+               (touchstart)="pauseRealmsAutoScroll()"
+               (touchend)="resumeRealmsAutoScroll()">
+            
             <button type="button" class="carousel-nav-btn prev-btn" (click)="scrollRealms('prev')" title="السابق">
               <span>‹</span>
             </button>
@@ -107,18 +175,40 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
             <div class="realms-cards-track" #realmsTrack>
               <div 
                 class="realm-card-item" 
-                *ngFor="let realm of realmsList"
-                [class.active]="selectedRealmId === realm.id"
-                (click)="onSelectRealm(realm)">
+                *ngFor="let s of services; let idx = index"
+                [class.active]="selectedService?.id === s.id"
+                (click)="openServiceModal(s)"
+                (mouseenter)="onHover()">
+                
                 <div class="realm-card-image-wrap">
-                  <img [src]="realm.image" [alt]="realm.title" class="realm-card-img" />
+                  <img [src]="getServiceCardImage(s, idx)" [alt]="s.nameAr" class="realm-card-img" />
                   <div class="realm-image-gradient"></div>
-                  <div class="realm-card-number">{{ realm.number }}</div>
+                  <div class="realm-card-number">#{{ idx < 9 ? '0' + (idx + 1) : (idx + 1) }}</div>
+                  <div class="realm-card-icon-tag">{{ getServiceIcon(s) }}</div>
                 </div>
+
                 <div class="realm-card-info">
-                  <h3 class="realm-card-title">{{ realm.title }}</h3>
-                  <span class="realm-card-count">{{ realm.count }}</span>
+                  <span class="realm-card-category">{{ s.categoryNameAr }}</span>
+                  <h3 class="realm-card-title">{{ s.nameAr }}</h3>
+                  
+                  <div class="realm-card-bottom-meta">
+                    <div class="realm-price-col">
+                      <strong *ngIf="s.priceFixed" class="realm-price-val">{{ s.priceFixed }} ر.س</strong>
+                      <strong *ngIf="s.templates && s.templates.length > 0 && !s.priceFixed" class="realm-price-val">
+                        تبدأ من {{ s.templates[0].price }} ر.س
+                      </strong>
+                      <span *ngIf="s.priceType === 'quote'" class="realm-quote-val">طلب تسعيرة</span>
+                      <strong *ngIf="s.priceType === 'range' && !s.priceFixed" class="realm-price-val">
+                        {{ s.priceMin }} - {{ s.priceMax }} ر.س
+                      </strong>
+                    </div>
+
+                    <span class="realm-templates-count" *ngIf="s.templates && s.templates.length > 0">
+                      {{ s.templates.length }} نماذج 🎨
+                    </span>
+                  </div>
                 </div>
+
               </div>
             </div>
 
@@ -193,75 +283,72 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       <!-- ==========================================
            SCENE 05: ACTIVE THEORY SPATIAL SIMULATOR & QUICK INTENT
            ========================================== -->
-      <section class="quick-intent-section section-padding bg-deep-saudi" id="quick-intent">
+      <section class="quick-intent-section section-padding bg-ivory-warm" id="quick-intent">
         <div class="container">
           <div class="intent-banner glass-card-luxury-emerald tilt-card-3d" (mousemove)="onCardTilt($event)" (mouseleave)="onCardTiltReset($event)">
             <div class="intent-header">
               <div class="intent-tag-pill">
                 <span class="pulse-dot"></span>
-                <span>المحاكي الأكاديمي الذكي الفوري</span>
+                <span>المحاكي الأكاديمي والخدمي الفوري</span>
               </div>
               <h3 class="intent-title">وش تحتاج اليوم؟ <span class="gold-gradient-text">احسب وقدّر طلبك فوراً</span></h3>
-              <p class="intent-subtitle">اختر مسارك الأكاديمي أو حرك المؤشرات لحساب التكلفة والمدة والتواصل المباشر مع مستشارك المعتمد</p>
+              <p class="intent-subtitle">اختر القسم والمسار المناسب لك أو حدد عدد الصفحات والخيارات لحساب التكلفة والمدة والتواصل المباشر</p>
             </div>
 
             <!-- Mode Switcher -->
             <div class="simulator-mode-switch">
               <button class="mode-btn" [class.active]="simulatorTab === 'quick'" (click)="setSimulatorTab('quick')">
-                <span>⚡ مسارات الخدمات السريعة</span>
+                <span>⚡ مسارات الأقسام والخدمات</span>
               </button>
               <button class="mode-btn" [class.active]="simulatorTab === 'calc'" (click)="setSimulatorTab('calc')">
                 <span>🎛️ حاسبة التسعير والصفحات التفاعلية (Active Simulator)</span>
               </button>
             </div>
 
-            <!-- Mode 1: Quick Intent Grid -->
+            <!-- Mode 1: Quick Intent Grid (الأقسام الأربعة الرسمية) -->
             <div *ngIf="simulatorTab === 'quick'" class="intent-options-grid">
-              <button class="intent-card tilt-card-3d" (mousemove)="onCardTilt($event)" (mouseleave)="onCardTiltReset($event)" (click)="openQuickCategory('academic-services')">
-                <div class="intent-icon">📖</div>
-                <div class="intent-text">
-                  <strong>بحث علمي</strong>
-                  <small>بحوث محكمة وتقارير</small>
-                </div>
-              </button>
-
-              <button class="intent-card tilt-card-3d" (mousemove)="onCardTilt($event)" (mouseleave)="onCardTiltReset($event)" (click)="openQuickCategory('academic-services')">
+              <!-- 1. الخدمات الجامعية -->
+              <button class="intent-card tilt-card-3d" (mousemove)="onCardTilt($event)" (mouseleave)="onCardTiltReset($event)" (click)="openQuickCategory('university')">
                 <div class="intent-icon">🎓</div>
                 <div class="intent-text">
-                  <strong>مشروع تخرج</strong>
-                  <small>مشاريع دراسات عليا وبكالوريوس</small>
+                  <strong>الخدمات الجامعية</strong>
+                  <small>بحوث محكمة، مشاريع تخرج، عروض</small>
                 </div>
               </button>
 
-              <button class="intent-card tilt-card-3d" (mousemove)="onCardTilt($event)" (mouseleave)="onCardTiltReset($event)" (click)="openQuickCategory('technology-programming')">
-                <div class="intent-icon">💻</div>
+              <!-- 2. خدمات طلاب المدارس -->
+              <button class="intent-card tilt-card-3d" (mousemove)="onCardTilt($event)" (mouseleave)="onCardTiltReset($event)" (click)="openQuickCategory('schools')">
+                <div class="intent-icon">🎒</div>
                 <div class="intent-text">
-                  <strong>برمجة وتقنية</strong>
-                  <small>تطبيقات، AI وتحليل بيانات</small>
+                  <strong>خدمات طلاب المدارس</strong>
+                  <small>حل واجبات، مطويات، مقررات</small>
                 </div>
               </button>
 
-              <button class="intent-card tilt-card-3d" (mousemove)="onCardTilt($event)" (mouseleave)="onCardTiltReset($event)" (click)="openQuickCategory('presentations-design')">
-                <div class="intent-icon">🎨</div>
+              <!-- 3. الخدمات المكتبية -->
+              <button class="intent-card tilt-card-3d" (mousemove)="onCardTilt($event)" (mouseleave)="onCardTiltReset($event)" (click)="openQuickCategory('office')">
+                <div class="intent-icon">📑</div>
                 <div class="intent-text">
-                  <strong>تصميم وعرض</strong>
-                  <small>PowerPoint وعروض سينمائية</small>
+                  <strong>الخدمات المكتبية</strong>
+                  <small>تنسيق الرسائل، تدقيق لغوي، فحص</small>
                 </div>
               </button>
 
-              <button class="intent-card tilt-card-3d" (mousemove)="onCardTilt($event)" (mouseleave)="onCardTiltReset($event)" (click)="openQuickCategory('career-path')">
-                <div class="intent-icon">📄</div>
+              <!-- 4. الخدمات العامة -->
+              <button class="intent-card tilt-card-3d" (mousemove)="onCardTilt($event)" (mouseleave)="onCardTiltReset($event)" (click)="openQuickCategory('general')">
+                <div class="intent-icon">🏛️</div>
                 <div class="intent-text">
-                  <strong>سيرة ذاتية ATS</strong>
-                  <small>تطوير الملف المهني</small>
+                  <strong>الخدمات العامة</strong>
+                  <small>حساب المواطن، الضمان، عقد إيجار</small>
                 </div>
               </button>
 
+              <!-- 5. حاسبة التكلفة المخصصة -->
               <button class="intent-card cta-intent tilt-card-3d" (mousemove)="onCardTilt($event)" (mouseleave)="onCardTiltReset($event)" (click)="setSimulatorTab('calc')">
                 <div class="intent-icon">🎛️</div>
                 <div class="intent-text">
                   <strong>حاسبة التكلفة المخصصة</strong>
-                  <small>حدد صفحاتك وجامعتك</small>
+                  <small>حدد صفحاتك وجامعتك فوراً</small>
                 </div>
               </button>
             </div>
@@ -348,6 +435,7 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
                 <div class="result-action">
                   <button class="btn-saudi-primary btn-calc-order" (click)="orderFromSimulator()">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M17.472 14.382c-.301-.15-1.782-.879-2.057-.979-.276-.1-.476-.15-.676.15-.2.301-.776.98-1.026 1.281-.25.301-.45.301-.75.15-.301-.15-1.27-.468-2.42-1.493-.895-.798-1.5-1.784-1.675-2.085-.176-.3-.019-.462.131-.611.136-.135.301-.351.451-.527.151-.175.201-.3.301-.501.101-.2.05-.375-.025-.525-.075-.15-.676-1.63-1.002-2.23-.275-.6-.576-.525-.776-.525-.2 0-.426-.025-.651-.025-.226 0-.602.075-.927.426-.326.35-1.253 1.226-1.253 2.984 0 1.758 1.278 3.46 1.454 3.71.175.25 2.511 3.834 6.084 5.378.85.367 1.514.587 2.031.751.854.271 1.631.233 2.246.141.685-.102 1.782-.728 2.032-1.431.25-.702.25-1.303.175-1.43-.075-.126-.275-.226-.576-.376z"/>
                       <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
                     </svg>
                     <span>تأكيد الطلب وحجز المستشار عبر واتساب</span>
@@ -466,8 +554,12 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
                   <button class="btn-course-details" title="عرض التفاصيل الكاملة">
                     <span>التفاصيل 📖</span>
                   </button>
-                  <a [href]="getCourseWhatsAppLink(s)" target="_blank" class="btn-course-enroll" (click)="$event.stopPropagation(); onClick()">
-                    <span>طلب فوري 💬</span>
+                  <a [href]="getCourseWhatsAppLink(s)" target="_blank" class="btn-course-enroll" (click)="$event.stopPropagation(); onClick()" style="display: inline-flex; align-items: center; gap: 0.4rem;">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M17.472 14.382c-.301-.15-1.782-.879-2.057-.979-.276-.1-.476-.15-.676.15-.2.301-.776.98-1.026 1.281-.25.301-.45.301-.75.15-.301-.15-1.27-.468-2.42-1.493-.895-.798-1.5-1.784-1.675-2.085-.176-.3-.019-.462.131-.611.136-.135.301-.351.451-.527.151-.175.201-.3.301-.501.101-.2.05-.375-.025-.525-.075-.15-.676-1.63-1.002-2.23-.275-.6-.576-.525-.776-.525-.2 0-.426-.025-.651-.025-.226 0-.602.075-.927.426-.326.35-1.253 1.226-1.253 2.984 0 1.758 1.278 3.46 1.454 3.71.175.25 2.511 3.834 6.084 5.378.85.367 1.514.587 2.031.751.854.271 1.631.233 2.246.141.685-.102 1.782-.728 2.032-1.431.25-.702.25-1.303.175-1.43-.075-.126-.275-.226-.576-.376z"/>
+                      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
+                    </svg>
+                    <span>طلب فوري</span>
                   </a>
                 </div>
               </div>
@@ -482,7 +574,10 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       <section class="workflow-section section-padding bg-deep-saudi" id="workflow">
         <div class="container">
           <div class="section-badge-center">
-            <span class="badge-gold">رحلة طلب سهلة ومضمونة</span>
+            <span class="badge-gold">
+              <span>✨</span>
+              <span>رحلة طلب سهلة ومضمونة</span>
+            </span>
             <h2 class="section-title">مسار الرحلة الأكاديمية: <span class="gold-gradient-text">كيف نعمل معك؟</span></h2>
             <p class="section-desc">خطوات سلسة وواضحة وموثوقة من لحظة استقبال فكرتك حتى استلام عمل أكاديمي متقن يليق بك.</p>
           </div>
@@ -490,42 +585,42 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
           <div class="steps-timeline-grid">
             <div class="timeline-step glass-card-step" (mouseenter)="onHover()">
               <div class="step-num-pill">01</div>
-              <div class="t-icon">💭</div>
+              <div class="t-icon-box"><span class="t-icon">💭</span></div>
               <h4>1. نستقبل فكرتك</h4>
               <p>تواصل معنا وزودنا بمتطلبات طلبك أو فكرتك الأكاديمية والبحثية.</p>
             </div>
 
             <div class="timeline-step glass-card-step" (mouseenter)="onHover()">
               <div class="step-num-pill">02</div>
-              <div class="t-icon">👥</div>
+              <div class="t-icon-box"><span class="t-icon">👥</span></div>
               <h4>2. نفهم احتياجك</h4>
               <p>نقوم بدراسة المتطلبات الجامعية ووضع الخطة الزمنية والفنية للعمل.</p>
             </div>
 
             <div class="timeline-step glass-card-step" (mouseenter)="onHover()">
               <div class="step-num-pill">03</div>
-              <div class="t-icon">🎓</div>
+              <div class="t-icon-box"><span class="t-icon">🎓</span></div>
               <h4>3. نختار المختص</h4>
               <p>توجيه طلبك إلى مستشار متخصص وحامل مؤهل علمي رفيع في مجالك.</p>
             </div>
 
             <div class="timeline-step glass-card-step" (mouseenter)="onHover()">
               <div class="step-num-pill">04</div>
-              <div class="t-icon">✍️</div>
+              <div class="t-icon-box"><span class="t-icon">✍️</span></div>
               <h4>4. يبدأ العمل</h4>
-              <p>تنفيذ العمل بأعلى معايير الدقة والتوثيق العلمي المعتمد بنظام APA.</p>
+              <p>تنفيذ العمل بأعلى معايير الدقة والتوثيق العلمي المعتمد بنظام&nbsp;APA.</p>
             </div>
 
             <div class="timeline-step glass-card-step" (mouseenter)="onHover()">
               <div class="step-num-pill">05</div>
-              <div class="t-icon">📋</div>
+              <div class="t-icon-box"><span class="t-icon">📋</span></div>
               <h4>5. مراجعة وتدقيق</h4>
-              <p>فحص لغوي ونسبة اقتباس Turnitin 0% وتأكد من مطابقة شروط جامعتك.</p>
+              <p>فحص لغوي ونسبة اقتباس Turnitin 0% والتأكد من مطابقة شروط جامعتك.</p>
             </div>
 
             <div class="timeline-step glass-card-step highlighted" (mouseenter)="onHover()">
               <div class="step-num-pill gold-pill">06</div>
-              <div class="t-icon gold-glow">🎁</div>
+              <div class="t-icon-box gold-icon-box"><span class="t-icon gold-glow">🎁</span></div>
               <h4 class="gold-gradient-text">6. تسليم يليق بك</h4>
               <p>استلام العمل في الموعد المحدد مع دعم وتعديلات مجانية ومستمرة.</p>
             </div>
@@ -590,14 +685,6 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       <!-- ==========================================
            FLOATING 3D PHONE TRIGGER & WELCOME CAPSULE (IMAGE 2)
            ========================================== -->
-      <!-- Floating Welcome Coupon Capsule (Top Right) -->
-      <div class="floating-welcome-gift-capsule" (click)="openDiscountModal()" title="اضغط للحصول على الخصم">
-        <span class="gift-icon-bounce">🎁</span>
-        <div class="gift-texts">
-          <strong>خصم خاص</strong>
-          <small>للمتواجدين الجدد</small>
-        </div>
-      </div>
 
 
       <!-- 3D Smartphone Device Modal (Image 2 Device Showcase) -->
@@ -711,8 +798,13 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
             <a 
               href="https://wa.me/?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%20%D8%A3%D9%85%20%D8%B1%D9%87%D8%A7%D9%85" 
               target="_blank" 
-              class="btn-video-wa">
-              تواصل عبر واتساب فوراً 💬
+              class="btn-video-wa"
+              style="display: inline-flex; align-items: center; gap: 0.5rem;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.301-.15-1.782-.879-2.057-.979-.276-.1-.476-.15-.676.15-.2.301-.776.98-1.026 1.281-.25.301-.45.301-.75.15-.301-.15-1.27-.468-2.42-1.493-.895-.798-1.5-1.784-1.675-2.085-.176-.3-.019-.462.131-.611.136-.135.301-.351.451-.527.151-.175.201-.3.301-.501.101-.2.05-.375-.025-.525-.075-.15-.676-1.63-1.002-2.23-.275-.6-.576-.525-.776-.525-.2 0-.426-.025-.651-.025-.226 0-.602.075-.927.426-.326.35-1.253 1.226-1.253 2.984 0 1.758 1.278 3.46 1.454 3.71.175.25 2.511 3.834 6.084 5.378.85.367 1.514.587 2.031.751.854.271 1.631.233 2.246.141.685-.102 1.782-.728 2.032-1.431.25-.702.25-1.303.175-1.43-.075-.126-.275-.226-.576-.376z"/>
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
+              </svg>
+              <span>تواصل عبر واتساب فوراً</span>
             </a>
           </div>
         </div>
@@ -736,8 +828,13 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
               href="https://wa.me/?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%AD%D8%B5%D9%84%D8%AA%20%D8%B9%D9%84%D9%89%20%D9%83%D9%88%D8%A8%D9%88%D9%86%20%D8%AE%D8%B5%D9%85%20SAUDI2026%20%D9%88%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%AA%D8%B7%D8%A8%D9%8A%D9%82%D9%87%20%D8%B9%D9%84%D9%89%20%D8%B7%D9%84%D8%A8%D9%8A" 
               target="_blank" 
               class="btn-use-coupon-wa" 
-              (click)="closeDiscountModal()">
-              استخدم الكوبون في واتساب 💬
+              (click)="closeDiscountModal()"
+              style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.301-.15-1.782-.879-2.057-.979-.276-.1-.476-.15-.676.15-.2.301-.776.98-1.026 1.281-.25.301-.45.301-.75.15-.301-.15-1.27-.468-2.42-1.493-.895-.798-1.5-1.784-1.675-2.085-.176-.3-.019-.462.131-.611.136-.135.301-.351.451-.527.151-.175.201-.3.301-.501.101-.2.05-.375-.025-.525-.075-.15-.676-1.63-1.002-2.23-.275-.6-.576-.525-.776-.525-.2 0-.426-.025-.651-.025-.226 0-.602.075-.927.426-.326.35-1.253 1.226-1.253 2.984 0 1.758 1.278 3.46 1.454 3.71.175.25 2.511 3.834 6.084 5.378.85.367 1.514.587 2.031.751.854.271 1.631.233 2.246.141.685-.102 1.782-.728 2.032-1.431.25-.702.25-1.303.175-1.43-.075-.126-.275-.226-.576-.376z"/>
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
+              </svg>
+              <span>استخدم الكوبون في واتساب</span>
             </a>
           </div>
         </div>
@@ -764,6 +861,9 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
         </div>
       </div>
 
+      <!-- Service Details & Templates Modal -->
+      <app-service-modal [service]="selectedService" (closeEvent)="selectedService = null"></app-service-modal>
+
     </div>
   `,
   styles: [`
@@ -772,108 +872,95 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     /* ==========================================
-       SCENE 01: CINEMATIC SOVEREIGN HERO (PANORAMIC)
+       SCENE 01: HERO SHOWCASE SECTION - ROUNDED BANNER (مطابق للمستخدم)
        ========================================== */
-    .cinematic-hero-section {
-      min-height: 88vh;
-      position: relative;
-      display: flex;
-      align-items: center;
-      padding-top: 6.5rem;
-      padding-bottom: 4rem;
-      overflow: hidden;
+    .hero-showcase-section {
+      padding: 1.25rem 0 2rem;
+      background: #FFFFFF;
+      font-family: var(--font-family-arabic) !important;
     }
 
-    .hero-panoramic-backdrop {
+    .hero-banner-container {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .hero-rounded-banner {
+      position: relative;
+      border-radius: 26px;
+      overflow: hidden;
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 16px 45px rgba(10, 47, 36, 0.18);
+    }
+
+    .hero-campus-backdrop {
       position: absolute;
       inset: 0;
       z-index: 1;
-      pointer-events: none;
       overflow: hidden;
     }
 
-    .hero-bg-img {
+    .hero-campus-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 25%;
-      transform: scale(1.03);
-      filter: saturate(1.15) brightness(0.85);
-      animation: panoramicDrift 30s ease-in-out infinite alternate;
+      object-position: center 35%;
+      transform: scale(1.02);
     }
 
-    @keyframes panoramicDrift {
-      0% { transform: scale(1.03) translate(0, 0); }
-      100% { transform: scale(1.08) translate(-10px, -6px); }
-    }
-
-    .hero-atmospheric-gradient {
+    .hero-campus-overlay {
       position: absolute;
       inset: 0;
       background: linear-gradient(180deg, 
-        rgba(10, 47, 36, 0.45) 0%, 
-        rgba(10, 47, 36, 0.72) 45%, 
-        rgba(7, 26, 20, 0.95) 100%);
+        rgba(10, 47, 36, 0.82) 0%, 
+        rgba(8, 38, 29, 0.88) 55%, 
+        rgba(6, 28, 21, 0.94) 100%);
     }
 
-    .hero-vignette-overlay {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 60% 40%, transparent 40%, rgba(0, 0, 0, 0.65) 100%);
-    }
-
-    .hero-content-container {
+    .hero-banner-content {
       position: relative;
       z-index: 2;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: calc(100vh - 6.5rem);
       width: 100%;
-    }
-
-    /* Unified Centered Hero Monument: Image and Details in Center (مطابق تماماً لصورة المستخدم) */
-    .hero-unified-center-monument {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      max-width: 860px;
+      padding: 3.2rem 1.5rem 2.8rem;
+      margin: 0 auto;
       text-align: center;
-      margin: auto;
-      padding: 1.5rem 0 2rem 0;
-      max-width: 820px;
-      width: 100%;
-      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    /* 1. Circular Avatar with Graduation Badge (Exactly matching user screenshot) */
-    .unified-avatar-wrapper {
+    /* 1. Circular Avatar with Golden Ring & UR badge */
+    .hero-avatar-monument {
       position: relative;
-      width: 210px;
-      height: 210px;
-      margin-bottom: 1.25rem;
+      width: 132px;
+      height: 132px;
+      margin: 0 auto 1.4rem auto;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .unified-avatar-circle {
+    .hero-avatar-ring {
       width: 100%;
       height: 100%;
       border-radius: 50%;
       overflow: hidden;
-      border: 4px solid #DFC698;
-      box-shadow: 0 16px 45px rgba(0,0,0,0.7), 0 0 35px rgba(197, 168, 105, 0.4);
+      border: 4.5px solid #E5B94F;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
       background: #FFFFFF;
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 0.3s ease;
     }
 
-    .unified-avatar-wrapper:hover .unified-avatar-circle {
-      transform: scale(1.035);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 45px rgba(197, 168, 105, 0.55);
+    .hero-avatar-ring:hover {
+      transform: scale(1.04);
     }
 
-    .unified-avatar-photo {
+    .hero-avatar-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -881,168 +968,216 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       display: block;
     }
 
-    .avatar-academic-badge {
+    .hero-avatar-ur-badge {
       position: absolute;
-      bottom: 5px;
-      left: 5px;
-      width: 52px;
-      height: 52px;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
-      background: #0A2F24;
-      border: 2.5px solid #DFC698;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.65);
+      background: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 5;
-      transition: transform 0.25s ease;
     }
 
-    .unified-avatar-wrapper:hover .avatar-academic-badge {
-      transform: scale(1.12);
-    }
-
-    .grad-cap-icon {
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
-    }
-
-    /* 2. Unified Hero Details */
-    .unified-hero-details {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      width: 100%;
-    }
-
-    .unified-brand-name {
-      font-family: 'Amiri', 'Playfair Display', serif;
-      font-size: clamp(2.8rem, 5.2vw, 4.4rem);
-      font-weight: 900;
+    /* 2. Main Title */
+    .hero-main-heading {
+      font-size: clamp(1.85rem, 3.8vw, 2.75rem);
+      font-weight: 800;
       color: #FFFFFF;
-      text-shadow: 0 4px 20px rgba(0,0,0,0.85), 0 0 35px rgba(197, 168, 105, 0.45);
-      margin: 0 0 0.35rem 0;
-      line-height: 1.15;
+      line-height: 1.25;
+      margin: 0 0 0.85rem 0;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+      letter-spacing: -0.3px;
     }
 
-    .unified-brand-role {
-      font-size: clamp(1.15rem, 2vw, 1.45rem);
-      font-weight: 700;
-      color: #DFC698;
-      margin-bottom: 0.9rem;
-      letter-spacing: 0.5px;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.65);
+    /* 3. Subtitle */
+    .hero-main-subtext {
+      font-size: clamp(0.95rem, 1.3vw, 1.08rem);
+      color: rgba(255, 255, 255, 0.92);
+      line-height: 1.75;
+      max-width: 680px;
+      margin: 0 auto 1.6rem auto;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
     }
 
-    .cinematic-hero-slogan {
-      font-size: clamp(1.3rem, 2.4vw, 1.95rem);
-      font-weight: 700;
-      color: #F4EEDD;
-      margin: 0 0 1rem 0;
-      line-height: 1.4;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.7);
-    }
-
-    .gold-slogan-accent {
-      color: #DFC698;
-      background: linear-gradient(135deg, #FFF0CF 0%, #DFC698 50%, #C5A869 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      display: inline-block;
-    }
-
-    .cinematic-hero-subtext {
-      font-size: clamp(0.95rem, 1.2vw, 1.12rem);
-      color: rgba(244, 238, 221, 0.92);
-      line-height: 1.8;
-      max-width: 660px;
-      margin: 0 auto 1.8rem auto;
-      text-align: center;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.8);
-    }
-
-    .hero-cta-group {
-      display: inline-flex;
+    /* 4. Action Buttons */
+    .hero-buttons-row {
+      display: flex;
       align-items: center;
       justify-content: center;
-      gap: 1.25rem;
+      gap: 0.9rem;
       flex-wrap: wrap;
+      margin-bottom: 2.2rem;
+    }
+
+    .btn-hero-white {
+      background: #FFFFFF;
+      color: #0A2F24 !important;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0.65rem 1.8rem;
+      border-radius: 6px;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: all 0.2s ease;
+    }
+
+    .btn-hero-white:hover {
+      background: #F3F4F6;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22);
+    }
+
+    .btn-hero-translucent {
+      background: rgba(10, 47, 36, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #FFFFFF !important;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.65rem 1.8rem;
+      border-radius: 6px;
+      text-decoration: none;
+      backdrop-filter: blur(8px);
+      transition: all 0.2s ease;
+    }
+
+    .btn-hero-translucent:hover {
+      background: rgba(10, 47, 36, 0.8);
+      border-color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+
+    /* 5. 4 Feature Cards / Pillars (المسارات الأربعة) */
+    .hero-four-pillars {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.1rem;
+      flex-wrap: wrap;
+      width: 100%;
+      max-width: 620px;
       margin: 0 auto;
     }
 
-    .btn-cinematic-whatsapp {
-      background: linear-gradient(135deg, #25D366 0%, #1EBE5D 100%);
-      color: #FFFFFF;
-      padding: 0.9rem 2.2rem;
-      border-radius: 9999px;
-      font-weight: 800;
-      font-size: 1.1rem;
-      display: inline-flex;
+    .pillar-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1.2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 0.9rem 1.3rem;
+      min-width: 95px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 0.75rem;
-      box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4), 0 0 20px rgba(37, 211, 102, 0.25);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      text-decoration: none;
-      border: 1px solid rgba(255,255,255,0.25);
+      gap: 0.45rem;
+      transition: all 0.25s ease;
+      cursor: pointer;
     }
 
-    .btn-cinematic-whatsapp:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 16px 36px rgba(37, 211, 102, 0.55), 0 0 30px rgba(37, 211, 102, 0.4);
+    .pillar-card:hover {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: rgba(255, 255, 255, 0.45);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
     }
 
-    .wa-icon-glow {
-      font-size: 1.35rem;
-      filter: drop-shadow(0 0 6px rgba(255,255,255,0.7));
-    }
-
-    .response-speed-indicator {
+    .pillar-icon-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #FFFFFF;
       display: flex;
       align-items: center;
-      gap: 0.4rem;
-      color: #DFC698;
-      font-size: 0.9rem;
+      justify-content: center;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+      transition: transform 0.25s ease;
+    }
+
+    .pillar-card:hover .pillar-icon-circle {
+      transform: scale(1.08);
+    }
+
+    .pillar-label {
+      color: #FFFFFF;
+      font-size: 0.96rem;
       font-weight: 700;
-      text-shadow: 0 1px 6px rgba(0,0,0,0.7);
+      letter-spacing: -0.2px;
     }
 
-    .bolt-icon {
-      color: #FFE066;
-      animation: boltPulse 1.8s infinite;
-    }
-
-    @keyframes boltPulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.25); opacity: 0.75; }
+    @media (max-width: 768px) {
+      .hero-rounded-banner {
+        border-radius: 18px;
+        min-height: auto;
+      }
+      .hero-banner-content {
+        padding: 2.2rem 1rem 2rem;
+      }
+      .hero-avatar-monument {
+        width: 105px;
+        height: 105px;
+      }
+      .hero-main-heading {
+        font-size: 1.55rem;
+      }
+      .hero-main-subtext {
+        font-size: 0.88rem;
+      }
+      .hero-four-pillars {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+      }
+      .pillar-card {
+        min-width: unset;
+        padding: 0.75rem 0.9rem;
+      }
     }
 
     /* ==========================================
-       SCENE 02: عوالم أم رهام (REALMS & ECOSYSTEM)
+       SCENE 02: عوالم وخدمات أم رهام (REALMS & ALL SERVICES AUTO-CAROUSEL)
        ========================================== */
     .realms-section-cinematic {
-      padding: 4rem 0 5rem;
-      background: #071A14;
+      padding: 3.5rem 0 4.5rem;
+      background: #FAF8F5;
       position: relative;
     }
 
     .realms-top-bar {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-end;
       margin-bottom: 1.8rem;
     }
 
+    .realms-sub-tag {
+      font-size: 0.8rem;
+      color: #0F5132;
+      background: rgba(15, 81, 50, 0.08);
+      border: 1px solid rgba(15, 81, 50, 0.2);
+      padding: 2px 10px;
+      border-radius: var(--radius-full);
+      display: inline-block;
+      margin-bottom: 0.4rem;
+      font-weight: 700;
+    }
+
     .realms-main-title {
-      font-family: 'Amiri', serif;
+      font-family: var(--font-family-arabic);
       font-size: clamp(2rem, 3.5vw, 2.5rem);
       font-weight: 800;
-      color: #FFFFFF;
+      color: #0A2F24;
       margin: 0;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
     }
 
     .realms-explore-link {
-      color: #DFC698;
+      color: #0F5132;
       font-weight: 700;
       font-size: 0.95rem;
       text-decoration: none;
@@ -1053,14 +1188,15 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     .realms-explore-link:hover {
-      color: #FFF0CF;
+      color: #0A2F24;
+      text-decoration: underline;
     }
 
     .realms-carousel-wrapper {
       position: relative;
       display: flex;
       align-items: center;
-      margin-bottom: 3.5rem;
+      margin-bottom: 2rem;
     }
 
     .carousel-nav-btn {
@@ -1069,25 +1205,25 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      background: rgba(13, 59, 46, 0.9);
-      backdrop-filter: blur(10px);
-      border: 1.5px solid rgba(197, 168, 105, 0.5);
-      color: #DFC698;
+      background: #FFFFFF;
+      border: 1.5px solid rgba(15, 81, 50, 0.25);
+      color: #0A2F24;
       font-size: 1.6rem;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       transition: all 0.25s ease;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+      box-shadow: 0 4px 14px rgba(10, 47, 36, 0.1);
     }
 
     .carousel-nav-btn.prev-btn { left: -16px; }
     .carousel-nav-btn.next-btn { right: -16px; }
 
     .carousel-nav-btn:hover {
-      background: #C5A869;
-      color: #0A2F24;
+      background: #0F5132;
+      color: #FFFFFF;
+      border-color: #0F5132;
       transform: scale(1.1);
     }
 
@@ -1106,28 +1242,31 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     .realm-card-item {
-      flex: 0 0 215px;
-      background: rgba(13, 59, 46, 0.65);
-      backdrop-filter: blur(12px);
-      border: 1.5px solid rgba(197, 168, 105, 0.28);
+      flex: 0 0 240px;
+      background: #FFFFFF;
+      border: 1.5px solid rgba(15, 81, 50, 0.12);
       border-radius: 1.25rem;
       overflow: hidden;
       cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+      box-shadow: 0 8px 24px rgba(10, 47, 36, 0.06);
     }
 
     .realm-card-item:hover, .realm-card-item.active {
-      border-color: #DFC698;
-      transform: translateY(-6px) scale(1.03);
-      box-shadow: 0 16px 36px rgba(0,0,0,0.5), 0 0 20px rgba(197, 168, 105, 0.3);
-      background: rgba(20, 70, 55, 0.85);
+      border-color: #0F5132;
+      transform: translateY(-6px);
+      box-shadow: 0 16px 36px rgba(10, 47, 36, 0.12);
+      background: #FFFFFF;
     }
 
     .realm-card-image-wrap {
       position: relative;
-      height: 160px;
+      height: 155px;
       overflow: hidden;
+      background: #F1EFE9;
     }
 
     .realm-card-img {
@@ -1144,43 +1283,111 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     .realm-image-gradient {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, transparent 35%, rgba(7, 26, 20, 0.95) 100%);
+      background: linear-gradient(180deg, transparent 60%, rgba(10, 47, 36, 0.25) 100%);
     }
 
     .realm-card-number {
       position: absolute;
       top: 0.75rem;
       right: 0.75rem;
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
-      background: rgba(10, 47, 36, 0.85);
-      border: 1px solid #DFC698;
-      color: #DFC698;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1.5px solid #0F5132;
+      color: #0F5132;
       font-weight: 800;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       backdrop-filter: blur(8px);
     }
 
+    .realm-card-icon-tag {
+      position: absolute;
+      bottom: 0.6rem;
+      right: 0.85rem;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 1.5px solid #E5B94F;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      z-index: 2;
+    }
+
     .realm-card-info {
-      padding: 1rem;
+      padding: 0.9rem 1rem 1rem;
       text-align: right;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      flex: 1;
+      justify-content: space-between;
+    }
+
+    .realm-card-category {
+      font-size: 0.72rem;
+      color: #0F5132;
+      font-weight: 700;
+      background: rgba(15, 81, 50, 0.08);
+      border: 1px solid rgba(15, 81, 50, 0.15);
+      padding: 1px 7px;
+      border-radius: var(--radius-full);
+      display: inline-block;
+      align-self: flex-start;
     }
 
     .realm-card-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #FFFFFF;
-      margin: 0 0 0.3rem 0;
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: #121816;
+      margin: 0;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
-    .realm-card-count {
-      font-size: 0.82rem;
-      color: #DFC698;
-      font-weight: 600;
+    .realm-card-bottom-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+      padding-top: 0.45rem;
+      border-top: 1px solid #ECEAE4;
+    }
+
+    .realm-price-val {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #0F5132;
+    }
+
+    .realm-quote-val {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #0F5132;
+      background: rgba(15, 81, 50, 0.08);
+      border: 1px solid rgba(15, 81, 50, 0.18);
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+
+    .realm-templates-count {
+      font-size: 0.7rem;
+      background: rgba(197, 168, 105, 0.15);
+      border: 1px solid rgba(197, 168, 105, 0.3);
+      color: #9B7E3E;
+      padding: 2px 6px;
+      border-radius: 4px;
     }
 
     /* ==========================================
@@ -1584,20 +1791,20 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
        ========================================== */
     .smart-app-showcase-section {
       position: relative;
-      padding: 5.5rem 0;
-      background: linear-gradient(180deg, #071D16 0%, #0A2F24 50%, #071A14 100%);
+      padding: 4.5rem 0;
+      background: #FFFFFF;
       overflow: hidden;
-      border-top: 1px solid rgba(197, 168, 105, 0.2);
-      border-bottom: 1px solid rgba(197, 168, 105, 0.2);
+      border-top: 1px solid #ECEAE4;
+      border-bottom: 1px solid #ECEAE4;
     }
 
     .smart-app-ambient-glow {
       position: absolute;
-      top: 30%;
-      left: 15%;
-      width: 550px;
-      height: 550px;
-      background: radial-gradient(circle, rgba(197, 168, 105, 0.15) 0%, rgba(37, 211, 102, 0.08) 40%, transparent 70%);
+      top: 20%;
+      left: 10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(15, 81, 50, 0.05) 0%, rgba(229, 185, 79, 0.06) 40%, transparent 70%);
       filter: blur(80px);
       pointer-events: none;
     }
@@ -1605,38 +1812,36 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     .smart-app-header-block {
       text-align: center;
       max-width: 820px;
-      margin: 0 auto 3.5rem auto;
+      margin: 0 auto 3rem auto;
     }
 
     .app-tag-pill {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: rgba(197, 168, 105, 0.14);
-      border: 1px solid rgba(197, 168, 105, 0.4);
+      background: rgba(15, 81, 50, 0.08);
+      border: 1px solid rgba(15, 81, 50, 0.2);
       border-radius: 9999px;
       padding: 0.38rem 1.15rem;
-      color: #DFC698;
+      color: #0F5132;
       font-size: 0.85rem;
       font-weight: 700;
-      margin-bottom: 1.1rem;
-      backdrop-filter: blur(8px);
+      margin-bottom: 1rem;
     }
 
     .app-section-title {
-      font-family: 'Amiri', serif;
-      font-size: clamp(2.1rem, 4vw, 3.2rem);
+      font-family: var(--font-family-arabic);
+      font-size: clamp(2rem, 3.8vw, 2.9rem);
       font-weight: 900;
-      color: #FFFFFF;
-      margin-bottom: 1rem;
+      color: #0A2F24;
+      margin-bottom: 0.8rem;
       line-height: 1.25;
-      text-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
 
     .app-section-sub {
-      color: rgba(244, 238, 221, 0.88);
-      font-size: 1.08rem;
-      line-height: 1.8;
+      color: #485A53;
+      font-size: 1.05rem;
+      line-height: 1.75;
       margin: 0;
     }
 
@@ -1658,18 +1863,17 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       position: relative;
       border-radius: 24px;
       overflow: hidden;
-      border: 1.5px solid rgba(197, 168, 105, 0.45);
-      background: rgba(10, 47, 36, 0.65);
-      backdrop-filter: blur(14px);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.65), 0 0 35px rgba(197, 168, 105, 0.25);
+      border: 1.5px solid rgba(15, 81, 50, 0.15);
+      background: #FAF8F5;
+      box-shadow: 0 16px 45px rgba(10, 47, 36, 0.12);
       cursor: pointer;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .phone-showcase-visual-card:hover {
-      transform: translateY(-6px) scale(1.015);
-      border-color: #DFC698;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.75), 0 0 45px rgba(197, 168, 105, 0.4);
+      transform: translateY(-6px);
+      border-color: #0F5132;
+      box-shadow: 0 22px 55px rgba(10, 47, 36, 0.18);
     }
 
     .showcase-mockup-img {
@@ -1688,17 +1892,17 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(10, 47, 36, 0.94);
-      border: 1px solid #DFC698;
+      background: #0A2F24;
+      border: 1.5px solid #DFC698;
       border-radius: 9999px;
       padding: 0.48rem 1.35rem;
-      color: #FFF0CF;
+      color: #FFFFFF;
       font-size: 0.85rem;
       font-weight: 700;
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.55);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
       backdrop-filter: blur(10px);
       pointer-events: none;
       white-space: nowrap;
@@ -1721,22 +1925,25 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       display: flex;
       align-items: flex-start;
       gap: 1.1rem;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(197, 168, 105, 0.25);
+      background: #FAF8F5;
+      border: 1.5px solid rgba(15, 81, 50, 0.12);
       border-radius: 16px;
       padding: 1.1rem 1.35rem;
+      box-shadow: 0 4px 16px rgba(10, 47, 36, 0.04);
       transition: all 0.3s ease;
     }
 
     .app-feat-item:hover {
-      background: rgba(197, 168, 105, 0.08);
-      border-color: rgba(197, 168, 105, 0.55);
+      background: #FFFFFF;
+      border-color: #0F5132;
       transform: translateX(-6px);
+      box-shadow: 0 8px 24px rgba(15, 81, 50, 0.1);
     }
 
     .feat-icon-box {
-      font-size: 1.5rem;
-      background: rgba(197, 168, 105, 0.15);
+      font-size: 1.35rem;
+      background: #FFFFFF;
+      color: #0F5132;
       width: 44px;
       height: 44px;
       border-radius: 12px;
@@ -1744,20 +1951,21 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      border: 1px solid rgba(197, 168, 105, 0.3);
+      border: 1.5px solid rgba(15, 81, 50, 0.2);
+      box-shadow: 0 2px 8px rgba(10, 47, 36, 0.06);
     }
 
     .feat-text-box h4 {
       margin: 0 0 0.25rem 0;
       font-size: 1.05rem;
       font-weight: 800;
-      color: #DFC698;
+      color: #0A2F24;
     }
 
     .feat-text-box p {
       margin: 0;
       font-size: 0.88rem;
-      color: rgba(244, 238, 221, 0.85);
+      color: #485A53;
       line-height: 1.6;
     }
 
@@ -1896,21 +2104,22 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(10, 47, 36, 0.85);
-      border: 1px solid rgba(197, 168, 105, 0.3);
+      background: #FFFFFF;
+      border: 1.5px solid rgba(15, 81, 50, 0.12);
       border-radius: 1.25rem;
       padding: 1rem 1.8rem;
       gap: 1rem;
       flex-wrap: wrap;
+      box-shadow: 0 8px 24px rgba(10, 47, 36, 0.05);
     }
 
     .guarantee-item {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      color: #F4EEDD;
+      color: #0A2F24;
       font-size: 0.86rem;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .guarantee-icon {
@@ -1920,77 +2129,20 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     .vision-item {
       flex-direction: column;
       align-items: flex-end;
-      border-right: 1px solid rgba(197, 168, 105, 0.3);
+      border-right: 1px solid rgba(15, 81, 50, 0.15);
       padding-right: 1rem;
     }
 
     .vision-logo-text {
       font-weight: 900;
-      color: #DFC698;
+      color: #0F5132;
       font-size: 0.95rem;
       letter-spacing: 1px;
     }
 
     .vision-sub {
       font-size: 0.7rem;
-      color: rgba(244, 238, 221, 0.6);
-    }
-
-    /* ==========================================
-       FLOATING ELEMENTS (OPTIMIZED & HARMONIZED)
-       ========================================== */
-    .floating-welcome-gift-capsule {
-      position: fixed;
-      bottom: 24px;
-      left: 24px;
-      right: auto;
-      z-index: 995;
-      background: linear-gradient(135deg, rgba(13, 59, 46, 0.96) 0%, rgba(10, 47, 36, 0.96) 100%);
-      border: 1.2px solid #DFC698;
-      border-radius: 9999px;
-      padding: 0.42rem 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.55rem;
-      cursor: pointer;
-      box-shadow: 0 8px 22px rgba(0,0,0,0.45), 0 0 15px rgba(197, 168, 105, 0.25);
-      backdrop-filter: blur(14px);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .floating-welcome-gift-capsule:hover {
-      transform: scale(1.04) translateY(-2px);
-      border-color: #FFE8B6;
-      box-shadow: 0 12px 28px rgba(0,0,0,0.55), 0 0 20px rgba(197, 168, 105, 0.4);
-    }
-
-    .gift-icon-bounce {
-      font-size: 1.2rem;
-      animation: bounceGift 2s infinite ease-in-out;
-    }
-
-    @keyframes bounceGift {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-3px); }
-    }
-
-    .gift-texts {
-      display: flex;
-      flex-direction: column;
-      text-align: right;
-    }
-
-    .gift-texts strong {
-      color: #DFC698;
-      font-size: 0.8rem;
-      font-weight: 800;
-      line-height: 1.2;
-    }
-
-    .gift-texts small {
-      color: #FFFFFF;
-      font-size: 0.68rem;
-      line-height: 1.2;
+      color: #485A53;
     }
 
 
@@ -3389,10 +3541,9 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       padding: 2.5rem;
       border-radius: var(--radius-xl);
       position: relative;
-      background: linear-gradient(135deg, rgba(13, 59, 46, 0.85) 0%, rgba(7, 26, 20, 0.95) 100%);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(223, 198, 152, 0.2);
-      border: 1.5px solid rgba(223, 198, 152, 0.35);
-      backdrop-filter: blur(20px);
+      background: #FFFFFF;
+      box-shadow: 0 16px 45px rgba(10, 47, 36, 0.08);
+      border: 1.5px solid rgba(15, 81, 50, 0.14);
     }
 
     .intent-header {
@@ -3404,9 +3555,9 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       display: inline-flex;
       align-items: center;
       gap: 0.45rem;
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid rgba(16, 185, 129, 0.4);
-      color: #34D399;
+      background: rgba(15, 81, 50, 0.08);
+      border: 1px solid rgba(15, 81, 50, 0.25);
+      color: #0F5132;
       padding: 0.35rem 1rem;
       border-radius: 20px;
       font-size: 0.78rem;
@@ -3430,13 +3581,13 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
 
     .intent-title {
       font-size: 1.9rem;
-      color: #FFFFFF;
+      color: #0A2F24;
       margin-bottom: 0.4rem;
       font-weight: 800;
     }
 
     .intent-subtitle {
-      color: #CBD5E1;
+      color: #485A53;
       font-size: 0.95rem;
     }
 
@@ -3454,28 +3605,26 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       border-radius: 30px;
       font-size: 0.88rem;
       font-weight: 700;
-      border: 1.5px solid rgba(223, 198, 152, 0.3);
-      background: rgba(13, 59, 46, 0.65);
-      color: #E2E8F0;
+      border: 1.5px solid rgba(15, 81, 50, 0.15);
+      background: #FAF8F5;
+      color: #0A2F24;
       cursor: pointer;
-      backdrop-filter: blur(10px);
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       font-family: inherit;
     }
 
     .mode-btn:hover {
-      background: rgba(20, 75, 58, 0.85);
-      border-color: #DFC698;
-      color: #FFFFFF;
+      background: #FFFFFF;
+      border-color: #0F5132;
       transform: translateY(-2px);
     }
 
     .mode-btn.active {
-      background: linear-gradient(135deg, #DFC698 0%, #C5A869 100%);
-      color: #071A14;
-      border-color: #FFE8B6;
+      background: #0F5132;
+      color: #FFFFFF;
+      border-color: #0F5132;
       font-weight: 800;
-      box-shadow: 0 6px 20px rgba(223, 198, 152, 0.35);
+      box-shadow: 0 4px 14px rgba(15, 81, 50, 0.25);
     }
 
     .intent-options-grid {
@@ -3485,8 +3634,8 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     .intent-card {
-      background: rgba(13, 59, 46, 0.6);
-      border: 1.5px solid rgba(223, 198, 152, 0.25);
+      background: #FAF8F5;
+      border: 1.5px solid rgba(15, 81, 50, 0.12);
       border-radius: 20px;
       padding: 1.4rem 1.1rem;
       display: flex;
@@ -3495,59 +3644,58 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       text-align: center;
       gap: 0.65rem;
       cursor: pointer;
-      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 14px rgba(10, 47, 36, 0.04);
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     .intent-card:hover {
-      transform: translateY(-6px);
-      border-color: #DFC698;
-      background: rgba(20, 75, 58, 0.8);
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45), 0 0 20px rgba(197, 168, 105, 0.2);
+      transform: translateY(-5px);
+      border-color: #0F5132;
+      background: #FFFFFF;
+      box-shadow: 0 10px 24px rgba(15, 81, 50, 0.12);
     }
 
     .intent-icon {
       font-size: 2.2rem;
-      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.1));
     }
 
     .intent-text strong {
       display: block;
-      color: #FFFFFF;
+      color: #0A2F24;
       font-size: 1rem;
       margin-bottom: 3px;
-      font-weight: 700;
+      font-weight: 800;
     }
 
     .intent-text small {
-      color: #94A3B8;
+      color: #485A53;
       font-size: 0.78rem;
       line-height: 1.35;
     }
 
     .intent-card.cta-intent {
-      background: linear-gradient(135deg, rgba(20, 75, 58, 0.9) 0%, rgba(13, 59, 46, 0.95) 100%);
-      border-color: #DFC698;
-      box-shadow: 0 0 20px rgba(223, 198, 152, 0.2);
+      background: #0A2F24;
+      border-color: #E5B94F;
+      box-shadow: 0 6px 20px rgba(10, 47, 36, 0.2);
     }
 
     .intent-card.cta-intent .intent-text strong {
-      color: #DFC698;
+      color: #E5B94F;
     }
 
     .intent-card.cta-intent .intent-text small {
-      color: #F1F5F9;
+      color: #FFFFFF;
     }
 
     /* Active Theory Interactive Simulator Box (Luxury Emerald & Champagne Gold) */
     .interactive-calc-box {
-      background: rgba(10, 42, 33, 0.7);
-      border: 1.5px solid rgba(223, 198, 152, 0.35);
+      background: #FAF8F5;
+      border: 1.5px solid rgba(15, 81, 50, 0.14);
       border-radius: 20px;
       padding: 2.2rem 2.4rem;
-      color: #FFFFFF;
-      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.35);
-      backdrop-filter: blur(14px);
+      color: #121816;
+      box-shadow: 0 8px 24px rgba(10, 47, 36, 0.04);
       display: flex;
       flex-direction: column;
       gap: 1.8rem;
@@ -3576,7 +3724,7 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
 
     .calc-label {
       font-size: 0.9rem;
-      color: #DFC698;
+      color: #0A2F24;
       font-weight: 800;
     }
 
@@ -3587,9 +3735,9 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     .calc-pill {
-      background: rgba(13, 59, 46, 0.7);
-      border: 1.5px solid rgba(223, 198, 152, 0.28);
-      color: #E2E8F0;
+      background: #FFFFFF;
+      border: 1.5px solid rgba(15, 81, 50, 0.18);
+      color: #0A2F24;
       padding: 0.55rem 1.1rem;
       border-radius: 20px;
       font-size: 0.82rem;
@@ -3600,24 +3748,23 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     .calc-pill:hover {
-      background: rgba(20, 75, 58, 0.85);
-      border-color: #DFC698;
-      color: #FFFFFF;
+      background: #F4F2EC;
+      border-color: #0F5132;
       transform: translateY(-2px);
     }
 
     .calc-pill.selected {
-      background: linear-gradient(135deg, #DFC698 0%, #C5A869 100%);
-      color: #071A14;
-      border-color: #FFE8B6;
+      background: #0F5132;
+      color: #FFFFFF;
+      border-color: #0F5132;
       font-weight: 800;
-      box-shadow: 0 4px 15px rgba(223, 198, 152, 0.3);
+      box-shadow: 0 4px 14px rgba(15, 81, 50, 0.25);
     }
 
     .calc-pill.urgent.selected {
-      background: linear-gradient(135deg, #D97706 0%, #B45309 100%);
+      background: #D97706;
       color: #FFFFFF;
-      border-color: #F59E0B;
+      border-color: #B45309;
     }
 
     .slider-header-row {
@@ -3627,9 +3774,9 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     .slider-val-badge {
-      background: rgba(223, 198, 152, 0.18);
-      border: 1.5px solid #DFC698;
-      color: #FFE8B6;
+      background: rgba(15, 81, 50, 0.08);
+      border: 1.5px solid #0F5132;
+      color: #0F5132;
       padding: 4px 14px;
       border-radius: 12px;
       font-size: 0.92rem;
@@ -3648,8 +3795,8 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       width: 100%;
       height: 8px;
       border-radius: 4px;
-      background: rgba(13, 59, 46, 0.85);
-      border: 1px solid rgba(223, 198, 152, 0.3);
+      background: #E2E8F0;
+      border: 1px solid #CBD5E1;
       outline: none;
       transition: background 0.2s;
     }
@@ -3660,10 +3807,10 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       width: 24px;
       height: 24px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #DFC698 0%, #C5A869 100%);
+      background: #0F5132;
       border: 2px solid #FFFFFF;
       cursor: pointer;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4), 0 0 10px rgba(223, 198, 152, 0.6);
+      box-shadow: 0 2px 8px rgba(15, 81, 50, 0.4);
       transition: transform 0.15s;
     }
 
@@ -3675,13 +3822,13 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       display: flex;
       justify-content: space-between;
       font-size: 0.76rem;
-      color: #94A3B8;
+      color: #64748B;
       font-weight: 600;
     }
 
-    /* Result Output Capsule (Royal Green Gradient with Champagne Gold) */
+    /* Result Output Capsule (Clean White Card with Gold Border) */
     .calc-result-capsule {
-      background: linear-gradient(135deg, rgba(13, 59, 46, 0.95) 0%, rgba(7, 26, 20, 0.98) 100%);
+      background: #FFFFFF;
       border: 1.5px solid #DFC698;
       border-radius: 18px;
       padding: 1.5rem 2rem;
@@ -3690,8 +3837,8 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       justify-content: space-between;
       gap: 1.5rem;
       flex-wrap: wrap;
-      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(223, 198, 152, 0.2);
-      color: #FFFFFF;
+      box-shadow: 0 8px 30px rgba(10, 47, 36, 0.06);
+      color: #121816;
     }
 
     .result-details {
@@ -3709,21 +3856,21 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
 
     .result-metric small {
       font-size: 0.78rem;
-      color: #CBD5E1;
-      font-weight: 600;
+      color: #485A53;
+      font-weight: 700;
     }
 
     .price-big {
       font-size: 1.6rem;
       font-family: var(--font-family-latin);
-      color: #DFC698;
+      color: #0F5132;
       font-weight: 900;
     }
 
     .price-big .curr {
       font-size: 0.95rem;
       font-family: var(--font-family-arabic);
-      color: #FFFFFF;
+      color: #0A2F24;
       font-weight: 700;
     }
 
@@ -3945,8 +4092,8 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
 
     /* LearnSpace Course Card */
     .learnspace-course-card {
-      background: linear-gradient(180deg, rgba(8, 30, 20, 0.95) 0%, rgba(3, 16, 10, 0.98) 100%);
-      border: 1.5px solid rgba(69, 216, 208, 0.22);
+      background: #FFFFFF;
+      border: 1.5px solid rgba(15, 81, 50, 0.12);
       border-radius: 22px;
       padding: 1.6rem 1.8rem;
       display: flex;
@@ -3956,13 +4103,13 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       cursor: pointer;
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       overflow: hidden;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 15px rgba(69, 216, 208, 0.05);
+      box-shadow: 0 8px 24px rgba(10, 47, 36, 0.05);
     }
 
     .learnspace-course-card:hover {
-      transform: translateY(-8px);
-      border-color: #45D8D0;
-      box-shadow: 0 25px 55px rgba(0, 0, 0, 0.7), 0 0 30px rgba(69, 216, 208, 0.3);
+      transform: translateY(-6px);
+      border-color: #0F5132;
+      box-shadow: 0 16px 36px rgba(10, 47, 36, 0.12);
     }
 
     .course-card-top-bar {
@@ -3971,7 +4118,7 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       justify-content: space-between;
       gap: 0.8rem;
       padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(69, 216, 208, 0.15);
+      border-bottom: 1px solid #F1EFE9;
       margin-bottom: 1.2rem;
     }
 
@@ -3980,23 +4127,23 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       align-items: center;
       gap: 0.45rem;
       font-size: 0.76rem;
-      color: #CADCD4;
+      color: #0F5132;
       font-weight: 700;
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(15, 81, 50, 0.06);
       padding: 3px 10px;
       border-radius: 9999px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(15, 81, 50, 0.14);
     }
 
     .course-code-pill {
       font-size: 0.75rem;
       font-weight: 800;
-      color: #03140C;
-      background: linear-gradient(135deg, #45D8D0 0%, #34D399 100%);
+      color: #FFFFFF;
+      background: #0F5132;
       padding: 3px 10px;
       border-radius: 9999px;
       letter-spacing: 0.5px;
-      box-shadow: 0 2px 8px rgba(69, 216, 208, 0.4);
+      box-shadow: 0 2px 8px rgba(15, 81, 50, 0.2);
     }
 
     .course-card-body {
@@ -4016,13 +4163,13 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       width: 48px;
       height: 48px;
       border-radius: 14px;
-      background: linear-gradient(135deg, rgba(69, 216, 208, 0.2), rgba(5, 150, 105, 0.3));
-      border: 1.5px solid #45D8D0;
+      background: rgba(15, 81, 50, 0.08);
+      border: 1.5px solid rgba(15, 81, 50, 0.2);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.6rem;
-      box-shadow: 0 4px 15px rgba(69, 216, 208, 0.25);
+      box-shadow: 0 2px 8px rgba(10, 47, 36, 0.06);
     }
 
     .course-degree-pills {
@@ -4033,17 +4180,17 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
 
     .degree-pill {
       font-size: 0.74rem;
-      color: #A3F3EE;
+      color: #0F5132;
       font-weight: 700;
-      background: rgba(69, 216, 208, 0.12);
+      background: rgba(15, 81, 50, 0.08);
       padding: 3px 10px;
       border-radius: 9999px;
-      border: 1px solid rgba(69, 216, 208, 0.3);
+      border: 1px solid rgba(15, 81, 50, 0.18);
     }
 
     .badge-featured-gold {
       font-size: 0.72rem;
-      color: #03140C;
+      color: #0A2F24;
       font-weight: 800;
       background: linear-gradient(135deg, #FBE6B3 0%, #D4AF37 100%);
       padding: 3px 9px;
@@ -4052,21 +4199,21 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     .course-title {
-      font-size: 1.35rem;
+      font-size: 1.25rem;
       font-weight: 800;
-      color: #FFFFFF;
+      color: #121816;
       line-height: 1.35;
       margin: 0;
       transition: color 0.3s;
     }
 
     .learnspace-course-card:hover .course-title {
-      color: #45D8D0;
+      color: #0F5132;
     }
 
     .course-brief {
       font-size: 0.88rem;
-      color: #A3B8B0;
+      color: #485A53;
       line-height: 1.6;
       margin: 0;
     }
@@ -4075,10 +4222,10 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      background: rgba(255, 255, 255, 0.03);
+      background: #FAF8F5;
       padding: 0.55rem 0.9rem;
       border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(15, 81, 50, 0.1);
     }
 
     .inst-avatar {
@@ -4093,13 +4240,13 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
 
     .inst-info strong {
       font-size: 0.84rem;
-      color: #FFFFFF;
+      color: #0A2F24;
       font-weight: 700;
     }
 
     .inst-info small {
       font-size: 0.72rem;
-      color: #45D8D0;
+      color: #0F5132;
     }
 
     .inst-check {
@@ -4119,11 +4266,11 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       align-items: center;
       gap: 0.5rem;
       font-size: 0.8rem;
-      color: #D1E5DC;
-      background: rgba(69, 216, 208, 0.04);
+      color: #485A53;
+      background: #FAF8F5;
       padding: 0.4rem 0.75rem;
       border-radius: 8px;
-      border: 1px solid rgba(69, 216, 208, 0.12);
+      border: 1px solid rgba(15, 81, 50, 0.1);
     }
 
     .spec-icon {
@@ -4135,7 +4282,7 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
-      border-top: 1px solid rgba(69, 216, 208, 0.15);
+      border-top: 1px solid #ECEAE4;
       padding-top: 1.2rem;
       margin-top: 1.2rem;
     }
@@ -4148,7 +4295,7 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
 
     .price-caption {
       font-size: 0.7rem;
-      color: #839E93;
+      color: #64748B;
       font-weight: 600;
     }
 
@@ -4158,17 +4305,18 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       display: flex;
       align-items: center;
       gap: 0.4rem;
+      color: #0F5132;
     }
 
     .strike-price {
       font-size: 0.78rem;
-      color: #64748B;
+      color: #94A3B8;
       text-decoration: line-through;
     }
 
     .curr {
       font-size: 0.75rem;
-      color: #45D8D0;
+      color: #0A2F24;
     }
 
     .course-action-btns {
@@ -4178,9 +4326,9 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     .btn-course-details {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #CADCD4;
+      background: #FAF8F5;
+      border: 1px solid rgba(15, 81, 50, 0.15);
+      color: #0A2F24;
       padding: 0.5rem 0.9rem;
       border-radius: 9999px;
       font-size: 0.78rem;
@@ -4189,26 +4337,28 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     .btn-course-details:hover {
-      background: rgba(255, 255, 255, 0.15);
-      color: #FFFFFF;
+      background: #FFFFFF;
+      border-color: #0F5132;
+      color: #0F5132;
     }
 
     .btn-course-enroll {
-      background: linear-gradient(135deg, #059669 0%, #047857 100%);
-      border: 1px solid #45D8D0;
+      background: #0F5132;
+      border: 1px solid #0F5132;
       color: #FFFFFF;
       padding: 0.5rem 1.1rem;
       border-radius: 9999px;
       font-size: 0.8rem;
       font-weight: 800;
-      box-shadow: 0 4px 15px rgba(5, 150, 105, 0.4);
+      box-shadow: 0 4px 14px rgba(15, 81, 50, 0.25);
       transition: all 0.25s;
     }
 
     .btn-course-enroll:hover {
       transform: translateY(-2px);
-      background: linear-gradient(135deg, #10B981 0%, #059669 100%);
-      box-shadow: 0 6px 20px rgba(69, 216, 208, 0.5);
+      background: #0A3E26;
+      border-color: #0A3E26;
+      box-shadow: 0 6px 18px rgba(15, 81, 50, 0.35);
     }
 
     /* ==========================================
@@ -4694,89 +4844,156 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     /* ==========================================
-       WORKFLOW SECTION
+       WORKFLOW SECTION (مسار الرحلة الأكاديمية الفاخر)
        ========================================== */
+    .workflow-section {
+      background: #FAF8F5;
+      position: relative;
+    }
+
     .steps-timeline-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1.3rem;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1.2rem;
       position: relative;
       z-index: 2;
     }
 
+    @media (max-width: 1200px) {
+      .steps-timeline-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .steps-timeline-grid {
+        grid-template-columns: 1fr;
+        gap: 1.3rem;
+      }
+    }
+
     .timeline-step {
-      padding: 2.2rem 1.2rem 1.8rem;
+      padding: 2.2rem 1.1rem 1.8rem;
       text-align: center;
       position: relative;
-      background: rgba(13, 59, 46, 0.65);
-      border: 1.5px solid rgba(223, 198, 152, 0.28);
+      background: #FFFFFF;
+      border: 1.5px solid rgba(15, 81, 50, 0.12);
       border-radius: 22px;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(223, 198, 152, 0.15);
-      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 28px rgba(10, 47, 36, 0.05);
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: flex-start;
     }
 
     .timeline-step:hover {
       transform: translateY(-8px);
-      border-color: #DFC698;
-      background: rgba(20, 75, 58, 0.85);
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 25px rgba(223, 198, 152, 0.25);
+      border-color: #C5A869;
+      background: #FFFFFF;
+      box-shadow: 0 20px 42px rgba(10, 47, 36, 0.1), 0 0 20px rgba(197, 168, 105, 0.15);
+    }
+
+    /* Subtle Flow Indicator between steps (RTL: flows right to left) */
+    @media (min-width: 1201px) {
+      .timeline-step:not(:last-child)::after {
+        content: '←';
+        position: absolute;
+        left: -16px;
+        top: 36%;
+        transform: translateY(-50%);
+        font-size: 1rem;
+        font-weight: 900;
+        color: #C5A869;
+        background: #FFFFFF;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1.5px solid rgba(197, 168, 105, 0.4);
+        box-shadow: 0 4px 10px rgba(10, 47, 36, 0.06);
+        z-index: 5;
+      }
     }
 
     .timeline-step.highlighted {
-      border-color: #DFC698;
-      background: linear-gradient(135deg, rgba(20, 75, 58, 0.9) 0%, rgba(13, 59, 46, 0.95) 100%);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(223, 198, 152, 0.3);
+      border: 1.5px solid #C5A869;
+      background: #FFFFFF;
+      box-shadow: 0 12px 34px rgba(197, 168, 105, 0.14);
     }
 
     .step-num-pill {
-      background: rgba(223, 198, 152, 0.15);
-      border: 1px solid rgba(223, 198, 152, 0.4);
-      color: #DFC698;
-      font-size: 0.8rem;
+      background: linear-gradient(135deg, #0A2F24 0%, #1A6B54 100%);
+      border: 1px solid rgba(15, 81, 50, 0.3);
+      color: #FFFFFF;
+      font-size: 0.82rem;
       font-weight: 800;
       font-family: var(--font-family-latin);
-      padding: 3px 12px;
+      padding: 3px 14px;
       border-radius: 9999px;
-      margin-bottom: 0.8rem;
+      margin-bottom: 1.1rem;
+      box-shadow: 0 3px 10px rgba(10, 47, 36, 0.18);
+      letter-spacing: 0.05em;
     }
 
     .step-num-pill.gold-pill {
       background: linear-gradient(135deg, #DFC698 0%, #C5A869 100%);
-      color: #071A14;
+      color: #0A2F24;
       border-color: #FFE8B6;
-      box-shadow: 0 2px 10px rgba(223, 198, 152, 0.4);
+      box-shadow: 0 3px 12px rgba(197, 168, 105, 0.4);
+    }
+
+    .t-icon-box {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: #FAF8F5;
+      border: 1.5px solid rgba(15, 81, 50, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.9rem;
+      margin-bottom: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(10, 47, 36, 0.04);
+    }
+
+    .timeline-step:hover .t-icon-box {
+      transform: scale(1.1) rotate(6deg);
+      border-color: #C5A869;
+      background: #FFFFFF;
+      box-shadow: 0 8px 20px rgba(197, 168, 105, 0.25);
+    }
+
+    .t-icon-box.gold-icon-box {
+      border-color: #C5A869;
+      background: rgba(197, 168, 105, 0.1);
     }
 
     .t-icon {
-      font-size: 2.3rem;
-      margin-bottom: 0.8rem;
-      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.35));
-      transition: transform 0.3s ease;
-    }
-
-    .timeline-step:hover .t-icon {
-      transform: scale(1.15) rotate(5deg);
+      line-height: 1;
+      filter: drop-shadow(0 2px 5px rgba(0,0,0,0.08));
     }
 
     .t-icon.gold-glow {
-      filter: drop-shadow(0 0 14px rgba(223, 198, 152, 0.65));
+      filter: drop-shadow(0 0 10px rgba(223, 198, 152, 0.5));
     }
 
     .timeline-step h4 {
-      color: #FFFFFF;
+      color: #0A2F24;
       font-size: 1.12rem;
       font-weight: 800;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.65rem;
     }
 
     .timeline-step p {
-      color: #CBD5E1;
+      color: #485A53;
       font-size: 0.86rem;
-      line-height: 1.6;
+      line-height: 1.65;
+      margin: 0;
     }
 
     /* ==========================================
@@ -4887,17 +5104,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     { id: 'other', name: 'شيء آخر', icon: '✨', keyword: 'استشارة' }
   ];
 
-  // "عوالم أم رهام" Realms State
-  selectedRealmId = '01';
-  realmsList = [
-    { id: '01', number: '01', title: 'البحث والدراسات', count: '18 خدمة معتمدة', image: 'assets/images/saudi_researcher_testimonial.jpg', keyword: 'أبحاث' },
-    { id: '02', number: '02', title: 'التعليم والأكاديميا', count: '14 مساراً علمياً', image: 'assets/images/reham_avatar.jpg', keyword: 'ماجستير' },
-    { id: '03', number: '03', title: 'التقنية والبرمجة', count: '22 نظاماً وتقنية', image: 'assets/images/saud_3d.jpg', keyword: 'برمج' },
-    { id: '04', number: '04', title: 'التصميم والعروض', count: '16 مساراً سينمائياً', image: 'assets/images/farah_3d.jpg', keyword: 'تصميم' },
-    { id: '05', number: '05', title: 'العروض والتقارير', count: '12 تخصصاً تحليلياً', image: 'assets/images/saudi_hologram_map.jpg', keyword: 'عرض' },
-    { id: '06', number: '06', title: 'المسار المهني و ATS', count: '8 خدمات وظيفية', image: 'assets/images/reham_profile_luxury.jpg', keyword: 'سيرة' },
-    { id: '07', number: '07', title: 'المشاريع والتخرج', count: '25 مجالاً بحثياً', image: 'assets/images/saudi_panoramic_hero.jpg', keyword: 'تخرج' }
-  ];
+  // Auto-Moving Carousel for Real Services State
+  realmsAutoScrollTimer: any = null;
+  isRealmsAutoScrollPaused = false;
 
   // Dynamic Cities State
   selectedCityId = 'taif';
@@ -4946,11 +5155,15 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.initHeroParticles();
+    this.startRealmsAutoScroll();
   }
 
   ngOnDestroy(): void {
     if (this.animFrameId) {
       cancelAnimationFrame(this.animFrameId);
+    }
+    if (this.realmsAutoScrollTimer) {
+      clearInterval(this.realmsAutoScrollTimer);
     }
   }
 
@@ -5323,8 +5536,15 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getCourseWhatsAppLink(s: ServiceItem): string {
-    const text = `السلام عليكم ورحمة الله، أرغب بالاستفسار والتسجيل في خدمة/مادة: *${s.nameAr}* عبر منصة أم رهام والحصول على الخصم المتاح.`;
-    return `https://wa.me/?text=${encodeURIComponent(text)}`;
+    const lines = [
+      'السلام عليكم ورحمة الله وبركاته 🌸',
+      '*استفسار وحجز خدمة — منصة أم رهام الأكاديمية*',
+      '━━━━━━━━━━━━━━━━━━━━',
+      `📌 *الخدمة:* ${s.nameAr}`,
+      '━━━━━━━━━━━━━━━━━━━━',
+      '✨ *أرجو تزويدي بتفاصيل الخدمة وتأكيد الحجز، شكراً لكم 🌸*'
+    ];
+    return `https://wa.me/?text=${encodeURIComponent(lines.join('\n'))}`;
   }
 
   heroServiceType = '';
@@ -5381,8 +5601,14 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   startPhoneOrder(): void {
     this.closePhoneModal();
-    const text = 'السلام عليكم ورحمة الله، أرغب بالاستفسار وطلب خدمة عبر تطبيق منصة أم رهام الذكي.';
-    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+    const lines = [
+      'السلام عليكم ورحمة الله وبركاته 🌸',
+      '*طلب خدمة عبر تطبيق منصة أم رهام الذكي*',
+      '━━━━━━━━━━━━━━━━━━━━',
+      '🛡️ *الضمان:* الدفع بعد الإنجاز والاستلام المعتمد 100%',
+      '✨ *أرجو تزويدي بالخيارات والبدء بالطلب، شكراً لكم 🌸*'
+    ];
+    window.open(`https://wa.me/?text=${encodeURIComponent(lines.join('\n'))}`, '_blank');
   }
 
   // Floating Welcome Coupon Modal Methods
@@ -5442,7 +5668,33 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
   }
 
-  // "عوالم أم رهام" Realms Slider Methods
+  // "عوالم وخدمات أم رهام" Auto-Moving Carousel Methods
+  startRealmsAutoScroll(): void {
+    if (typeof window === 'undefined') return;
+    if (this.realmsAutoScrollTimer) clearInterval(this.realmsAutoScrollTimer);
+    this.realmsAutoScrollTimer = setInterval(() => {
+      if (this.isRealmsAutoScrollPaused) return;
+      if (this.realmsTrack && this.realmsTrack.nativeElement) {
+        const el = this.realmsTrack.nativeElement;
+        const maxScroll = el.scrollWidth - el.clientWidth;
+        const currentScroll = Math.abs(el.scrollLeft);
+        if (currentScroll >= maxScroll - 30) {
+          el.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          el.scrollBy({ left: -250, behavior: 'smooth' });
+        }
+      }
+    }, 2400);
+  }
+
+  pauseRealmsAutoScroll(): void {
+    this.isRealmsAutoScrollPaused = true;
+  }
+
+  resumeRealmsAutoScroll(): void {
+    this.isRealmsAutoScrollPaused = false;
+  }
+
   scrollRealms(direction: 'prev' | 'next'): void {
     this.audio.playClick();
     if (this.realmsTrack && this.realmsTrack.nativeElement) {
@@ -5452,10 +5704,23 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  onSelectRealm(realm: any): void {
-    this.selectedRealmId = realm.id;
-    this.audio.playClick();
-    this.scrollToService(realm.keyword);
+  getServiceCardImage(s: ServiceItem, idx: number): string {
+    const name = s.nameAr || '';
+    if (name.includes('بحث') || name.includes('رسال')) return 'assets/images/saudi_researcher_testimonial.jpg';
+    if (name.includes('سيرة') || name.includes('ذاتية') || name.includes('ATS')) return 'assets/images/reham_profile_luxury.jpg';
+    if (name.includes('عرض') || name.includes('بوربوينت')) return 'assets/images/farah_3d.jpg';
+    if (name.includes('برمج') || name.includes('مواقع') || name.includes('تقن')) return 'assets/images/saud_3d.jpg';
+    if (name.includes('مواطن') || name.includes('ضمان') || name.includes('إيجار') || name.includes('جدارات')) return 'assets/images/saudi_hologram_map.jpg';
+    if (name.includes('تخرج') || name.includes('مشروع')) return 'assets/images/smart_app_showcase.jpg';
+    if (name.includes('اكسل')) return 'assets/images/taif_city_spotlight.jpg';
+    const fallbacks = [
+      'assets/images/saudi_researcher_testimonial.jpg',
+      'assets/images/saudi_panoramic_hero.jpg',
+      'assets/images/reham_avatar.jpg',
+      'assets/images/smart_app_showcase.jpg',
+      'assets/images/taif_city_spotlight.jpg'
+    ];
+    return fallbacks[idx % fallbacks.length];
   }
 
   // Dynamic Cities Getter & Methods

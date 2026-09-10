@@ -33,7 +33,7 @@ public record ServiceDto(
     string? IconSvg, string? CoverImageUrl, string PriceType,
     decimal? PriceMin, decimal? PriceMax, string PriceCurrency,
     string? EstimatedDuration, int SortOrder, bool IsActive, bool IsFeatured,
-    string? CategoryNameAr, DateTime CreatedAt);
+    string? CategoryNameAr, DateTime CreatedAt, string? AvailableOptions = null);
 
 public record ServiceDetailDto(
     Guid Id, Guid? CategoryId, string NameAr, string? NameEn, string Slug,
@@ -227,6 +227,7 @@ public record SiteSettingDto(
     string GroupName, string? DescriptionAr, bool IsPublic);
 
 public record UpsertSettingDto(string Key, string Value, string ValueType = "text", string GroupName = "general");
+public record UpdateSettingValueDto(string? Value);
 
 // ========================
 // SERVICE REQUEST DTOs

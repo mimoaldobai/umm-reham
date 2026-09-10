@@ -66,46 +66,95 @@ public class ServicesController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<ServiceDto>> Create([FromBody] CreateServiceDto dto)
     {
+        var slug = string.IsNullOrWhiteSpace(dto.Slug) 
+            ? ("service-" + DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()) 
+            : dto.Slug.Trim();
+
         var entity = new Service
         {
-            CategoryId = dto.CategoryId, NameAr = dto.NameAr, NameEn = dto.NameEn, Slug = dto.Slug,
-            ShortDescriptionAr = dto.ShortDescriptionAr, ShortDescriptionEn = dto.ShortDescriptionEn,
-            FullDescriptionAr = dto.FullDescriptionAr, FullDescriptionEn = dto.FullDescriptionEn,
-            TargetAudienceAr = dto.TargetAudienceAr, RequirementsAr = dto.RequirementsAr,
-            AvailableOptions = dto.AvailableOptions ?? "[]", PriceType = dto.PriceType,
-            PriceMin = dto.PriceMin, PriceMax = dto.PriceMax, PriceCurrency = dto.PriceCurrency ?? "SAR",
-            EstimatedDuration = dto.EstimatedDuration, IconSvg = dto.IconSvg, CoverImageUrl = dto.CoverImageUrl,
-            GalleryImages = dto.GalleryImages ?? "[]", SortOrder = dto.SortOrder, IsFeatured = dto.IsFeatured,
-            SeoTitle = dto.SeoTitle, SeoDescription = dto.SeoDescription
+            CategoryId = dto.CategoryId,
+            NameAr = dto.NameAr,
+            NameEn = dto.NameEn,
+            Slug = slug,
+            ShortDescriptionAr = dto.ShortDescriptionAr,
+            ShortDescriptionEn = dto.ShortDescriptionEn,
+            FullDescriptionAr = dto.FullDescriptionAr,
+            FullDescriptionEn = dto.FullDescriptionEn,
+            TargetAudienceAr = dto.TargetAudienceAr,
+            RequirementsAr = dto.RequirementsAr,
+            AvailableOptions = dto.AvailableOptions ?? "[]",
+            PriceType = dto.PriceType,
+            PriceMin = dto.PriceMin,
+            PriceMax = dto.PriceMax,
+            PriceCurrency = dto.PriceCurrency ?? "SAR",
+            EstimatedDuration = dto.EstimatedDuration,
+            IconSvg = dto.IconSvg,
+            CoverImageUrl = dto.CoverImageUrl,
+            GalleryImages = dto.GalleryImages ?? "[]",
+            SortOrder = dto.SortOrder,
+            IsFeatured = dto.IsFeatured,
+            SeoTitle = dto.SeoTitle,
+            SeoDescription = dto.SeoDescription
         };
         await _repo.AddAsync(entity);
-        return CreatedAtAction(nameof(GetBySlug), new { slug = entity.Slug }, MapToDto(entity));
+        return Ok(MapToDto(entity));
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult> Update(Guid id, [FromBody] UpdateServiceDto dto)
+    public async Task<ActionResult> Update(string id, [FromBody] UpdateServiceDto dto)
     {
-        var entity = await _repo.GetByIdAsync(id);
+        Service? entity = null;
+        if (Guid.TryParse(id, out var guid))
+        {
+            entity = await _repo.GetByIdAsync(guid);
+        }
+        if (entity == null)
+        {
+            entity = await _repo.GetBySlugAsync(id);
+        }
         if (entity == null) return NotFound();
-        entity.CategoryId = dto.CategoryId; entity.NameAr = dto.NameAr; entity.NameEn = dto.NameEn;
-        entity.Slug = dto.Slug; entity.ShortDescriptionAr = dto.ShortDescriptionAr;
-        entity.ShortDescriptionEn = dto.ShortDescriptionEn; entity.FullDescriptionAr = dto.FullDescriptionAr;
-        entity.FullDescriptionEn = dto.FullDescriptionEn; entity.TargetAudienceAr = dto.TargetAudienceAr;
-        entity.RequirementsAr = dto.RequirementsAr; entity.AvailableOptions = dto.AvailableOptions ?? "[]";
-        entity.PriceType = dto.PriceType; entity.PriceMin = dto.PriceMin; entity.PriceMax = dto.PriceMax;
-        entity.PriceCurrency = dto.PriceCurrency ?? "SAR"; entity.EstimatedDuration = dto.EstimatedDuration;
-        entity.IconSvg = dto.IconSvg; entity.CoverImageUrl = dto.CoverImageUrl;
-        entity.GalleryImages = dto.GalleryImages ?? "[]"; entity.SortOrder = dto.SortOrder;
-        entity.IsActive = dto.IsActive; entity.IsFeatured = dto.IsFeatured;
-        entity.SeoTitle = dto.SeoTitle; entity.SeoDescription = dto.SeoDescription;
+
+        entity.CategoryId = dto.CategoryId;
+        entity.NameAr = dto.NameAr;
+        entity.NameEn = dto.NameEn;
+        entity.Slug = string.IsNullOrWhiteSpace(dto.Slug) ? entity.Slug : dto.Slug;
+        entity.ShortDescriptionAr = dto.ShortDescriptionAr;
+        entity.ShortDescriptionEn = dto.ShortDescriptionEn;
+        entity.FullDescriptionAr = dto.FullDescriptionAr;
+        entity.FullDescriptionEn = dto.FullDescriptionEn;
+        entity.TargetAudienceAr = dto.TargetAudienceAr;
+        entity.RequirementsAr = dto.RequirementsAr;
+        entity.AvailableOptions = dto.AvailableOptions ?? "[]";
+        entity.PriceType = dto.PriceType;
+        entity.PriceMin = dto.PriceMin;
+        entity.PriceMax = dto.PriceMax;
+        entity.PriceCurrency = dto.PriceCurrency ?? "SAR";
+        entity.EstimatedDuration = dto.EstimatedDuration;
+        entity.IconSvg = dto.IconSvg;
+        entity.CoverImageUrl = dto.CoverImageUrl;
+        entity.GalleryImages = dto.GalleryImages ?? "[]";
+        entity.SortOrder = dto.SortOrder;
+        entity.IsActive = dto.IsActive;
+        entity.IsFeatured = dto.IsFeatured;
+        entity.SeoTitle = dto.SeoTitle;
+        entity.SeoDescription = dto.SeoDescription;
         await _repo.UpdateAsync(entity);
         return NoContent();
     }
 
     [HttpDelete("{id}")]
-    public async Task<ActionResult> Delete(Guid id)
+    public async Task<ActionResult> Delete(string id)
     {
-        await _repo.DeleteAsync(id);
+        if (Guid.TryParse(id, out var guid))
+        {
+            await _repo.DeleteAsync(guid);
+            return NoContent();
+        }
+        var entity = await _repo.GetBySlugAsync(id);
+        if (entity != null)
+        {
+            await _repo.DeleteAsync(entity.Id);
+        }
         return NoContent();
     }
 
@@ -115,5 +164,5 @@ public class ServicesController : ControllerBase
         s.IconSvg, s.CoverImageUrl, s.PriceType,
         s.PriceMin, s.PriceMax, s.PriceCurrency,
         s.EstimatedDuration, s.SortOrder, s.IsActive, s.IsFeatured,
-        s.Category?.NameAr, s.CreatedAt);
+        s.Category?.NameAr, s.CreatedAt, s.AvailableOptions);
 }

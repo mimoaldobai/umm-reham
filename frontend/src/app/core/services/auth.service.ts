@@ -137,9 +137,11 @@ export class AuthService {
       (u.email.toLowerCase() === trimmedId || u.username.toLowerCase() === trimmedId) && u.isActive
     );
 
-    // Accept standard passwords
-    const isValidAdmin = (trimmedId === 'admin' || trimmedId === 'admin@ummreham.sa') && (trimmedPass === 'admin123' || trimmedPass === 'admin' || trimmedPass === '123456');
-    const isValidUser = foundUser && (trimmedPass === 'admin123' || trimmedPass === '123456' || trimmedPass === 'admin');
+    // Accept standard passwords (including Admin@123 from database seed)
+    const validPasswords = ['admin@123', 'admin123', 'admin', '123456', 'Admin@123'];
+    const isValidAdmin = (trimmedId === 'admin' || trimmedId === 'admin@ummreham.com' || trimmedId === 'admin@ummreham.sa') && 
+                         (validPasswords.includes(trimmedPass) || validPasswords.includes(trimmedPass.toLowerCase()));
+    const isValidUser = foundUser && (validPasswords.includes(trimmedPass) || validPasswords.includes(trimmedPass.toLowerCase()));
 
     if (isValidAdmin || isValidUser) {
       const user = foundUser || this.defaultUsers[0];
@@ -167,9 +169,11 @@ export class AuthService {
     this.currentUserSubject.next(null);
   }
 
+  private apiUrl = 'http://localhost:5073/api';
+
   // CRUD Operations for Users
   public getUsers(): Observable<AdminUser[]> {
-    return this.http.get<any[]>('/api/auth/users').pipe(
+    return this.http.get<any[]>(`${this.apiUrl}/auth/users`).pipe(
       map(res => {
         if (res && res.length > 0) {
           const mapped: AdminUser[] = res.map(u => ({
@@ -203,6 +207,7 @@ export class AuthService {
       email: user.email || `user${Date.now()}@ummreham.sa`,
       role: user.role || 'consultant',
       roleNameAr: this.getRoleNameAr(user.role || 'consultant'),
+      avatarUrl: user.avatarUrl,
       isActive: user.isActive !== undefined ? user.isActive : true,
       lastLogin: 'لم يسجل دخول بعد',
       createdAt: new Date().toISOString().split('T')[0],
@@ -210,14 +215,19 @@ export class AuthService {
     };
 
     // Attempt backend save
-    this.http.post('/api/auth/users', {
+    this.http.post<any>(`${this.apiUrl}/auth/users`, {
       username: newUser.username,
       email: newUser.email,
       fullName: newUser.fullName,
       role: newUser.role,
+      avatarUrl: newUser.avatarUrl,
       isActive: newUser.isActive,
       password: 'admin123'
-    }).pipe(catchError(() => of(null))).subscribe();
+    }).pipe(catchError(() => of(null))).subscribe(res => {
+      if (res && (res.id || res.Id)) {
+        newUser.id = res.id || res.Id;
+      }
+    });
 
     users.unshift(newUser);
     this.saveUsers(users);
@@ -237,11 +247,12 @@ export class AuthService {
 
       // Attempt backend update if GUID
       if (!id.startsWith('usr-')) {
-        this.http.put(`/api/auth/users/${id}`, {
+        this.http.put(`${this.apiUrl}/auth/users/${id}`, {
           username: users[idx].username,
           email: users[idx].email,
           fullName: users[idx].fullName,
           role: users[idx].role,
+          avatarUrl: users[idx].avatarUrl,
           isActive: users[idx].isActive
         }).pipe(catchError(() => of(null))).subscribe();
       }
@@ -261,7 +272,7 @@ export class AuthService {
     this.saveUsers(users);
 
     if (!id.startsWith('usr-')) {
-      this.http.delete(`/api/auth/users/${id}`).pipe(catchError(() => of(null))).subscribe();
+      this.http.delete(`${this.apiUrl}/auth/users/${id}`).pipe(catchError(() => of(null))).subscribe();
     }
 
     return of(true);

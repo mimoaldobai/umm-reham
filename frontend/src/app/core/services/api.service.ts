@@ -1,6 +1,30 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, catchError } from 'rxjs';
+import { Observable, of, catchError, map } from 'rxjs';
+
+export interface MediaDto {
+  id: string;
+  url: string;
+  fileName: string;
+  fileType: string;
+  folder?: string;
+}
+
+export interface SiteSetting {
+  key: string;
+  value: string;
+}
+
+export interface OrderTrackingResult {
+  id: string;
+  trackingCode: string;
+  clientName: string;
+  serviceName?: string;
+  status: string;
+  discountPercent?: number;
+  createdAt: string;
+  updatedAt?: string;
+}
 
 export interface Category {
   id: string;
@@ -14,6 +38,17 @@ export interface Category {
   isActive: boolean;
 }
 
+export interface ServiceTemplate {
+  id: string;
+  code: string; // e.g. 'CV-01'
+  nameAr: string; // e.g. 'السيرة الكلاسيكية الذهبية ATS'
+  descriptionAr?: string;
+  price: number; // e.g. 35
+  previewImage?: string; // Preview image or svg
+  isPopular?: boolean;
+  tags?: string[];
+}
+
 export interface ServiceItem {
   id: string;
   categoryId?: string;
@@ -24,7 +59,8 @@ export interface ServiceItem {
   fullDescriptionAr?: string;
   targetAudienceAr?: string;
   requirementsAr?: string;
-  priceType: string;
+  priceType: 'fixed' | 'quote' | 'range' | 'contact' | string;
+  priceFixed?: number;
   priceMin?: number;
   priceMax?: number;
   priceCurrency: string;
@@ -33,6 +69,7 @@ export interface ServiceItem {
   coverImageUrl?: string;
   isFeatured: boolean;
   categoryNameAr?: string;
+  templates?: ServiceTemplate[];
 }
 
 export interface Statistic {
@@ -64,6 +101,7 @@ export interface PortfolioItem {
   titleAr: string;
   titleEn?: string;
   serviceId?: string;
+  serviceNameAr?: string;
   categoryId?: string;
   categoryNameAr?: string;
   descriptionAr?: string;
@@ -121,24 +159,580 @@ export interface FooterLinkItem {
 })
 export class ApiService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:5073/api';
+  private apiUrl = this.resolveApiUrl();
+
+  private resolveApiUrl(): string {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('ur_api_url');
+      if (stored) return stored;
+      const host = window.location.hostname;
+      if (host === 'localhost' || host === '127.0.0.1') {
+        return 'http://localhost:5073/api';
+      }
+      return 'https://umm-reham-api.onrender.com/api';
+    }
+    return 'http://localhost:5073/api';
+  }
 
   // Fallback initial data in case backend is offline during local preview
   private defaultCategories: Category[] = [
-    { id: '1', nameAr: 'الخدمات الأكاديمية', slug: 'academic-services', descriptionAr: 'بحوث علمية، تقارير، ومشاريع تخرج', sortOrder: 1, isActive: true },
-    { id: '2', nameAr: 'العروض والتصميم', slug: 'presentations-design', descriptionAr: 'عروض تقديمية وتصاميم أكاديمية وبورتفوليو', sortOrder: 2, isActive: true },
-    { id: '3', nameAr: 'التقنية والبرمجة', slug: 'technology-programming', descriptionAr: 'تطوير برمجيات، ذكاء اصطناعي، وتحليل بيانات', sortOrder: 3, isActive: true },
-    { id: '4', nameAr: 'المسار المهني', slug: 'career-path', descriptionAr: 'سيرة ذاتية احترافية وتطوير الملف المهني', sortOrder: 4, isActive: true },
-    { id: '5', nameAr: 'التعليم والتطوير', slug: 'education-development', descriptionAr: 'دعم تعليمي وتطوير مهارات واستشارات', sortOrder: 5, isActive: true }
+    { id: 'cat-schools', nameAr: 'خدمات طلاب المدارس', slug: 'schools', descriptionAr: 'حل الواجبات المدرسية، المطويات، بحوث النشاط، الخرائط الذهنية، ومشاريع المقررات', sortOrder: 1, isActive: true },
+    { id: 'cat-university', nameAr: 'الخدمات الجامعية', slug: 'university', descriptionAr: 'بحوث علمية محكمة، رسائل الماجستير والدكتوراه، مشاريع التخرج، والتحليل الإحصائي', sortOrder: 2, isActive: true },
+    { id: 'cat-office', nameAr: 'الخدمات المكتبية', slug: 'office', descriptionAr: 'تنسيق وطباعة الرسائل، تدقيق لغوي، فحص Turnitin، تفريغ صوتي، وترجمة معتمدة', sortOrder: 3, isActive: true },
+    { id: 'cat-general', nameAr: 'الخدمات العامة', slug: 'general', descriptionAr: 'عروض تقديمية وبوربوينت احترافي، كتابة المحتوى، سيرة ذاتية ATS، واستشارات تعليمية', sortOrder: 4, isActive: true }
   ];
 
   private defaultServices: ServiceItem[] = [
-    { id: 's1', categoryId: '1', nameAr: 'البحوث العلمية', slug: 'scientific-research', shortDescriptionAr: 'إعداد بحوث علمية متكاملة ومحكمة بأعلى المعايير الأكاديمية والتوثيق المعتمد.', priceType: 'range', priceMin: 200, priceMax: 2000, priceCurrency: 'SAR', estimatedDuration: '3-14 يوم', isFeatured: true, categoryNameAr: 'الخدمات الأكاديمية' },
-    { id: 's2', categoryId: '1', nameAr: 'مشاريع التخرج', slug: 'graduation-projects', shortDescriptionAr: 'مرافقة شاملة لإعداد مشروع تخرج متكامل يشمل البحث، التحليل، والتوثيق.', priceType: 'quote', priceCurrency: 'SAR', estimatedDuration: 'حسب المشروع', isFeatured: true, categoryNameAr: 'الخدمات الأكاديمية' },
-    { id: 's3', categoryId: '1', nameAr: 'التقارير الأكاديمية', slug: 'reports', shortDescriptionAr: 'صياغة تقارير أكاديمية ومهنية رصينة تدعم أهدافك الدراسية بدقة عالية.', priceType: 'range', priceMin: 100, priceMax: 800, priceCurrency: 'SAR', estimatedDuration: '2-7 أيام', isFeatured: false, categoryNameAr: 'الخدمات الأكاديمية' },
-    { id: 's4', categoryId: '2', nameAr: 'العروض التقديمية (PowerPoint)', slug: 'presentations', shortDescriptionAr: 'تصميم عروض سينمائية وتفاعلية احترافية تترك أثراً بصرياً قوياً.', priceType: 'range', priceMin: 100, priceMax: 600, priceCurrency: 'SAR', estimatedDuration: '2-4 أيام', isFeatured: true, categoryNameAr: 'العروض والتصميم' },
-    { id: 's5', categoryId: '3', nameAr: 'البرمجة والمشاريع التقنية', slug: 'programming', shortDescriptionAr: 'تنفيذ حلول برمجية وتطبيقات ومشاريع ذكاء اصطناعي بأحدث التقنيات.', priceType: 'quote', priceCurrency: 'SAR', estimatedDuration: 'حسب المتطلبات', isFeatured: true, categoryNameAr: 'التقنية والبرمجة' },
-    { id: 's6', categoryId: '4', nameAr: 'السيرة الذاتية الاحترافية (ATS)', slug: 'resume-cv', shortDescriptionAr: 'صياغة سيرة ذاتية عصرية متوافقة مع أنظمة الفرز العالمي لتسريع التوظيف.', priceType: 'range', priceMin: 100, priceMax: 350, priceCurrency: 'SAR', estimatedDuration: '24-48 ساعة', isFeatured: true, categoryNameAr: 'المسار المهني' }
+    // ==========================================
+    // 1. الخدمات الجامعية / الطلابية الأساسية (12 خدمة)
+    // ==========================================
+    {
+      id: 's-uni-1',
+      categoryId: 'cat-university',
+      nameAr: 'بحث',
+      slug: 'academic-research',
+      shortDescriptionAr: 'كتابة وإعداد البحوث العلمية والجامعية المحكمة وفق اشتراطات جامعتك وأدلة التوثيق الرسمية (APA 7th & Harvard).',
+      priceType: 'quote',
+      priceCurrency: 'SAR',
+      estimatedDuration: '3-10 أيام',
+      isFeatured: true,
+      categoryNameAr: 'الخدمات الجامعية'
+    },
+    {
+      id: 's-uni-2',
+      categoryId: 'cat-university',
+      nameAr: 'عرض تقديمي',
+      slug: 'presentation-slides',
+      shortDescriptionAr: 'تصميم عروض بوربوينت احترافية وسينمائية للمناقشات الجامعية والمؤتمرات مع مؤثرات وانفوجرافيك عالي الدقة.',
+      priceType: 'fixed',
+      priceFixed: 45,
+      priceCurrency: 'SAR',
+      estimatedDuration: '24-48 ساعة',
+      isFeatured: true,
+      categoryNameAr: 'الخدمات الجامعية',
+      templates: [
+        { id: 'tpl-ppt-1', code: 'PPT-01', nameAr: 'عرض أكاديمي كلاسيكي هادئ', price: 45, isPopular: false, descriptionAr: 'تصميم رسمي أنيق للمناقشات الجامعية والندوات الأكاديمية' },
+        { id: 'tpl-ppt-2', code: 'PPT-02', nameAr: 'عرض سينمائي تفاعلي متقدم', price: 75, isPopular: true, descriptionAr: 'حركات انتقالية ذكية، مؤثرات بصرية وتصاميم ثلاثية الأبعاد' },
+        { id: 'tpl-ppt-3', code: 'PPT-03', nameAr: 'عرض إنفوجرافيك للمؤتمرات', price: 90, isPopular: false, descriptionAr: 'تحويل البيانات المعقدة إلى رسوم بيانية وأيقونات إبداعية' },
+        { id: 'tpl-ppt-4', code: 'PPT-04', nameAr: 'عرض مشاريع التخرج والأعمال', price: 65, isPopular: false, descriptionAr: 'قوالب متخصصة للعرض النهائي أمام لجان التحكيم' }
+      ]
+    },
+    {
+      id: 's-uni-3',
+      categoryId: 'cat-university',
+      nameAr: 'تقرير ميداني',
+      slug: 'field-report',
+      shortDescriptionAr: 'صياغة التقارير الميدانية والتطبيقية وتوثيق الزيارات والملاحظات وفق الهيكلة الأكاديمية المعتمدة.',
+      priceType: 'quote',
+      priceCurrency: 'SAR',
+      estimatedDuration: '2-4 أيام',
+      isFeatured: false,
+      categoryNameAr: 'الخدمات الجامعية'
+    },
+    {
+      id: 's-uni-4',
+      categoryId: 'cat-university',
+      nameAr: 'تقرير تدريب',
+      slug: 'internship-report',
+      shortDescriptionAr: 'إعداد تقارير التدريب التعاوني والامتياز المهني شاملة المهام المنجزة، التحديات، والتوصيات لجهات التدريب.',
+      priceType: 'quote',
+      priceCurrency: 'SAR',
+      estimatedDuration: '3-5 أيام',
+      isFeatured: true,
+      categoryNameAr: 'الخدمات الجامعية'
+    },
+    {
+      id: 's-uni-5',
+      categoryId: 'cat-university',
+      nameAr: 'تقرير صيفي',
+      slug: 'summer-training-report',
+      shortDescriptionAr: 'كتابة تقارير التدريب الصيفي للطلاب وفق اشتراطات الكليات والمعاهد مع الجداول والملاحق الرسمية.',
+      priceType: 'quote',
+      priceCurrency: 'SAR',
+      estimatedDuration: '2-4 أيام',
+      isFeatured: false,
+      categoryNameAr: 'الخدمات الجامعية'
+    },
+    {
+      id: 's-uni-6',
+      categoryId: 'cat-university',
+      nameAr: 'مشروع تخرج',
+      slug: 'graduation-project',
+      shortDescriptionAr: 'إعداد ومتابعة مشاريع التخرج المتكاملة (كتابة التقرير الشامل، التحليل المنهجي، وبناء الحل التقني أو الإداري).',
+      priceType: 'quote',
+      priceCurrency: 'SAR',
+      estimatedDuration: 'حسب خطة المشروع',
+      isFeatured: true,
+      categoryNameAr: 'الخدمات الجامعية'
+    },
+    {
+      id: 's-uni-7',
+      categoryId: 'cat-university',
+      nameAr: 'واجب صغير',
+      slug: 'small-assignment',
+      shortDescriptionAr: 'حل التكاليف الجامعية السريعة والأسئلة المقالية والأنشطة الأسبوعية بدقة وسرعة تسليم.',
+      priceType: 'fixed',
+      priceFixed: 25,
+      priceCurrency: 'SAR',
+      estimatedDuration: 'خلال 12-24 ساعة',
+      isFeatured: true,
+      categoryNameAr: 'الخدمات الجامعية'
+    },
+    {
+      id: 's-uni-8',
+      categoryId: 'cat-university',
+      nameAr: 'واجب اكسل',
+      slug: 'excel-assignment',
+      shortDescriptionAr: 'حل تمارين الإكسل والمعادلات والدوال المحاسبية والإحصائية وتنسيق الجداول بشكل احترافي.',
+      priceType: 'fixed',
+      priceFixed: 35,
+      priceCurrency: 'SAR',
+      estimatedDuration: 'نفس اليوم',
+      isFeatured: false,
+      categoryNameAr: 'الخدمات الجامعية'
+    },
+    {
+      id: 's-uni-9',
+      categoryId: 'cat-university',
+      nameAr: 'مشروع اكسل',
+      slug: 'excel-project',
+      shortDescriptionAr: 'بناء مشاريع إكسل متقدمة، لوحات تحكم تفاعلية (Dashboards)، ونماذج تحليل مالي وإداري ذكية.',
+      priceType: 'fixed',
+      priceFixed: 120,
+      priceCurrency: 'SAR',
+      estimatedDuration: '24-48 ساعة',
+      isFeatured: true,
+      categoryNameAr: 'الخدمات الجامعية'
+    },
+    {
+      id: 's-uni-10',
+      categoryId: 'cat-university',
+      nameAr: 'سيرة ذاتية',
+      slug: 'professional-cv-ats',
+      shortDescriptionAr: 'صياغة وتصميم السيرة الذاتية بنظام ATS المتوافق مع الشركات وجهات التوظيف، متوفرة بعدة نماذج وتصاميم راقية.',
+      priceType: 'fixed',
+      priceFixed: 35,
+      priceCurrency: 'SAR',
+      estimatedDuration: '24 ساعة',
+      isFeatured: true,
+      categoryNameAr: 'الخدمات الجامعية',
+      templates: [
+        { id: 'tpl-cv-1', code: 'CV-01', nameAr: 'السيرة الكلاسيكية الذهبية ATS', price: 35, isPopular: false, descriptionAr: 'تنسيق قياسي معتمد ومقروء 100% لأنظمة الفرز الآلي للشركات والمؤسسات' },
+        { id: 'tpl-cv-2', code: 'CV-02', nameAr: 'السيرة الحديثة الإنفوجرافيك التنفيذية', price: 55, isPopular: true, descriptionAr: 'تصميم عصري جذاب يبرز المهارات والإنجازات القيادية والمشاريع' },
+        { id: 'tpl-cv-3', code: 'CV-03', nameAr: 'السيرة الأكاديمية والطبية المفصلة', price: 70, isPopular: false, descriptionAr: 'مخصصة للأطباء والمهندسين وأعضاء هيئة التدريس ونشر الأبحاث' },
+        { id: 'tpl-cv-4', code: 'CV-04', nameAr: 'السيرة التقنية وهندسة البرمجيات', price: 60, isPopular: false, descriptionAr: 'هيكلة مركزة على المهارات التقنية، سوابق المشاريع ومستودعات الأكواد' }
+      ]
+    },
+    {
+      id: 's-uni-11',
+      categoryId: 'cat-university',
+      nameAr: 'بورتفوليو',
+      slug: 'portfolio-design',
+      shortDescriptionAr: 'تصميم ملف الأعمال التعريفي (Portfolio) لاستعراض إنجازاتك ومشاريعك السابقة بجاذبية بصرية ملفتة.',
+      priceType: 'fixed',
+      priceFixed: 85,
+      priceCurrency: 'SAR',
+      estimatedDuration: '2-4 أيام',
+      isFeatured: true,
+      categoryNameAr: 'الخدمات الجامعية',
+      templates: [
+        { id: 'tpl-port-1', code: 'PORT-01', nameAr: 'ملف أعمال تفاعلي رقمي PDF', price: 85, isPopular: false, descriptionAr: 'كتيب إلكتروني قابل للتصفح مع روابط تفاعلية ومعاينة أعمال' },
+        { id: 'tpl-port-2', code: 'PORT-02', nameAr: 'بورتفوليو استعراضي تنفيذي مميز', price: 140, isPopular: true, descriptionAr: 'تصميم فاخر للمصممين والمبرمجين ورواد الأعمال مع معرض حي' },
+        { id: 'tpl-port-3', code: 'PORT-03', nameAr: 'بورتفوليو هندسي ومعماري شامل', price: 180, isPopular: false, descriptionAr: 'مخصص للمشاريع الهندسية والمخططات ونماذج ثلاثية الأبعاد' }
+      ]
+    },
+    {
+      id: 's-uni-12',
+      categoryId: 'cat-university',
+      nameAr: 'مواقع',
+      slug: 'web-development',
+      shortDescriptionAr: 'تصميم وبرمجة مواقع ويب تعريفية وشخصية وسريعة متوافقة بالكامل مع كافة الشاشات والجوالات.',
+      priceType: 'fixed',
+      priceFixed: 350,
+      priceCurrency: 'SAR',
+      estimatedDuration: '3-7 أيام',
+      isFeatured: true,
+      categoryNameAr: 'الخدمات الجامعية',
+      templates: [
+        { id: 'tpl-web-1', code: 'WEB-01', nameAr: 'موقع تعريفي صفحة واحدة (Landing Page)', price: 350, isPopular: false, descriptionAr: 'تصميم سريع متجاوب 100% مع الجوال مع روابط تواصل ونماذج حجز' },
+        { id: 'tpl-web-2', code: 'WEB-02', nameAr: 'موقع بورتفوليو ويب شخصي تفاعلي', price: 550, isPopular: true, descriptionAr: 'موقع ديناميكي يعرض سيرتك وأعمالك مع دومين خاص وتأثيرات عصرية' },
+        { id: 'tpl-web-3', code: 'WEB-03', nameAr: 'موقع متكامل متعدد الصفحات والخدمات', price: 950, isPopular: false, descriptionAr: 'منصة احترافية كاملة تشمل عدة أقسام مع لوحة إدارة محتوى' }
+      ]
+    },
+
+    // ==========================================
+    // 2. الخدمات العامة (الـ 20 خدمة المحددة بالأسعار الرسمية)
+    // ==========================================
+    {
+      id: 's-gen-1',
+      categoryId: 'cat-general',
+      nameAr: 'التسجيل في حساب المواطن',
+      slug: 'citizen-account-register',
+      shortDescriptionAr: 'تسجيل دقيق في برنامج حساب المواطن مع إرفاق المستندات ومطابقة شروط الاستحقاق.',
+      priceType: 'fixed',
+      priceFixed: 25,
+      priceCurrency: 'SAR',
+      estimatedDuration: 'نفس اليوم (خلال ساعات)',
+      isFeatured: true,
+      categoryNameAr: 'الخدمات العامة'
+    },
+    {
+      id: 's-gen-2',
+      categoryId: 'cat-general',
+      nameAr: 'رفع اعتراض في حساب المواطن أو تحديث البيانات',
+      slug: 'citizen-account-appeal',
+      shortDescriptionAr: 'صياغة ورفع الاعتراضات الرسمية وتحديث البيانات البنكية والتابعين لتفادي إسقاط الدعم.',
+      priceType: 'fixed',
+      priceFixed: 15,
+      priceCurrency: 'SAR',
+      estimatedDuration: 'نفس اليوم',
+      isFeatured: false,
+      categoryNameAr: 'الخدمات العامة'
+    },
+    {
+      id: 's-gen-3',
+      categoryId: 'cat-general',
+      nameAr: 'تسجيل حساب المواطن للعوائل',
+      slug: 'citizen-account-families',
+      shortDescriptionAr: 'تسجيل رب الأسرة وإضافة جميع التابعين بدقة والتأكد من تطابق الوثائق لضمان صدور الأهلية.',
+      priceType: 'fixed',
+      priceFixed: 70,
+      priceCurrency: 'SAR',
+      estimatedDuration: 'نفس اليوم',
+      isFeatured: true,
+      categoryNameAr: 'الخدمات العامة'
+    },
+    {
+      id: 's-gen-4',
+      categoryId: 'cat-general',
+      nameAr: 'التسجيل في طاقات وإكمال الملف 100%',
+      slug: 'taqat-register',
+      shortDescriptionAr: 'إنشاء وتحديث الحساب في منصة طاقات وإكمال الملف التعريفي بنسبة 100% للتأهل للبرامج الوظيفية.',
+      priceType: 'fixed',
+      priceFixed: 20,
+      priceCurrency: 'SAR',
+      estimatedDuration: 'خلال ساعات',
+      isFeatured: false,
+      categoryNameAr: 'الخدمات العامة'
+    },
+    {
+      id: 's-gen-5',
+      categoryId: 'cat-general',
+      nameAr: 'التسجيل في الضمان المطور بالتقرير الطبي',
+      slug: 'daman-medical-report',
+      shortDescriptionAr: 'تسجيل مستفيدي الضمان الاجتماعي المطور ورفع ومطابقة التقارير الطبية الرسمية مع اللجان.',
+      priceType: 'fixed',
+      priceFixed: 50,
+      priceCurrency: 'SAR',
+      estimatedDuration: 'نفس اليوم',
+      isFeatured: true,
+      categoryNameAr: 'الخدمات العامة'
+    },
+    {
+      id: 's-gen-6',
+      categoryId: 'cat-general',
+      nameAr: 'إضافة العقد الجديد في الضمان المطور',
+      slug: 'daman-add-contract',
+      shortDescriptionAr: 'ربط عقد الإيجار الجديد المسجل في منصة إيجار بحساب المستفيد في الضمان المطور فورياً.',
+      priceType: 'fixed',
+      priceFixed: 15,
+      priceCurrency: 'SAR',
+      estimatedDuration: 'نفس اليوم',
+      isFeatured: false,
+      categoryNameAr: 'الخدمات العامة'
+    },
+    {
+      id: 's-gen-7',
+      categoryId: 'cat-general',
+      nameAr: 'استخراج مشهد ضماني',
+      slug: 'daman-certificate',
+      shortDescriptionAr: 'استخراج مشهد إثبات مستفيد من الضمان الاجتماعي لتقديمه للجهات الحكومية والخاصة.',
+      priceType: 'fixed',
+      priceFixed: 10,
+      priceCurrency: 'SAR',
+      estimatedDuration: 'فوري خلال دقائق',
+      isFeatured: false,
+      categoryNameAr: 'الخدمات العامة'
+    },
+    {
+      id: 's-gen-8',
+      categoryId: 'cat-general',
+      nameAr: 'عقد إيجار مع التسجيل في الضمان المطور',
+      slug: 'lease-contract-daman',
+      shortDescriptionAr: 'توثيق عقد إيجار إلكتروني معتمد عبر إيجار مع التقديم الكامل والتسجيل في الضمان المطور.',
+      priceType: 'fixed',
+      priceFixed: 335,
+      priceCurrency: 'SAR',
+      estimatedDuration: '24 ساعة',
+      isFeatured: true,
+      categoryNameAr: 'الخدمات العامة'
+    },
+    {
+      id: 's-gen-9',
+      categoryId: 'cat-general',
+      nameAr: 'عقد إيجار مع التسجيل في حساب المواطن',
+      slug: 'lease-contract-citizen',
+      shortDescriptionAr: 'توثيق عقد إيجار شبكة إيجار وربطه مباشرة بحساب المواطن لتأكيد استقلالية السكن.',
+      priceType: 'fixed',
+      priceFixed: 330,
+      priceCurrency: 'SAR',
+      estimatedDuration: '24 ساعة',
+      isFeatured: true,
+      categoryNameAr: 'الخدمات العامة'
+    },
+    {
+      id: 's-gen-10',
+      categoryId: 'cat-general',
+      nameAr: 'تجديد عقد الإيجار مع التحديث',
+      slug: 'lease-renewal-update',
+      shortDescriptionAr: 'تجديد العقد الإلكتروني عبر شبكة إيجار وتحديث بياناته في كافة المنصات الداعمة.',
+      priceType: 'fixed',
+      priceFixed: 330,
+      priceCurrency: 'SAR',
+      estimatedDuration: '24 ساعة',
+      isFeatured: false,
+      categoryNameAr: 'الخدمات العامة'
+    },
+    {
+      id: 's-gen-11',
+      categoryId: 'cat-general',
+      nameAr: 'عقد إيجار إلكتروني مع العنوان الوطني',
+      slug: 'lease-contract-national-address',
+      shortDescriptionAr: 'إصدار عقد إيجار موثق مع إنشاء وتطابق العنوان الوطني الرسمي عبر سبل.',
+      priceType: 'fixed',
+      priceFixed: 310,
+      priceCurrency: 'SAR',
+      estimatedDuration: '24 ساعة',
+      isFeatured: false,
+      categoryNameAr: 'الخدمات العامة'
+    },
+    {
+      id: 's-gen-12',
+      categoryId: 'cat-general',
+      nameAr: 'إلغاء التجديد التلقائي للعقود',
+      slug: 'cancel-auto-renewal',
+      shortDescriptionAr: 'إيقاف وإلغاء التجديد التلقائي للعقود الإلكترونية قبل استحقاق الرسوم عبر منصة إيجار.',
+      priceType: 'fixed',
+      priceFixed: 10,
+      priceCurrency: 'SAR',
+      estimatedDuration: 'فوري خلال دقائق',
+      isFeatured: false,
+      categoryNameAr: 'الخدمات العامة'
+    },
+    {
+      id: 's-gen-13',
+      categoryId: 'cat-general',
+      nameAr: 'جدارات وإكمال الملف إلى 100%',
+      slug: 'jadarat-profile',
+      shortDescriptionAr: 'تسجيل وتوثيق المؤهلات والخبرات في المنصة الوطنية الموحدة للتوظيف (جدارات) واكتمال 100%.',
+      priceType: 'fixed',
+      priceFixed: 35,
+      priceCurrency: 'SAR',
+      estimatedDuration: 'خلال ساعات',
+      isFeatured: true,
+      categoryNameAr: 'الخدمات العامة'
+    },
+    {
+      id: 's-gen-14',
+      categoryId: 'cat-general',
+      nameAr: 'تحديث الضمان الاجتماعي للمسجلين بعقد إيجار',
+      slug: 'daman-update-lease',
+      shortDescriptionAr: 'تحديث وقبول العقد الجديد ومطابقة العنوان في منصة الضمان لتجنب تعليق الدفعات.',
+      priceType: 'fixed',
+      priceFixed: 20,
+      priceCurrency: 'SAR',
+      estimatedDuration: 'نفس اليوم',
+      isFeatured: false,
+      categoryNameAr: 'الخدمات العامة'
+    },
+    {
+      id: 's-gen-15',
+      categoryId: 'cat-general',
+      nameAr: 'التسجيل في التأهيل الشامل',
+      slug: 'taheel-shamel',
+      shortDescriptionAr: 'التقديم في إعانة التأهيل الشامل لذوي الإعاقة ورفع المستندات والتقارير الطبية المعتمدة.',
+      priceType: 'fixed',
+      priceFixed: 30,
+      priceCurrency: 'SAR',
+      estimatedDuration: 'نفس اليوم',
+      isFeatured: false,
+      categoryNameAr: 'الخدمات العامة'
+    },
+    {
+      id: 's-gen-16',
+      categoryId: 'cat-general',
+      nameAr: 'التسجيل في ساند',
+      slug: 'saned-register',
+      shortDescriptionAr: 'التقديم على تعويض التعطل عن العمل (ساند) عبر التأمينات الاجتماعية والتحقق من الأهلية.',
+      priceType: 'fixed',
+      priceFixed: 30,
+      priceCurrency: 'SAR',
+      estimatedDuration: 'فوري ونفس اليوم',
+      isFeatured: false,
+      categoryNameAr: 'الخدمات العامة'
+    },
+    {
+      id: 's-gen-17',
+      categoryId: 'cat-general',
+      nameAr: 'التسجيل في تمهير',
+      slug: 'tamheer-register',
+      shortDescriptionAr: 'التقديم في برنامج التدريب على رأس العمل (تمهير) لخريجي الدبلوم والبكالوريوس.',
+      priceType: 'fixed',
+      priceFixed: 40,
+      priceCurrency: 'SAR',
+      estimatedDuration: 'نفس اليوم',
+      isFeatured: false,
+      categoryNameAr: 'الخدمات العامة'
+    },
+    {
+      id: 's-gen-18',
+      categoryId: 'cat-general',
+      nameAr: 'إضافة تابع في الضمان الاجتماعي المطور',
+      slug: 'daman-add-dependent',
+      shortDescriptionAr: 'إضافة تابع جديد في ملف الضمان المطور مع رفع وثائق إثبات الصلة والسكن.',
+      priceType: 'fixed',
+      priceFixed: 20,
+      priceCurrency: 'SAR',
+      estimatedDuration: 'نفس اليوم',
+      isFeatured: false,
+      categoryNameAr: 'الخدمات العامة'
+    },
+    {
+      id: 's-gen-19',
+      categoryId: 'cat-general',
+      nameAr: 'عنوان وطني مطابق 100% عبر سبل',
+      slug: 'national-address-spl',
+      shortDescriptionAr: 'تسجيل وتحديث وتثبيت العنوان الوطني الرسمي عبر البريد السعودي (سبل) مطابق 100%.',
+      priceType: 'fixed',
+      priceFixed: 15,
+      priceCurrency: 'SAR',
+      estimatedDuration: 'فوري خلال دقائق',
+      isFeatured: false,
+      categoryNameAr: 'الخدمات العامة'
+    },
+    {
+      id: 's-gen-20',
+      categoryId: 'cat-general',
+      nameAr: 'فك حظر فوري بدون تسجيل',
+      slug: 'unblock-instant',
+      shortDescriptionAr: 'معالجة وفك الحظر في الأنظمة والمنصات وتصحيح سبب الإيقاف بشكل فوري.',
+      priceType: 'fixed',
+      priceFixed: 75,
+      priceCurrency: 'SAR',
+      estimatedDuration: 'فوري',
+      isFeatured: true,
+      categoryNameAr: 'الخدمات العامة'
+    },
+
+    // ==========================================
+    // 3. خدمات طلاب المدارس
+    // ==========================================
+    {
+      id: 's-sch-1',
+      categoryId: 'cat-schools',
+      nameAr: 'حل الواجبات والمهام المدرسية',
+      slug: 'school-homework',
+      shortDescriptionAr: 'حلول نموذجية وشاملة لكافة الواجبات والأنشطة المدرسية لجميع المراحل الدراسية بدقة وتوضيح خطوات الحل.',
+      priceType: 'fixed',
+      priceFixed: 20,
+      priceCurrency: 'SAR',
+      estimatedDuration: 'نفس اليوم (خلال ساعات)',
+      isFeatured: true,
+      categoryNameAr: 'خدمات طلاب المدارس'
+    },
+    {
+      id: 's-sch-2',
+      categoryId: 'cat-schools',
+      nameAr: 'المطويات والبحوث المدرسية والخرائط المفاهيمية',
+      slug: 'school-brochures',
+      shortDescriptionAr: 'تصميم مطويات إبداعية ملونة، بحوث أنشطة صفية مدعمة بالصور، ورسوم بيانية وخرائط ذهنية تسهل الفهم.',
+      priceType: 'fixed',
+      priceFixed: 30,
+      priceCurrency: 'SAR',
+      estimatedDuration: '24 ساعة',
+      isFeatured: true,
+      categoryNameAr: 'خدمات طلاب المدارس'
+    },
+    {
+      id: 's-sch-3',
+      categoryId: 'cat-schools',
+      nameAr: 'عروض بوربوينت مدرسية تفاعلية',
+      slug: 'school-presentations',
+      shortDescriptionAr: 'تصميم عروض تقديمية مدرسية شيقة ومتحركة تجذب انتباه المعلمين والطلاب مع مؤثرات صوتية وبصرية ملهمة.',
+      priceType: 'fixed',
+      priceFixed: 35,
+      priceCurrency: 'SAR',
+      estimatedDuration: '24 ساعة',
+      isFeatured: false,
+      categoryNameAr: 'خدمات طلاب المدارس'
+    },
+    {
+      id: 's-sch-4',
+      categoryId: 'cat-schools',
+      nameAr: 'مشاريع مسارات الثانوية والتقارير الميدانية',
+      slug: 'high-school-pathways',
+      shortDescriptionAr: 'إعداد مشاريع التخرج لمسارات الثانوية العامة (عام، حاسب، صحة، إدارة أعمال) وفق معايير وزارة التعليم.',
+      priceType: 'quote',
+      priceCurrency: 'SAR',
+      estimatedDuration: '2-4 أيام',
+      isFeatured: true,
+      categoryNameAr: 'خدمات طلاب المدارس'
+    },
+
+    // ==========================================
+    // 4. الخدمات المكتبية
+    // ==========================================
+    {
+      id: 's-off-1',
+      categoryId: 'cat-office',
+      nameAr: 'تنسيق الرسائل العلمية والكتب وفق أدلة الجامعات',
+      slug: 'thesis-formatting',
+      shortDescriptionAr: 'ضبط الهوامش، الفهارس الآلية، ترقيم الصفحات، مراجعة الجداول والأشكال وتوحيد الخطوط وفق دليل الجامعة المعتمد.',
+      priceType: 'fixed',
+      priceFixed: 100,
+      priceCurrency: 'SAR',
+      estimatedDuration: '24-48 ساعة',
+      isFeatured: true,
+      categoryNameAr: 'الخدمات المكتبية'
+    },
+    {
+      id: 's-off-2',
+      categoryId: 'cat-office',
+      nameAr: 'التدقيق اللغوي وفحص الاقتباس (Turnitin)',
+      slug: 'proofreading-plagiarism',
+      shortDescriptionAr: 'مراجعة نحوية وإملائية دقيقة وإصلاح أسلوب الصياغة، مع فحص نسبة الانتحال الأدبي عبر تيرنتين الرسمي 0%.',
+      priceType: 'fixed',
+      priceFixed: 50,
+      priceCurrency: 'SAR',
+      estimatedDuration: '24 ساعة',
+      isFeatured: true,
+      categoryNameAr: 'الخدمات المكتبية'
+    },
+    {
+      id: 's-off-3',
+      categoryId: 'cat-office',
+      nameAr: 'التفريغ الصوتي وتحويل الملفات بدقة 100%',
+      slug: 'transcription-conversion',
+      shortDescriptionAr: 'تفريغ المحاضرات والمقابلات الصوتية وتنسيق النصوص، وتحويل مستندات PDF الممسوحة ضوئياً إلى ملفات Word منسقة.',
+      priceType: 'fixed',
+      priceFixed: 40,
+      priceCurrency: 'SAR',
+      estimatedDuration: '24 ساعة',
+      isFeatured: false,
+      categoryNameAr: 'الخدمات المكتبية'
+    },
+    {
+      id: 's-off-4',
+      categoryId: 'cat-office',
+      nameAr: 'الترجمة الأكاديمية والمهنية المعتمدة',
+      slug: 'academic-translation',
+      shortDescriptionAr: 'ترجمة بشرية متخصصة ومصقولة للملخصات والبحوث والوثائق من وإلى الإنجليزية مع الحفاظ على المصطلحات العلمية.',
+      priceType: 'quote',
+      priceCurrency: 'SAR',
+      estimatedDuration: '2-4 أيام',
+      isFeatured: false,
+      categoryNameAr: 'الخدمات المكتبية'
+    }
   ];
 
   private defaultStats: Statistic[] = [
@@ -157,13 +751,39 @@ export class ApiService {
 
   getServices(categoryId?: string): Observable<ServiceItem[]> {
     const url = categoryId ? `${this.apiUrl}/services?categoryId=${categoryId}` : `${this.apiUrl}/services`;
-    return this.http.get<ServiceItem[]>(url).pipe(
+    return this.http.get<any[]>(url).pipe(
+      map(items => items.map(item => {
+        let tpls: ServiceTemplate[] | undefined = undefined;
+        if (item.availableOptions && typeof item.availableOptions === 'string' && item.availableOptions.startsWith('[')) {
+          try {
+            tpls = JSON.parse(item.availableOptions);
+          } catch (e) {}
+        }
+        return {
+          ...item,
+          priceFixed: item.priceFixed || (item.priceType === 'fixed' ? (item.priceMin || item.priceMax) : undefined),
+          templates: tpls || item.templates
+        } as ServiceItem;
+      })),
       catchError(() => of(this.defaultServices))
     );
   }
 
   getFeaturedServices(): Observable<ServiceItem[]> {
-    return this.http.get<ServiceItem[]>(`${this.apiUrl}/services/featured`).pipe(
+    return this.http.get<any[]>(`${this.apiUrl}/services/featured`).pipe(
+      map(items => items.map(item => {
+        let tpls: ServiceTemplate[] | undefined = undefined;
+        if (item.availableOptions && typeof item.availableOptions === 'string' && item.availableOptions.startsWith('[')) {
+          try {
+            tpls = JSON.parse(item.availableOptions);
+          } catch (e) {}
+        }
+        return {
+          ...item,
+          priceFixed: item.priceFixed || (item.priceType === 'fixed' ? (item.priceMin || item.priceMax) : undefined),
+          templates: tpls || item.templates
+        } as ServiceItem;
+      })),
       catchError(() => of(this.defaultServices.filter(s => s.isFeatured)))
     );
   }
@@ -271,33 +891,97 @@ export class ApiService {
     }
   ];
 
+  // --- CATEGORIES CRUD ---
+  createCategory(category: Partial<Category>): Observable<Category> {
+    const slug = category.slug || ('cat-' + Date.now());
+    const newCat: Category = {
+      id: 'cat-' + Date.now(),
+      nameAr: category.nameAr || 'قسم جديد',
+      nameEn: category.nameEn || '',
+      slug: slug,
+      descriptionAr: category.descriptionAr || '',
+      iconSvg: category.iconSvg || '📁',
+      coverImageUrl: category.coverImageUrl || '',
+      sortOrder: category.sortOrder || (this.defaultCategories.length + 1),
+      isActive: category.isActive ?? true
+    };
+    return this.http.post<Category>(`${this.apiUrl}/categories`, newCat).pipe(
+      catchError(() => {
+        this.defaultCategories.push(newCat);
+        return of(newCat);
+      })
+    );
+  }
+
+  updateCategory(id: string, category: Partial<Category>): Observable<any> {
+    return this.http.put(`${this.apiUrl}/categories/${id}`, category).pipe(
+      catchError(() => {
+        const idx = this.defaultCategories.findIndex(c => c.id === id || c.slug === id);
+        if (idx !== -1) {
+          this.defaultCategories[idx] = { ...this.defaultCategories[idx], ...category } as Category;
+        }
+        return of({ success: true });
+      })
+    );
+  }
+
+  deleteCategory(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/categories/${id}`).pipe(
+      catchError(() => {
+        this.defaultCategories = this.defaultCategories.filter(c => c.id !== id && c.slug !== id);
+        return of({ success: true });
+      })
+    );
+  }
+
   // --- SERVICES CRUD ---
   createService(service: Partial<ServiceItem>): Observable<ServiceItem> {
-    const item: ServiceItem = {
-      id: 's-' + Date.now(),
+    let catId = service.categoryId;
+    if (catId === 'cat-schools') catId = '11111111-1111-1111-1111-111111111111';
+    else if (catId === 'cat-university') catId = '22222222-2222-2222-2222-222222222222';
+    else if (catId === 'cat-office') catId = '33333333-3333-3333-3333-333333333333';
+    else if (catId === 'cat-general') catId = '44444444-4444-4444-4444-444444444444';
+
+    const item: any = {
+      categoryId: catId,
       nameAr: service.nameAr || '',
-      nameEn: service.nameEn,
-      slug: service.slug || 'service-' + Date.now(),
-      shortDescriptionAr: service.shortDescriptionAr,
-      fullDescriptionAr: service.fullDescriptionAr,
-      categoryNameAr: service.categoryNameAr || 'الخدمات الأكاديمية',
-      priceType: service.priceType || 'range',
-      priceMin: service.priceMin,
-      priceMax: service.priceMax,
+      nameEn: service.nameEn || '',
+      slug: service.slug || ('service-' + Date.now()),
+      shortDescriptionAr: service.shortDescriptionAr || '',
+      fullDescriptionAr: service.fullDescriptionAr || '',
+      categoryNameAr: service.categoryNameAr || 'الخدمات العامة',
+      priceType: service.priceType || 'fixed',
+      priceMin: service.priceFixed || service.priceMin || 0,
+      priceMax: service.priceMax || service.priceFixed || service.priceMin || 0,
       priceCurrency: service.priceCurrency || 'SAR',
-      estimatedDuration: service.estimatedDuration || '2-5 أيام',
-      isFeatured: service.isFeatured ?? true
+      estimatedDuration: service.estimatedDuration || 'نفس اليوم',
+      isFeatured: service.isFeatured ?? true,
+      availableOptions: service.templates ? JSON.stringify(service.templates) : '[]'
     };
     return this.http.post<ServiceItem>(`${this.apiUrl}/services`, item).pipe(
       catchError(() => {
-        this.defaultServices.unshift(item);
-        return of(item);
+        const localItem = { ...item, id: 's-' + Date.now(), templates: service.templates || [] };
+        this.defaultServices.unshift(localItem);
+        return of(localItem);
       })
     );
   }
 
   updateService(id: string, service: Partial<ServiceItem>): Observable<any> {
-    return this.http.put(`${this.apiUrl}/services/${id}`, service).pipe(
+    let catId = service.categoryId;
+    if (catId === 'cat-schools') catId = '11111111-1111-1111-1111-111111111111';
+    else if (catId === 'cat-university') catId = '22222222-2222-2222-2222-222222222222';
+    else if (catId === 'cat-office') catId = '33333333-3333-3333-3333-333333333333';
+    else if (catId === 'cat-general') catId = '44444444-4444-4444-4444-444444444444';
+
+    const payload: any = {
+      ...service,
+      categoryId: catId,
+      priceMin: service.priceFixed || service.priceMin,
+      priceMax: service.priceMax || service.priceFixed || service.priceMin,
+      availableOptions: service.templates ? JSON.stringify(service.templates) : '[]'
+    };
+    return this.http.put(`${this.apiUrl}/services/${id}`, payload).pipe(
       catchError(() => {
         const idx = this.defaultServices.findIndex(s => s.id === id);
         if (idx !== -1) {
@@ -385,8 +1069,9 @@ export class ApiService {
     }
   ];
 
-  getServiceRequests(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/service-requests`).pipe(
+  getServiceRequests(status?: string): Observable<any[]> {
+    const url = status ? `${this.apiUrl}/service-requests?status=${status}` : `${this.apiUrl}/service-requests`;
+    return this.http.get<any[]>(url).pipe(
       catchError(() => of(this.defaultServiceRequests))
     );
   }
@@ -661,23 +1346,175 @@ export class ApiService {
     );
   }
 
-  generateWhatsAppUrl(data: { serviceName?: string; description?: string; specialization?: string; university?: string; pageCount?: number; deadline?: string; phone?: string }): string {
-    const phoneNumber = data.phone || '966501234567';
-    const lines = [
-      'السلام عليكم ورحمة الله وبركاته 🌿',
-      'أرغب في طلب خدمة من منصة *أم رهام*:',
-      '',
-      data.serviceName ? `📌 *الخدمة:* ${data.serviceName}` : '',
-      data.specialization ? `🎓 *التخصص:* ${data.specialization}` : '',
-      data.university ? `🏛️ *الجامعة:* ${data.university}` : '',
-      data.pageCount ? `📄 *عدد الصفحات/الشرائح:* ${data.pageCount}` : '',
-      data.deadline ? `⏰ *الموعد المطلوب:* ${data.deadline}` : '',
-      data.description ? `📝 *تفاصيل إضافية:* ${data.description}` : '',
-      '',
-      'أرجو التكرم بالتواصل وتوضيح آلية التنفيذ والتكلفة. شكراً جزيلاً! ✨'
-    ].filter(Boolean);
 
-    const message = encodeURIComponent(lines.join('\n'));
-    return `https://wa.me/${phoneNumber}?text=${message}`;
+  // --- MEDIA UPLOAD ---
+  uploadMedia(file: File, folder: string = 'general'): Observable<MediaDto> {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('folder', folder);
+    return this.http.post<MediaDto>(`${this.apiUrl}/media/upload`, formData).pipe(
+      catchError(() => {
+        // Fallback: return a local object URL for preview only
+        const localUrl = URL.createObjectURL(file);
+        return of({ id: 'local-' + Date.now(), url: localUrl, fileName: file.name, fileType: file.type, folder });
+      })
+    );
+  }
+
+  // --- ORDER TRACKING ---
+  trackServiceRequest(code: string, phone?: string): Observable<OrderTrackingResult | null> {
+    const params: any = { code };
+    if (phone) params.phone = phone;
+    return this.http.get<OrderTrackingResult>(`${this.apiUrl}/service-requests/track`, { params }).pipe(
+      catchError(() => {
+        // fallback: search locally
+        const found = this.defaultServiceRequests.find(
+          r => r.trackingCode === code || (phone && r.clientPhone === phone)
+        );
+        if (found) {
+          return of({
+            id: found.id,
+            trackingCode: found.trackingCode || code,
+            clientName: found.clientName,
+            serviceName: found.serviceName,
+            status: found.status || 'جديد',
+            discountPercent: found.discountPercent,
+            createdAt: found.createdAt,
+            updatedAt: found.updatedAt
+          } as OrderTrackingResult);
+        }
+        return of(null);
+      })
+    );
+  }
+
+  // --- SITE SETTINGS (logo, profile_photo, header_bg, discount, whatsapp) ---
+  private defaultSettings: SiteSetting[] = [
+    { key: 'whatsapp_number', value: '966572651058' },
+    { key: 'order_discount_percent', value: '15' },
+    { key: 'site_logo', value: '' },
+    { key: 'profile_photo', value: '' },
+    { key: 'header_bg_image', value: '' }
+  ];
+
+  getPublicSettings(): Observable<SiteSetting[]> {
+    return this.http.get<SiteSetting[]>(`${this.apiUrl}/settings`).pipe(
+      catchError(() => of(this.defaultSettings))
+    );
+  }
+
+  getSetting(key: string): Observable<string> {
+    return this.getPublicSettings().pipe(
+      map(settings => {
+        const found = settings.find(s => s.key === key);
+        return found ? found.value : '';
+      })
+    );
+  }
+
+  saveSetting(key: string, value: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}/settings/${key}`, { value }).pipe(
+      catchError(() => {
+        const idx = this.defaultSettings.findIndex(s => s.key === key);
+        if (idx !== -1) this.defaultSettings[idx].value = value;
+        else this.defaultSettings.push({ key, value });
+        return of({ success: true });
+      })
+    );
+  }
+
+  getDiscountPercent(): Observable<number> {
+    return this.getSetting('order_discount_percent').pipe(
+      map(val => val ? Number(val) : 15)
+    );
+  }
+
+  getWhatsAppNumber(): Observable<string> {
+    return this.getSetting('whatsapp_number').pipe(
+      map(val => val || '966572651058')
+    );
+  }
+
+  generateTrackingCode(): string {
+    const num = Math.floor(10000 + Math.random() * 90000);
+    return `UR-${num}`;
+  }
+
+  generateWhatsAppUrl(dto: {
+    serviceName?: string;
+    description?: string;
+    specialization?: string;
+    university?: string;
+    pageCount?: number;
+    deadline?: string;
+    clientName?: string;
+    phone?: string;
+    trackingCode?: string;
+    discount?: number;
+    totalPrice?: number;
+    attachments?: Array<{ fileName: string; fileSize?: string; fileUrl?: string }>;
+  }): string {
+    const lines: string[] = [
+      'السلام عليكم ورحمة الله وبركاته 🌸',
+      '*طلب خدمة جديد — منصة أم رهام الأكاديمية*',
+      '━━━━━━━━━━━━━━━━━━━━',
+      ''
+    ];
+
+    if (dto.trackingCode) {
+      lines.push(`📋 *كود المتابعة:* \`${dto.trackingCode}\``);
+      lines.push('━━━━━━━━━━━━━━━━━━━━');
+    }
+
+    if (dto.clientName) {
+      lines.push(`👤 *اسم العميل:* ${dto.clientName}`);
+    }
+    if (dto.phone) {
+      lines.push(`📱 *رقم الجوال:* ${dto.phone}`);
+    }
+    if (dto.university) {
+      lines.push(`🏛️ *الجامعة / الجهة:* ${dto.university}`);
+    }
+    if (dto.specialization) {
+      lines.push(`📚 *التخصص الأكاديمي:* ${dto.specialization}`);
+    }
+    if (dto.serviceName) {
+      lines.push(`📌 *الخدمة المطلوبة:* ${dto.serviceName}`);
+    }
+    if (dto.pageCount) {
+      lines.push(`📄 *عدد الصفحات / الوحدات:* ${dto.pageCount}`);
+    }
+    if (dto.deadline) {
+      lines.push(`⏰ *الموعد المطلوب:* ${dto.deadline}`);
+    }
+    if (dto.discount && dto.discount > 0) {
+      lines.push(`🎁 *نسبة الخصم المعتمدة:* ${dto.discount}%`);
+    }
+    if (dto.totalPrice !== undefined && dto.totalPrice !== null) {
+      lines.push(`💰 *التكلفة المقدرة:* ${dto.totalPrice} ر.س`);
+    }
+
+    if (dto.description && dto.description.trim()) {
+      lines.push('');
+      lines.push('📝 *تفاصيل ومتطلبات الطلب:*');
+      lines.push(`${dto.description.trim()}`);
+    }
+
+    if (dto.attachments && dto.attachments.length > 0) {
+      const fileNames = dto.attachments.map(a => a.fileName).join('، ');
+      lines.push('');
+      lines.push(`📎 *المرفقات المرفوعة (${dto.attachments.length}):* ${fileNames}`);
+    }
+
+    lines.push('');
+    lines.push('━━━━━━━━━━━━━━━━━━━━');
+    lines.push('🛡️ *الضمان الذهبي:* الدفع بعد الإنجاز والاستلام المعتمد 100%');
+    lines.push('✨ *أرجو مراجعة الطلب والبدء بالتنفيذ، شكراً لكم 🌸*');
+
+    const defaultPhone = '966572651058';
+    const stored = this.defaultSettings.find(s => s.key === 'whatsapp_number')?.value || defaultPhone;
+    const cleanPhone = stored.replace(/[^0-9]/g, '');
+    const encoded = encodeURIComponent(lines.join('\n'));
+    return `https://wa.me/${cleanPhone}?text=${encoded}`;
   }
 }

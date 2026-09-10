@@ -358,7 +358,7 @@ export class PortfolioPageComponent {
 
         <!-- Testimonials Masonry Grid -->
         <div class="testimonials-masonry-grid">
-          <div *ngFor="let t of testimonialsList" class="testimonial-luxury-card glass-panel-light" (mouseenter)="onHover()">
+          <div *ngFor="let t of testimonialsList" class="testimonial-luxury-card" (mouseenter)="onHover()">
             <div class="tlc-header">
               <div class="tlc-avatar">🎓</div>
               <div class="tlc-client-meta">
@@ -383,12 +383,12 @@ export class PortfolioPageComponent {
         <!-- Add Review & Discount Reward Banner -->
         <div class="reward-review-box">
           <div class="rrb-content">
-            <span class="rrb-badge">🎁 مكافأة الباحثين</span>
+            <span class="rrb-badge">🎁 مكافأة الباحثين والطلاب</span>
             <h2>هل تشرفت بالتعامل معنا؟</h2>
             <p>شاركنا تجربتك وتقييمك الأكاديمي واحصل فوراً على كوبون خصم 15% على خدمتك القادمة!</p>
           </div>
-          <a routerLink="/contact" class="btn-saudi-gold" (click)="onClick()">
-            <span>✍️ شارك تقييمك واحصل على الخصم</span>
+          <a routerLink="/order" class="btn-saudi-gold" (click)="onClick()">
+            <span>✍️ اطلب خدمتك واستفد من الخصم</span>
           </a>
         </div>
 
@@ -396,10 +396,10 @@ export class PortfolioPageComponent {
     </div>
   `,
   styles: [`
-    .inner-page-wrapper { min-height: 100vh; padding-top: 6rem; background: #FBF9F5; }
+    .inner-page-wrapper { min-height: 100vh; padding-top: 6rem; background: #FAF8F5; }
     .section-badge-center { text-align: center; max-width: 820px; margin: 0 auto 3rem auto; }
-    .page-title { font-size: clamp(2.2rem, 4.5vw, 3.4rem); color: #0B2516; margin: 0.8rem 0; font-weight: 900; }
-    .page-desc { color: #52665C; font-size: 1.1rem; line-height: 1.8; }
+    .page-title { font-size: clamp(2.2rem, 4.5vw, 3.4rem); color: #0A2F24; margin: 0.8rem 0; font-weight: 900; }
+    .page-desc { color: #485A53; font-size: 1.1rem; line-height: 1.8; }
 
     .featured-voice-bar {
       display: flex;
@@ -407,12 +407,12 @@ export class PortfolioPageComponent {
       justify-content: space-between;
       padding: 1.2rem 2rem;
       border-radius: var(--radius-xl);
-      border: 1.5px solid #C9A96E;
-      background: linear-gradient(135deg, rgba(27, 67, 50, 0.7) 0%, rgba(6, 19, 13, 0.95) 100%);
+      border: 1.5px solid #C5A869;
+      background: linear-gradient(135deg, #0A2F24 0%, #06180E 100%);
       margin-bottom: 3.5rem;
       cursor: pointer;
       gap: 1.5rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 12px 35px rgba(10, 47, 36, 0.25);
     }
 
     .fvb-left {
@@ -425,7 +425,7 @@ export class PortfolioPageComponent {
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      background: #C9A96E;
+      background: #C5A869;
       border: none;
       color: #06130D;
       display: flex;
@@ -459,7 +459,7 @@ export class PortfolioPageComponent {
 
     .vw-bar {
       width: 4px;
-      background: #C9A96E;
+      background: #C5A869;
       border-radius: 2px;
       opacity: 0.5;
     }
@@ -484,9 +484,11 @@ export class PortfolioPageComponent {
     }
 
     .testimonial-luxury-card {
-      padding: 2.2rem;
-      border-radius: var(--radius-xl);
-      border: 1.5px solid rgba(201, 169, 110, 0.2);
+      padding: 2.4rem;
+      border-radius: 22px;
+      background: #FFFFFF;
+      border: 1.5px solid rgba(15, 81, 50, 0.12);
+      box-shadow: 0 10px 30px rgba(10, 47, 36, 0.04);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -495,88 +497,98 @@ export class PortfolioPageComponent {
 
     .testimonial-luxury-card:hover {
       transform: translateY(-8px);
-      border-color: #C9A96E;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 25px rgba(201, 169, 110, 0.2);
+      border-color: #C5A869;
+      box-shadow: 0 20px 45px rgba(10, 47, 36, 0.1);
     }
 
     .tlc-header {
       display: flex;
       align-items: center;
-      gap: 0.8rem;
+      gap: 0.9rem;
       margin-bottom: 1.2rem;
     }
 
     .tlc-avatar {
-      font-size: 1.8rem;
+      font-size: 2rem;
+      width: 48px;
+      height: 48px;
+      background: #FAF8F5;
+      border: 1px solid rgba(15, 81, 50, 0.15);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .tlc-client-meta {
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 0.1rem;
+      gap: 0.15rem;
     }
 
     .tlc-name-row {
       display: flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.5rem;
     }
 
     .tlc-name-row strong {
-      font-size: 0.95rem;
-      color: #FFFFFF;
+      font-size: 1.05rem;
+      color: #0A2F24;
+      font-weight: 800;
     }
 
     .tlc-verified {
-      font-size: 0.68rem;
+      font-size: 0.7rem;
       background: rgba(37, 211, 102, 0.15);
-      color: #25D366;
-      padding: 2px 7px;
+      color: #059669;
+      padding: 2px 8px;
       border-radius: var(--radius-full);
       font-weight: 800;
     }
 
     .tlc-client-meta small {
-      font-size: 0.74rem;
-      color: #839E93;
+      font-size: 0.8rem;
+      color: #556B62;
     }
 
     .tlc-stars {
-      color: #C9A96E;
-      font-size: 0.95rem;
+      color: #C5A869;
+      font-size: 1.05rem;
+      letter-spacing: 2px;
     }
 
     .tlc-content {
-      color: #E2EAE6;
-      font-size: 0.98rem;
-      line-height: 1.8;
-      margin-bottom: 1.5rem;
-      font-style: italic;
+      color: #2D3748;
+      font-size: 1rem;
+      line-height: 1.85;
+      margin-bottom: 1.6rem;
     }
 
     .tlc-footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-top: 1px solid rgba(201, 169, 110, 0.15);
-      padding-top: 1rem;
-      font-size: 0.78rem;
+      border-top: 1px solid rgba(15, 81, 50, 0.08);
+      padding-top: 1.1rem;
+      font-size: 0.82rem;
     }
 
-    .tlc-date { color: #DFC698; font-weight: 700; }
-    .tlc-shield { color: #25D366; font-weight: 800; }
+    .tlc-date { color: #9B7E3E; font-weight: 700; }
+    .tlc-shield { color: #059669; font-weight: 800; }
 
     /* Reward Box */
     .reward-review-box {
       padding: 3rem;
-      border-radius: var(--radius-xl);
-      border: 1.5px solid #C9A96E;
+      border-radius: 24px;
+      border: 1.5px solid #C5A869;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: linear-gradient(135deg, #1B4332 0%, #06130D 100%);
+      background: linear-gradient(135deg, #0A2F24 0%, #06180E 100%);
       gap: 2rem;
+      box-shadow: 0 15px 40px rgba(10, 47, 36, 0.25);
     }
 
     .rrb-badge {
@@ -877,273 +889,7 @@ export class ArticlesPageComponent {
 }
 
 // ==========================================
-// 4. CONTACT PAGE (الكونسيرج الأكاديمي المباشر)
+// 4. CONTACT PAGE (طلب خدمة ومتابعة الطلب)
 // ==========================================
-@Component({
-  selector: 'app-contact-page',
-  standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
-  template: `
-    <div class="inner-page-wrapper bg-ivory-warm" dir="rtl">
-      <div class="container section-padding">
-        
-        <!-- Header -->
-        <div class="section-badge-center">
-          <span class="badge-gold">خدمة العملاء والكونسيرج الأكاديمي</span>
-          <h1 class="page-title">نسعد بتواصلك <span class="green-gradient-text">المباشر معنا</span></h1>
-          <p class="page-desc">فريق مستشارينا الأكاديميين متواجد لخدمتك على مدار الساعة للرد على استفساراتك وتقديم خطط العمل الفورية.</p>
-        </div>
+export { ContactPageComponent } from '../contact-page/contact-page.component';
 
-        <div class="contact-split-grid">
-          <!-- Left: Direct Channels & Fast Track -->
-          <div class="contact-channels-col">
-            
-            <div class="channel-card highlight-whatsapp">
-              <div class="ch-icon">💬</div>
-              <div class="ch-content">
-                <strong>المسار السريع عبر واتساب (Fast-Track)</strong>
-                <p>تواصل مباشر مع المستشار الأكاديمي وتلقى الرد والتسعير خلال دقائق معدودة.</p>
-                <a href="https://wa.me/?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D8%A3%D9%85%20%D8%B1%D9%87%D8%A7%D9%85%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%AE%D8%AF%D9%85%D8%A9" 
-                   target="_blank" 
-                   class="btn-saudi-gold"
-                   (click)="onClick()">
-                  <span>بدء محادثة واتساب فورية ←</span>
-                </a>
-              </div>
-            </div>
-
-            <div class="channel-card">
-              <div class="ch-icon">🏛️</div>
-              <div class="ch-content">
-                <strong>المقر الرئيسي والاعتماد</strong>
-                <p>الرياض — المملكة العربية السعودية 🇸🇦</p>
-                <small class="ch-note">خدمات سحابية تغطي كافة جامعات ومناطق المملكة والخليج العربي.</small>
-              </div>
-            </div>
-
-            <div class="channel-card">
-              <div class="ch-icon">⏱️</div>
-              <div class="ch-content">
-                <strong>أوقات الاستقبال والتنفيذ</strong>
-                <p>يومياً من 8:00 صباحاً حتى 12:00 منتصف الليل</p>
-                <small class="ch-note">استقبال الطلبات العاجلة مستمر طوال أيام الأسبوع.</small>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Right: Interactive Consultation Form -->
-          <div class="contact-form-col">
-            <div class="form-luxury-card">
-              <div class="fc-head">
-                <h3>📝 طلب استشارة / خطة عمل فورية</h3>
-                <small>أدخل تفاصيل طلبك وسيصلك الرد الفوري من المشرف الأكاديمي المختص</small>
-              </div>
-
-              <form (ngSubmit)="submitInquiry()" class="inquiry-form">
-                <div class="form-field">
-                  <label>الاسم الكريم:</label>
-                  <input type="text" class="lux-input" [(ngModel)]="inquiry.name" name="name" placeholder="مثال: د. سلطان الشمري" required />
-                </div>
-
-                <div class="form-field">
-                  <label>رقم الجوال مع الرمز (+966):</label>
-                  <input type="tel" class="lux-input" dir="ltr" [(ngModel)]="inquiry.phone" name="phone" placeholder="+966 50 123 4567" required />
-                </div>
-
-                <div class="two-col-fields">
-                  <div class="form-field">
-                    <label>الجامعة / الجهة:</label>
-                    <input type="text" class="lux-input" [(ngModel)]="inquiry.university" name="university" placeholder="مثال: جامعة الملك سعود" />
-                  </div>
-                  <div class="form-field">
-                    <label>الموعد المطلوب:</label>
-                    <input type="text" class="lux-input" [(ngModel)]="inquiry.deadline" name="deadline" placeholder="مثال: خلال 7 أيام" />
-                  </div>
-                </div>
-
-                <div class="form-field">
-                  <label>تفاصيل ومتطلبات الطلب:</label>
-                  <textarea class="lux-input" rows="4" [(ngModel)]="inquiry.notes" name="notes" placeholder="اشرح لنا فكرة البحث أو المشروع، عدد الصفحات، وأي اشتراطات خاصة من المشرف..."></textarea>
-                </div>
-
-                <button type="submit" class="btn-green-submit full-width" (click)="onClick()">
-                  <span>إرسال الطلب للمستشار الأكاديمي ✓</span>
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  `,
-  styles: [`
-    .inner-page-wrapper { min-height: 100vh; padding-top: 6rem; background: #FBF9F5; }
-    .section-badge-center { text-align: center; max-width: 820px; margin: 0 auto 3.5rem auto; }
-    .page-title { font-size: clamp(2.2rem, 4.5vw, 3.4rem); color: #0B2516; margin: 0.8rem 0; font-weight: 900; }
-    .page-desc { color: #52665C; font-size: 1.1rem; line-height: 1.8; }
-
-    .contact-split-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 2.5rem;
-    }
-
-    .contact-channels-col {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .channel-card {
-      padding: 1.8rem;
-      border-radius: var(--radius-xl);
-      background: #FFFFFF;
-      border: 1.5px solid rgba(201, 169, 110, 0.35);
-      box-shadow: 0 8px 25px rgba(27, 67, 50, 0.05);
-      display: flex;
-      gap: 1.2rem;
-      align-items: flex-start;
-    }
-
-    .channel-card.highlight-whatsapp {
-      border-color: #C9A96E;
-      background: linear-gradient(135deg, #1B4332 0%, #0B2516 100%);
-      color: #FFFFFF;
-      box-shadow: 0 15px 40px rgba(27, 67, 50, 0.25);
-    }
-
-    .ch-icon { font-size: 2rem; }
-    .ch-content strong { display: block; color: #0B2516; font-size: 1.05rem; margin-bottom: 0.4rem; font-weight: 800; }
-    .channel-card.highlight-whatsapp .ch-content strong { color: #FFFFFF; }
-    .ch-content p { color: #52665C; font-size: 0.92rem; line-height: 1.6; margin-bottom: 1rem; }
-    .channel-card.highlight-whatsapp .ch-content p { color: #C1D6CD; }
-    .ch-note { color: #839E93; font-size: 0.78rem; }
-
-    .form-luxury-card {
-      padding: 2.5rem;
-      border-radius: var(--radius-xl);
-      background: #FFFFFF;
-      border: 1.5px solid rgba(201, 169, 110, 0.35);
-      box-shadow: 0 12px 35px rgba(27, 67, 50, 0.08);
-    }
-
-    .fc-head {
-      margin-bottom: 1.8rem;
-      border-bottom: 1px solid rgba(201, 169, 110, 0.2);
-      padding-bottom: 1rem;
-    }
-
-    .fc-head h3 { font-size: 1.35rem; color: #0B2516; margin: 0 0 4px 0; font-weight: 800; }
-    .fc-head small { color: #52665C; font-size: 0.85rem; }
-
-    .inquiry-form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-    }
-
-    .form-field {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-
-    .form-field label {
-      font-size: 0.82rem;
-      color: #1B4332;
-      font-weight: 700;
-    }
-
-    .lux-input {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      background: #FBF9F5;
-      border: 1.5px solid rgba(201, 169, 110, 0.35);
-      border-radius: var(--radius-md);
-      color: #0B2516;
-      font-size: 0.88rem;
-      font-family: inherit;
-    }
-
-    .lux-input:focus {
-      border-color: #1B4332;
-      background: #FFFFFF;
-      outline: none;
-    }
-
-    .two-col-fields {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-
-    .btn-green-submit {
-      background: linear-gradient(135deg, #1B4332 0%, #0F2A1F 100%);
-      color: #FFFFFF;
-      border: 1.5px solid #C9A96E;
-      padding: 0.9rem 1.8rem;
-      border-radius: var(--radius-full);
-      font-weight: 800;
-      font-size: 0.95rem;
-      box-shadow: 0 6px 20px rgba(27, 67, 50, 0.25);
-      cursor: pointer;
-      display: inline-block;
-      text-align: center;
-      transition: all 0.25s;
-    }
-
-    .btn-green-submit:hover {
-      background: linear-gradient(135deg, #2D6A4F 0%, #1B4332 100%);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 28px rgba(201, 169, 110, 0.35);
-    }
-
-    .btn-green-submit.full-width { width: 100%; margin-top: 0.5rem; }
-
-    .btn-saudi-gold {
-      background: linear-gradient(135deg, #C9A96E 0%, #A48348 100%);
-      color: #06130D;
-      padding: 0.9rem 1.8rem;
-      border-radius: var(--radius-full);
-      font-weight: 800;
-      font-size: 0.95rem;
-      text-decoration: none;
-      box-shadow: 0 4px 15px rgba(201, 169, 110, 0.4);
-      display: inline-block;
-      text-align: center;
-    }
-
-    @media (max-width: 992px) {
-      .contact-split-grid { grid-template-columns: 1fr; }
-    }
-  `]
-})
-export class ContactPageComponent {
-  private audio = inject(AudioService);
-
-  inquiry = {
-    name: '',
-    phone: '',
-    university: '',
-    deadline: '',
-    notes: ''
-  };
-
-  onHover(): void {
-    this.audio.playHover();
-  }
-
-  onClick(): void {
-    this.audio.playClick();
-  }
-
-  submitInquiry(): void {
-    const text = encodeURIComponent(
-      `السلام عليكم أم رهام 🌟\nطلب استشارة أكاديمية جديد:\n- الاسم: ${this.inquiry.name}\n- الجوال: ${this.inquiry.phone}\n- الجامعة: ${this.inquiry.university}\n- الموعد: ${this.inquiry.deadline}\n- التفاصيل: ${this.inquiry.notes}`
-    );
-    window.open(`https://wa.me/?text=${text}`, '_blank');
-    this.audio.playSuccess();
-  }
-}

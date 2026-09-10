@@ -61,15 +61,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization();
 
-// CORS
+// CORS - Allow localhost and production domains (Vercel, Render, etc.)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular", policy =>
     {
-        policy.WithOrigins(
-                "http://localhost:4200",
-                "http://localhost:4201",
-                "http://localhost:5173")
+        policy.SetIsOriginAllowed(origin => true) // Allows localhost, Vercel, Render, and custom domains
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
@@ -86,17 +83,39 @@ using (var scope = app.Services.CreateScope())
     await SeedData.SeedAsync(context);
 }
 
-// Configure pipeline
-if (app.Environment.IsDevelopment())
+// Swagger enabled for testing API endpoints
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Umm Reham API v1");
+    c.RoutePrefix = "swagger";
+});
+
+// Ensure wwwroot and uploads folder exist for static media files
+var wwwrootPath = Path.Combine(app.Environment.ContentRootPath, "wwwroot");
+var uploadsPath = Path.Combine(wwwrootPath, "uploads");
+Directory.CreateDirectory(uploadsPath);
 
 app.UseCors("AllowAngular");
 app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(uploadsPath),
+    RequestPath = "/uploads"
+});
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+
+// Root Healthcheck for Render / Cloud uptime monitoring
+app.MapGet("/", () => Results.Ok(new 
+{ 
+    status = "healthy", 
+    service = "Umm Reham Academic Platform API", 
+    version = "1.0.0",
+    docs = "/swagger",
+    timestamp = DateTime.UtcNow 
+}));
 
 app.Run();

@@ -1,9 +1,10 @@
-import { Component, Input, Output, EventEmitter, inject, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ServiceItem, ApiService } from '../../../core/services/api.service';
+import { ServiceItem, ApiService, ServiceTemplate } from '../../../core/services/api.service';
 import { AudioService } from '../../../core/services/audio.service';
 import { RewardsService } from '../../../core/services/rewards.service';
+import { CartService } from '../../../core/services/cart.service';
 import confetti from 'canvas-confetti';
 
 @Component({
@@ -69,6 +70,52 @@ import confetti from 'canvas-confetti';
             </div>
           </div>
 
+          <!-- Multi-Templates Picker inside Modal -->
+          <div class="modal-templates-picker" *ngIf="service.templates && service.templates.length > 0">
+            <div class="tpl-picker-header">
+              <h4>🎨 النماذج والتصاميم المتاحة (اختر النموذج):</h4>
+              <span class="tpl-badge">{{ service.templates.length }} نماذج</span>
+            </div>
+            
+            <div class="modal-templates-grid">
+              <div 
+                *ngFor="let tpl of service.templates"
+                class="modal-tpl-card"
+                [class.selected]="selectedTemplate?.id === tpl.id"
+                (click)="chooseTemplate(tpl)">
+                <div class="tpl-card-top">
+                  <span class="tpl-tag">{{ tpl.code }}</span>
+                  <span class="tpl-pop" *ngIf="tpl.isPopular">الأكثر طلباً ⭐</span>
+                </div>
+                <h5 class="tpl-title">{{ tpl.nameAr }}</h5>
+                <p class="tpl-desc" *ngIf="tpl.descriptionAr">{{ tpl.descriptionAr }}</p>
+                <div class="tpl-card-bottom">
+                  <strong class="tpl-price">{{ tpl.price }} ر.س</strong>
+                  <span class="tpl-select-radio">
+                    {{ selectedTemplate?.id === tpl.id ? '✓ تم الاختيار' : 'اختر النموذج' }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quantity Counter in Modal -->
+            <div class="modal-qty-control-row">
+              <div class="m-qty-lbl">
+                <span>الكمية المطلوبة:</span>
+                <small>(مثلاً: 2 أو 3 نماذج)</small>
+              </div>
+              <div class="m-qty-stepper">
+                <button type="button" class="btn-m-step" (click)="updateModalQty(-1)">−</button>
+                <span class="m-step-val">{{ modalQty }}</span>
+                <button type="button" class="btn-m-step" (click)="updateModalQty(1)">+</button>
+              </div>
+              <div class="m-total-calc" *ngIf="selectedTemplate">
+                <span>الإجمالي:</span>
+                <strong>{{ selectedTemplate.price * modalQty }} ر.س</strong>
+              </div>
+            </div>
+          </div>
+
           <!-- Description Section -->
           <div class="detail-section">
             <h4>📖 نبذة عن الخدمة</h4>
@@ -104,15 +151,29 @@ import confetti from 'canvas-confetti';
 
         <!-- Footer for Step 1 -->
         <div class="modal-footer" *ngIf="currentStep === 'details'">
-          <button class="btn-primary-order" (click)="setStep('form')">
-            <span>متابعة تسجيل وحجز الطلب واستلام الخصم 📝</span>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          <!-- Add to cart button -->
+          <button class="btn-modal-add-cart" (click)="addToCartFromModal()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            <span>إضافة للسلة 🛒</span>
           </button>
-          <button class="btn-whatsapp-outline" (click)="orderViaWhatsAppDirect()">
+
+          <!-- Direct WhatsApp Order Button -->
+          <button class="btn-whatsapp-outline bounce-attention" (click)="orderViaWhatsAppDirect()">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.301-.15-1.782-.879-2.057-.979-.276-.1-.476-.15-.676.15-.2.301-.776.98-1.026 1.281-.25.301-.45.301-.75.15-.301-.15-1.27-.468-2.42-1.493-.895-.798-1.5-1.784-1.675-2.085-.176-.3-.019-.462.131-.611.136-.135.301-.351.451-.527.151-.175.201-.3.301-.501.101-.2.05-.375-.025-.525-.075-.15-.676-1.63-1.002-2.23-.275-.6-.576-.525-.776-.525-.2 0-.426-.025-.651-.025-.226 0-.602.075-.927.426-.326.35-1.253 1.226-1.253 2.984 0 1.758 1.278 3.46 1.454 3.71.175.25 2.511 3.834 6.084 5.378.85.367 1.514.587 2.031.751.854.271 1.631.233 2.246.141.685-.102 1.782-.728 2.032-1.431.25-.702.25-1.303.175-1.43-.075-.126-.275-.226-.576-.376z"/>
               <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
             </svg>
-            <span>استفسار فوري عبر واتساب</span>
+            <span>طلب واتساب (الدفع بعد الإنجاز)</span>
+          </button>
+
+          <!-- Book & Register in Platform -->
+          <button class="btn-primary-order" (click)="setStep('form')">
+            <span>حجز عبر المنصة + كود خصم 📝</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
           </button>
         </div>
 
@@ -327,6 +388,7 @@ import confetti from 'canvas-confetti';
           <div class="success-actions">
             <button class="btn-open-wa-order" (click)="openWhatsAppWithOrder()">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.301-.15-1.782-.879-2.057-.979-.276-.1-.476-.15-.676.15-.2.301-.776.98-1.026 1.281-.25.301-.45.301-.75.15-.301-.15-1.27-.468-2.42-1.493-.895-.798-1.5-1.784-1.675-2.085-.176-.3-.019-.462.131-.611.136-.135.301-.351.451-.527.151-.175.201-.3.301-.501.101-.2.05-.375-.025-.525-.075-.15-.676-1.63-1.002-2.23-.275-.6-.576-.525-.776-.525-.2 0-.426-.025-.651-.025-.226 0-.602.075-.927.426-.326.35-1.253 1.226-1.253 2.984 0 1.758 1.278 3.46 1.454 3.71.175.25 2.511 3.834 6.084 5.378.85.367 1.514.587 2.031.751.854.271 1.631.233 2.246.141.685-.102 1.782-.728 2.032-1.431.25-.702.25-1.303.175-1.43-.075-.126-.275-.226-.576-.376z"/>
                 <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
               </svg>
               <span>فتح محادثة الواتساب واعتماد الخصم مع المشرف الأكاديمي</span>
@@ -534,6 +596,234 @@ import confetti from 'canvas-confetti';
 
     .detail-section h4 { font-size: 0.95rem; color: #DFC698; margin-bottom: 0.3rem; }
     .detail-section p { font-size: 0.9rem; color: #C1D6CD; line-height: 1.55; margin: 0; }
+
+    /* Multi-Templates Picker Styles */
+    .modal-templates-picker {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1.5px solid rgba(201, 169, 110, 0.3);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .tpl-picker-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .tpl-picker-header h4 {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #DFC698;
+      font-weight: 800;
+    }
+
+    .tpl-badge {
+      font-size: 0.72rem;
+      background: rgba(201, 169, 110, 0.2);
+      color: #DFC698;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+    }
+
+    .modal-templates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .modal-tpl-card {
+      background: rgba(11, 28, 21, 0.7);
+      border: 1.5px solid rgba(201, 169, 110, 0.25);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+
+    .modal-tpl-card:hover {
+      border-color: #C9A96E;
+      background: rgba(201, 169, 110, 0.08);
+    }
+
+    .modal-tpl-card.selected {
+      border-color: #52B788;
+      background: rgba(82, 183, 136, 0.15);
+      box-shadow: 0 0 15px rgba(82, 183, 136, 0.25);
+    }
+
+    .tpl-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .tpl-tag {
+      font-size: 0.68rem;
+      background: #0B1C15;
+      color: #DFC698;
+      padding: 1px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(201, 169, 110, 0.4);
+      font-weight: 800;
+    }
+
+    .tpl-pop {
+      font-size: 0.65rem;
+      background: #FEF3C7;
+      color: #92400E;
+      padding: 1px 6px;
+      border-radius: var(--radius-full);
+      font-weight: 800;
+    }
+
+    .tpl-title {
+      font-size: 0.88rem;
+      color: #FFFFFF;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .tpl-desc {
+      font-size: 0.74rem;
+      color: #A3B8B0;
+      margin: 0;
+      line-height: 1.35;
+    }
+
+    .tpl-card-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 0.4rem;
+      border-top: 1px dashed rgba(201, 169, 110, 0.2);
+    }
+
+    .tpl-price {
+      font-size: 0.95rem;
+      color: #DFC698;
+      font-weight: 800;
+    }
+
+    .tpl-select-radio {
+      font-size: 0.72rem;
+      color: #52B788;
+      font-weight: 700;
+    }
+
+    /* Modal Qty Row */
+    .modal-qty-control-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 0.6rem;
+      border-top: 1px solid rgba(201, 169, 110, 0.2);
+    }
+
+    .m-qty-lbl span {
+      font-size: 0.85rem;
+      color: #FFFFFF;
+      font-weight: 700;
+      display: block;
+    }
+
+    .m-qty-lbl small {
+      font-size: 0.72rem;
+      color: #A3B8B0;
+    }
+
+    .m-qty-stepper {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(201, 169, 110, 0.4);
+      border-radius: var(--radius-full);
+      padding: 2px 6px;
+    }
+
+    .btn-m-step {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(201, 169, 110, 0.2);
+      border: none;
+      color: #DFC698;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .btn-m-step:hover {
+      background: #C9A96E;
+      color: #0B1C15;
+    }
+
+    .m-step-val {
+      min-width: 24px;
+      text-align: center;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #FFFFFF;
+    }
+
+    .m-total-calc {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      font-size: 0.75rem;
+      color: #A3B8B0;
+    }
+
+    .m-total-calc strong {
+      font-size: 1rem;
+      color: #DFC698;
+      font-weight: 800;
+    }
+
+    .btn-modal-add-cart {
+      background: rgba(201, 169, 110, 0.15);
+      border: 1.5px solid #C9A96E;
+      color: #DFC698;
+      padding: 0.75rem 1.2rem;
+      border-radius: var(--radius-full);
+      font-family: var(--font-family-arabic);
+      font-size: 0.88rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s;
+    }
+
+    .btn-modal-add-cart:hover {
+      background: #C9A96E;
+      color: #0B1C15;
+      transform: translateY(-2px);
+    }
+
+    .bounce-attention {
+      animation: modalWaBounce 1.5s infinite;
+    }
+
+    @keyframes modalWaBounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
 
     .guarantees-wrapper h4 { font-size: 0.95rem; color: #DFC698; margin-bottom: 0.6rem; }
     .guarantee-badges {
@@ -1007,10 +1297,16 @@ export class ServiceModalComponent implements OnInit {
   rewardsService = inject(RewardsService);
 
   currentStep: 'details' | 'form' | 'success' = 'details';
+  cartService = inject(CartService);
+
   isSubmitting = false;
   formError = '';
   confirmedOrderNumber = '';
   showCopied = false;
+
+  // Selected Template & Quantity in Modal
+  selectedTemplate: ServiceTemplate | null = null;
+  modalQty = 1;
 
   formData = {
     clientName: '',
@@ -1034,11 +1330,51 @@ export class ServiceModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentStep = 'details';
-    this.initPricingAndRewards();
+    this.setupServiceData();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['service'] && this.service) {
+      this.setupServiceData();
+    }
+  }
+
+  setupServiceData(): void {
+    this.modalQty = 1;
+    if (this.service?.templates && this.service.templates.length > 0) {
+      this.selectedTemplate = this.service.templates.find(t => t.isPopular) || this.service.templates[0];
+      this.originalPrice = this.selectedTemplate.price;
+      this.discountedPrice = this.originalPrice;
+    } else {
+      this.selectedTemplate = null;
+      this.initPricingAndRewards();
+    }
+  }
+
+  chooseTemplate(tpl: ServiceTemplate): void {
+    this.selectedTemplate = tpl;
+    this.originalPrice = tpl.price * this.modalQty;
+    this.discountedPrice = this.originalPrice;
+    this.audio.playClick();
+  }
+
+  updateModalQty(delta: number): void {
+    this.modalQty = Math.max(1, this.modalQty + delta);
+    if (this.selectedTemplate) {
+      this.originalPrice = this.selectedTemplate.price * this.modalQty;
+      this.discountedPrice = this.originalPrice;
+    }
+    this.audio.playClick();
+  }
+
+  addToCartFromModal(): void {
+    if (!this.service) return;
+    this.cartService.addToCart(this.service, this.selectedTemplate || undefined, this.modalQty);
+    this.close();
   }
 
   initPricingAndRewards(): void {
-    this.originalPrice = this.service?.priceMin || 500;
+    this.originalPrice = this.service?.priceFixed || this.service?.priceMin || 500;
     this.discountedPrice = this.originalPrice;
 
     const welcome = this.rewardsService.welcomeConfig();
@@ -1080,10 +1416,11 @@ export class ServiceModalComponent implements OnInit {
   orderViaWhatsAppDirect(): void {
     if (!this.service) return;
     this.audio.playClick();
-    const url = this.api.generateWhatsAppUrl({
-      serviceName: this.service.nameAr,
-      description: this.service.shortDescriptionAr
-    });
+    const url = this.cartService.generateSingleServiceWhatsAppUrl(
+      this.service,
+      this.selectedTemplate || undefined,
+      this.modalQty
+    );
     window.open(url, '_blank');
   }
 
@@ -1188,24 +1525,28 @@ export class ServiceModalComponent implements OnInit {
     if (!this.service) return;
     this.audio.playSuccess();
 
-    const phone = '966501234567';
+    const phone = '966572651058';
     const lines = [
-      'السلام عليكم ورحمة الله وبركاته 🌿',
-      `أنا الباحث: *${this.formData.clientName}*`,
-      `قمت بتسجيل طلبي عبر المنصة برقم تتبع: *${this.confirmedOrderNumber}*`,
-      '',
-      `📌 *الخدمة المطلوبة:* ${this.service.nameAr}`,
+      'السلام عليكم ورحمة الله وبركاته 🌸',
+      '*طلب خدمة جديد — منصة أم رهام الأكاديمية*',
+      '━━━━━━━━━━━━━━━━━━━━',
+      `📋 *كود المتابعة:* \`${this.confirmedOrderNumber}\``,
+      '━━━━━━━━━━━━━━━━━━━━',
+      `👤 *اسم العميل:* ${this.formData.clientName}`,
+      `📱 *رقم الجوال:* ${this.formData.clientPhone || 'مسجل بالمنصة'}`,
+      `🏛️ *الجامعة / الجهة:* ${this.formData.university || 'جامعة سعودية'}`,
       `🎓 *الدرجة والتخصص:* ${this.formData.degree} - ${this.formData.specialization || 'عام'}`,
-      `🏛️ *الجامعة:* ${this.formData.university}`,
+      `📌 *الخدمة المطلوبة:* ${this.service.nameAr}`,
       `📄 *الصفحات التقديرية:* ${this.formData.pageCount} صفحة`,
-      `⏰ *الموعد المطلوب:* ${this.formData.deadline}`,
+      `⏰ *الموعد المطلوب:* ${this.formData.deadline || 'خلال أسبوع'}`,
       this.appliedCoupon ? `🎁 *كود الخصم المطبق:* ${this.appliedCoupon.code} (وفرت ${this.savings} ر.س)` : '',
-      `💰 *المبلغ التقديري الصافي:* ${this.discountedPrice} ر.س`,
-      this.formData.notes ? `📝 *ملاحظات/الموضوع:* ${this.formData.notes}` : '',
+      `💰 *التكلفة التقديرية:* ${this.discountedPrice} ر.س`,
+      this.formData.notes ? `\n📝 *تفاصيل ومتطلبات الطلب:*\n${this.formData.notes}` : '',
       '',
-      '✨ *حزمة المكافآت المعتمدة المرفقة:* تقرير Turnitin 0% مجاناً + تنسيق APA 7th مجاناً + مراجعات مجانية.',
-      '',
-      'أرجو التكرم بمتابعة المعاملة وتأكيد الحجز مع المستشار الأكاديمي المعتمد. شاكر ومقدر! 🌟'
+      '━━━━━━━━━━━━━━━━━━━━',
+      '✨ *المزايا المرفقة مجاناً:* تقرير Turnitin 0% + تدقيق لغوي + تنسيق APA 7th معتمد.',
+      '🛡️ *الضمان الذهبي:* الدفع بعد الإنجاز والاستلام المعتمد 100%',
+      '🌸 *أرجو مراجعة الطلب والبدء بالتنفيذ، شكراً لكم!*'
     ].filter(Boolean);
 
     const message = encodeURIComponent(lines.join('\n'));

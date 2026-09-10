@@ -49,7 +49,7 @@ export class RewardsService {
     discountType: 'percentage',
     discountValue: 15,
     welcomeMessage: 'أهلاً وسهلاً بك في منصة أم رهام! كباحث جديد، نهديك خصم 15% فوري مع حزمة التميز الأكاديمي الشاملة مجاناً 🎁',
-    guideDownloadUrl: 'https://wa.me/966501234567?text=' + encodeURIComponent('السلام عليكم، أود استلام دليل الباحث الأكاديمي المجاني هدية التسجيل 📚'),
+    guideDownloadUrl: 'https://wa.me/966572651058?text=' + encodeURIComponent('السلام عليكم، أود استلام دليل الباحث الأكاديمي المجاني هدية التسجيل 📚'),
     freePerks: [
       {
         id: 'turnitin',
