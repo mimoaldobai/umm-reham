@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "postbuild": "node -e \"const fs=require('fs'),path=require('path');const src=path.join('dist','frontend','browser'),dest=path.join('dist','frontend');if(fs.existsSync(src)){fs.cpSync(src,dest,{recursive:true});console.log('Copied browser files to dist/frontend root');}\",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
