@@ -149,7 +149,7 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       </section>
 
       <!-- ==========================================
-           SCENE 03: عوالم وخدمات أم رهام (ALL REAL SERVICES CAROUSEL - AUTO-MOVING)
+           SCENE 03: خدمات أم رهام (مطابقة تماماً لصورة أفضل الجامعات - IMAGE 2)
            ========================================== -->
       <section class="realms-section-cinematic" id="realms-ecosystem">
         <div class="container">
@@ -157,71 +157,61 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
           <!-- Section Header: خدمات أم رهام -->
           <div class="realms-top-bar realms-centered-header">
             <h2 class="realms-main-title">خدمات أم رهام</h2>
+            <p class="realms-main-subtitle">قائمة بأبرز الخدمات الأكاديمية والبحثية المعتمدة التي نقدمها لجميع المراحل والتخصصات</p>
           </div>
 
-          <!-- Services Carousel Slider (Auto-Moving & Real Services) -->
-          <div class="realms-carousel-wrapper"
-               (mouseenter)="pauseRealmsAutoScroll()"
-               (mouseleave)="resumeRealmsAutoScroll()"
-               (touchstart)="pauseRealmsAutoScroll()"
-               (touchend)="resumeRealmsAutoScroll()">
-            
-            <button type="button" class="carousel-nav-btn prev-btn" (click)="scrollRealms('prev')" title="السابق">
+          <!-- Services Carousel Slider (بطاقات دائرية أنيقة مطابقة للصورة 2) -->
+          <div class="uni-carousel-outer-wrapper">
+            <button type="button" class="uni-carousel-arrow arrow-prev" (click)="scrollRealms('prev')" title="السابق">
               <span>‹</span>
             </button>
 
-            <div class="realms-cards-track" #realmsTrack>
+            <div class="uni-cards-track" #realmsTrack
+                 (mouseenter)="pauseRealmsAutoScroll()"
+                 (mouseleave)="resumeRealmsAutoScroll()"
+                 (touchstart)="pauseRealmsAutoScroll()"
+                 (touchend)="resumeRealmsAutoScroll()">
               <div 
-                class="realm-card-item" 
+                class="uni-card-item" 
                 *ngFor="let s of services; let idx = index"
                 [class.active]="selectedService?.id === s.id"
                 (click)="openServiceModal(s)"
                 (mouseenter)="onHover()">
                 
-                <div class="realm-card-image-wrap">
-                  <img [src]="getServiceCardImage(s, idx)" [alt]="s.nameAr" class="realm-card-img" />
-                  <div class="realm-image-gradient"></div>
-                  <div class="realm-card-number">#{{ idx < 9 ? '0' + (idx + 1) : (idx + 1) }}</div>
-                  <div class="realm-card-icon-tag">{{ getServiceIcon(s) }}</div>
-                  <button 
-                    type="button" 
-                    class="realm-fav-btn" 
-                    [class.favorited]="cartService.isFavorite(s.id)"
-                    (click)="cartService.toggleFavorite(s.id); $event.stopPropagation()"
-                    [title]="cartService.isFavorite(s.id) ? 'إزالة من المفضلة' : 'إضافة للمفضلة'">
-                    {{ cartService.isFavorite(s.id) ? '❤️' : '🤍' }}
-                  </button>
+                <!-- Circular Emblem (الدائرة المركزية بالشعار كما بالصورة 2) -->
+                <div class="uni-emblem-container">
+                  <div class="uni-emblem-circle">
+                    <span class="uni-emblem-glyph">{{ getServiceIcon(s) }}</span>
+                  </div>
                 </div>
 
-                <div class="realm-card-info">
-                  <span class="realm-card-category">{{ s.categoryNameAr }}</span>
-                  <h3 class="realm-card-title">{{ s.nameAr }}</h3>
-                  
-                  <div class="realm-card-bottom-meta">
-                    <div class="realm-price-col">
-                      <strong *ngIf="s.priceFixed" class="realm-price-val">{{ s.priceFixed }} ر.س</strong>
-                      <strong *ngIf="s.templates && s.templates.length > 0 && !s.priceFixed" class="realm-price-val">
-                        تبدأ من {{ s.templates[0].price }} ر.س
-                      </strong>
-                      <span *ngIf="s.priceType === 'quote'" class="realm-quote-val">طلب تسعيرة</span>
-                      <strong *ngIf="s.priceType === 'range' && !s.priceFixed" class="realm-price-val">
-                        {{ s.priceMin }} - {{ s.priceMax }} ر.س
-                      </strong>
-                    </div>
-
-                    <span class="realm-templates-count" *ngIf="s.templates && s.templates.length > 0">
-                      {{ s.templates.length }} نماذج 🎨
+                <!-- Text Details -->
+                <div class="uni-card-body">
+                  <h3 class="uni-card-name">{{ s.nameAr }}</h3>
+                  <div class="uni-card-badge-row">
+                    <span class="uni-badge-text">
+                      {{ s.priceFixed ? (s.priceFixed + ' ر.س') : (s.categoryNameAr || 'خدمة معتمدة') }}
                     </span>
+                    <span class="uni-badge-chevron">›</span>
                   </div>
                 </div>
 
               </div>
             </div>
 
-            <button type="button" class="carousel-nav-btn next-btn" (click)="scrollRealms('next')" title="التالي">
+            <button type="button" class="uni-carousel-arrow arrow-next" (click)="scrollRealms('next')" title="التالي">
               <span>›</span>
             </button>
           </div>
+
+          <!-- Bottom Pill Button (كل الخدمات › كما بالصورة 2) -->
+          <div class="uni-all-services-btn-row">
+            <a routerLink="/services" class="btn-all-universities-pill" (click)="onHover()">
+              <span>كل الخدمات</span>
+              <span class="pill-chevron">›</span>
+            </a>
+          </div>
+
         </div>
       </section>
 
@@ -513,6 +503,102 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
               <p>استلام العمل في الموعد المحدد مع دعم وتعديلات مجانية ومستمرة.</p>
             </div>
           </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           SCENE: آراء العملاء (صفين متحركين يمين ويسار - مطابقة تماماً للصورة 3)
+           ========================================== -->
+      <section class="reviews-marquee-section section-padding" id="customer-reviews-section">
+        <div class="container">
+          <div class="section-badge-center">
+            <span class="badge-gold">⭐️ شهادات وثقة الباحثين والطلاب</span>
+            <h2 class="section-title">آراء وتجارب العملاء مع <span class="gold-gradient-text">أم رهام</span></h2>
+            <p class="section-desc">ودعم مستمر لمساعدتك على تحقيق أهدافك الأكاديمية بكل ثقة</p>
+          </div>
+        </div>
+
+        <!-- Two Horizontal Continuous Flow Rows (صفين متحركين يمين ويسار) -->
+        <div class="marquee-flow-container">
+          
+          <!-- Row 1: Flow to Right (بشكل بطيء ويمكن التمرير والإيقاف) -->
+          <div class="marquee-row-wrapper" (mouseenter)="onHover()">
+            <div class="marquee-strip strip-moving-right">
+              <div class="review-image3-card" *ngFor="let r of reviewsRow1" (click)="onHover()">
+                <p class="review-bubble-text">{{ r.quote }}</p>
+                <div class="review-footer-row">
+                  <div class="review-star-rating">
+                    <span class="star-icon">★</span>
+                    <span class="rating-num">5.0</span>
+                  </div>
+                  <div class="review-user-info">
+                    <h4 class="user-display-name">{{ r.name }}</h4>
+                    <span class="user-course-sub">{{ r.subject }}</span>
+                  </div>
+                  <div class="user-avatar-circle" [style.background]="r.avatarBg">
+                    <span>{{ r.emoji }}</span>
+                  </div>
+                </div>
+              </div>
+              <!-- Duplicate track for seamless infinite loop -->
+              <div class="review-image3-card" *ngFor="let r of reviewsRow1" (click)="onHover()">
+                <p class="review-bubble-text">{{ r.quote }}</p>
+                <div class="review-footer-row">
+                  <div class="review-star-rating">
+                    <span class="star-icon">★</span>
+                    <span class="rating-num">5.0</span>
+                  </div>
+                  <div class="review-user-info">
+                    <h4 class="user-display-name">{{ r.name }}</h4>
+                    <span class="user-course-sub">{{ r.subject }}</span>
+                  </div>
+                  <div class="user-avatar-circle" [style.background]="r.avatarBg">
+                    <span>{{ r.emoji }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 2: Flow to Left (الصف الثاني يتحرك بالاتجاه المعاكس) -->
+          <div class="marquee-row-wrapper" (mouseenter)="onHover()">
+            <div class="marquee-strip strip-moving-left">
+              <div class="review-image3-card" *ngFor="let r of reviewsRow2" (click)="onHover()">
+                <p class="review-bubble-text">{{ r.quote }}</p>
+                <div class="review-footer-row">
+                  <div class="review-star-rating">
+                    <span class="star-icon">★</span>
+                    <span class="rating-num">5.0</span>
+                  </div>
+                  <div class="review-user-info">
+                    <h4 class="user-display-name">{{ r.name }}</h4>
+                    <span class="user-course-sub">{{ r.subject }}</span>
+                  </div>
+                  <div class="user-avatar-circle" [style.background]="r.avatarBg">
+                    <span>{{ r.emoji }}</span>
+                  </div>
+                </div>
+              </div>
+              <!-- Duplicate track for seamless infinite loop -->
+              <div class="review-image3-card" *ngFor="let r of reviewsRow2" (click)="onHover()">
+                <p class="review-bubble-text">{{ r.quote }}</p>
+                <div class="review-footer-row">
+                  <div class="review-star-rating">
+                    <span class="star-icon">★</span>
+                    <span class="rating-num">5.0</span>
+                  </div>
+                  <div class="review-user-info">
+                    <h4 class="user-display-name">{{ r.name }}</h4>
+                    <span class="user-course-sub">{{ r.subject }}</span>
+                  </div>
+                  <div class="user-avatar-circle" [style.background]="r.avatarBg">
+                    <span>{{ r.emoji }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -5004,6 +5090,400 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
         justify-content: center;
       }
     }
+
+    /* ==========================================================================
+       IMAGE 2: أفضل الجامعات STYLE FOR خدمات أم رهام
+       ========================================================================== */
+    .realms-main-subtitle {
+      font-size: 0.95rem;
+      color: #64748B;
+      max-width: 620px;
+      margin: 0.5rem auto 0;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .uni-carousel-outer-wrapper {
+      position: relative;
+      width: 100%;
+      margin: 1.5rem 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 45px;
+      box-sizing: border-box;
+
+      @media (max-width: 768px) {
+        padding: 0 35px;
+      }
+    }
+
+    .uni-cards-track {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding: 1.25rem 0.5rem 1.75rem;
+      width: 100%;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      box-sizing: border-box;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    .uni-card-item {
+      flex: 0 0 300px;
+      max-width: 85vw;
+      scroll-snap-align: center;
+      background: #FFFFFF;
+      border-radius: 24px;
+      padding: 2.2rem 1.5rem 2rem;
+      border: 1.5px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 10px 32px rgba(10, 47, 36, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      box-sizing: border-box;
+
+      &:hover, &.active {
+        transform: translateY(-6px) scale(1.02);
+        border-color: var(--theme-accent, #C5A869);
+        box-shadow: 0 18px 45px rgba(10, 47, 36, 0.12), 0 0 20px rgba(197, 168, 105, 0.22);
+
+        .uni-emblem-circle {
+          transform: scale(1.08);
+          border-color: var(--theme-accent, #C5A869);
+          box-shadow: 0 8px 25px rgba(197, 168, 105, 0.35);
+        }
+
+        .uni-card-name {
+          color: var(--theme-primary, #0A2F24);
+        }
+      }
+
+      @media (max-width: 768px) {
+        flex: 0 0 78vw;
+      }
+    }
+
+    .uni-emblem-container {
+      margin-bottom: 1.4rem;
+    }
+
+    .uni-emblem-circle {
+      width: 105px;
+      height: 105px;
+      border-radius: 50%;
+      background: #F8FAF9;
+      border: 2px solid rgba(197, 168, 105, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 18px rgba(10, 47, 36, 0.06);
+      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .uni-emblem-glyph {
+      font-size: 2.8rem;
+      line-height: 1;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
+    }
+
+    .uni-card-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .uni-card-name {
+      font-size: 1.22rem;
+      font-weight: 800;
+      color: #0F2A1F;
+      margin: 0;
+      line-height: 1.35;
+      font-family: var(--font-family-arabic);
+      transition: color 0.2s;
+    }
+
+    .uni-card-badge-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      color: #64748B;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .uni-badge-chevron {
+      font-size: 1.15rem;
+      color: var(--theme-accent, #C5A869);
+      line-height: 1;
+    }
+
+    .uni-carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 25;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      color: #475569;
+      border: 1.5px solid #E2E8F0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.6rem;
+      line-height: 1;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+      &:hover {
+        transform: translateY(-50%) scale(1.1);
+        background: var(--theme-primary, #0A2F24);
+        color: var(--theme-accent, #E5B94F);
+        border-color: var(--theme-accent, #E5B94F);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      &.arrow-prev {
+        right: 0;
+      }
+
+      &.arrow-next {
+        left: 0;
+      }
+
+      @media (max-width: 768px) {
+        width: 32px;
+        height: 32px;
+        font-size: 1.3rem;
+        &.arrow-prev { right: 2px; }
+        &.arrow-next { left: 2px; }
+      }
+    }
+
+    .uni-all-services-btn-row {
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+
+    .btn-all-universities-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: #1E293B;
+      color: #FFFFFF;
+      padding: 0.75rem 2.2rem;
+      border-radius: var(--radius-full);
+      font-size: 0.98rem;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 6px 22px rgba(30, 41, 59, 0.25);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+      .pill-chevron {
+        font-size: 1.15rem;
+        color: var(--theme-accent, #E5B94F);
+        line-height: 1;
+        transition: transform 0.2s;
+      }
+
+      &:hover {
+        background: var(--theme-primary, #0A2F24);
+        color: #FFFFFF;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 28px rgba(10, 47, 36, 0.35);
+
+        .pill-chevron {
+          transform: translateX(-3px);
+        }
+      }
+    }
+
+    /* ==========================================================================
+       IMAGE 3: 2-ROW INFINITE FLOATING REVIEWS MARQUEE (مطابق تماماً للصورة 3)
+       ========================================================================== */
+    .reviews-marquee-section {
+      background: #FAF8F5;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .marquee-flow-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.35rem;
+      margin-top: 2rem;
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+    }
+
+    .marquee-row-wrapper {
+      display: flex;
+      width: 100%;
+      overflow: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+      cursor: grab;
+
+      &:active {
+        cursor: grabbing;
+      }
+
+      &:hover .marquee-strip {
+        animation-play-state: paused !important;
+      }
+    }
+
+    .marquee-strip {
+      display: flex;
+      gap: 1.25rem;
+      width: max-content;
+      will-change: transform;
+    }
+
+    .strip-moving-right {
+      animation: marqueeRight 35s linear infinite;
+    }
+
+    .strip-moving-left {
+      animation: marqueeLeft 35s linear infinite;
+    }
+
+    @keyframes marqueeRight {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    @keyframes marqueeLeft {
+      0% {
+        transform: translateX(-50%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    .review-image3-card {
+      flex: 0 0 350px;
+      background: #FFFFFF;
+      border-radius: 20px;
+      padding: 1.35rem 1.4rem 1.25rem;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-sizing: border-box;
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.09);
+        border-color: rgba(197, 168, 105, 0.35);
+      }
+
+      @media (max-width: 768px) {
+        flex: 0 0 300px;
+        padding: 1.15rem 1.2rem;
+      }
+    }
+
+    .review-bubble-text {
+      font-size: 0.92rem;
+      color: #1E293B;
+      line-height: 1.65;
+      font-weight: 600;
+      margin: 0;
+      text-align: right;
+      font-family: var(--font-family-arabic);
+    }
+
+    .review-footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding-top: 0.65rem;
+      border-top: 1px solid #F1F5F9;
+    }
+
+    .review-star-rating {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      color: #0D9488;
+      font-weight: 800;
+      font-size: 0.95rem;
+
+      .star-icon {
+        color: #14B8A6;
+        font-size: 1.05rem;
+      }
+    }
+
+    .review-user-info {
+      flex: 1;
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .user-display-name {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #0F172A;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .user-course-sub {
+      font-size: 0.74rem;
+      color: #64748B;
+      font-weight: 500;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 170px;
+    }
+
+    .user-avatar-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      border: 2px solid #FFFFFF;
+    }
+
   `]
 })
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -5358,6 +5838,69 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   selectedCategory = 'all';
+
+  // Realistic reviews for the 2-Row Marquee (مطابقة تماماً للصورة 3)
+  reviewsRow1 = [
+    {
+      quote: 'يعطيك العافيه ما قصرتي معنا الشرح مفهوم وكافي ووافي ماقصرتي 🥺✨🤍🤍',
+      name: 'ريماس الشهري',
+      subject: 'مبادئ الرياضيات للأعمال SCMT 110',
+      emoji: '🥳',
+      avatarBg: '#FDE047'
+    },
+    {
+      quote: 'استاذه يارا شكرا لكي من اعماق القلب كانت ماده خفيفه ولكي فضل كبير بعد الله اني جبت درجة احلم فيها انصح اي شخص عنده عربي والله يدخل عندها بدون تردد الله يوفقها ❤️',
+      name: 'عادل عبدالعزيز',
+      subject: 'اللغة العربية ARAB 101 - يارا أبو الفرج',
+      emoji: '👨‍🏫',
+      avatarBg: '#5EEAD4'
+    },
+    {
+      quote: 'أشكر أم رهام جزيل الشكر على سرعة إنجاز فحص Turnitin والمراجعة اللغوية للرسالة، أمانة واحترافية لا يعلى عليها 👏',
+      name: 'د. ناصر الغامدي',
+      subject: 'أطروحة دكتوراه - جامعة الملك عبدالعزيز',
+      emoji: '🎓',
+      avatarBg: '#FED7AA'
+    },
+    {
+      quote: 'حلول نموذجية وشرح للخطوات خطوة بخطوة للواجبات والإكسل، أنقذتوني في الوقت الحرج والدرجة كاملة الحمدلله ⭐',
+      name: 'شهد المطيري',
+      subject: 'نظم معلومات إدارية MIS 201',
+      emoji: '🌸',
+      avatarBg: '#FBCFE8'
+    }
+  ];
+
+  reviewsRow2 = [
+    {
+      quote: 'الشرح والتحليل الإحصائي عبر SPSS كان أسطوري ومفصل بالجداول والرسوم، تمت مناقشة البحث بامتياز بفضل الله 🌟',
+      name: 'عبدالله القحطاني',
+      subject: 'ماجستير إدارة أعمال MBA',
+      emoji: '📊',
+      avatarBg: '#BAE6FD'
+    },
+    {
+      quote: 'ماشاء الله تبارك الله سرعة استجابة ومرونة في التعديلات حتى بعد التسليم، الدفع بعد الإنجاز والاستلام ريحني جداً 🛡️',
+      name: 'منيرة العتيبي',
+      subject: 'مشروع تخرج حاسب آلي - جامعة الطائف',
+      emoji: '💼',
+      avatarBg: '#DDD6FE'
+    },
+    {
+      quote: 'حقيبة العرض التقديمي للبوربوينت كانت مبهرة للمشرف ولجنة التحكيم بألوانها والأنيميشن الاحترافي، ألف شكر 🤍',
+      name: 'خالد الدوسري',
+      subject: 'عرض أطروحة ماجستير - جامعة الإمام',
+      emoji: '🎨',
+      avatarBg: '#BBF7D0'
+    },
+    {
+      quote: 'تعامل راقي جداً واهتمام بأدق التفاصيل والتوثيق بنظام APA الإصدار السابع كامل ومضبوط 100% 👑',
+      name: 'أروى الحربي',
+      subject: 'بحث تخرج دراسات إسلامية - جامعة أم القرى',
+      emoji: '📚',
+      avatarBg: '#FEF08A'
+    }
+  ];
 
   setCategory(cat: string): void {
     this.selectedCategory = cat;

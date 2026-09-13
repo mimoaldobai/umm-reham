@@ -526,11 +526,17 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
       border: 1px solid #A7F3D0;
     }
 
-    /* Services Showcase Horizontal Carousel (يمين ويسار) */
+    /* Services Showcase Horizontal Carousel (يمين ويسار بدون تداخل) */
     .services-showcase-wrapper {
       position: relative;
       width: 100%;
       margin: 1rem 0 2.5rem;
+      padding: 0 44px;
+      box-sizing: border-box;
+
+      @media (max-width: 768px) {
+        padding: 0 36px;
+      }
     }
 
     .services-horizontal-track {
@@ -539,7 +545,7 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
       overflow-x: auto;
       scroll-snap-type: x mandatory;
       scroll-behavior: smooth;
-      padding: 1.25rem 0.65rem 1.75rem;
+      padding: 1.25rem 0.25rem 1.75rem;
       width: 100%;
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
@@ -552,13 +558,14 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
 
     .services-horizontal-track .service-luxury-card {
       flex: 0 0 380px;
-      max-width: 90vw;
+      max-width: 100%;
       scroll-snap-align: center;
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       box-sizing: border-box;
+      border-radius: 20px;
 
       @media (max-width: 768px) {
-        flex: 0 0 88vw;
+        flex: 0 0 82vw;
       }
     }
 
@@ -566,7 +573,7 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
     .services-horizontal-track .service-luxury-card.prominent-card {
       border: 2px solid var(--theme-accent, #C5A869) !important;
       box-shadow: 0 20px 48px rgba(10, 47, 36, 0.18), 0 0 24px rgba(197, 168, 105, 0.28) !important;
-      transform: scale(1.025);
+      transform: scale(1.02);
       background: #FFFFFF;
 
       &::before {
@@ -575,54 +582,55 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
       }
 
       .card-icon-emblem {
-        transform: scale(1.12);
+        transform: scale(1.1);
         border-color: var(--theme-accent, #C5A869);
         box-shadow: 0 4px 15px rgba(197, 168, 105, 0.35);
       }
     }
 
-    /* Showcase Arrows (أسهم يمين ويسار) */
+    /* Showcase Arrows (أسهم خارجية نظيفة تماماً تطابق صورة أفضل الجامعات) */
     .svc-carousel-arrow {
       position: absolute;
-      top: 48%;
+      top: 50%;
       transform: translateY(-50%);
-      z-index: 25;
-      width: 46px;
-      height: 46px;
+      z-index: 30;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      background: var(--theme-primary, #0A2F24);
-      color: var(--theme-accent, #E5B94F);
-      border: 2px solid var(--theme-accent, #E5B94F);
+      background: #FFFFFF;
+      color: var(--theme-primary, #0A2F24);
+      border: 1.5px solid rgba(0, 0, 0, 0.12);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       line-height: 1;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
       transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
       &:hover {
-        transform: translateY(-50%) scale(1.12);
-        background: var(--theme-accent, #E5B94F);
-        color: var(--theme-primary, #0A2F24);
-        box-shadow: 0 10px 28px rgba(229, 185, 79, 0.45);
+        transform: translateY(-50%) scale(1.1);
+        background: var(--theme-primary, #0A2F24);
+        color: var(--theme-accent, #E5B94F);
+        border-color: var(--theme-accent, #E5B94F);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
       }
 
       &.arrow-right {
-        right: -18px;
+        right: 0px;
       }
 
       &.arrow-left {
-        left: -18px;
+        left: 0px;
       }
 
       @media (max-width: 768px) {
-        width: 38px;
-        height: 38px;
-        font-size: 1.4rem;
-        &.arrow-right { right: 2px; }
-        &.arrow-left { left: 2px; }
+        width: 32px;
+        height: 32px;
+        font-size: 1.25rem;
+        &.arrow-right { right: 0px; }
+        &.arrow-left { left: 0px; }
       }
     }
 
@@ -990,7 +998,7 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
     .price-main {
       font-size: 1.2rem;
       font-weight: 900;
-      color: #0A2F24;
+      color: var(--theme-accent, #C5A869);
     }
 
     .quote-notice-tag {
@@ -1080,9 +1088,9 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
       flex: 1.6;
       padding: 0.72rem 1rem;
       border-radius: 12px;
-      background: var(--theme-cta-bg, linear-gradient(135deg, #0A2F24 0%, #051A14 100%));
-      color: var(--theme-cta-text, #FFFFFF);
-      border: none;
+      background: var(--theme-primary, #0A2F24);
+      color: var(--theme-accent, #E5B94F);
+      border: 1.5px solid var(--theme-accent, #E5B94F);
       font-family: var(--font-family-arabic);
       font-size: 0.86rem;
       font-weight: 800;

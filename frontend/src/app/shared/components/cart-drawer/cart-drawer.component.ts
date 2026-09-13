@@ -201,8 +201,9 @@ import { AudioService } from '../../../core/services/audio.service';
       align-items: center;
       justify-content: space-between;
       padding: 1.25rem 1.4rem;
-      border-bottom: 1.5px solid #F1ECE1;
-      background: #FAF7F2;
+      border-bottom: 1.5px solid rgba(var(--theme-accent-rgb, 229, 185, 79), 0.35);
+      background: var(--theme-primary, #0A2F24);
+      color: #FFFFFF;
     }
 
     .cart-title-wrap {
@@ -226,13 +227,13 @@ import { AudioService } from '../../../core/services/audio.service';
     .cart-title {
       font-size: 1.15rem;
       font-weight: 800;
-      color: #0D251A;
+      color: #FFFFFF;
       margin: 0;
     }
 
     .cart-subtitle {
       font-size: 0.78rem;
-      color: #64748B;
+      color: rgba(255, 255, 255, 0.75);
       font-weight: 500;
     }
 
@@ -240,9 +241,9 @@ import { AudioService } from '../../../core/services/audio.service';
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      border: 1px solid #E2D9C8;
-      background: #FFFFFF;
-      color: #485A53;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.08);
+      color: #FFFFFF;
       font-size: 1.1rem;
       display: flex;
       align-items: center;
@@ -334,7 +335,8 @@ import { AudioService } from '../../../core/services/audio.service';
       margin-top: 1rem;
       padding: 0.75rem 1.5rem;
       border-radius: var(--radius-full);
-      background: linear-gradient(135deg, #1B4332 0%, #0D251A 100%);
+      background: var(--theme-gradient, linear-gradient(135deg, #0A2F24 0%, #06180E 100%));
+      border: 1.5px solid rgba(var(--theme-accent-rgb, 229, 185, 79), 0.4);
       color: #FFFFFF;
       font-size: 0.88rem;
       font-weight: 700;
@@ -552,12 +554,12 @@ import { AudioService } from '../../../core/services/audio.service';
       gap: 0.65rem;
       padding: 0.88rem 1.2rem;
       border-radius: var(--radius-full);
-      background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
-      color: #FFFFFF;
+      background: var(--theme-accent-gradient, linear-gradient(135deg, #E5B94F 0%, #C9A96E 100%));
+      color: var(--theme-primary, #0A2F24);
       font-size: 0.92rem;
       font-weight: 800;
       text-decoration: none;
-      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+      box-shadow: 0 6px 20px rgba(var(--theme-accent-rgb, 229, 185, 79), 0.35);
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       cursor: pointer;
     }
