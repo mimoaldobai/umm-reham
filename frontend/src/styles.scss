@@ -531,6 +531,12 @@ html, body, .admin-layout, .dash-sidebar, .dash-topbar, .section-card, .metric-c
   transition: background 0.35s ease, background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
+/* Universal Dashboard Sidebar Theme Synchronization */
+.dash-sidebar {
+  background: var(--dash-sidebar-bg) !important;
+  border-left-color: var(--dash-sidebar-border) !important;
+}
+
 /* --------------------------------------------------------------------------
    THEME 1: ROYAL SAUDI EMERALD & GOLD (الأخضر الملكي وذهب الشمبانيا 🇸🇦👑)
    -------------------------------------------------------------------------- */

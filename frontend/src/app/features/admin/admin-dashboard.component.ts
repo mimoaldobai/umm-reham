@@ -42,7 +42,7 @@ export interface AcademicOrder {
       <!-- =========================================================
            1. EXECUTIVE HARMONIOUS SIDEBAR (القائمة الجانبية الفاخرة)
            ========================================================= -->
-      <aside class="dash-sidebar" [class.mobile-open]="isMobileSidebarOpen" [attr.data-sidebar-theme]="sidebarTheme">
+      <aside class="dash-sidebar" [class.mobile-open]="isMobileSidebarOpen">
         
         <!-- Brand Header -->
         <div class="sidebar-brand">
@@ -2837,643 +2837,75 @@ export interface AcademicOrder {
         justify-content: center;
       }
     }
-
-    .topbar-sidebar-palette {
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-      background: var(--dash-card-bg, #FFFFFF);
-      border: 1px solid var(--dash-card-border, #E2ECE6);
-      padding: 0.25rem 0.6rem;
-      border-radius: 20px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-
-      .palette-title {
-        font-size: 0.7rem;
-        font-weight: 700;
-        color: var(--dash-text-muted, #52796F);
-        white-space: nowrap;
-      }
-
-      .palette-dots {
-        display: flex;
-        align-items: center;
-        gap: 0.3rem;
-      }
-
-      .top-dot {
-        width: 15px;
-        height: 15px;
-        border-radius: 50%;
-        border: 1.5px solid rgba(0, 0, 0, 0.15);
-        cursor: pointer;
-        transition: all 0.2s ease;
-        padding: 0;
-
-        &:hover { transform: scale(1.25); }
-        &.active {
-          border-color: #C5A869;
-          transform: scale(1.3);
-          box-shadow: 0 0 6px rgba(197, 168, 105, 0.8);
-        }
-      }
-    }
-
     /* =========================================================
-       DYNAMIC SIDEBAR THEMES (9 متطابقة مع كافة ثيمات النظام)
+       HARMONIOUS DUAL-TONE THEME SIDEBAR ADAPTATION
        ========================================================= */
-    /* 1. White Sidebar (العاجي والأبيض النقي) */
-    .dash-sidebar[data-sidebar-theme="white"] {
-      background: #FFFFFF !important;
-      border-left: 1.5px solid #E2E8F0 !important;
-      box-shadow: -4px 0 25px rgba(0, 0, 0, 0.05) !important;
+    .dash-sidebar {
+      background: var(--dash-sidebar-bg, #0A2F24) !important;
+      border-left: 1.5px solid var(--dash-sidebar-border, rgba(197, 168, 105, 0.28)) !important;
+      transition: background 0.35s ease, border-color 0.35s ease;
 
-      .sidebar-brand { border-bottom-color: #E2E8F0 !important; }
-      .brand-crest { background: #F8FAFC !important; border-color: #C5A869 !important; box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important; }
-      .brand-text h2 { color: #0A2F24 !important; }
-      .brand-text span { color: #8D6F30 !important; }
+      .sidebar-brand {
+        border-bottom: 1px solid var(--dash-sidebar-border, rgba(197, 168, 105, 0.2)) !important;
+      }
 
-      .sidebar-color-switcher {
-        background: #F8FAFC !important;
-        border-bottom-color: #E2E8F0 !important;
-        .color-switcher-label { color: #475569 !important; }
-        .color-switcher-active-name { color: #059669 !important; }
+      .brand-crest {
+        background: var(--dash-crest-bg, linear-gradient(135deg, rgba(197, 168, 105, 0.3), rgba(10, 47, 36, 0.95))) !important;
+        border-color: var(--dash-accent-gold, #C5A869) !important;
+      }
+
+      .brand-text span {
+        color: var(--dash-accent-gold, #C5A869) !important;
       }
 
       .user-card {
-        background: #F8FAFC !important;
-        border: 1.5px solid #E2E8F0 !important;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03) !important;
+        background: var(--dash-user-card-bg, rgba(197, 168, 105, 0.08)) !important;
+        border: 1px solid var(--dash-sidebar-border, rgba(197, 168, 105, 0.25)) !important;
       }
-      .user-avatar { background: #FFFFFF !important; border-color: #C5A869 !important; }
-      .user-name strong { color: #0A2F24 !important; }
-      .verified-pill { background: rgba(16, 185, 129, 0.12) !important; color: #059669 !important; border-color: rgba(16, 185, 129, 0.3) !important; }
-      .user-meta small { color: #64748B !important; }
+
+      .user-avatar {
+        background: var(--dash-avatar-bg, #0A2F24) !important;
+        border-color: var(--dash-accent-gold, #C5A869) !important;
+      }
+
+      .user-meta small {
+        color: var(--dash-accent-gold, #C5A869) !important;
+      }
 
       .nav-btn {
-        color: #334155 !important;
+        color: var(--dash-nav-text, #E2ECE7) !important;
         &:hover {
-          background: #F1F5F9 !important;
-          color: #0A2F24 !important;
-          .btn-icon { color: #0A2F24 !important; }
+          background: var(--dash-nav-hover-bg, rgba(197, 168, 105, 0.14)) !important;
+          color: #FFFFFF !important;
         }
         &.active {
-          background: #0A2F24 !important;
-          border-color: #0A2F24 !important;
-          border-right: 4px solid #C5A869 !important;
+          background: var(--dash-nav-active-bg, linear-gradient(135deg, rgba(197, 168, 105, 0.22) 0%, rgba(10, 47, 36, 0.95) 100%)) !important;
+          border: 1px solid var(--dash-nav-active-border, #C5A869) !important;
+          border-right: 4px solid var(--dash-nav-active-border, #C5A869) !important;
           color: #FFFFFF !important;
-          box-shadow: 0 4px 14px rgba(10, 47, 36, 0.25) !important;
-          .btn-text { color: #FFFFFF !important; }
-          .btn-icon { color: #C5A869 !important; }
+          .btn-icon {
+            color: var(--dash-accent-gold, #C5A869) !important;
+          }
         }
       }
-      .btn-icon { color: #64748B !important; }
-      .btn-badge { background: #F1F5F9 !important; color: #0A2F24 !important; border-color: #CBD5E1 !important; }
+
+      .btn-icon {
+        color: var(--dash-accent-gold, #C5A869) !important;
+      }
+
+      .btn-badge {
+        background: var(--dash-user-card-bg, rgba(197, 168, 105, 0.2)) !important;
+        color: var(--dash-accent-gold, #DFC698) !important;
+        border: 1px solid var(--dash-sidebar-border, rgba(197, 168, 105, 0.35)) !important;
+      }
 
       .sidebar-footer {
-        background: #F8FAFC !important;
-        border-top-color: #E2E8F0 !important;
+        background: rgba(0, 0, 0, 0.18) !important;
+        border-top: 1px solid var(--dash-sidebar-border, rgba(255, 255, 255, 0.1)) !important;
       }
-      .db-status-pill { color: #475569 !important; }
+
       .site-link {
-        color: #0A2F24 !important;
-        background: #FFFFFF !important;
-        border: 1px solid #E2E8F0 !important;
-        &:hover { background: #F1F5F9 !important; }
-      }
-      .btn-logout-sidebar {
-        background: #FEF2F2 !important;
-        border-color: #FECACA !important;
-        color: #DC2626 !important;
-        &:hover { background: #FEE2E2 !important; color: #B91C1C !important; }
-      }
-    }
-
-    /* 2. Beige Sidebar (البيج الملكي التراثي) */
-    .dash-sidebar[data-sidebar-theme="beige"] {
-      background: #F7F3E9 !important;
-      border-left: 1.5px solid #D8CCA8 !important;
-      box-shadow: -4px 0 25px rgba(197, 168, 105, 0.12) !important;
-
-      .sidebar-brand { border-bottom-color: #D8CCA8 !important; }
-      .brand-crest { background: #EDE5D5 !important; border-color: #C5A869 !important; box-shadow: 0 2px 8px rgba(197, 168, 105, 0.2) !important; }
-      .brand-text h2 { color: #0A2F24 !important; }
-      .brand-text span { color: #8B6D2B !important; }
-
-      .sidebar-color-switcher {
-        background: #EFE8DA !important;
-        border-bottom-color: #D8CCA8 !important;
-        .color-switcher-label { color: #6E5D38 !important; }
-        .color-switcher-active-name { color: #8B6D2B !important; }
-      }
-
-      .user-card {
-        background: #EFE8DA !important;
-        border: 1.5px solid #D8CCA8 !important;
-        box-shadow: 0 2px 6px rgba(197, 168, 105, 0.1) !important;
-      }
-      .user-avatar { background: #F7F3E9 !important; border-color: #C5A869 !important; }
-      .user-name strong { color: #0A2F24 !important; }
-      .verified-pill { background: rgba(197, 168, 105, 0.25) !important; color: #8B6D2B !important; border-color: rgba(197, 168, 105, 0.5) !important; }
-      .user-meta small { color: #6E5D38 !important; }
-
-      .nav-btn {
-        color: #414E48 !important;
-        &:hover {
-          background: rgba(197, 168, 105, 0.2) !important;
-          color: #0A2F24 !important;
-          .btn-icon { color: #0A2F24 !important; }
-        }
-        &.active {
-          background: #0A2F24 !important;
-          border-color: #0A2F24 !important;
-          border-right: 4px solid #C5A869 !important;
-          color: #FFFFFF !important;
-          box-shadow: 0 4px 14px rgba(10, 47, 36, 0.25) !important;
-          .btn-text { color: #FFFFFF !important; }
-          .btn-icon { color: #C5A869 !important; }
-        }
-      }
-      .btn-icon { color: #6E5D38 !important; }
-      .btn-badge { background: #E2D7BE !important; color: #0A2F24 !important; border-color: #C5A869 !important; }
-
-      .sidebar-footer {
-        background: #EFE8DA !important;
-        border-top-color: #D8CCA8 !important;
-      }
-      .db-status-pill { color: #5D6D65 !important; }
-      .site-link {
-        color: #0A2F24 !important;
-        background: #F7F3E9 !important;
-        border: 1px solid #D8CCA8 !important;
-        &:hover { background: #EAE1D0 !important; }
-      }
-      .btn-logout-sidebar {
-        background: rgba(239, 68, 68, 0.1) !important;
-        border-color: rgba(239, 68, 68, 0.3) !important;
-        color: #DC2626 !important;
-        &:hover { background: rgba(239, 68, 68, 0.2) !important; }
-      }
-    }
-
-    /* 3. Black Sidebar (الأسود الفخم الليلي) */
-    .dash-sidebar[data-sidebar-theme="black"] {
-      background: #0A0F0D !important;
-      border-left: 1.5px solid rgba(255, 255, 255, 0.12) !important;
-      box-shadow: -4px 0 30px rgba(0, 0, 0, 0.5) !important;
-
-      .sidebar-brand { border-bottom-color: rgba(255, 255, 255, 0.1) !important; }
-      .brand-crest { background: #151F1B !important; border-color: #C5A869 !important; }
-      .brand-text h2 { color: #FFFFFF !important; }
-      .brand-text span { color: #DFC698 !important; }
-
-      .sidebar-color-switcher {
-        background: rgba(255, 255, 255, 0.04) !important;
-        border-bottom-color: rgba(255, 255, 255, 0.08) !important;
-        .color-switcher-label { color: #94A3B8 !important; }
-        .color-switcher-active-name { color: #34D399 !important; }
-      }
-
-      .user-card {
-        background: rgba(255, 255, 255, 0.05) !important;
-        border: 1.5px solid rgba(255, 255, 255, 0.12) !important;
-      }
-      .user-avatar { background: #0A0F0D !important; border-color: #C5A869 !important; }
-      .user-name strong { color: #FFFFFF !important; }
-      .verified-pill { background: rgba(16, 185, 129, 0.2) !important; color: #34D399 !important; border-color: rgba(16, 185, 129, 0.4) !important; }
-      .user-meta small { color: #94A3B8 !important; }
-
-      .nav-btn {
-        color: #94A3B8 !important;
-        &:hover {
-          background: rgba(255, 255, 255, 0.08) !important;
-          color: #FFFFFF !important;
-          .btn-icon { color: #FFFFFF !important; }
-        }
-        &.active {
-          background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
-          border-color: #10B981 !important;
-          border-right: 4px solid #34D399 !important;
-          color: #FFFFFF !important;
-          box-shadow: 0 4px 15px rgba(5, 150, 105, 0.35) !important;
-          .btn-text { color: #FFFFFF !important; }
-          .btn-icon { color: #A7F3D0 !important; }
-        }
-      }
-      .btn-icon { color: #94A3B8 !important; }
-      .btn-badge { background: rgba(255, 255, 255, 0.15) !important; color: #FFFFFF !important; border-color: rgba(255, 255, 255, 0.25) !important; }
-
-      .sidebar-footer {
-        background: rgba(0, 0, 0, 0.4) !important;
-        border-top-color: rgba(255, 255, 255, 0.1) !important;
-      }
-      .db-status-pill { color: #94A3B8 !important; }
-      .site-link {
-        color: #FFFFFF !important;
-        background: rgba(255, 255, 255, 0.06) !important;
-        border: 1px solid rgba(255, 255, 255, 0.12) !important;
-        &:hover { background: rgba(255, 255, 255, 0.12) !important; }
-      }
-      .btn-logout-sidebar {
-        background: rgba(239, 68, 68, 0.15) !important;
-        border-color: rgba(239, 68, 68, 0.35) !important;
-        color: #F87171 !important;
-        &:hover { background: rgba(239, 68, 68, 0.28) !important; }
-      }
-    }
-
-    /* 4. Blue Sidebar (الأزرق الأكاديمي الملكي) */
-    .dash-sidebar[data-sidebar-theme="blue"] {
-      background: #0B1E36 !important;
-      border-left: 1.5px solid rgba(147, 197, 253, 0.25) !important;
-      box-shadow: -4px 0 30px rgba(11, 30, 54, 0.5) !important;
-
-      .sidebar-brand { border-bottom-color: rgba(147, 197, 253, 0.2) !important; }
-      .brand-crest { background: #132D50 !important; border-color: #60A5FA !important; }
-      .brand-text h2 { color: #FFFFFF !important; }
-      .brand-text span { color: #93C5FD !important; }
-
-      .sidebar-color-switcher {
-        background: rgba(255, 255, 255, 0.05) !important;
-        border-bottom-color: rgba(147, 197, 253, 0.18) !important;
-        .color-switcher-label { color: #93C5FD !important; }
-        .color-switcher-active-name { color: #60A5FA !important; }
-      }
-
-      .user-card {
-        background: rgba(255, 255, 255, 0.07) !important;
-        border: 1.5px solid rgba(147, 197, 253, 0.25) !important;
-      }
-      .user-avatar { background: #0B1E36 !important; border-color: #60A5FA !important; }
-      .user-name strong { color: #FFFFFF !important; }
-      .verified-pill { background: rgba(96, 165, 250, 0.2) !important; color: #93C5FD !important; border-color: rgba(96, 165, 250, 0.4) !important; }
-      .user-meta small { color: #93C5FD !important; }
-
-      .nav-btn {
-        color: #BFDBFE !important;
-        &:hover {
-          background: rgba(59, 130, 246, 0.18) !important;
-          color: #FFFFFF !important;
-          .btn-icon { color: #FFFFFF !important; }
-        }
-        &.active {
-          background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%) !important;
-          border-color: #60A5FA !important;
-          border-right: 4px solid #93C5FD !important;
-          color: #FFFFFF !important;
-          box-shadow: 0 4px 15px rgba(37, 99, 235, 0.35) !important;
-          .btn-text { color: #FFFFFF !important; }
-          .btn-icon { color: #BFDBFE !important; }
-        }
-      }
-      .btn-icon { color: #93C5FD !important; }
-      .btn-badge { background: rgba(59, 130, 246, 0.3) !important; color: #FFFFFF !important; border-color: rgba(147, 197, 253, 0.4) !important; }
-
-      .sidebar-footer {
-        background: rgba(0, 0, 0, 0.3) !important;
-        border-top-color: rgba(147, 197, 253, 0.2) !important;
-      }
-      .db-status-pill { color: #93C5FD !important; }
-      .site-link {
-        color: #FFFFFF !important;
-        background: rgba(255, 255, 255, 0.07) !important;
-        border: 1px solid rgba(147, 197, 253, 0.25) !important;
-        &:hover { background: rgba(59, 130, 246, 0.2) !important; }
-      }
-      .btn-logout-sidebar {
-        background: rgba(239, 68, 68, 0.15) !important;
-        border-color: rgba(239, 68, 68, 0.35) !important;
-        color: #F87171 !important;
-        &:hover { background: rgba(239, 68, 68, 0.28) !important; }
-      }
-    }
-
-    /* 5. Emerald Sidebar (الأخضر والزمرد السيادي الأساسي) */
-    .dash-sidebar[data-sidebar-theme="emerald"] {
-      background: #0A2F24 !important;
-      border-left: 1.5px solid rgba(197, 168, 105, 0.35) !important;
-
-      .sidebar-brand { border-bottom-color: rgba(197, 168, 105, 0.25) !important; }
-      .brand-crest { background: rgba(197, 168, 105, 0.2) !important; border-color: #C5A869 !important; }
-      .brand-text h2 { color: #FFFFFF !important; }
-      .brand-text span { color: #DFC698 !important; }
-
-      .sidebar-color-switcher {
-        background: rgba(0, 0, 0, 0.16) !important;
-        border-bottom-color: rgba(197, 168, 105, 0.2) !important;
-        .color-switcher-label { color: #D1FAE5 !important; }
-        .color-switcher-active-name { color: #C5A869 !important; }
-      }
-
-      .user-card {
-        background: rgba(197, 168, 105, 0.1) !important;
-        border: 1.5px solid rgba(197, 168, 105, 0.25) !important;
-      }
-      .user-avatar { background: #0A2F24 !important; border-color: #C5A869 !important; }
-      .user-name strong { color: #FFFFFF !important; }
-      .verified-pill { background: rgba(197, 168, 105, 0.25) !important; color: #DFC698 !important; border-color: rgba(197, 168, 105, 0.5) !important; }
-      .user-meta small { color: #D1FAE5 !important; }
-
-      .nav-btn {
-        color: #E2ECE7 !important;
-        &:hover {
-          background: rgba(197, 168, 105, 0.15) !important;
-          color: #FFFFFF !important;
-          .btn-icon { color: #FFFFFF !important; }
-        }
-        &.active {
-          background: linear-gradient(135deg, rgba(197, 168, 105, 0.25) 0%, rgba(10, 47, 36, 0.98) 100%) !important;
-          border-color: #C5A869 !important;
-          border-right: 4px solid #C5A869 !important;
-          color: #FFFFFF !important;
-          box-shadow: 0 4px 14px rgba(10, 47, 36, 0.4) !important;
-          .btn-text { color: #FFFFFF !important; }
-          .btn-icon { color: #C5A869 !important; }
-        }
-      }
-      .btn-icon { color: #C5A869 !important; }
-      .btn-badge { background: rgba(197, 168, 105, 0.2) !important; color: #DFC698 !important; border-color: rgba(197, 168, 105, 0.35) !important; }
-
-      .sidebar-footer {
-        background: rgba(0, 0, 0, 0.25) !important;
-        border-top-color: rgba(197, 168, 105, 0.2) !important;
-      }
-      .db-status-pill { color: #D1FAE5 !important; }
-      .site-link {
-        color: #D1FAE5 !important;
-        background: rgba(197, 168, 105, 0.1) !important;
-        border: 1px solid rgba(197, 168, 105, 0.25) !important;
-        &:hover { background: rgba(197, 168, 105, 0.2) !important; color: #34D399 !important; }
-      }
-      .btn-logout-sidebar {
-        background: rgba(239, 68, 68, 0.12) !important;
-        border-color: rgba(239, 68, 68, 0.3) !important;
-        color: #FCA5A5 !important;
-        &:hover { background: rgba(239, 68, 68, 0.25) !important; }
-      }
-    }
-
-    /* 6. Emerald Night Sidebar (الزمرد الليلي الهادئ المضيء) */
-    .dash-sidebar[data-sidebar-theme="emerald-night"] {
-      background: #03140C !important;
-      border-left: 1.5px solid rgba(16, 185, 129, 0.25) !important;
-      box-shadow: -4px 0 35px rgba(0, 0, 0, 0.6) !important;
-
-      .sidebar-brand { border-bottom-color: rgba(16, 185, 129, 0.2) !important; }
-      .brand-crest { background: #072517 !important; border-color: #10B981 !important; box-shadow: 0 0 12px rgba(16, 185, 129, 0.3) !important; }
-      .brand-text h2 { color: #FFFFFF !important; }
-      .brand-text span { color: #34D399 !important; }
-
-      .sidebar-color-switcher {
-        background: rgba(16, 185, 129, 0.06) !important;
-        border-bottom-color: rgba(16, 185, 129, 0.15) !important;
-        .color-switcher-label { color: #A7F3D0 !important; }
-        .color-switcher-active-name { color: #10B981 !important; }
-      }
-
-      .user-card {
-        background: rgba(16, 185, 129, 0.08) !important;
-        border: 1.5px solid rgba(16, 185, 129, 0.25) !important;
-      }
-      .user-avatar { background: #03140C !important; border-color: #10B981 !important; }
-      .user-name strong { color: #FFFFFF !important; }
-      .verified-pill { background: rgba(16, 185, 129, 0.25) !important; color: #6EE7B7 !important; border-color: rgba(16, 185, 129, 0.5) !important; }
-      .user-meta small { color: #A7F3D0 !important; }
-
-      .nav-btn {
-        color: #A7F3D0 !important;
-        &:hover {
-          background: rgba(16, 185, 129, 0.15) !important;
-          color: #FFFFFF !important;
-          .btn-icon { color: #FFFFFF !important; }
-        }
-        &.active {
-          background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
-          border-color: #10B981 !important;
-          border-right: 4px solid #34D399 !important;
-          color: #FFFFFF !important;
-          box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4) !important;
-          .btn-text { color: #FFFFFF !important; }
-          .btn-icon { color: #6EE7B7 !important; }
-        }
-      }
-      .btn-icon { color: #34D399 !important; }
-      .btn-badge { background: rgba(16, 185, 129, 0.25) !important; color: #6EE7B7 !important; border-color: rgba(16, 185, 129, 0.4) !important; }
-
-      .sidebar-footer {
-        background: rgba(3, 20, 12, 0.9) !important;
-        border-top-color: rgba(16, 185, 129, 0.2) !important;
-      }
-      .db-status-pill { color: #A7F3D0 !important; }
-      .site-link {
-        color: #6EE7B7 !important;
-        background: rgba(16, 185, 129, 0.08) !important;
-        border: 1px solid rgba(16, 185, 129, 0.25) !important;
-        &:hover { background: rgba(16, 185, 129, 0.2) !important; }
-      }
-      .btn-logout-sidebar {
-        background: rgba(239, 68, 68, 0.15) !important;
-        border-color: rgba(239, 68, 68, 0.35) !important;
-        color: #F87171 !important;
-        &:hover { background: rgba(239, 68, 68, 0.28) !important; }
-      }
-    }
-
-    /* 7. Forest & Bronze Sidebar (العنبر والتراث المعماري) */
-    .dash-sidebar[data-sidebar-theme="forest-bronze"] {
-      background: #160E06 !important;
-      border-left: 1.5px solid rgba(245, 158, 11, 0.28) !important;
-      box-shadow: -4px 0 35px rgba(0, 0, 0, 0.6) !important;
-
-      .sidebar-brand { border-bottom-color: rgba(245, 158, 11, 0.22) !important; }
-      .brand-crest { background: #26180C !important; border-color: #F59E0B !important; box-shadow: 0 0 12px rgba(245, 158, 11, 0.3) !important; }
-      .brand-text h2 { color: #FFFFFF !important; }
-      .brand-text span { color: #FCD34D !important; }
-
-      .sidebar-color-switcher {
-        background: rgba(245, 158, 11, 0.06) !important;
-        border-bottom-color: rgba(245, 158, 11, 0.18) !important;
-        .color-switcher-label { color: #FDE68A !important; }
-        .color-switcher-active-name { color: #F59E0B !important; }
-      }
-
-      .user-card {
-        background: rgba(245, 158, 11, 0.08) !important;
-        border: 1.5px solid rgba(245, 158, 11, 0.25) !important;
-      }
-      .user-avatar { background: #160E06 !important; border-color: #F59E0B !important; }
-      .user-name strong { color: #FFFFFF !important; }
-      .verified-pill { background: rgba(245, 158, 11, 0.25) !important; color: #FDE68A !important; border-color: rgba(245, 158, 11, 0.5) !important; }
-      .user-meta small { color: #FDE68A !important; }
-
-      .nav-btn {
-        color: #FDE68A !important;
-        &:hover {
-          background: rgba(245, 158, 11, 0.15) !important;
-          color: #FFFFFF !important;
-          .btn-icon { color: #FFFFFF !important; }
-        }
-        &.active {
-          background: linear-gradient(135deg, #D97706 0%, #B45309 100%) !important;
-          border-color: #F59E0B !important;
-          border-right: 4px solid #FCD34D !important;
-          color: #FFFFFF !important;
-          box-shadow: 0 4px 15px rgba(217, 119, 6, 0.4) !important;
-          .btn-text { color: #FFFFFF !important; }
-          .btn-icon { color: #FEF08A !important; }
-        }
-      }
-      .btn-icon { color: #F59E0B !important; }
-      .btn-badge { background: rgba(245, 158, 11, 0.25) !important; color: #FDE68A !important; border-color: rgba(245, 158, 11, 0.4) !important; }
-
-      .sidebar-footer {
-        background: rgba(22, 14, 6, 0.9) !important;
-        border-top-color: rgba(245, 158, 11, 0.2) !important;
-      }
-      .db-status-pill { color: #FDE68A !important; }
-      .site-link {
-        color: #FCD34D !important;
-        background: rgba(245, 158, 11, 0.08) !important;
-        border: 1px solid rgba(245, 158, 11, 0.3) !important;
-        &:hover { background: rgba(245, 158, 11, 0.2) !important; }
-      }
-      .btn-logout-sidebar {
-        background: rgba(239, 68, 68, 0.15) !important;
-        border-color: rgba(239, 68, 68, 0.35) !important;
-        color: #F87171 !important;
-        &:hover { background: rgba(239, 68, 68, 0.28) !important; }
-      }
-    }
-
-    /* 8. Royal Purple Sidebar (اللافندر والأرجواني الملكي) */
-    .dash-sidebar[data-sidebar-theme="royal-purple"] {
-      background: #1C0B29 !important;
-      border-left: 1.5px solid rgba(192, 132, 252, 0.25) !important;
-      box-shadow: -4px 0 35px rgba(0, 0, 0, 0.6) !important;
-
-      .sidebar-brand { border-bottom-color: rgba(192, 132, 252, 0.2) !important; }
-      .brand-crest { background: #2D1240 !important; border-color: #C084FC !important; box-shadow: 0 0 12px rgba(192, 132, 252, 0.3) !important; }
-      .brand-text h2 { color: #FFFFFF !important; }
-      .brand-text span { color: #E9D5FF !important; }
-
-      .sidebar-color-switcher {
-        background: rgba(192, 132, 252, 0.06) !important;
-        border-bottom-color: rgba(192, 132, 252, 0.18) !important;
-        .color-switcher-label { color: #E9D5FF !important; }
-        .color-switcher-active-name { color: #C084FC !important; }
-      }
-
-      .user-card {
-        background: rgba(192, 132, 252, 0.08) !important;
-        border: 1.5px solid rgba(192, 132, 252, 0.25) !important;
-      }
-      .user-avatar { background: #1C0B29 !important; border-color: #C084FC !important; }
-      .user-name strong { color: #FFFFFF !important; }
-      .verified-pill { background: rgba(192, 132, 252, 0.25) !important; color: #E9D5FF !important; border-color: rgba(192, 132, 252, 0.5) !important; }
-      .user-meta small { color: #E9D5FF !important; }
-
-      .nav-btn {
-        color: #E9D5FF !important;
-        &:hover {
-          background: rgba(192, 132, 252, 0.15) !important;
-          color: #FFFFFF !important;
-          .btn-icon { color: #FFFFFF !important; }
-        }
-        &.active {
-          background: linear-gradient(135deg, #7E22CE 0%, #6B21A8 100%) !important;
-          border-color: #C084FC !important;
-          border-right: 4px solid #E9D5FF !important;
-          color: #FFFFFF !important;
-          box-shadow: 0 4px 15px rgba(126, 34, 206, 0.4) !important;
-          .btn-text { color: #FFFFFF !important; }
-          .btn-icon { color: #F3E8FF !important; }
-        }
-      }
-      .btn-icon { color: #C084FC !important; }
-      .btn-badge { background: rgba(192, 132, 252, 0.25) !important; color: #E9D5FF !important; border-color: rgba(192, 132, 252, 0.4) !important; }
-
-      .sidebar-footer {
-        background: rgba(28, 11, 41, 0.9) !important;
-        border-top-color: rgba(192, 132, 252, 0.2) !important;
-      }
-      .db-status-pill { color: #E9D5FF !important; }
-      .site-link {
-        color: #E9D5FF !important;
-        background: rgba(192, 132, 252, 0.08) !important;
-        border: 1px solid rgba(192, 132, 252, 0.3) !important;
-        &:hover { background: rgba(192, 132, 252, 0.2) !important; }
-      }
-      .btn-logout-sidebar {
-        background: rgba(239, 68, 68, 0.15) !important;
-        border-color: rgba(239, 68, 68, 0.35) !important;
-        color: #F87171 !important;
-        &:hover { background: rgba(239, 68, 68, 0.28) !important; }
-      }
-    }
-
-    /* 9. Deep Teal Sidebar (التركواز والبحري الملكي) */
-    .dash-sidebar[data-sidebar-theme="deep-teal"] {
-      background: #032326 !important;
-      border-left: 1.5px solid rgba(6, 182, 212, 0.25) !important;
-      box-shadow: -4px 0 35px rgba(0, 0, 0, 0.6) !important;
-
-      .sidebar-brand { border-bottom-color: rgba(6, 182, 212, 0.2) !important; }
-      .brand-crest { background: #07383D !important; border-color: #06B6D4 !important; box-shadow: 0 0 12px rgba(6, 182, 212, 0.3) !important; }
-      .brand-text h2 { color: #FFFFFF !important; }
-      .brand-text span { color: #67E8F9 !important; }
-
-      .sidebar-color-switcher {
-        background: rgba(6, 182, 212, 0.06) !important;
-        border-bottom-color: rgba(6, 182, 212, 0.18) !important;
-        .color-switcher-label { color: #A5F3FC !important; }
-        .color-switcher-active-name { color: #06B6D4 !important; }
-      }
-
-      .user-card {
-        background: rgba(6, 182, 212, 0.08) !important;
-        border: 1.5px solid rgba(6, 182, 212, 0.25) !important;
-      }
-      .user-avatar { background: #032326 !important; border-color: #06B6D4 !important; }
-      .user-name strong { color: #FFFFFF !important; }
-      .verified-pill { background: rgba(6, 182, 212, 0.25) !important; color: #67E8F9 !important; border-color: rgba(6, 182, 212, 0.5) !important; }
-      .user-meta small { color: #A5F3FC !important; }
-
-      .nav-btn {
-        color: #A5F3FC !important;
-        &:hover {
-          background: rgba(6, 182, 212, 0.15) !important;
-          color: #FFFFFF !important;
-          .btn-icon { color: #FFFFFF !important; }
-        }
-        &.active {
-          background: linear-gradient(135deg, #0891B2 0%, #0E7490 100%) !important;
-          border-color: #06B6D4 !important;
-          border-right: 4px solid #67E8F9 !important;
-          color: #FFFFFF !important;
-          box-shadow: 0 4px 15px rgba(8, 145, 178, 0.4) !important;
-          .btn-text { color: #FFFFFF !important; }
-          .btn-icon { color: #CFFAFE !important; }
-        }
-      }
-      .btn-icon { color: #06B6D4 !important; }
-      .btn-badge { background: rgba(6, 182, 212, 0.25) !important; color: #67E8F9 !important; border-color: rgba(6, 182, 212, 0.4) !important; }
-
-      .sidebar-footer {
-        background: rgba(3, 35, 38, 0.9) !important;
-        border-top-color: rgba(6, 182, 212, 0.2) !important;
-      }
-      .db-status-pill { color: #A5F3FC !important; }
-      .site-link {
-        color: #67E8F9 !important;
-        background: rgba(6, 182, 212, 0.08) !important;
-        border: 1px solid rgba(6, 182, 212, 0.3) !important;
-        &:hover { background: rgba(6, 182, 212, 0.2) !important; }
-      }
-      .btn-logout-sidebar {
-        background: rgba(239, 68, 68, 0.15) !important;
-        border-color: rgba(239, 68, 68, 0.35) !important;
-        color: #F87171 !important;
-        &:hover { background: rgba(239, 68, 68, 0.28) !important; }
+        color: var(--dash-accent-gold, #D1FAE5) !important;
       }
     }
 
@@ -5374,36 +4806,6 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
 
   activeTab: 'analytics' | 'orders' | 'clients' | 'coupons' | 'portfolio' | 'pages' | 'categories' | 'services' | 'testimonials' | 'users' | 'footer' | 'agents' | 'settings' = 'analytics';
 
-  // Sidebar Theme Customization (9 ألوان فاخرة متوافقة تماماً مع كافة ثيمات النظام)
-  sidebarTheme: 'white' | 'beige' | 'black' | 'blue' | 'emerald' | 'emerald-night' | 'forest-bronze' | 'royal-purple' | 'deep-teal' = 'emerald';
-
-  readonly sidebarColors = [
-    { id: 'emerald', nameAr: 'الأخضر السعودي السيادي 🇸🇦', hex: '#0A2F24', border: '#C5A869', icon: '🌲' },
-    { id: 'white', nameAr: 'العاجي والأبيض النقي 🤍', hex: '#FFFFFF', border: '#CBD5E1', icon: '⚪' },
-    { id: 'beige', nameAr: 'البيج الملكي التراثي 🏛️', hex: '#F7F3E9', border: '#DFC698', icon: '🌾' },
-    { id: 'black', nameAr: 'الأسود الفخم الليلي 🖤', hex: '#0A0F0D', border: '#475569', icon: '⚫' },
-    { id: 'blue', nameAr: 'الأزرق الأكاديمي الملكي 🎓', hex: '#0B1E36', border: '#60A5FA', icon: '🔵' },
-    { id: 'emerald-night', nameAr: 'الزمرد الليلي الهادئ 🌙', hex: '#03140C', border: '#10B981', icon: '🌿' },
-    { id: 'forest-bronze', nameAr: 'العنبر والتراث المعماري 🍂', hex: '#160E06', border: '#F59E0B', icon: '📜' },
-    { id: 'royal-purple', nameAr: 'اللافندر الملكي السعودي 👑', hex: '#1C0B29', border: '#C084FC', icon: '💜' },
-    { id: 'deep-teal', nameAr: 'التركواز والبحري الملكي 💎', hex: '#032326', border: '#06B6D4', icon: '🌊' }
-  ] as const;
-
-  getSidebarThemeName(): string {
-    const found = this.sidebarColors.find(c => c.id === this.sidebarTheme);
-    return found ? found.nameAr.split(' ')[0] + ' ' + (found.nameAr.split(' ')[1] || '') : 'الزمردي';
-  }
-
-  setSidebarTheme(theme: 'white' | 'beige' | 'black' | 'blue' | 'emerald' | 'emerald-night' | 'forest-bronze' | 'royal-purple' | 'deep-teal'): void {
-    this.sidebarTheme = theme;
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('ummreham_sidebar_color', theme);
-    }
-    const colorObj = this.sidebarColors.find(c => c.id === theme);
-    this.showToast(`تم تغيير مظهر القائمة الجانبية إلى: ${colorObj?.nameAr || theme} ✨`);
-    this.audio.playClick();
-  }
-
   // Clients Management State & Getters
   clientSearchQuery = '';
   clientDegreeFilter = 'all';
@@ -5737,11 +5139,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (typeof localStorage !== 'undefined') {
-      const validThemes = ['white', 'beige', 'black', 'blue', 'emerald', 'emerald-night', 'forest-bronze', 'royal-purple', 'deep-teal'];
-      const savedSidebar = localStorage.getItem('ummreham_sidebar_color') as any;
-      if (savedSidebar && validThemes.includes(savedSidebar)) {
-        this.sidebarTheme = savedSidebar;
-      }
+      localStorage.removeItem('ummreham_sidebar_color');
     }
     this.loadData();
     this.syncMascotFormFromService();
