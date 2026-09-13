@@ -535,7 +535,7 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
       box-sizing: border-box;
 
       @media (max-width: 768px) {
-        padding: 0 36px;
+        padding: 0;
       }
     }
 
@@ -565,7 +565,8 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
       border-radius: 20px;
 
       @media (max-width: 768px) {
-        flex: 0 0 82vw;
+        flex: 0 0 85vw;
+          max-width: 85vw;
       }
     }
 

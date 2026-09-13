@@ -276,173 +276,6 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
         </div>
       </section>
 
-      <!-- ==========================================
-           SCENE 05: ACTIVE THEORY SPATIAL SIMULATOR & QUICK INTENT
-           ========================================== -->
-      <section class="quick-intent-section section-padding bg-ivory-warm" id="quick-intent">
-        <div class="container">
-          <div class="intent-banner glass-card-luxury-emerald tilt-card-3d" (mousemove)="onCardTilt($event)" (mouseleave)="onCardTiltReset($event)">
-            <div class="intent-header">
-              <div class="intent-tag-pill">
-                <span class="pulse-dot"></span>
-                <span>المحاكي الأكاديمي والخدمي الفوري</span>
-              </div>
-              <h3 class="intent-title">وش تحتاج اليوم؟ <span class="gold-gradient-text">احسب وقدّر طلبك فوراً</span></h3>
-              <p class="intent-subtitle">اختر القسم والمسار المناسب لك أو حدد عدد الصفحات والخيارات لحساب التكلفة والمدة والتواصل المباشر</p>
-            </div>
-
-            <!-- Mode Switcher -->
-            <div class="simulator-mode-switch">
-              <button class="mode-btn" [class.active]="simulatorTab === 'quick'" (click)="setSimulatorTab('quick')">
-                <span>⚡ مسارات الأقسام والخدمات</span>
-              </button>
-              <button class="mode-btn" [class.active]="simulatorTab === 'calc'" (click)="setSimulatorTab('calc')">
-                <span>🎛️ حاسبة التسعير والصفحات التفاعلية (Active Simulator)</span>
-              </button>
-            </div>
-
-            <!-- Mode 1: Quick Intent Grid (الأقسام الأربعة الرسمية) -->
-            <div *ngIf="simulatorTab === 'quick'" class="intent-options-grid">
-              <!-- 1. الخدمات الجامعية -->
-              <button class="intent-card tilt-card-3d" (mousemove)="onCardTilt($event)" (mouseleave)="onCardTiltReset($event)" (click)="openQuickCategory('university')">
-                <div class="intent-icon">🎓</div>
-                <div class="intent-text">
-                  <strong>الخدمات الجامعية</strong>
-                  <small>بحوث محكمة، مشاريع تخرج، عروض</small>
-                </div>
-              </button>
-
-              <!-- 2. خدمات طلاب المدارس -->
-              <button class="intent-card tilt-card-3d" (mousemove)="onCardTilt($event)" (mouseleave)="onCardTiltReset($event)" (click)="openQuickCategory('schools')">
-                <div class="intent-icon">🎒</div>
-                <div class="intent-text">
-                  <strong>خدمات طلاب المدارس</strong>
-                  <small>حل واجبات، مطويات، مقررات</small>
-                </div>
-              </button>
-
-              <!-- 3. الخدمات المكتبية -->
-              <button class="intent-card tilt-card-3d" (mousemove)="onCardTilt($event)" (mouseleave)="onCardTiltReset($event)" (click)="openQuickCategory('office')">
-                <div class="intent-icon">📑</div>
-                <div class="intent-text">
-                  <strong>الخدمات المكتبية</strong>
-                  <small>تنسيق الرسائل، تدقيق لغوي، فحص</small>
-                </div>
-              </button>
-
-              <!-- 4. الخدمات العامة -->
-              <button class="intent-card tilt-card-3d" (mousemove)="onCardTilt($event)" (mouseleave)="onCardTiltReset($event)" (click)="openQuickCategory('general')">
-                <div class="intent-icon">🏛️</div>
-                <div class="intent-text">
-                  <strong>الخدمات العامة</strong>
-                  <small>حساب المواطن، الضمان، عقد إيجار</small>
-                </div>
-              </button>
-
-              <!-- 5. حاسبة التكلفة المخصصة -->
-              <button class="intent-card cta-intent tilt-card-3d" (mousemove)="onCardTilt($event)" (mouseleave)="onCardTiltReset($event)" (click)="setSimulatorTab('calc')">
-                <div class="intent-icon">🎛️</div>
-                <div class="intent-text">
-                  <strong>حاسبة التكلفة المخصصة</strong>
-                  <small>حدد صفحاتك وجامعتك فوراً</small>
-                </div>
-              </button>
-            </div>
-
-            <!-- Mode 2: Interactive Active Simulator -->
-            <div *ngIf="simulatorTab === 'calc'" class="interactive-calc-box">
-              <div class="calc-controls-grid">
-                <!-- Degree Selection -->
-                <div class="calc-control-group">
-                  <label class="calc-label">1. الدرجة العلمية:</label>
-                  <div class="calc-pills-row">
-                    <button class="calc-pill" [class.selected]="simDegree === 'bachelor'" (click)="setSimDegree('bachelor')">بكالوريوس</button>
-                    <button class="calc-pill" [class.selected]="simDegree === 'master'" (click)="setSimDegree('master')">ماجستير 🎓</button>
-                    <button class="calc-pill" [class.selected]="simDegree === 'phd'" (click)="setSimDegree('phd')">دكتوراه 🏛️</button>
-                    <button class="calc-pill" [class.selected]="simDegree === 'promotion'" (click)="setSimDegree('promotion')">أبحاث ترقية</button>
-                  </div>
-                </div>
-
-                <!-- Service Type -->
-                <div class="calc-control-group">
-                  <label class="calc-label">2. نوع الخدمة والبحث:</label>
-                  <div class="calc-pills-row">
-                    <button class="calc-pill" [class.selected]="simService === 'research'" (click)="setSimService('research')">إعداد بحث متكامل</button>
-                    <button class="calc-pill" [class.selected]="simService === 'proposal'" (click)="setSimService('proposal')">خطة بحث Proposal</button>
-                    <button class="calc-pill" [class.selected]="simService === 'graduation'" (click)="setSimService('graduation')">مشروع تخرج وتطبيق</button>
-                    <button class="calc-pill" [class.selected]="simService === 'spss'" (click)="setSimService('spss')">تحليل إحصائي SPSS</button>
-                    <button class="calc-pill" [class.selected]="simService === 'turnitin'" (click)="setSimService('turnitin')">فحص Turnitin وصياغة</button>
-                  </div>
-                </div>
-
-                <!-- Pages Slider -->
-                <div class="calc-control-group full-width">
-                  <div class="slider-header-row">
-                    <label class="calc-label">3. عدد الصفحات المتوقعة:</label>
-                    <strong class="slider-val-badge">{{ simPages }} صفحة</strong>
-                  </div>
-                  <div class="range-slider-wrapper">
-                    <input type="range" min="5" max="150" step="5" [(ngModel)]="simPages" (input)="onSliderChange()" class="active-range-input" />
-                    <div class="range-milestones">
-                      <span>5 ص</span>
-                      <span>25 ص</span>
-                      <span>50 ص</span>
-                      <span>80 ص</span>
-                      <span>100 ص</span>
-                      <span>150 ص</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Urgency Option -->
-                <div class="calc-control-group">
-                  <label class="calc-label">4. سرعة الإنجاز المطلوبة:</label>
-                  <div class="calc-pills-row">
-                    <button class="calc-pill" [class.selected]="simUrgency === 'normal'" (click)="setSimUrgency('normal')">عادي (5-7 أيام)</button>
-                    <button class="calc-pill urgent" [class.selected]="simUrgency === 'urgent'" (click)="setSimUrgency('urgent')">⚡ فائق السرعة (48-72 ساعة)</button>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Simulator Dynamic Result Output Capsule -->
-              <div class="calc-result-capsule">
-                <div class="result-details">
-                  <div class="result-metric">
-                    <small>التكلفة التقديرية الذكية:</small>
-                    <div style="display: flex; align-items: baseline; gap: 0.6rem;" *ngIf="rewardsService.welcomeConfig().isEnabled">
-                      <strong class="gold-gradient-text price-big">{{ getDiscountedSimPrice() }} <span class="curr">ر.س</span></strong>
-                      <del style="color: #94A3B8; font-size: 0.95rem; font-weight: 600;">{{ calculateSimPrice() }} ر.س</del>
-                    </div>
-                    <strong class="gold-gradient-text price-big" *ngIf="!rewardsService.welcomeConfig().isEnabled">{{ calculateSimPrice() }} <span class="curr">ر.س</span></strong>
-                  </div>
-                  <div class="result-metric">
-                    <small>المدة المتوقعة للتسليم:</small>
-                    <strong class="text-white">{{ calculateSimDuration() }}</strong>
-                  </div>
-                  <div class="result-metric">
-                    <small>الضمانات وهدية الباحث الجديد:</small>
-                    <span class="check-pill" *ngIf="rewardsService.welcomeConfig().isEnabled" style="border-color: rgba(201, 169, 110, 0.4); color: #DFC698;">
-                      🎁 خصم {{ rewardsService.welcomeConfig().discountValue }}% بكود ({{ rewardsService.welcomeConfig().couponCode }}) + Turnitin مجاني
-                    </span>
-                    <span class="check-pill" *ngIf="!rewardsService.welcomeConfig().isEnabled">✓ فحص Turnitin مجاني + تعديلات مستمرة</span>
-                  </div>
-                </div>
-
-                <div class="result-action">
-                  <button class="btn-saudi-primary btn-calc-order" (click)="orderFromSimulator()">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M17.472 14.382c-.301-.15-1.782-.879-2.057-.979-.276-.1-.476-.15-.676.15-.2.301-.776.98-1.026 1.281-.25.301-.45.301-.75.15-.301-.15-1.27-.468-2.42-1.493-.895-.798-1.5-1.784-1.675-2.085-.176-.3-.019-.462.131-.611.136-.135.301-.351.451-.527.151-.175.201-.3.301-.501.101-.2.05-.375-.025-.525-.075-.15-.676-1.63-1.002-2.23-.275-.6-.576-.525-.776-.525-.2 0-.426-.025-.651-.025-.226 0-.602.075-.927.426-.326.35-1.253 1.226-1.253 2.984 0 1.758 1.278 3.46 1.454 3.71.175.25 2.511 3.834 6.084 5.378.85.367 1.514.587 2.031.751.854.271 1.631.233 2.246.141.685-.102 1.782-.728 2.032-1.431.25-.702.25-1.303.175-1.43-.075-.126-.275-.226-.576-.376z"/>
-                      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
-                    </svg>
-                    <span>تأكيد الطلب وحجز المستشار عبر واتساب</span>
-                    <span>←</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
 
 
@@ -506,112 +339,45 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
         </div>
       </section>
 
-      <!-- ==========================================
-           SCENE: آراء العملاء (صفين متحركين يمين ويسار - مطابقة تماماً للصورة 3)
+            <!-- ==========================================
+           SCENE: آراء العملاء (Premium Testimonials)
            ========================================== -->
-      <section class="reviews-marquee-section section-padding" id="customer-reviews-section">
+      <section class="reviews-premium-section section-padding" id="customer-reviews-section">
         <div class="container">
           <div class="section-badge-center">
             <span class="badge-gold">⭐️ شهادات وثقة الباحثين والطلاب</span>
             <h2 class="section-title">آراء وتجارب العملاء مع <span class="gold-gradient-text">أم رهام</span></h2>
-            <p class="section-desc">ودعم مستمر لمساعدتك على تحقيق أهدافك الأكاديمية بكل ثقة</p>
+            <p class="section-desc">آراء حقيقية من المنصة، لنجاحات مستمرة ودعم أكاديمي متواصل</p>
           </div>
-        </div>
 
-        <!-- Two Horizontal Continuous Flow Rows (صفين متحركين يمين ويسار) -->
-        <div class="marquee-flow-container">
+          <div class="premium-testimonials-carousel" *ngIf="testimonials && testimonials.length > 0">
+            <div class="testimonial-glass-card" *ngFor="let t of testimonials">
+              <div class="testim-header">
+                <div class="testim-avatar-wrapper">
+                  <div class="testim-avatar" *ngIf="t.imageUrl">
+                    <img [src]="t.imageUrl" [alt]="t.clientName" />
+                  </div>
+                  <div class="testim-avatar-placeholder" *ngIf="!t.imageUrl">
+                    {{ t.clientName ? t.clientName.charAt(0) : 'ع' }}
+                  </div>
+                </div>
+                <div class="testim-meta">
+                  <h4 class="testim-name">{{ t.clientName }}</h4>
+                  <p class="testim-title" *ngIf="t.clientTitle || t.clientUniversity">{{ t.clientTitle }} {{ t.clientUniversity ? '• ' + t.clientUniversity : '' }}</p>
+                  <div class="testim-rating">
+                    <span class="star-icon" *ngFor="let s of [1,2,3,4,5]" [class.active]="s <= (t.rating || 5)">★</span>
+                  </div>
+                </div>
+              </div>
+              <div class="testim-body">
+                <p class="testim-quote">"{{ t.contentAr }}"</p>
+              </div>
+            </div>
+          </div>
           
-          <!-- Row 1: Flow to Right (بشكل بطيء ويمكن التمرير والإيقاف) -->
-          <div class="marquee-row-wrapper" (mouseenter)="onHover()">
-            <div class="marquee-strip strip-moving-right">
-              <div class="review-image3-card" *ngFor="let r of reviewsRow1" (click)="onHover()">
-                <p class="review-bubble-text">{{ r.quote }}</p>
-                <!-- Image Attachment Preview -->
-                <div *ngIf="r.imageUrl" class="card-img-preview-box">
-                  <img [src]="r.imageUrl" [alt]="r.name" class="card-review-img" />
-                </div>
-
-                <!-- Voice Note Audio Player -->
-                <div *ngIf="r.isAudio || r.audioUrl" class="card-audio-voice-bar">
-                  <button type="button" class="btn-play-voice-pill" (click)="toggleAudioReview(); $event.stopPropagation()">
-                    <span>{{ isReviewPlaying ? '⏸️ إيقاف البصمة' : '🎙️ تشغيل البصمة الصوتية' }}</span>
-                  </button>
-                  <div class="voice-wave-min"><span></span><span></span><span></span><span></span></div>
-                </div>
-
-                <div class="review-footer-row">
-                  <div class="review-star-rating">
-                    <span class="star-icon">★</span>
-                    <span class="rating-num">5.0</span>
-                  </div>
-                  <div class="review-user-info">
-                    <h4 class="user-display-name">{{ r.name }}</h4>
-                    <span class="user-course-sub">{{ r.subject }}</span>
-                  </div>
-                  <div class="user-avatar-circle" [style.background]="r.avatarBg">
-                    <span>{{ r.emoji }}</span>
-                  </div>
-                </div>
-              </div>
-              <!-- Duplicate track for seamless infinite loop -->
-              <div class="review-image3-card" *ngFor="let r of reviewsRow1" (click)="onHover()">
-                <p class="review-bubble-text">{{ r.quote }}</p>
-                <div class="review-footer-row">
-                  <div class="review-star-rating">
-                    <span class="star-icon">★</span>
-                    <span class="rating-num">5.0</span>
-                  </div>
-                  <div class="review-user-info">
-                    <h4 class="user-display-name">{{ r.name }}</h4>
-                    <span class="user-course-sub">{{ r.subject }}</span>
-                  </div>
-                  <div class="user-avatar-circle" [style.background]="r.avatarBg">
-                    <span>{{ r.emoji }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="premium-testimonials-empty" *ngIf="!testimonials || testimonials.length === 0">
+            <p>جاري تحميل آراء العملاء...</p>
           </div>
-
-          <!-- Row 2: Flow to Left (الصف الثاني يتحرك بالاتجاه المعاكس) -->
-          <div class="marquee-row-wrapper" (mouseenter)="onHover()">
-            <div class="marquee-strip strip-moving-left">
-              <div class="review-image3-card" *ngFor="let r of reviewsRow2" (click)="onHover()">
-                <p class="review-bubble-text">{{ r.quote }}</p>
-                <div class="review-footer-row">
-                  <div class="review-star-rating">
-                    <span class="star-icon">★</span>
-                    <span class="rating-num">5.0</span>
-                  </div>
-                  <div class="review-user-info">
-                    <h4 class="user-display-name">{{ r.name }}</h4>
-                    <span class="user-course-sub">{{ r.subject }}</span>
-                  </div>
-                  <div class="user-avatar-circle" [style.background]="r.avatarBg">
-                    <span>{{ r.emoji }}</span>
-                  </div>
-                </div>
-              </div>
-              <!-- Duplicate track for seamless infinite loop -->
-              <div class="review-image3-card" *ngFor="let r of reviewsRow2" (click)="onHover()">
-                <p class="review-bubble-text">{{ r.quote }}</p>
-                <div class="review-footer-row">
-                  <div class="review-star-rating">
-                    <span class="star-icon">★</span>
-                    <span class="rating-num">5.0</span>
-                  </div>
-                  <div class="review-user-info">
-                    <h4 class="user-display-name">{{ r.name }}</h4>
-                    <span class="user-course-sub">{{ r.subject }}</span>
-                  </div>
-                  <div class="user-avatar-circle" [style.background]="r.avatarBg">
-                    <span>{{ r.emoji }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
       </section>
 
@@ -5123,12 +4889,11 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 0 45px;
+      padding: 0;
       box-sizing: border-box;
 
       @media (max-width: 768px) {
-        padding: 0 35px;
-      }
+        }
     }
 
     .uni-cards-track {
@@ -5150,7 +4915,7 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
 
     .uni-card-item {
       flex: 0 0 300px;
-      max-width: 85vw;
+      max-width: 80vw;
       scroll-snap-align: center;
       background: #FFFFFF;
       border-radius: 24px;
@@ -5532,7 +5297,145 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       border: 2px solid #FFFFFF;
     }
 
-  `]
+  
+    /* ==========================================
+       PREMIUM TESTIMONIALS (Masonry / Carousel)
+       ========================================== */
+    .reviews-premium-section {
+      background: linear-gradient(180deg, #F9FAFB 0%, #FFFFFF 100%);
+      overflow: hidden;
+    }
+
+    .premium-testimonials-carousel {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 1rem 1.5rem 3rem 1.5rem;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .premium-testimonials-carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .testimonial-glass-card {
+      scroll-snap-align: center;
+      flex: 0 0 calc(100% - 3rem);
+      max-width: 450px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(229, 185, 79, 0.2);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    
+    @media (min-width: 768px) {
+      .testimonial-glass-card {
+        flex: 0 0 calc(50% - 1.5rem);
+      }
+    }
+    @media (min-width: 1024px) {
+      .testimonial-glass-card {
+        flex: 0 0 calc(33.333% - 1.5rem);
+      }
+    }
+
+    .testimonial-glass-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(229, 185, 79, 0.1);
+      border-color: rgba(229, 185, 79, 0.4);
+    }
+
+    .testim-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .testim-avatar-wrapper {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid #E5B94F;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #F1F5F9;
+      flex-shrink: 0;
+    }
+
+    .testim-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .testim-avatar-placeholder {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #0F5132;
+    }
+
+    .testim-meta {
+      flex: 1;
+    }
+
+    .testim-name {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #0A2F24;
+    }
+
+    .testim-title {
+      margin: 0;
+      font-size: 0.85rem;
+      color: #64748B;
+      margin-top: 0.2rem;
+    }
+
+    .testim-rating {
+      display: flex;
+      gap: 0.2rem;
+      margin-top: 0.3rem;
+    }
+
+    .testim-rating .star-icon {
+      color: #CBD5E1;
+      font-size: 0.95rem;
+    }
+
+    .testim-rating .star-icon.active {
+      color: #E5B94F;
+    }
+
+    .testim-body {
+      position: relative;
+    }
+
+    .testim-quote {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #334155;
+      font-style: italic;
+    }
+    
+    .premium-testimonials-empty {
+      text-align: center;
+      padding: 3rem;
+      color: #64748B;
+      font-size: 1.1rem;
+    }
+`]
 })
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   api = inject(ApiService);
