@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet, Router } from '@angular/router';
+import { RouterOutlet, RouterModule, Router } from '@angular/router';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { AudioService } from './core/services/audio.service';
@@ -14,7 +14,8 @@ import { SaudFarahWelcomeComponent } from './shared/components/saud-farah-welcom
   standalone: true,
   imports: [
     CommonModule, 
-    RouterOutlet, 
+    RouterOutlet,
+    RouterModule,
     HeaderComponent, 
     FooterComponent, 
     AdminLoginModalComponent,

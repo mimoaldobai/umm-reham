@@ -39,7 +39,29 @@
     </svg>
   </button>
 
-
+  <!-- Mobile Luxury Floating Bottom Navigation Bar (شريط التنقل السفلي الفاخر للهاتف - ثابت تماماً بأسفل الشاشة) -->
+  <nav class="mobile-bottom-appbar" *ngIf="!isAdminRoute()" dir="rtl">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="m-tab-item" (click)="audio.playClick()">
+      <span class="m-tab-ico">🏠</span>
+      <span class="m-tab-txt">الرئيسية</span>
+    </a>
+    <a routerLink="/services" routerLinkActive="active" class="m-tab-item" (click)="audio.playClick()">
+      <span class="m-tab-ico">🛍️</span>
+      <span class="m-tab-txt">خدماتنا</span>
+    </a>
+    <a routerLink="/testimonials" routerLinkActive="active" class="m-tab-item" (click)="audio.playClick()">
+      <span class="m-tab-ico">⭐</span>
+      <span class="m-tab-txt">آراؤنا</span>
+    </a>
+    <a routerLink="/articles" routerLinkActive="active" class="m-tab-item" (click)="audio.playClick()">
+      <span class="m-tab-ico">📚</span>
+      <span class="m-tab-txt">مقالاتنا</span>
+    </a>
+    <a routerLink="/contact" routerLinkActive="active" class="m-tab-item" (click)="audio.playClick()">
+      <span class="m-tab-ico">💬</span>
+      <span class="m-tab-txt">تواصل معنا</span>
+    </a>
+  </nav>
 
   <!-- Saud & Farah Cinematic Reception Welcome Overlay -->
   <app-saud-farah-welcome *ngIf="!isAdminRoute()"></app-saud-farah-welcome>

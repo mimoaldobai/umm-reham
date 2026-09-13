@@ -46,7 +46,7 @@
 
 @media (max-width: 768px) {
   .floating-whatsapp-btn {
-    bottom: 74px; /* Elevated above bottom nav bar */
+    bottom: 80px; /* Elevated cleanly above bottom nav bar */
     right: 14px;
     width: 44px;
     height: 44px;
@@ -87,9 +87,79 @@
 
 @media (max-width: 768px) {
   .floating-accessibility-btn {
-    bottom: 74px; /* Elevated above bottom nav bar */
+    bottom: 80px; /* Elevated cleanly above bottom nav bar */
     left: 14px;
     width: 42px;
     height: 42px;
   }
 }
+
+/* =========================================================
+   Mobile Luxury Floating Bottom App Bar (شريط التنقل السفلي الفاخر)
+   محدد ومثبت بأسفل شاشة الهاتف تماماً خارج أي حاويات
+   ========================================================= */
+.mobile-bottom-appbar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1.5px solid rgba(201, 169, 110, 0.35);
+  z-index: 9995;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 0.5rem;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+  box-shadow: 0 -4px 22px rgba(0, 0, 0, 0.08);
+
+  .m-tab-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    text-decoration: none;
+    color: #556B62;
+    font-size: 0.72rem;
+    font-weight: 700;
+    flex: 1;
+    padding: 6px 0;
+    transition: color 0.2s, transform 0.2s;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+
+    .m-tab-ico {
+      font-size: 1.25rem;
+      line-height: 1;
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    &.active {
+      color: #0F5132 !important;
+      font-weight: 800;
+
+      .m-tab-ico {
+        transform: scale(1.18);
+      }
+
+      .m-tab-txt {
+        color: #0F5132 !important;
+        font-weight: 800;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-bottom-appbar {
+    display: flex !important;
+  }
+  .page-content:not(.admin-mode) {
+    padding-bottom: 74px !important; /* يمنع حجب أي محتوى خلف الشريط السفلي */
+  }
+}
+

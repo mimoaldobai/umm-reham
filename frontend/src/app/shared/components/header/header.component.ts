@@ -272,30 +272,6 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
           </div>
         </nav>
       </div>
-
-      <!-- Mobile Luxury Floating Bottom Navigation Bar (شريط التنقل السفلي الفاخر للهاتف) -->
-      <nav class="mobile-bottom-appbar">
-        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="m-tab-item" (click)="onNavClick()">
-          <span class="m-tab-ico">🏠</span>
-          <span class="m-tab-txt">الرئيسية</span>
-        </a>
-        <a routerLink="/services" routerLinkActive="active" class="m-tab-item" (click)="onNavClick()">
-          <span class="m-tab-ico">🛍️</span>
-          <span class="m-tab-txt">خدماتنا</span>
-        </a>
-        <a routerLink="/testimonials" routerLinkActive="active" class="m-tab-item" (click)="onNavClick()">
-          <span class="m-tab-ico">⭐</span>
-          <span class="m-tab-txt">آراؤنا</span>
-        </a>
-        <a routerLink="/articles" routerLinkActive="active" class="m-tab-item" (click)="onNavClick()">
-          <span class="m-tab-ico">📚</span>
-          <span class="m-tab-txt">مقالاتنا</span>
-        </a>
-        <a routerLink="/contact" routerLinkActive="active" class="m-tab-item" (click)="onNavClick()">
-          <span class="m-tab-ico">💬</span>
-          <span class="m-tab-txt">تواصل معنا</span>
-        </a>
-      </nav>
     </header>
 
     <!-- Global Favorites Drawer Component -->
@@ -651,14 +627,14 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
       display: none;
       align-items: center;
       gap: 6px;
-      background: var(--theme-cta-bg, #0F5132);
-      color: var(--theme-cta-text, #FFFFFF);
-      border: 1.5px solid var(--theme-accent, #C9A96E);
+      background: #0F5132 !important;
+      color: #FFFFFF !important;
+      border: 1.5px solid #C9A96E !important;
       border-radius: 9999px;
       padding: 6px 12px;
       cursor: pointer;
       flex-shrink: 0;
-      box-shadow: 0 4px 12px rgba(15, 81, 50, 0.2);
+      box-shadow: 0 4px 12px rgba(15, 81, 50, 0.25);
       transition: all 0.25s ease;
     }
     .hamburger-box {
@@ -696,49 +672,6 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
       overflow-y: auto;
     }
 
-    /* Mobile Luxury Floating Bottom Navigation Bar */
-    .mobile-bottom-appbar {
-      display: none;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 62px;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(14px);
-      border-top: 1.5px solid rgba(201, 169, 110, 0.35);
-      z-index: 995;
-      justify-content: space-around;
-      align-items: center;
-      padding: 0 0.5rem;
-      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
-    }
-    .m-tab-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 2px;
-      text-decoration: none;
-      color: #556B62;
-      font-size: 0.72rem;
-      font-weight: 700;
-      flex: 1;
-      padding: 6px 0;
-      transition: color 0.2s, transform 0.2s;
-    }
-    .m-tab-ico {
-      font-size: 1.25rem;
-      line-height: 1;
-    }
-    .m-tab-item.active {
-      color: var(--theme-accent, #0F5132);
-      font-weight: 800;
-    }
-    .m-tab-item.active .m-tab-ico {
-      transform: scale(1.15);
-    }
-
     .mobile-nav-items {
       display: flex;
       flex-direction: column;
@@ -774,9 +707,6 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
     }
 
     @media (max-width: 768px) {
-      .mobile-bottom-appbar {
-        display: flex !important;
-      }
       .header-action-group app-theme-switcher {
         display: none !important; /* Theme switcher is in the mobile drawer */
       }

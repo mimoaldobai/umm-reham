@@ -1318,6 +1318,30 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       border-radius: 4px;
     }
 
+    @media (max-width: 768px) {
+      .carousel-nav-btn {
+        display: none !important;
+      }
+      .realms-cards-track {
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding: 0.5rem 0.75rem;
+        gap: 0.85rem;
+      }
+      .realm-card-item {
+        flex: 0 0 76vw !important;
+        max-width: 280px !important;
+        scroll-snap-align: center;
+      }
+      .realm-card-title {
+        font-size: 0.95rem !important;
+        line-height: 1.4 !important;
+        min-height: 2.8em !important;
+        white-space: normal !important;
+        word-break: break-word !important;
+      }
+    }
+
     /* ==========================================
        DYNAMIC TRIAD GRID (3 CARDS)
        ========================================== */
