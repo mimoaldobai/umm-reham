@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, ActivatedRoute } from '@angular/router';
@@ -87,12 +87,37 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
             </span>
           </div>
 
-          <!-- Services Curated Grid -->
-          <div class="services-curated-grid">
-            <div 
-              *ngFor="let s of filteredServices; let idx = index" 
-              class="service-luxury-card"
-              (mouseenter)="onHover()">
+          <!-- Services Showcase Slider (التنقل يمين ويسار مع أسهم التحكم والبطاقة البارزة) -->
+          <div class="services-showcase-wrapper">
+
+            <!-- Right Arrow (السابق - يمين) -->
+            <button 
+              type="button" 
+              class="svc-carousel-arrow arrow-right" 
+              (click)="scrollServicesCarousel('prev')" 
+              title="الخدمة السابقة (يمين)" 
+              aria-label="الخدمة السابقة">
+              <span>›</span>
+            </button>
+
+            <!-- Left Arrow (التالي - يسار) -->
+            <button 
+              type="button" 
+              class="svc-carousel-arrow arrow-left" 
+              (click)="scrollServicesCarousel('next')" 
+              title="الخدمة التالية (يسار)" 
+              aria-label="الخدمة التالية">
+              <span>‹</span>
+            </button>
+
+            <!-- Horizontal Track (يمين ويسار) -->
+            <div class="services-horizontal-track" #servicesTrack (scroll)="onServicesTrackScroll()">
+              <div 
+                *ngFor="let s of filteredServices; let idx = index" 
+                class="service-luxury-card"
+                [class.prominent-card]="idx === activeCardIndex"
+                (mouseenter)="activeCardIndex = idx"
+                (click)="activeCardIndex = idx">
               
               <!-- Card Header -->
               <div class="card-header-row">
@@ -248,6 +273,25 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
               </div>
 
             </div>
+            </div>
+
+            <!-- Bottom Counter & Dots Indicator -->
+            <div class="services-slider-nav-footer" *ngIf="filteredServices.length > 1">
+              <span class="svc-counter-pill">
+                الخدمة <strong>{{ activeCardIndex + 1 }}</strong> من <strong>{{ filteredServices.length }}</strong>
+              </span>
+              <div class="svc-dots-bar">
+                <button 
+                  *ngFor="let s of filteredServices; let idx = index"
+                  type="button"
+                  class="svc-dot" 
+                  [class.active]="idx === activeCardIndex"
+                  (click)="scrollToCardIndex(idx)"
+                  [title]="s.nameAr">
+                </button>
+              </div>
+            </div>
+
           </div>
 
           <!-- Empty search result fallback -->
@@ -480,6 +524,154 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
       border-radius: var(--radius-full);
       font-weight: 700;
       border: 1px solid #A7F3D0;
+    }
+
+    /* Services Showcase Horizontal Carousel (يمين ويسار) */
+    .services-showcase-wrapper {
+      position: relative;
+      width: 100%;
+      margin: 1rem 0 2.5rem;
+    }
+
+    .services-horizontal-track {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding: 1.25rem 0.65rem 1.75rem;
+      width: 100%;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      box-sizing: border-box;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    .services-horizontal-track .service-luxury-card {
+      flex: 0 0 380px;
+      max-width: 90vw;
+      scroll-snap-align: center;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      box-sizing: border-box;
+
+      @media (max-width: 768px) {
+        flex: 0 0 88vw;
+      }
+    }
+
+    /* Prominent Card Effect (وتكون الي تظهر تكون بارزه) */
+    .services-horizontal-track .service-luxury-card.prominent-card {
+      border: 2px solid var(--theme-accent, #C5A869) !important;
+      box-shadow: 0 20px 48px rgba(10, 47, 36, 0.18), 0 0 24px rgba(197, 168, 105, 0.28) !important;
+      transform: scale(1.025);
+      background: #FFFFFF;
+
+      &::before {
+        opacity: 1 !important;
+        height: 4.5px !important;
+      }
+
+      .card-icon-emblem {
+        transform: scale(1.12);
+        border-color: var(--theme-accent, #C5A869);
+        box-shadow: 0 4px 15px rgba(197, 168, 105, 0.35);
+      }
+    }
+
+    /* Showcase Arrows (أسهم يمين ويسار) */
+    .svc-carousel-arrow {
+      position: absolute;
+      top: 48%;
+      transform: translateY(-50%);
+      z-index: 25;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--theme-primary, #0A2F24);
+      color: var(--theme-accent, #E5B94F);
+      border: 2px solid var(--theme-accent, #E5B94F);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.8rem;
+      line-height: 1;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+      &:hover {
+        transform: translateY(-50%) scale(1.12);
+        background: var(--theme-accent, #E5B94F);
+        color: var(--theme-primary, #0A2F24);
+        box-shadow: 0 10px 28px rgba(229, 185, 79, 0.45);
+      }
+
+      &.arrow-right {
+        right: -18px;
+      }
+
+      &.arrow-left {
+        left: -18px;
+      }
+
+      @media (max-width: 768px) {
+        width: 38px;
+        height: 38px;
+        font-size: 1.4rem;
+        &.arrow-right { right: 2px; }
+        &.arrow-left { left: 2px; }
+      }
+    }
+
+    /* Slider Footer & Dots */
+    .services-slider-nav-footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.65rem;
+      margin-top: 0.5rem;
+    }
+
+    .svc-counter-pill {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #0A2F24;
+      background: rgba(197, 168, 105, 0.15);
+      padding: 0.25rem 0.9rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(197, 168, 105, 0.35);
+    }
+
+    .svc-dots-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      max-width: 90vw;
+      overflow-x: auto;
+      padding: 4px;
+      scrollbar-width: none;
+      &::-webkit-scrollbar { display: none; }
+    }
+
+    .svc-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #CBD5E1;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: all 0.25s;
+
+      &.active {
+        width: 24px;
+        border-radius: 9999px;
+        background: var(--theme-accent, #0F5132);
+        box-shadow: 0 0 8px rgba(15, 81, 50, 0.4);
+      }
     }
 
     /* Curated Services Grid */
@@ -1090,6 +1282,57 @@ export class ServicesPageComponent implements OnInit {
   selectedCategorySlug = 'all';
   searchQuery = '';
   activeService: ServiceItem | null = null;
+  @ViewChild('servicesTrack') servicesTrackRef?: ElementRef<HTMLDivElement>;
+  activeCardIndex = 0;
+
+  scrollServicesCarousel(dir: 'next' | 'prev'): void {
+    this.audio.playClick();
+    if (!this.servicesTrackRef) return;
+    const el = this.servicesTrackRef.nativeElement;
+    const cardEl = el.querySelector('.service-luxury-card') as HTMLElement;
+    const scrollStep = cardEl ? (cardEl.offsetWidth + 24) : 380;
+
+    if (dir === 'next') {
+      el.scrollBy({ left: -scrollStep, behavior: 'smooth' });
+      if (this.activeCardIndex < this.filteredServices.length - 1) {
+        this.activeCardIndex++;
+      }
+    } else {
+      el.scrollBy({ left: scrollStep, behavior: 'smooth' });
+      if (this.activeCardIndex > 0) {
+        this.activeCardIndex--;
+      }
+    }
+  }
+
+  scrollToCardIndex(idx: number): void {
+    this.audio.playClick();
+    this.activeCardIndex = idx;
+    if (!this.servicesTrackRef) return;
+    const el = this.servicesTrackRef.nativeElement;
+    const cards = el.querySelectorAll('.service-luxury-card');
+    if (cards[idx]) {
+      (cards[idx] as HTMLElement).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+  }
+
+  onServicesTrackScroll(): void {
+    if (!this.servicesTrackRef) return;
+    const el = this.servicesTrackRef.nativeElement;
+    const cards = el.querySelectorAll('.service-luxury-card');
+    const center = el.getBoundingClientRect().left + el.clientWidth / 2;
+    let closestIdx = 0;
+    let minDiff = Infinity;
+    cards.forEach((c, i) => {
+      const rect = c.getBoundingClientRect();
+      const diff = Math.abs(rect.left + rect.width / 2 - center);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closestIdx = i;
+      }
+    });
+    this.activeCardIndex = closestIdx;
+  }
 
   // Track user-selected template per service
   selectedTemplates: { [serviceId: string]: ServiceTemplate } = {};
@@ -1153,7 +1396,11 @@ export class ServicesPageComponent implements OnInit {
 
   filterCategory(slug: string): void {
     this.selectedCategorySlug = slug;
+    this.activeCardIndex = 0;
     this.audio.playClick();
+    if (this.servicesTrackRef) {
+      this.servicesTrackRef.nativeElement.scrollTo({ left: 0, behavior: 'smooth' });
+    }
   }
 
   onSearchChange(): void {

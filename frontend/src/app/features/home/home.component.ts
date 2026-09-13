@@ -154,16 +154,9 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       <section class="realms-section-cinematic" id="realms-ecosystem">
         <div class="container">
           
-          <!-- Section Top Bar -->
-          <div class="realms-top-bar">
-            <div>
-              <span class="realms-sub-tag">🏛️ متجر الخدمات والمسارات المعتمدة • الدفع بعد الإنجاز 🛡️</span>
-              <h2 class="realms-main-title">عوالم وخدمات أم رهام</h2>
-            </div>
-            <a routerLink="/services" class="realms-explore-link">
-              <span>استكشف كافة الخدمات بالمتجر ({{ services.length }})</span>
-              <span class="explore-arrow">←</span>
-            </a>
+          <!-- Section Header: خدمات أم رهام -->
+          <div class="realms-top-bar realms-centered-header">
+            <h2 class="realms-main-title">خدمات أم رهام</h2>
           </div>
 
           <!-- Services Carousel Slider (Auto-Moving & Real Services) -->
@@ -1047,9 +1040,11 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
 
     .realms-top-bar {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 1.8rem;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-bottom: 2rem;
     }
 
     .realms-sub-tag {

@@ -59,8 +59,19 @@ import { NotificationsDrawerComponent } from '../notifications-drawer/notificati
     <header class="main-site-header" [class.scrolled]="isScrolled" dir="rtl">
       <div class="header-inner-container">
         
-        <!-- Right: Brand Logo (UR Monogram with Sunburst + Slogan) -->
-        <div class="header-brand-section">
+        <!-- Right: Hamburger & Brand Logo Group (أيقونة القائمة بيمين شعار واسم المنصة) -->
+        <div class="header-brand-wrapper">
+          <!-- Mobile Hamburger Menu Button -->
+          <button type="button" class="btn-mobile-toggle" (click)="toggleMobileMenu()" aria-label="القائمة الرئيسية" title="القائمة الرئيسية">
+            <span class="hamburger-box">
+              <span class="bar" [class.open]="isMobileMenuOpen"></span>
+              <span class="bar" [class.open]="isMobileMenuOpen"></span>
+              <span class="bar" [class.open]="isMobileMenuOpen"></span>
+            </span>
+          </button>
+
+          <!-- Brand Logo (UR Monogram with Sunburst + Slogan) -->
+          <div class="header-brand-section">
           <a routerLink="/" class="brand-link" (click)="onNavClick()">
             
             <!-- UR Monogram Logo with Sunburst (الشعار أولاً قبل الاسم) -->
@@ -89,6 +100,7 @@ import { NotificationsDrawerComponent } from '../notifications-drawer/notificati
             </div>
 
           </a>
+        </div>
         </div>
 
         <!-- Center: Navigation Links -->
@@ -232,15 +244,7 @@ import { NotificationsDrawerComponent } from '../notifications-drawer/notificati
           <!-- Multi-Theme Palette Switcher (👑 السيادية | 🤍 العاجي | 🌙 الزمرد الليلي | 🏛️ التراثي) -->
           <app-theme-switcher></app-theme-switcher>
 
-          <!-- Mobile Hamburger Menu Button -->
-          <button type="button" class="btn-mobile-toggle" (click)="toggleMobileMenu()" aria-label="القائمة الرئيسية">
-            <span class="hamburger-box">
-              <span class="bar" [class.open]="isMobileMenuOpen"></span>
-              <span class="bar" [class.open]="isMobileMenuOpen"></span>
-              <span class="bar" [class.open]="isMobileMenuOpen"></span>
-            </span>
-            <span class="toggle-lbl">{{ isMobileMenuOpen ? 'إغلاق ✕' : 'القائمة ☰' }}</span>
-          </button>
+
 
         </div>
 
@@ -409,7 +413,14 @@ import { NotificationsDrawerComponent } from '../notifications-drawer/notificati
       gap: 1.5rem;
     }
 
-    /* Brand Section */
+    /* Brand Section & Mobile Toggle Group */
+    .header-brand-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-shrink: 0;
+    }
+
     .header-brand-section {
       display: flex;
       align-items: center;
@@ -679,16 +690,23 @@ import { NotificationsDrawerComponent } from '../notifications-drawer/notificati
     .btn-mobile-toggle {
       display: none;
       align-items: center;
-      gap: 6px;
-      background: #0F5132 !important;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: var(--theme-primary, #0A2F24) !important;
       color: #FFFFFF !important;
-      border: 1.5px solid #C9A96E !important;
-      border-radius: 9999px;
-      padding: 6px 12px;
+      border: 1.8px solid var(--theme-accent, #E5B94F) !important;
+      border-radius: 50%;
+      padding: 0;
       cursor: pointer;
       flex-shrink: 0;
-      box-shadow: 0 4px 12px rgba(15, 81, 50, 0.25);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
       transition: all 0.25s ease;
+
+      &:hover {
+        transform: scale(1.06);
+        border-color: #FFFFFF !important;
+      }
     }
     .hamburger-box {
       display: flex;
@@ -785,7 +803,8 @@ import { NotificationsDrawerComponent } from '../notifications-drawer/notificati
       }
       .btn-mobile-toggle {
         display: flex !important;
-        order: -1; /* Always first on the left side! */
+        order: 0;
+        margin-left: 0.35rem;
       }
     }
 
