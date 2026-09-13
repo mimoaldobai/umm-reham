@@ -1200,6 +1200,120 @@ body,
 }
 
 /* ==========================================================================
+   DARK CARDS & BANNERS: THEME SYNCHRONIZATION & PURE CONTRAST PROTECTION
+   ========================================================================== */
+.about-cta-box,
+.reward-review-box,
+.order-redirect-card,
+.vip-whatsapp-card,
+.featured-voice-bar,
+.hero-banner-content {
+  background: var(--theme-footer-bg, linear-gradient(135deg, #0A2F24 0%, #06180E 100%)) !important;
+  border-color: var(--theme-footer-border, rgba(201, 169, 110, 0.35)) !important;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.22) !important;
+
+  h1, h2, h3, h4, h5, h6, strong, .fvb-info strong {
+    color: #FFFFFF !important;
+  }
+
+  p, small:not(.fvb-info small), li {
+    color: var(--theme-footer-text, #CBDAD3) !important;
+  }
+
+  .fvb-info small,
+  .rrb-badge,
+  .orc-badge {
+    color: var(--theme-footer-accent, #DFC698) !important;
+  }
+
+  .btn-saudi-gold,
+  .btn-go-to-order,
+  .btn-wa-pill {
+    background: var(--theme-cta-bg, linear-gradient(135deg, #0F5132 0%, #1A6B44 100%)) !important;
+    color: var(--theme-cta-text, #FFFFFF) !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25) !important;
+    span {
+      color: var(--theme-cta-text, #FFFFFF) !important;
+    }
+    &:hover {
+      filter: brightness(1.1) !important;
+      transform: translateY(-2px) !important;
+    }
+  }
+
+  .btn-outline-gold {
+    border-color: var(--theme-footer-accent, #DFC698) !important;
+    color: var(--theme-footer-accent, #DFC698) !important;
+    span {
+      color: var(--theme-footer-accent, #DFC698) !important;
+    }
+    &:hover {
+      background: var(--theme-footer-accent, #DFC698) !important;
+      color: #06130D !important;
+      span {
+        color: #06130D !important;
+      }
+    }
+  }
+
+  .fvb-play-btn {
+    background: var(--theme-cta-bg, #0077B6) !important;
+    color: #FFFFFF !important;
+  }
+
+  .vw-bar {
+    background: var(--theme-footer-accent, #00B4D8) !important;
+  }
+}
+
+/* Articles Page Dynamic Theming */
+.art-cover-box {
+  background: var(--theme-footer-bg, linear-gradient(135deg, #1B4332 0%, #0F2A1F 100%)) !important;
+  border-bottom: 1px solid var(--theme-footer-border, rgba(201, 169, 110, 0.3)) !important;
+}
+
+.green-gradient-text {
+  background: var(--theme-cta-bg, linear-gradient(135deg, #0F5132 0%, #1A6B44 100%)) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+.art-tag {
+  background: var(--theme-badge-bg, rgba(0, 180, 216, 0.12)) !important;
+  border-color: var(--theme-badge-border, rgba(0, 180, 216, 0.35)) !important;
+  color: var(--theme-badge-text, #0077B6) !important;
+}
+
+.btn-read-guide {
+  color: var(--theme-accent, #0F5132) !important;
+  &:hover {
+    color: var(--theme-accent-gold, #E5B94F) !important;
+  }
+}
+
+/* Contact Page Action Channels */
+.btn-channel-action.btn-phone {
+  background: var(--theme-cta-bg, linear-gradient(135deg, #0F5132 0%, #1A6B44 100%)) !important;
+  color: var(--theme-cta-text, #FFFFFF) !important;
+  border: none !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16) !important;
+}
+
+.btn-channel-action.btn-email,
+.btn-channel-action.btn-outline {
+  background: #FFFFFF !important;
+  color: var(--theme-text-body, #2D3748) !important;
+  border: 1.5px solid var(--theme-card-border, rgba(201, 169, 110, 0.3)) !important;
+
+  &:hover {
+    border-color: var(--theme-accent) !important;
+    color: var(--theme-accent) !important;
+    background: var(--theme-badge-bg, #FAF8F5) !important;
+  }
+}
+
+/* ==========================================================================
    ACTIVE THEORY SPATIAL ENGINE & KINETIC 3D UTILITIES
    ========================================================================== */
 
