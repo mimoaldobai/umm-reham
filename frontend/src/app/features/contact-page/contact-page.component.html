@@ -148,7 +148,7 @@
                     name="locationCountry"
                     (change)="onCountryChange()">
                     <option *ngFor="let c of countries" [ngValue]="c">
-                      {{ c.idCode ? c.idCode + '-' + c.nameAr : c.nameAr }}
+                      {{ c.flag ? c.flag + ' ' : '' }}{{ c.nameAr }}
                     </option>
                   </select>
                 </div>
@@ -167,7 +167,7 @@
                     (change)="onRegionChange()"
                     [disabled]="availableRegions.length === 0">
                     <option *ngFor="let r of availableRegions" [ngValue]="r">
-                      {{ r.idCode ? r.idCode + '-' + r.nameAr : r.nameAr }}
+                      {{ r.nameAr }}
                     </option>
                     <option *ngIf="availableRegions.length === 0" [ngValue]="null">لا توجد مناطق محددة</option>
                   </select>
@@ -187,7 +187,7 @@
                     (change)="onCityChange()"
                     [disabled]="availableCities.length === 0">
                     <option *ngFor="let ct of availableCities" [ngValue]="ct">
-                      {{ ct.idCode ? ct.idCode + '-' + ct.nameAr : ct.nameAr }}
+                      {{ ct.nameAr }}
                     </option>
                     <option *ngIf="availableCities.length === 0" [ngValue]="null">المدينة الرئيسية</option>
                   </select>

@@ -4773,9 +4773,8 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
 
     .timeline-step:hover {
       transform: translateY(-8px);
-      border-color: #C5A869;
-      background: #FFFFFF;
-      box-shadow: 0 20px 42px rgba(10, 47, 36, 0.1), 0 0 20px rgba(197, 168, 105, 0.15);
+      border-color: var(--theme-accent, #C5A869);
+      box-shadow: 0 20px 42px rgba(0, 0, 0, 0.15), 0 0 20px rgba(var(--theme-accent-rgb, 197, 168, 105), 0.15);
     }
 
     /* Subtle Flow Indicator between steps (RTL: flows right to left) */
@@ -4788,38 +4787,38 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
         transform: translateY(-50%);
         font-size: 1rem;
         font-weight: 900;
-        color: #C5A869;
-        background: #FFFFFF;
+        color: var(--theme-accent, #C5A869);
+        background: var(--dash-card-bg, #FFFFFF);
         width: 26px;
         height: 26px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        border: 1.5px solid rgba(197, 168, 105, 0.4);
-        box-shadow: 0 4px 10px rgba(10, 47, 36, 0.06);
+        border: 1.5px solid var(--theme-badge-border, rgba(197, 168, 105, 0.4));
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
         z-index: 5;
       }
     }
 
     .timeline-step.highlighted {
-      border: 1.5px solid #C5A869;
-      background: #FFFFFF;
-      box-shadow: 0 12px 34px rgba(197, 168, 105, 0.14);
+      border: 1.5px solid var(--theme-accent, #C5A869);
+      box-shadow: 0 12px 34px rgba(0, 0, 0, 0.14);
     }
 
     .step-num-pill {
-      background: linear-gradient(135deg, #0A2F24 0%, #1A6B54 100%);
-      border: 1px solid rgba(15, 81, 50, 0.3);
-      color: #FFFFFF;
+      background: var(--theme-cta-bg, linear-gradient(135deg, #0A2F24 0%, #1A6B54 100%));
+      border: 1px solid var(--theme-badge-border, rgba(15, 81, 50, 0.3));
+      color: var(--theme-cta-text, #FFFFFF);
       font-size: 0.82rem;
       font-weight: 800;
       font-family: var(--font-family-latin);
       padding: 3px 14px;
       border-radius: 9999px;
       margin-bottom: 1.1rem;
-      box-shadow: 0 3px 10px rgba(10, 47, 36, 0.18);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
       letter-spacing: 0.05em;
+      transition: all 0.3s ease;
     }
 
     .step-num-pill.gold-pill {

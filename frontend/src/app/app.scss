@@ -65,14 +65,14 @@
   right: auto;
   width: 46px;
   height: 46px;
-  background: #0F5132;
-  color: #FFFFFF;
+  background: var(--theme-cta-bg, #0F5132);
+  color: var(--theme-cta-text, #FFFFFF);
   border-radius: 50%;
   border: 2px solid rgba(255, 255, 255, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 6px 20px rgba(15, 81, 50, 0.4);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   z-index: 990;
   transition: all 0.25s ease;
@@ -80,8 +80,8 @@
 
 .floating-accessibility-btn:hover {
   transform: scale(1.1);
-  background: #0A3E26;
-  box-shadow: 0 8px 25px rgba(15, 81, 50, 0.6);
+  filter: brightness(1.15);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
   border-color: #FFFFFF;
 }
 

@@ -718,23 +718,23 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
-      background: rgba(16, 185, 129, 0.08);
-      border: 1.5px solid rgba(16, 185, 129, 0.35);
-      color: #0F5132;
+      background: var(--theme-badge-bg, rgba(16, 185, 129, 0.08));
+      border: 1.5px solid var(--theme-badge-border, rgba(16, 185, 129, 0.35));
+      color: var(--theme-accent, #0F5132);
       padding: 0.45rem 0.85rem;
       border-radius: 9999px;
       font-size: 0.82rem;
       font-weight: 700;
       cursor: pointer;
       font-family: inherit;
-      transition: all 0.2s;
+      transition: all 0.25s ease;
 
       &:hover {
-        background: #0F5132;
-        color: #FFFFFF;
-        border-color: #0F5132;
+        background: var(--theme-accent, #0F5132);
+        color: var(--theme-cta-text, #FFFFFF);
+        border-color: var(--theme-accent, #0F5132);
         transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(15, 81, 50, 0.25);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       }
     }
 

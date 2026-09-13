@@ -1109,6 +1109,40 @@ html, body, .admin-layout, .dash-sidebar, .dash-topbar, .section-card, .metric-c
     background: var(--dash-body-bg, #0B192C) !important;
     color: var(--theme-text-body, #F8FAFC) !important;
   }
+
+  /* Order Page & Form Panels in Dark Themes */
+  .form-main-card, .order-summary-sidebar, .pricing-summary-card, .glass-panel, .contact-form-panel {
+    background: var(--dash-card-bg, #11233D) !important;
+    border-color: var(--dash-card-border, rgba(255, 255, 255, 0.15)) !important;
+    color: var(--theme-heading, #FFFFFF) !important;
+    h1, h2, h3, h4, strong { color: var(--theme-heading, #FFFFFF) !important; }
+    p, span, small, label { color: var(--theme-text-muted, #CBD5E1) !important; }
+    .lux-input, .lux-select, input, select, textarea {
+      background: var(--dash-input-bg, #07101E) !important;
+      border-color: var(--dash-input-border, rgba(255, 255, 255, 0.2)) !important;
+      color: var(--theme-heading, #FFFFFF) !important;
+      &::placeholder { color: var(--theme-text-muted, #64748B) !important; }
+    }
+  }
+
+  .contact-tabs-capsule {
+    background: var(--dash-sidebar-bg, #07101E) !important;
+    border-color: var(--dash-sidebar-border, rgba(255, 255, 255, 0.15)) !important;
+    .tab-btn {
+      color: var(--theme-text-muted, #94A3B8) !important;
+      &.active {
+        background: var(--theme-cta-bg) !important;
+        color: var(--theme-cta-text, #FFFFFF) !important;
+      }
+    }
+  }
+
+  .auto-tracking-pill {
+    background: var(--dash-input-bg, #07101E) !important;
+    border-color: var(--theme-accent, rgba(255, 255, 255, 0.2)) !important;
+    small { color: var(--theme-text-muted, #94A3B8) !important; }
+    strong { color: var(--theme-accent, #00F2FE) !important; }
+  }
 }
 
 /* Universal Button and Brand Synchronization with active theme */
