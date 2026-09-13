@@ -46,14 +46,14 @@
 
 @media (max-width: 768px) {
   .floating-whatsapp-btn {
-    bottom: 16px;
+    bottom: 74px; /* Elevated above bottom nav bar */
     right: 14px;
-    width: 42px;
-    height: 42px;
+    width: 44px;
+    height: 44px;
   }
   .floating-whatsapp-btn svg {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
   }
 }
 
@@ -87,9 +87,9 @@
 
 @media (max-width: 768px) {
   .floating-accessibility-btn {
-    bottom: 16px;
+    bottom: 74px; /* Elevated above bottom nav bar */
     left: 14px;
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
   }
 }

@@ -222,10 +222,13 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
           <app-theme-switcher></app-theme-switcher>
 
           <!-- Mobile Hamburger Menu Button -->
-          <button type="button" class="btn-mobile-toggle" (click)="toggleMobileMenu()" aria-label="القائمة">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
+          <button type="button" class="btn-mobile-toggle" (click)="toggleMobileMenu()" aria-label="القائمة الرئيسية">
+            <span class="hamburger-box">
+              <span class="bar" [class.open]="isMobileMenuOpen"></span>
+              <span class="bar" [class.open]="isMobileMenuOpen"></span>
+              <span class="bar" [class.open]="isMobileMenuOpen"></span>
+            </span>
+            <span class="toggle-lbl">{{ isMobileMenuOpen ? 'إغلاق ✕' : 'القائمة ☰' }}</span>
           </button>
 
         </div>
@@ -270,6 +273,29 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
         </nav>
       </div>
 
+      <!-- Mobile Luxury Floating Bottom Navigation Bar (شريط التنقل السفلي الفاخر للهاتف) -->
+      <nav class="mobile-bottom-appbar">
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="m-tab-item" (click)="onNavClick()">
+          <span class="m-tab-ico">🏠</span>
+          <span class="m-tab-txt">الرئيسية</span>
+        </a>
+        <a routerLink="/services" routerLinkActive="active" class="m-tab-item" (click)="onNavClick()">
+          <span class="m-tab-ico">🛍️</span>
+          <span class="m-tab-txt">خدماتنا</span>
+        </a>
+        <a routerLink="/testimonials" routerLinkActive="active" class="m-tab-item" (click)="onNavClick()">
+          <span class="m-tab-ico">⭐</span>
+          <span class="m-tab-txt">آراؤنا</span>
+        </a>
+        <a routerLink="/articles" routerLinkActive="active" class="m-tab-item" (click)="onNavClick()">
+          <span class="m-tab-ico">📚</span>
+          <span class="m-tab-txt">مقالاتنا</span>
+        </a>
+        <a routerLink="/contact" routerLinkActive="active" class="m-tab-item" (click)="onNavClick()">
+          <span class="m-tab-ico">💬</span>
+          <span class="m-tab-txt">تواصل معنا</span>
+        </a>
+      </nav>
     </header>
 
     <!-- Global Favorites Drawer Component -->
@@ -623,24 +649,35 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
     /* Mobile Hamburger Button */
     .btn-mobile-toggle {
       display: none;
-      flex-direction: column;
-      justify-content: center;
-      gap: 5px;
-      width: 38px;
-      height: 38px;
-      background: #F7FAFC;
-      border: 1px solid #E2E8F0;
-      border-radius: 8px;
-      padding: 8px;
+      align-items: center;
+      gap: 6px;
+      background: var(--theme-cta-bg, #0F5132);
+      color: var(--theme-cta-text, #FFFFFF);
+      border: 1.5px solid var(--theme-accent, #C9A96E);
+      border-radius: 9999px;
+      padding: 6px 12px;
       cursor: pointer;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(15, 81, 50, 0.2);
+      transition: all 0.25s ease;
     }
-
+    .hamburger-box {
+      display: flex;
+      flex-direction: column;
+      gap: 3.5px;
+      width: 16px;
+    }
     .btn-mobile-toggle .bar {
       width: 100%;
       height: 2px;
-      background: #2D3748;
+      background: currentColor;
       border-radius: 2px;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
+    }
+    .toggle-lbl {
+      font-size: 0.8rem;
+      font-weight: 800;
+      white-space: nowrap;
     }
 
     /* Mobile Drawer */
@@ -649,12 +686,57 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
       max-height: 0;
       overflow: hidden;
       background: #FFFFFF;
-      border-top: 1px solid #EAEAEA;
-      transition: max-height 0.35s ease;
+      border-top: 1.5px solid rgba(201, 169, 110, 0.35);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .mobile-nav-drawer.open {
-      max-height: 480px;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+
+    /* Mobile Luxury Floating Bottom Navigation Bar */
+    .mobile-bottom-appbar {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 62px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(14px);
+      border-top: 1.5px solid rgba(201, 169, 110, 0.35);
+      z-index: 995;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 0.5rem;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+    }
+    .m-tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      text-decoration: none;
+      color: #556B62;
+      font-size: 0.72rem;
+      font-weight: 700;
+      flex: 1;
+      padding: 6px 0;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .m-tab-ico {
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+    .m-tab-item.active {
+      color: var(--theme-accent, #0F5132);
+      font-weight: 800;
+    }
+    .m-tab-item.active .m-tab-ico {
+      transform: scale(1.15);
     }
 
     .mobile-nav-items {
@@ -684,7 +766,7 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
         display: none;
       }
       .btn-mobile-toggle {
-        display: flex;
+        display: flex !important;
       }
       .mobile-nav-drawer {
         display: block;
@@ -692,6 +774,15 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
     }
 
     @media (max-width: 768px) {
+      .mobile-bottom-appbar {
+        display: flex !important;
+      }
+      .header-action-group app-theme-switcher {
+        display: none !important; /* Theme switcher is in the mobile drawer */
+      }
+      .btn-consultation-cta {
+        display: none !important; /* CTA is in hero, bottom bar, and drawer */
+      }
       .topbar-platform-info {
         font-size: 0.74rem;
       }
@@ -702,14 +793,16 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
         font-size: 1.15rem;
       }
       .brand-subtext {
-        font-size: 0.62rem;
-      }
-      .btn-consultation-cta {
-        padding: 0.45rem 0.8rem;
-        font-size: 0.8rem;
+        display: none;
       }
       .header-action-group {
         gap: 0.45rem;
+        display: flex;
+        align-items: center;
+      }
+      .btn-mobile-toggle {
+        display: flex !important;
+        order: -1; /* Always first on the left side! */
       }
     }
 
@@ -717,22 +810,12 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
       .header-inner-container {
         padding: 0 0.5rem;
       }
-      .brand-subtext {
-        display: none;
-      }
       .ur-logo-emblem svg {
-        width: 36px;
-        height: 36px;
+        width: 34px;
+        height: 34px;
       }
       .brand-name {
-        font-size: 1.05rem;
-      }
-      .btn-consultation-cta {
-        padding: 0.4rem 0.6rem;
-        font-size: 0.76rem;
-      }
-      .btn-consultation-cta span:not(.btn-icon) {
-        display: none;
+        font-size: 1rem;
       }
       .btn-client-label {
         display: none;
@@ -742,6 +825,12 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
       }
       .header-action-group {
         gap: 0.35rem;
+      }
+      .toggle-lbl {
+        display: none; /* Icon-only on very narrow screens */
+      }
+      .btn-mobile-toggle {
+        padding: 8px 10px;
       }
     }
 

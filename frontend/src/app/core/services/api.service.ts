@@ -615,7 +615,7 @@ export class ApiService {
     },
     {
       id: 's-gen-14',
-      coverImageUrl: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=800&q=80&auto=format&fit=crop',
+      coverImageUrl: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80&auto=format&fit=crop',
       iconSvg: '🎖️',
       categoryId: 'cat-general',
       nameAr: 'تحديث الضمان الاجتماعي للمسجلين بعقد إيجار',
