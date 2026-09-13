@@ -36,7 +36,19 @@ export class App {
     this.router.events.subscribe(evt => {
       if (evt instanceof NavigationEnd) {
         if (typeof window !== 'undefined') {
-          window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+          window.scrollTo(0, 0);
+          document.documentElement.scrollTop = 0;
+          document.body.scrollTop = 0;
+          requestAnimationFrame(() => {
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+          });
+          setTimeout(() => {
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+          }, 60);
         }
       }
     });
@@ -45,7 +57,9 @@ export class App {
   onNavTabClick(): void {
     this.audio.playClick();
     if (typeof window !== 'undefined') {
-      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
     }
   }
 

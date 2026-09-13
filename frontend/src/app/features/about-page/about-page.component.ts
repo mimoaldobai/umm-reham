@@ -676,6 +676,11 @@ export class AboutPageComponent implements OnInit {
   displayCountCities = 0;
 
   ngOnInit(): void {
+    if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }
     this.animateCounters();
   }
 

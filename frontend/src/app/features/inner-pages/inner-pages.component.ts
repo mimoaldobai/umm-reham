@@ -589,6 +589,11 @@ export class PortfolioPageComponent implements OnInit {
   ];
 
   ngOnInit(): void {
+    if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }
     this.api.getPortfolioItems().subscribe(res => {
       if (res && res.length > 0) {
         // Merge or replace with dynamic backend items
@@ -1218,6 +1223,11 @@ export class TestimonialsPageComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }
     this.api.getTestimonials().subscribe(res => {
       if (res && res.length > 0) {
         this.testimonialsList = res;
@@ -1622,6 +1632,11 @@ export class ArticlesPageComponent implements OnInit {
   ];
 
   ngOnInit(): void {
+    if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }
     this.api.getArticles().subscribe(res => {
       if (res && res.length > 0) {
         this.articles = res.map(a => ({
