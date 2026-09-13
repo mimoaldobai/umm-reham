@@ -526,6 +526,19 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
             <div class="marquee-strip strip-moving-right">
               <div class="review-image3-card" *ngFor="let r of reviewsRow1" (click)="onHover()">
                 <p class="review-bubble-text">{{ r.quote }}</p>
+                <!-- Image Attachment Preview -->
+                <div *ngIf="r.imageUrl" class="card-img-preview-box">
+                  <img [src]="r.imageUrl" [alt]="r.name" class="card-review-img" />
+                </div>
+
+                <!-- Voice Note Audio Player -->
+                <div *ngIf="r.isAudio || r.audioUrl" class="card-audio-voice-bar">
+                  <button type="button" class="btn-play-voice-pill" (click)="toggleAudioReview(); $event.stopPropagation()">
+                    <span>{{ isReviewPlaying ? '⏸️ إيقاف البصمة' : '🎙️ تشغيل البصمة الصوتية' }}</span>
+                  </button>
+                  <div class="voice-wave-min"><span></span><span></span><span></span><span></span></div>
+                </div>
+
                 <div class="review-footer-row">
                   <div class="review-star-rating">
                     <span class="star-icon">★</span>
@@ -5386,6 +5399,41 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       }
     }
 
+    
+    .card-img-preview-box {
+      margin: 0.5rem 0;
+      border-radius: 8px;
+      overflow: hidden;
+      max-height: 90px;
+      border: 1px solid rgba(201,169,110,0.3);
+    }
+    .card-review-img { width: 100%; height: 100%; object-fit: cover; }
+    .card-audio-voice-bar {
+      margin: 0.5rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(201,169,110,0.15);
+      border: 1px solid #C9A96E;
+      padding: 0.4rem 0.7rem;
+      border-radius: 20px;
+    }
+    .btn-play-voice-pill {
+      background: #C9A96E;
+      color: #06130D;
+      border: none;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 0.72rem;
+      cursor: pointer;
+    }
+    .voice-wave-min { display: flex; gap: 3px; height: 12px; align-items: flex-end; }
+    .voice-wave-min span { width: 2.5px; height: 100%; background: #C9A96E; animation: wave 1s infinite ease-in-out; }
+    .voice-wave-min span:nth-child(2) { animation-delay: 0.2s; }
+    .voice-wave-min span:nth-child(3) { animation-delay: 0.4s; }
+    .voice-wave-min span:nth-child(4) { animation-delay: 0.6s; }
+
     .review-image3-card {
       flex: 0 0 350px;
       background: #FFFFFF;
@@ -5840,7 +5888,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedCategory = 'all';
 
   // Realistic reviews for the 2-Row Marquee (مطابقة تماماً للصورة 3)
-  reviewsRow1 = [
+  reviewsRow1: Array<{ quote: string; name: string; subject: string; emoji: string; avatarBg: string; isAudio?: boolean; audioUrl?: string; imageUrl?: string; }> = [
+    { quote: 'استماع للبصمة الصوتية للعميلة ريماس الشفافية والإنجاز 🎙️', name: 'ريماس الشهري', subject: 'مبادئ الرياضيات للأعمال SCMT 110', emoji: '🎙️', avatarBg: '#FDE047', isAudio: true, audioUrl: 'https://actions.google.com/sounds/v1/ambiences/rain_heavy.ogg' },
     {
       quote: 'يعطيك العافيه ما قصرتي معنا الشرح مفهوم وكافي ووافي ماقصرتي 🥺✨🤍🤍',
       name: 'ريماس الشهري',
@@ -5871,7 +5920,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   ];
 
-  reviewsRow2 = [
+  reviewsRow2: Array<{ quote: string; name: string; subject: string; emoji: string; avatarBg: string; isAudio?: boolean; audioUrl?: string; imageUrl?: string; }> = [
+    { quote: 'لقطة شاشة لتقييم ونتيجة الماجستير بامتياز مع مرتبة الشرف 🖼️', name: 'عبدالله القحطاني', subject: 'ماجستير إدارة أعمال MBA', emoji: '🖼️', avatarBg: '#BAE6FD', imageUrl: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80&auto=format&fit=crop' },
     {
       quote: 'الشرح والتحليل الإحصائي عبر SPSS كان أسطوري ومفصل بالجداول والرسوم، تمت مناقشة البحث بامتياز بفضل الله 🌟',
       name: 'عبدالله القحطاني',

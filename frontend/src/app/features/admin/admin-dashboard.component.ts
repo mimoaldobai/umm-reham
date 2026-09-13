@@ -66,9 +66,7 @@ export interface AcademicOrder {
         </div>
 
         <!-- Unified Dual-Tone Theme Switcher -->
-        <div class="sidebar-theme-capsule" title="تغيير ثيم الداشبورد والموقع الشامل">
-          <app-theme-switcher></app-theme-switcher>
-        </div>
+        
 
         <!-- Executive User Capsule (Dynamic Authenticated Admin) -->
         <div class="user-card" *ngIf="currentAdminUser as user">
@@ -113,7 +111,7 @@ export interface AcademicOrder {
           </button>
 
           <!-- Notifications & Broadcast Hub in Nav -->
-          <button class="nav-btn" (click)="openAdminNotifications()">
+          <button class="nav-btn" [class.active]="activeTab === 'notifications'" (click)="setTab('notifications')">
             <span class="btn-icon">
               <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
@@ -3344,6 +3342,178 @@ export interface AcademicOrder {
       flex-direction: column;
     }
 
+    
+    .theme-adaptive-card {
+      background: var(--theme-card-bg, #0B1C15);
+      border: 1.5px solid var(--theme-primary, #C9A96E);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .theme-adaptive-title {
+      color: var(--theme-text, #FFFFFF);
+    }
+    .broadcast-presets-box {
+      margin: 1rem 0;
+      background: rgba(255,255,255,0.03);
+      padding: 0.85rem;
+      border-radius: 10px;
+      border: 1px dashed var(--theme-accent, #C9A96E);
+    }
+    .preset-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--theme-accent, #C9A96E);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .preset-chips-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .preset-chip-btn {
+      padding: 0.4rem 0.8rem;
+      background: var(--theme-gradient, linear-gradient(135deg, #1B4332, #0B1C15));
+      border: 1px solid var(--theme-accent, #C9A96E);
+      color: #FFFFFF;
+      border-radius: 20px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .preset-chip-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(201,169,110,0.3);
+    }
+    .broadcast-form-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-top: 1rem;
+    }
+    .form-row-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+    }
+    .dash-input-field {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--theme-accent, rgba(201,169,110,0.4));
+      color: #FFFFFF;
+      padding: 0.65rem 0.85rem;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      box-sizing: border-box;
+    }
+    .dash-input-field:focus {
+      outline: none;
+      border-color: var(--theme-primary, #C9A96E);
+      box-shadow: 0 0 10px rgba(201,169,110,0.25);
+    }
+    .dash-btn-theme-submit {
+      width: 100%;
+      padding: 0.85rem;
+      background: var(--theme-gradient, linear-gradient(135deg, #C9A96E 0%, #A48348 100%));
+      color: #06130D;
+      font-weight: 800;
+      font-size: 0.95rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(201,169,110,0.3);
+      transition: all 0.2s;
+    }
+    .dash-btn-theme-submit:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(201,169,110,0.45);
+    }
+    .notif-cell-title { display: flex; align-items: center; gap: 0.5rem; }
+    .notif-item-icon { font-size: 1.2rem; }
+    .notif-cell-body { max-width: 320px; font-size: 0.8rem; color: #A3B8B0; }
+
+    
+    .service-tbl-thumb {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: rgba(201,169,110,0.15);
+      border: 1px solid rgba(201,169,110,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .srv-thumb-img { width: 100%; height: 100%; object-fit: cover; }
+    .srv-thumb-icon { font-size: 1.3rem; }
+    .review-media-filter-bar {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .btn-media-tab {
+      padding: 0.4rem 0.85rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(201,169,110,0.3);
+      color: #A3B8B0;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-media-tab.active {
+      background: #C9A96E;
+      color: #06130D;
+      border-color: #C9A96E;
+      font-weight: 800;
+    }
+    .media-badge-tag {
+      font-size: 0.68rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.1);
+      color: #FFFFFF;
+    }
+    .media-badge-tag.gold { background: rgba(201,169,110,0.25); color: #DFC698; }
+    .media-badge-tag.cyan { background: rgba(6,182,212,0.2); color: #06B6D4; }
+    .media-badge-tag.emerald { background: rgba(16,185,129,0.2); color: #10B981; }
+    .review-img-box {
+      margin: 0.6rem 0;
+      max-height: 120px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(201,169,110,0.3);
+      cursor: pointer;
+    }
+    .review-attached-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.2s; }
+    .review-attached-img:hover { transform: scale(1.03); }
+    .review-audio-box {
+      margin: 0.6rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(201,169,110,0.1);
+      border: 1px solid #C9A96E;
+      padding: 0.45rem 0.75rem;
+      border-radius: 8px;
+    }
+    .btn-play-audio-dash {
+      background: #C9A96E;
+      color: #06130D;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: 800;
+      font-size: 0.74rem;
+      cursor: pointer;
+    }
+    .dash-audio-wave { display: flex; gap: 3px; height: 14px; align-items: flex-end; }
+    .dash-audio-wave span { width: 3px; height: 100%; background: #C9A96E; animation: wave 1s infinite ease-in-out; }
+
     .dash-pane {
       display: flex;
       flex-direction: column;
@@ -5158,6 +5328,103 @@ export interface AcademicOrder {
   `]
 })
 export class AdminDashboardComponent implements OnInit, OnDestroy {
+
+  testimonialMediaFilter: 'all' | 'text' | 'image' | 'audio' | 'combined' = 'all';
+  previewImageUrl: string | null = null;
+
+  openImageLightbox(url: string): void {
+    this.previewImageUrl = url;
+    this.audio.playClick();
+  }
+
+  closeImageLightbox(): void {
+    this.previewImageUrl = null;
+  }
+
+  playDashAudio(t: Testimonial): void {
+    this.audio.playSuccess();
+    this.toastMessage = `جاري تشغيل المذكرة الصوتية الخاصة بـ ${t.clientName} 🎙️`;
+    setTimeout(() => this.toastMessage = '', 3500);
+  }
+
+  toggleServiceStatus(s: ServiceItem): void {
+    const newStatus = s.isFeatured === false ? true : false;
+    s.isFeatured = newStatus;
+    this.api.updateService(s.id, { isFeatured: newStatus }).subscribe(() => {
+      this.audio.playClick();
+      this.toastMessage = newStatus ? `تم تفعيل خدمة (${s.nameAr}) بنجاح ✓` : `تم إيقاف خدمة (${s.nameAr}) مؤقتاً ⏸️`;
+      setTimeout(() => this.toastMessage = '', 3000);
+    });
+  }
+
+
+  // In-Screen Broadcast State & Methods
+  broadcastTitle = '';
+  broadcastIcon = '📢';
+  broadcastMessage = '';
+  broadcastActionText = 'استكشف الخصم والخدمات ↗';
+  broadcastActionUrl = '/services';
+  isBroadcasting = false;
+
+  applyBroadcastPreset(preset: 'national' | 'graduation' | 'discount' | 'semester'): void {
+    this.audio.playClick();
+    if (preset === 'national') {
+      this.broadcastTitle = '🌸 تهنئة باليوم الوطني وأعياد المملكة 🇸🇦';
+      this.broadcastIcon = '🌸';
+      this.broadcastMessage = 'نهنئكم باليوم الوطني ويسرنا تقديم خصم خاص 20% على كافة خدمات البحوث والرسائل الجامعة بالمنصة!';
+      this.broadcastActionText = 'احصل على الخصم 🎁';
+      this.broadcastActionUrl = '/services';
+    } else if (preset === 'graduation') {
+      this.broadcastTitle = '🎓 مبارك التخرج والتميز الأكاديمي!';
+      this.broadcastIcon = '🎓';
+      this.broadcastMessage = 'نهنئ كافة الخريجين، ونقدم خدمة صياغة وتنسيق السيرة الذاتية والمشاريع بخصومات خاصة.';
+      this.broadcastActionText = 'طلب خدمة تخرج 🎓';
+      this.broadcastActionUrl = '/services';
+    } else if (preset === 'discount') {
+      this.broadcastTitle = '🎁 كود خصم حصري 20% لفترة محدودة';
+      this.broadcastIcon = '🎁';
+      this.broadcastMessage = 'استخدم الكود REHAM20 عند طلب أي خدمة أكاديمية أو تدقيق إحصائي للحصول على الخصم الفوري.';
+      this.broadcastActionText = 'استكشف الخدمات ⚡';
+      this.broadcastActionUrl = '/services';
+    } else if (preset === 'semester') {
+      this.broadcastTitle = '⚡ بدء استقبال طلبات الفصل الدراسي الجديد';
+      this.broadcastIcon = '⚡';
+      this.broadcastMessage = 'انطلق الفصل الدراسي الجديد! فريق مستشاري أم رهام جاهز لمساعدتك في إعداد الخطط الأكاديمية.';
+      this.broadcastActionText = 'تواصل معنا 📲';
+      this.broadcastActionUrl = '/contact';
+    }
+  }
+
+  sendInScreenBroadcast(): void {
+    if (!this.broadcastTitle.trim() || !this.broadcastMessage.trim()) return;
+    this.isBroadcasting = true;
+    this.audio.playClick();
+
+    this.notifService.sendAdminNotification({
+      title: this.broadcastTitle.trim(),
+      message: this.broadcastMessage.trim(),
+      icon: this.broadcastIcon.trim() || '📢',
+      type: 'system'
+    });
+
+    this.notifService.sendClientNotification({
+      title: this.broadcastTitle.trim(),
+      message: this.broadcastMessage.trim(),
+      icon: this.broadcastIcon.trim() || '📢',
+      link: this.broadcastActionUrl.trim() || '/services',
+      actionLabel: this.broadcastActionText.trim() || 'استكشف الخصم والخدمات ↗'
+    });
+
+    setTimeout(() => {
+      this.isBroadcasting = false;
+      this.audio.playSuccess();
+      this.toastMessage = 'تم بث الإشعار بنجاح لكافة الباحثين والعملاء! 🚀';
+      setTimeout(() => this.toastMessage = '', 4000);
+      this.broadcastTitle = '';
+      this.broadcastMessage = '';
+    }, 500);
+  }
+
   api = inject(ApiService);
   audio = inject(AudioService);
   themeService = inject(ThemeService);
@@ -5184,7 +5451,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     this.isMobileSidebarOpen = false;
   }
 
-  activeTab: 'analytics' | 'orders' | 'clients' | 'coupons' | 'portfolio' | 'pages' | 'articles' | 'categories' | 'services' | 'testimonials' | 'users' | 'footer' | 'agents' | 'settings' = 'analytics';
+  activeTab: 'analytics' | 'orders' | 'clients' | 'coupons' | 'portfolio' | 'pages' | 'articles' | 'categories' | 'services' | 'testimonials' | 'users' | 'footer' | 'agents' | 'settings' | 'notifications' = 'analytics';
 
   // Clients Management State & Getters
   clientSearchQuery = '';

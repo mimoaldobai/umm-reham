@@ -96,7 +96,9 @@ export interface Testimonial {
   serviceId?: string;
   serviceNameAr?: string;
   createdAt?: string;
-  mediaType?: 'text' | 'audio' | 'image' | 'video';
+  mediaType?: 'text' | 'audio' | 'image' | 'video' | 'combined';
+  imageUrl?: string;
+  audioUrl?: string;
   mediaUrl?: string;
   avatarUrl?: string;
   isFeatured?: boolean;
