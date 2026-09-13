@@ -71,9 +71,9 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
                   <path d="M27 9 L29.5 8" stroke-width="1.8" stroke-linecap="round" />
                 </g>
                 <!-- U Letter -->
-                <path d="M7 13 V25 C7 31.5 11.5 35 16.5 35 C21.5 35 26 31.5 26 25 V13 H20.5 V24.8 C20.5 27.5 18.8 29.5 16.5 29.5 C14.2 29.5 12.5 27.5 12.5 24.8 V13 Z" fill="#0F5132" />
+                <path d="M7 13 V25 C7 31.5 11.5 35 16.5 35 C21.5 35 26 31.5 26 25 V13 H20.5 V24.8 C20.5 27.5 18.8 29.5 16.5 29.5 C14.2 29.5 12.5 27.5 12.5 24.8 V13 Z" fill="var(--theme-accent, #0F5132)" />
                 <!-- R Letter -->
-                <path d="M25 13 H34.5 C38.5 13 41.5 15.8 41.5 19.5 C41.5 22.8 39.2 24.8 36.2 25.4 L41.5 35 H35.2 L30.8 26.2 H29.5 V35 H25 Z M29.5 17.5 V22 H34 C35.8 22 36.8 21.2 36.8 19.8 C36.8 18.4 35.8 17.5 34 17.5 Z" fill="#0F5132" />
+                <path d="M25 13 H34.5 C38.5 13 41.5 15.8 41.5 19.5 C41.5 22.8 39.2 24.8 36.2 25.4 L41.5 35 H35.2 L30.8 26.2 H29.5 V35 H25 Z M29.5 17.5 V22 H34 C35.8 22 36.8 21.2 36.8 19.8 C36.8 18.4 35.8 17.5 34 17.5 Z" fill="var(--theme-accent, #0F5132)" />
               </svg>
             </div>
 
@@ -498,8 +498,8 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
     }
 
     .dropdown-panel a:hover {
-      background: #F4FAF7;
-      color: #0F5132;
+      background: var(--theme-badge-bg, #F4FAF7);
+      color: var(--theme-accent, #0F5132);
       padding-right: 1.35rem;
     }
 
@@ -566,9 +566,9 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
     .btn-cart-icon:hover,
     .btn-theme-icon:hover,
     .btn-admin-icon:hover {
-      background: #EDF2F7;
-      color: #0F5132;
-      border-color: #CBD5E0;
+      background: var(--theme-badge-bg, #EDF2F7);
+      color: var(--theme-accent, #0F5132);
+      border-color: var(--theme-badge-border, #CBD5E0);
     }
 
     .cart-badge {
@@ -642,7 +642,7 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
     }
 
     .mobile-nav-items a.admin-link {
-      color: #0F5132;
+      color: var(--theme-accent, #0F5132);
       font-weight: 700;
     }
 

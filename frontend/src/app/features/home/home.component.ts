@@ -1104,9 +1104,9 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     .carousel-nav-btn.next-btn { right: -16px; }
 
     .carousel-nav-btn:hover {
-      background: #0F5132;
-      color: #FFFFFF;
-      border-color: #0F5132;
+      background: var(--theme-cta-bg, #0F5132);
+      color: var(--theme-cta-text, #FFFFFF);
+      border-color: var(--theme-accent, #0F5132);
       transform: scale(1.1);
     }
 
@@ -1177,8 +1177,8 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       height: 32px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.95);
-      border: 1.5px solid #0F5132;
-      color: #0F5132;
+      border: 1.5px solid var(--theme-accent, #0F5132);
+      color: var(--theme-accent, #0F5132);
       font-weight: 800;
       font-size: 0.8rem;
       display: flex;
@@ -1775,8 +1775,8 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
-      background: #0A2F24;
-      border: 1.5px solid #DFC698;
+      background: var(--theme-footer-bg, #0A2F24);
+      border: 1.5px solid var(--theme-footer-accent, #DFC698);
       border-radius: 9999px;
       padding: 0.48rem 1.35rem;
       color: #FFFFFF;
@@ -2063,9 +2063,9 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: #0A2F24;
-      border: 1.5px solid #DFC698;
-      color: #DFC698;
+      background: var(--theme-footer-bg, #0A2F24);
+      border: 1.5px solid var(--theme-footer-accent, #DFC698);
+      color: var(--theme-footer-accent, #DFC698);
       font-size: 1.1rem;
       font-weight: 800;
       display: flex;
@@ -2401,13 +2401,13 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     .coupon-modal-card {
       width: 90%;
       max-width: 440px;
-      background: #0A2F24;
-      border: 1.5px solid #DFC698;
+      background: var(--theme-footer-bg, #0A2F24);
+      border: 1.5px solid var(--theme-footer-border, #DFC698);
       border-radius: 1.5rem;
       padding: 2rem;
       position: relative;
       text-align: center;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.85), 0 0 30px rgba(197, 168, 105, 0.35);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.85);
     }
 
     .coupon-gift-icon {
@@ -2478,8 +2478,8 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     .transcript-modal-card {
       width: 90%;
       max-width: 580px;
-      background: #0A2F24;
-      border: 1.5px solid #DFC698;
+      background: var(--theme-footer-bg, #0A2F24);
+      border: 1.5px solid var(--theme-footer-border, #DFC698);
       border-radius: 1.5rem;
       padding: 2rem;
       position: relative;
@@ -3049,7 +3049,7 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     .badge-sa {
-      background: linear-gradient(135deg, #0A2F24 0%, #154737 100%);
+      background: var(--theme-cta-bg, linear-gradient(135deg, #0A2F24 0%, #154737 100%));
       color: #FBF9F5;
       padding: 0.18rem 0.62rem;
       border-radius: 9999px;
@@ -3097,9 +3097,9 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     .ls-btn-green-primary {
-      background: linear-gradient(135deg, #0A2F24 0%, #124032 100%);
-      color: #FFFFFF;
-      border: 1px solid rgba(197, 168, 105, 0.4);
+      background: var(--theme-cta-bg, linear-gradient(135deg, #0A2F24 0%, #124032 100%));
+      color: var(--theme-cta-text, #FFFFFF);
+      border: 1px solid var(--theme-card-border, rgba(197, 168, 105, 0.4));
       padding: 0.85rem 2.2rem;
       border-radius: 9999px;
       font-size: 1.05rem;
@@ -3107,7 +3107,7 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       display: inline-flex;
       align-items: center;
       gap: 0.65rem;
-      box-shadow: 0 6px 22px rgba(10, 47, 36, 0.28);
+      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.2);
       transition: all 0.25s ease;
       cursor: pointer;
       text-decoration: none;
@@ -3503,11 +3503,11 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     .mode-btn.active {
-      background: #0F5132;
-      color: #FFFFFF;
-      border-color: #0F5132;
+      background: var(--theme-cta-bg, #0F5132);
+      color: var(--theme-cta-text, #FFFFFF);
+      border-color: var(--theme-accent, #0F5132);
       font-weight: 800;
-      box-shadow: 0 4px 14px rgba(15, 81, 50, 0.25);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
     }
 
     .intent-options-grid {
@@ -3558,17 +3558,17 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     .intent-card.cta-intent {
-      background: #0A2F24;
-      border-color: #E5B94F;
-      box-shadow: 0 6px 20px rgba(10, 47, 36, 0.2);
+      background: var(--theme-footer-bg, #0A2F24);
+      border-color: var(--theme-footer-accent, #E5B94F);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
     }
 
     .intent-card.cta-intent .intent-text strong {
-      color: #E5B94F;
+      color: var(--theme-footer-accent, #E5B94F);
     }
 
     .intent-card.cta-intent .intent-text small {
-      color: #FFFFFF;
+      color: var(--theme-footer-text, #F0F9FF);
     }
 
     /* Active Theory Interactive Simulator Box (Luxury Emerald & Champagne Gold) */

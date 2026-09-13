@@ -435,9 +435,9 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
     }
 
     .cat-filter-btn.active {
-      background: linear-gradient(135deg, #0A2F24 0%, #051A14 100%);
-      color: #DFC698;
-      box-shadow: 0 4px 15px rgba(10, 47, 36, 0.25);
+      background: var(--theme-cta-bg, linear-gradient(135deg, #0A2F24 0%, #051A14 100%));
+      color: var(--theme-cta-text, #FFFFFF);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
     }
 
     .badge-count {
@@ -635,23 +635,24 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
     }
 
     .tpl-pill-btn.active {
-      background: linear-gradient(135deg, #0A2F24 0%, #0D3B2E 100%);
-      color: #FFFFFF;
-      border-color: #C5A869;
-      box-shadow: 0 3px 10px rgba(10, 47, 36, 0.2);
+      background: var(--theme-cta-bg, linear-gradient(135deg, #0A2F24 0%, #0D3B2E 100%));
+      color: var(--theme-cta-text, #FFFFFF);
+      border-color: var(--theme-accent, #C5A869);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
     }
 
     .tpl-pill-btn.active .pill-code {
-      background: #C5A869;
-      color: #0A2F24;
+      background: var(--theme-badge-bg, rgba(255, 255, 255, 0.2));
+      color: var(--theme-cta-text, #FFFFFF);
+      border-color: transparent;
     }
 
     .tpl-pill-btn.active .pill-name {
-      color: #FFFFFF;
+      color: var(--theme-cta-text, #FFFFFF);
     }
 
     .tpl-pill-btn.active .pill-price {
-      color: #DFC698;
+      color: var(--theme-cta-text, #FFFFFF);
       font-weight: 800;
     }
 
@@ -822,9 +823,9 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
       flex: 1.5;
       padding: 0.65rem 0.9rem;
       border-radius: var(--radius-full);
-      background: linear-gradient(135deg, #0A2F24 0%, #051A14 100%);
-      color: #DFC698;
-      border: 1.5px solid #C5A869;
+      background: var(--theme-cta-bg, linear-gradient(135deg, #0A2F24 0%, #051A14 100%));
+      color: var(--theme-cta-text, #FFFFFF);
+      border: 1.5px solid transparent;
       font-family: var(--font-family-arabic);
       font-size: 0.84rem;
       font-weight: 800;
@@ -837,18 +838,18 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
     }
 
     .btn-request-quote:hover {
-      background: linear-gradient(135deg, #1B4D3E 0%, #0A2F24 100%);
+      filter: brightness(1.1);
       transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(10, 47, 36, 0.3);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     }
 
     .btn-add-cart {
       flex: 1.5;
       padding: 0.65rem 0.9rem;
       border-radius: var(--radius-full);
-      background: linear-gradient(135deg, #0A2F24 0%, #051A14 100%);
-      color: #FFFFFF;
-      border: 1.5px solid #C5A869;
+      background: var(--theme-cta-bg, linear-gradient(135deg, #0A2F24 0%, #051A14 100%));
+      color: var(--theme-cta-text, #FFFFFF);
+      border: 1.5px solid transparent;
       font-family: var(--font-family-arabic);
       font-size: 0.84rem;
       font-weight: 800;
@@ -861,10 +862,9 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
     }
 
     .btn-add-cart:hover {
-      background: linear-gradient(135deg, #1B4D3E 0%, #0A2F24 100%);
-      color: #DFC698;
+      filter: brightness(1.1);
       transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(10, 47, 36, 0.25);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
     }
 
     .btn-card-whatsapp {
@@ -941,8 +941,8 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
       margin-top: 1rem;
       padding: 0.75rem 1.5rem;
       border-radius: var(--radius-full);
-      background: #0A2F24;
-      color: #FFFFFF;
+      background: var(--theme-cta-bg, #0A2F24);
+      color: var(--theme-cta-text, #FFFFFF);
       border: none;
       font-family: var(--font-family-arabic);
       font-weight: 700;
@@ -956,9 +956,9 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
       left: 1rem;
       right: 1rem;
       z-index: 990;
-      background: linear-gradient(135deg, #0A2F24 0%, #051A14 100%);
+      background: var(--theme-footer-bg, linear-gradient(135deg, #0A2F24 0%, #051A14 100%));
       color: #FFFFFF;
-      border: 2px solid #C5A869;
+      border: 2px solid var(--theme-footer-border, #C5A869);
       border-radius: var(--radius-full);
       padding: 0.85rem 1.3rem;
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
