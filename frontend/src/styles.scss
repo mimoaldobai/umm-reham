@@ -525,562 +525,445 @@ button {
 }
 
 /* ==========================================================================
-   MULTI-THEME ENGINE (GREEN & WHITE / LIGHT IVORY / MIDNIGHT SAPPHIRE)
+   MULTI-THEME ENGINE — 6 DUAL-TONE LUXURY HARMONIOUS THEMES
    ========================================================================== */
-html, body, .admin-layout, .admin-sidebar, .admin-topbar, .content-box, .metric-card, .service-feature-card {
-  transition: background 0.4s ease, background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+html, body, .admin-layout, .dash-sidebar, .dash-topbar, .section-card, .metric-card, .service-feature-card, .main-site-header, .site-topbar {
+  transition: background 0.35s ease, background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
-/* --- ROYAL SAUDI GREEN & PURE WHITE THEME (Default Emerald) --- */
+/* --------------------------------------------------------------------------
+   THEME 1: ROYAL SAUDI EMERALD & GOLD (الأخضر الملكي وذهب الشمبانيا 🇸🇦👑)
+   -------------------------------------------------------------------------- */
 :root, [data-theme="emerald"], body.theme-emerald {
-  /* Green & Gold Dashboard Design Tokens */
-  --dash-sidebar-bg: #0A2F24; /* Royal Saudi Emerald (Exact Header Color) */
-  --dash-sidebar-border: rgba(197, 168, 105, 0.28);
-  --dash-body-bg: #FAF8F4; /* Warm Calm Luxury Off-White / Ivory */
-  --dash-card-bg: #FFFFFF; /* Pure Crisp White */
-  --dash-card-border: rgba(197, 168, 105, 0.25); /* Soft Gold Border */
-  --dash-text-main: #0A2F24; /* High contrast dark green */
-  --dash-text-muted: #526860; /* Slate emerald */
-  --dash-accent-gold: #C5A869; /* Saudi Emerald Gold */
-  --dash-crest-bg: linear-gradient(135deg, rgba(197, 168, 105, 0.3), rgba(10, 47, 36, 0.95));
+  --dash-sidebar-bg: #0A2F24;
+  --dash-sidebar-border: rgba(229, 185, 79, 0.28);
+  --dash-body-bg: #FAF8F4;
+  --dash-card-bg: #FFFFFF;
+  --dash-card-border: rgba(229, 185, 79, 0.25);
+  --dash-text-main: #0A2F24;
+  --dash-text-muted: #526860;
+  --dash-accent-gold: #E5B94F;
+  --dash-crest-bg: linear-gradient(135deg, rgba(229, 185, 79, 0.3), rgba(10, 47, 36, 0.95));
   --dash-avatar-bg: #0A2F24;
-  --dash-user-card-bg: rgba(197, 168, 105, 0.08);
+  --dash-user-card-bg: rgba(229, 185, 79, 0.08);
   --dash-topbar-bg: #FFFFFF;
   --dash-nav-text: #E2ECE7;
-  --dash-nav-hover-bg: rgba(197, 168, 105, 0.12);
-  --dash-nav-active-bg: linear-gradient(135deg, rgba(197, 168, 105, 0.22) 0%, rgba(10, 47, 36, 0.95) 100%);
-  --dash-nav-active-border: #C5A869;
+  --dash-nav-hover-bg: rgba(229, 185, 79, 0.12);
+  --dash-nav-active-bg: linear-gradient(135deg, rgba(229, 185, 79, 0.22) 0%, rgba(10, 47, 36, 0.95) 100%);
+  --dash-nav-active-border: #E5B94F;
   --dash-input-bg: #FAF8F4;
-  --dash-input-border: rgba(197, 168, 105, 0.35);
+  --dash-input-border: rgba(229, 185, 79, 0.35);
   --dash-table-th-bg: #F5F1E8;
-  --dash-table-border: rgba(197, 168, 105, 0.2);
+  --dash-table-border: rgba(229, 185, 79, 0.2);
   --dash-table-hover-bg: #FAF8F4;
   --dash-modal-bg: #FFFFFF;
   --dash-tile-bg: #FAF8F4;
   --dash-tile-hover-bg: #F3EBD8;
-  --dash-icon-wrap-bg: rgba(197, 168, 105, 0.18);
+  --dash-icon-wrap-bg: rgba(229, 185, 79, 0.18);
   --dash-cms-item-bg: #FAF8F4;
   --dash-btn-primary-bg: linear-gradient(135deg, #0A2F24 0%, #124E3D 100%);
   --dash-btn-primary-text: #FFFFFF;
   --dash-btn-primary-shadow: rgba(10, 47, 36, 0.3);
 }
 
-/* --- LIGHT IVORY / DESERT SAND THEME --- */
-[data-theme="light"], body.theme-light {
-  --saudi-green-950: #F8F6F0;
-  --saudi-green-900: #EFE9DC;
-  --saudi-green-800: #DDD5C4;
-  --saudi-green-700: #1B4332;
-  --saudi-green-600: #2D6A4F;
-  --saudi-green-500: #40916C;
-  --saudi-green-400: #155734;
-  --saudi-green-100: #1B4332;
-  
-  --gold-primary: #966A23;
-  --gold-light: #B88B4A;
-  --gold-dark: #7A5317;
-  
-  --dark-surface: #FAF8F2;
-  --dark-card: #FFFFFF;
-  --dark-border: rgba(150, 106, 35, 0.25);
-  
-  --text-main: #061A11;
-  --text-muted: #2E473B;
-  --text-light: #061A11;
-  --text-light-muted: #435E51;
-  
-  --glass-bg: rgba(255, 255, 255, 0.96);
-  --glass-border: rgba(150, 106, 35, 0.3);
-
-  /* Light Theme Dashboard Tokens */
-  --dash-sidebar-bg: #1B2F25;
-  --dash-sidebar-border: rgba(184, 139, 74, 0.3);
-  --dash-body-bg: #F5EFEB;
-  --dash-card-bg: #FFFFFF;
-  --dash-card-border: rgba(184, 139, 74, 0.22);
-  --dash-text-main: #14281E;
-  --dash-text-muted: #4B6356;
-  --dash-accent-gold: #B88B4A;
-  --dash-crest-bg: linear-gradient(135deg, rgba(184, 139, 74, 0.3), rgba(27, 47, 37, 0.9));
-  --dash-avatar-bg: #1B2F25;
-  --dash-user-card-bg: rgba(255, 255, 255, 0.08);
-  --dash-topbar-bg: #EAE2D2;
-  --dash-nav-text: #E2E8F0;
-  --dash-nav-hover-bg: rgba(255, 255, 255, 0.1);
-  --dash-nav-active-bg: rgba(184, 139, 74, 0.25);
-  --dash-nav-active-border: #B88B4A;
-  --dash-input-bg: #F8F5EE;
-  --dash-input-border: #D7CCA8;
-  --dash-table-th-bg: #EAE2D2;
-  --dash-table-border: #E8E0CE;
-  --dash-table-hover-bg: #F8F5EE;
-  --dash-modal-bg: #FFFFFF;
-  --dash-tile-bg: #F8F5EE;
-  --dash-tile-hover-bg: #EAE2D2;
-  --dash-icon-wrap-bg: rgba(184, 139, 74, 0.15);
-  --dash-cms-item-bg: #F8F5EE;
-  --dash-btn-primary-bg: linear-gradient(135deg, #B88B4A 0%, #966A23 100%);
-  --dash-btn-primary-text: #FFFFFF;
-  --dash-btn-primary-shadow: rgba(184, 139, 74, 0.3);
-}
-
-/* --- 1. SOVEREIGN PRIMARY IDENTITY (الهوية السيادية الأساسية: الأخضر السعودي العميق وذهب الشمبانيا الدافئ) --- */
-[data-theme="emerald"], body.theme-emerald {
-  --saudi-green-950: #051A14;
-  --saudi-green-900: #0A2F24;
-  --saudi-green-800: #0D3B2E;
-  --saudi-green-700: #124E3D;
-  --saudi-green-600: #1A6B54;
-  --saudi-green-500: #238A6D;
-  --saudi-green-400: #34AA88;
-  --saudi-green-100: #EBF7F3;
-  
-  --gold-primary: #C5A869;
-  --gold-bright: #D4B97B;
-  --gold-light: #F3EBD8;
-  --gold-dark: #9B7E3E;
-  --gold-glow: rgba(197, 168, 105, 0.35);
-
-  --brand-green: #0A2F24;
-  --brand-green-hover: #0D3B2E;
-  --brand-gold: #C5A869;
-  
-  --ivory-warm: #FBF9F5;
-  --ivory-surface: #F5F1E8;
-  --ivory-card: #FFFFFF;
-  
-  --obsidian-soft: #121816;
-  --text-main: #121816;
-  --text-muted: #485A53;
-  --text-light: #FFFFFF;
-  --text-light-muted: #CBDAD3;
+/* --------------------------------------------------------------------------
+   THEME 2: MIDNIGHT SAPPHIRE & ELECTRIC CYAN (الياقوت الليلي والسماوي النيون 🌌💎)
+   -------------------------------------------------------------------------- */
+[data-theme="sapphire-cyan"], [data-theme="emerald-night"], body.theme-sapphire-cyan, body.theme-emerald-night {
+  background-color: #0B192C !important;
+  color: #F8FAFC !important;
 
   /* Dashboard Tokens */
-  --dash-sidebar-bg: #0A2F24;
-  --dash-sidebar-border: rgba(197, 168, 105, 0.35);
-  --dash-body-bg: #FBF9F5;
-  --dash-card-bg: #FFFFFF;
-  --dash-card-border: rgba(197, 168, 105, 0.22);
-  --dash-text-main: #121816;
-  --dash-text-muted: #485A53;
-  --dash-accent-gold: #C5A869;
-  --dash-crest-bg: linear-gradient(135deg, rgba(197, 168, 105, 0.35), rgba(10, 47, 36, 0.95));
-  --dash-avatar-bg: #0A2F24;
-  --dash-user-card-bg: rgba(255, 255, 255, 0.08);
-  --dash-topbar-bg: #FFFFFF;
-  --dash-nav-text: #F3EBD8;
-  --dash-nav-hover-bg: rgba(197, 168, 105, 0.15);
-  --dash-nav-active-bg: rgba(197, 168, 105, 0.25);
-  --dash-nav-active-border: #C5A869;
-  --dash-input-bg: #FBF9F5;
-  --dash-input-border: rgba(197, 168, 105, 0.35);
-  --dash-table-th-bg: #F5F1E8;
-  --dash-table-border: rgba(197, 168, 105, 0.2);
-  --dash-table-hover-bg: #FBF9F5;
-  --dash-modal-bg: #FFFFFF;
-  --dash-tile-bg: #F5F1E8;
-  --dash-tile-hover-bg: #EAE2D2;
-  --dash-icon-wrap-bg: rgba(197, 168, 105, 0.2);
-  --dash-cms-item-bg: #FBF9F5;
-  --dash-btn-primary-bg: linear-gradient(135deg, #0A2F24 0%, #0D3B2E 100%);
-  --dash-btn-primary-text: #FFFFFF;
-  --dash-btn-primary-shadow: rgba(10, 47, 36, 0.35);
-}
+  --dash-sidebar-bg: #07101E;
+  --dash-sidebar-border: rgba(0, 242, 254, 0.25);
+  --dash-body-bg: #0B192C;
+  --dash-card-bg: #11233D;
+  --dash-card-border: rgba(0, 242, 254, 0.22);
+  --dash-text-main: #F8FAFC;
+  --dash-text-muted: #94A3B8;
+  --dash-accent-gold: #00F2FE;
+  --dash-crest-bg: linear-gradient(135deg, rgba(0, 242, 254, 0.25), rgba(7, 16, 30, 0.95));
+  --dash-avatar-bg: #07101E;
+  --dash-user-card-bg: rgba(0, 242, 254, 0.08);
+  --dash-topbar-bg: #0E1F38;
+  --dash-nav-text: #CBD5E1;
+  --dash-nav-hover-bg: rgba(0, 242, 254, 0.12);
+  --dash-nav-active-bg: linear-gradient(135deg, rgba(0, 242, 254, 0.25) 0%, rgba(11, 25, 44, 0.95) 100%);
+  --dash-nav-active-border: #00F2FE;
+  --dash-input-bg: #07101E;
+  --dash-input-border: rgba(0, 242, 254, 0.3);
+  --dash-table-th-bg: #0E1F38;
+  --dash-table-border: rgba(0, 242, 254, 0.15);
+  --dash-table-hover-bg: #142845;
+  --dash-modal-bg: #11233D;
+  --dash-tile-bg: #0E1F38;
+  --dash-tile-hover-bg: #162D4E;
+  --dash-icon-wrap-bg: rgba(0, 242, 254, 0.15);
+  --dash-cms-item-bg: #0E1F38;
+  --dash-btn-primary-bg: linear-gradient(135deg, #00F2FE 0%, #0284C7 100%);
+  --dash-btn-primary-text: #0B192C;
+  --dash-btn-primary-shadow: rgba(0, 242, 254, 0.35);
 
-/* --- 2. WHITE & GREEN THEME (الأخضر والأبيض النقي) --- */
-[data-theme="white-green"], body.theme-white-green {
-  --saudi-green-950: #04140B;
-  --saudi-green-900: #082114;
-  --saudi-green-800: #0F331F;
-  --saudi-green-700: #1B4332;
-  --saudi-green-600: #059669;
-  --saudi-green-500: #10B981;
-  --saudi-green-400: #34D399;
-  --saudi-green-100: #ECFDF5;
-  
-  --gold-primary: #059669;
-  --gold-bright: #10B981;
-  --gold-light: #A7F3D0;
-  --gold-dark: #047857;
-  --gold-glow: rgba(5, 150, 105, 0.25);
-
-  --brand-green: #1B4332;
-  --brand-green-hover: #0F331F;
-  --brand-gold: #059669;
-  
-  --ivory-warm: #FFFFFF;
-  --ivory-surface: #F8FAF9;
-  --ivory-card: #FFFFFF;
-  
-  --text-main: #0B2516;
-  --text-muted: #4B6356;
-  --text-light: #FFFFFF;
-  --text-light-muted: #D1FAE5;
-
-  /* Dashboard Tokens */
-  --dash-sidebar-bg: #062817;
-  --dash-sidebar-border: rgba(5, 150, 105, 0.25);
-  --dash-body-bg: #F4FBF7;
-  --dash-card-bg: #FFFFFF;
-  --dash-card-border: #E2ECE6;
-  --dash-text-main: #082114;
-  --dash-text-muted: #4B6356;
-  --dash-accent-gold: #059669;
-  --dash-crest-bg: linear-gradient(135deg, rgba(5, 150, 105, 0.25), rgba(6, 40, 23, 0.9));
-  --dash-avatar-bg: #062817;
-  --dash-user-card-bg: rgba(255, 255, 255, 0.08);
-  --dash-topbar-bg: #FFFFFF;
-  --dash-nav-text: #D1FAE5;
-  --dash-nav-hover-bg: rgba(255, 255, 255, 0.12);
-  --dash-nav-active-bg: rgba(5, 150, 105, 0.25);
-  --dash-nav-active-border: #059669;
-  --dash-input-bg: #FFFFFF;
-  --dash-input-border: #CBD5E1;
-  --dash-table-th-bg: #ECFDF5;
-  --dash-table-border: #E2ECE6;
-  --dash-table-hover-bg: #F0FDF4;
-  --dash-modal-bg: #FFFFFF;
-  --dash-tile-bg: #F0FDF4;
-  --dash-tile-hover-bg: #DCFCE7;
-  --dash-icon-wrap-bg: rgba(5, 150, 105, 0.15);
-  --dash-cms-item-bg: #F8FAF9;
-  --dash-btn-primary-bg: linear-gradient(135deg, #059669 0%, #047857 100%);
-  --dash-btn-primary-text: #FFFFFF;
-  --dash-btn-primary-shadow: rgba(5, 150, 105, 0.35);
-}
-
-/* --- 3. EMERALD NIGHT THEME (الأخضر والزمرد الليلي المضيء) --- */
-[data-theme="emerald-night"], body.theme-emerald-night {
-  --saudi-green-950: #030D08;
-  --saudi-green-900: #06180E;
-  --saudi-green-800: #0B2516;
-  --saudi-green-700: #113822;
-  --saudi-green-600: #10B981;
-  --saudi-green-500: #34D399;
-  --saudi-green-400: #6EE7B7;
-  --saudi-green-100: #ECFDF5;
-  
-  --gold-primary: #10B981;
-  --gold-bright: #34D399;
-  --gold-light: #A7F3D0;
-  --gold-dark: #059669;
-  --gold-glow: rgba(16, 185, 129, 0.35);
-
-  --brand-green: #10B981;
-  --brand-green-hover: #059669;
-  --brand-gold: #34D399;
-  
-  --ivory-warm: #06180E;
-  --ivory-surface: #0B2516;
-  --ivory-card: #0A2315;
-  
-  --text-main: #FFFFFF;
-  --text-muted: #A7F3D0;
-  --text-light: #FFFFFF;
-  --text-light-muted: #6EE7B7;
-
-  /* Dashboard Tokens (Rich Deep Emerald Dark Mode) */
-  --dash-sidebar-bg: #030D08;
-  --dash-sidebar-border: rgba(16, 185, 129, 0.2);
-  --dash-body-bg: #06180E;
-  --dash-card-bg: #0A2315;
-  --dash-card-border: rgba(16, 185, 129, 0.25);
-  --dash-text-main: #FFFFFF;
-  --dash-text-muted: #A7F3D0;
-  --dash-accent-gold: #10B981;
-  --dash-crest-bg: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(3, 13, 8, 0.9));
-  --dash-avatar-bg: #030D08;
-  --dash-user-card-bg: rgba(255, 255, 255, 0.05);
-  --dash-topbar-bg: #0A2315;
-  --dash-nav-text: #A7F3D0;
-  --dash-nav-hover-bg: rgba(16, 185, 129, 0.15);
-  --dash-nav-active-bg: rgba(16, 185, 129, 0.3);
-  --dash-nav-active-border: #10B981;
-  --dash-input-bg: #06180E;
-  --dash-input-border: rgba(16, 185, 129, 0.3);
-  --dash-table-th-bg: #0D2B1B;
-  --dash-table-border: rgba(16, 185, 129, 0.2);
-  --dash-table-hover-bg: #0F331F;
-  --dash-modal-bg: #0A2315;
-  --dash-tile-bg: #0D2B1B;
-  --dash-tile-hover-bg: #113822;
-  --dash-icon-wrap-bg: rgba(16, 185, 129, 0.2);
-  --dash-cms-item-bg: #0D2B1B;
-  --dash-btn-primary-bg: linear-gradient(135deg, #10B981 0%, #059669 100%);
-  --dash-btn-primary-text: #FFFFFF;
-  --dash-btn-primary-shadow: rgba(16, 185, 129, 0.35);
-}
-
-/* --- 4. FOREST & WARM BRONZE THEME (الأخضر والبرونز الأكاديمي) --- */
-[data-theme="forest-bronze"], body.theme-forest-bronze {
-  --saudi-green-950: #08160F;
-  --saudi-green-900: #0F281C;
-  --saudi-green-800: #143829;
-  --saudi-green-700: #1E4E3A;
-  --saudi-green-600: #2D6A4F;
-  --saudi-green-500: #D97706;
-  --saudi-green-400: #F59E0B;
-  --saudi-green-100: #FEF3C7;
-  
-  --gold-primary: #D97706;
-  --gold-bright: #F59E0B;
-  --gold-light: #FDE68A;
-  --gold-dark: #B45309;
-  --gold-glow: rgba(217, 119, 6, 0.35);
-
-  --brand-green: #143829;
-  --brand-green-hover: #0F281C;
-  --brand-gold: #D97706;
-  
-  --ivory-warm: #FAF8F5;
-  --ivory-surface: #F3EFEA;
-  --ivory-card: #FFFFFF;
-  
-  --text-main: #0F281C;
-  --text-muted: #5C6E65;
-  --text-light: #FFFFFF;
-  --text-light-muted: #FDE68A;
-
-  /* Dashboard Tokens (Academic Forest & Bronze) */
-  --dash-sidebar-bg: #0D251A;
-  --dash-sidebar-border: rgba(217, 119, 6, 0.25);
-  --dash-body-bg: #FAF7F2;
-  --dash-card-bg: #FFFFFF;
-  --dash-card-border: rgba(217, 119, 6, 0.2);
-  --dash-text-main: #0F281C;
-  --dash-text-muted: #5C6E65;
-  --dash-accent-gold: #D97706;
-  --dash-crest-bg: linear-gradient(135deg, rgba(217, 119, 6, 0.3), rgba(13, 37, 26, 0.9));
-  --dash-avatar-bg: #0D251A;
-  --dash-user-card-bg: rgba(255, 255, 255, 0.08);
-  --dash-topbar-bg: #FFFFFF;
-  --dash-nav-text: #FDE68A;
-  --dash-nav-hover-bg: rgba(217, 119, 6, 0.15);
-  --dash-nav-active-bg: rgba(217, 119, 6, 0.25);
-  --dash-nav-active-border: #D97706;
-  --dash-input-bg: #FAF7F2;
-  --dash-input-border: rgba(217, 119, 6, 0.3);
-  --dash-table-th-bg: #FEF3C7;
-  --dash-table-border: rgba(217, 119, 6, 0.2);
-  --dash-table-hover-bg: #FFFBEB;
-  --dash-modal-bg: #FFFFFF;
-  --dash-tile-bg: #FEF3C7;
-  --dash-tile-hover-bg: #FDE68A;
-  --dash-icon-wrap-bg: rgba(217, 119, 6, 0.2);
-  --dash-cms-item-bg: #FEF3C7;
-  --dash-btn-primary-bg: linear-gradient(135deg, #D97706 0%, #B45309 100%);
-  --dash-btn-primary-text: #FFFFFF;
-  --dash-btn-primary-shadow: rgba(217, 119, 6, 0.35);
-}
-
-/* Global Website Dynamic Theme Adaptation */
-.bg-ivory-warm {
-  background-color: transparent !important;
-  color: #FFFFFF;
-  transition: background-color 0.35s ease, color 0.35s ease;
-}
-
-.bg-ivory-surface {
-  background-color: transparent !important;
-  color: #FFFFFF;
-  transition: background-color 0.35s ease, color 0.35s ease;
-}
-
-/* ==========================================================================
-   GLOBAL WEBSITE THEME ADAPTATION (EMERALD NIGHT, FOREST BRONZE, WHITE-GREEN)
-   ========================================================================== */
-
-/* 1. EMERALD NIGHT THEME (الزمرد الليلي الهادئ 🌙) */
-[data-theme="emerald-night"], body.theme-emerald-night {
-  background-color: #06180E !important;
-  color: #E2ECE7 !important;
-
+  /* Public Site Styles */
   .site-topbar {
-    background: #030D08 !important;
-    border-bottom: 1px solid rgba(16, 185, 129, 0.2) !important;
-    color: #A7F3D0 !important;
-
-    .platform-text { color: #D1FAE5 !important; }
-    .meta-item { color: #A7F3D0 !important; }
-    .meta-sep { color: rgba(16, 185, 129, 0.3) !important; }
-    .date-highlight { color: #FFFFFF !important; }
+    background: #07101E !important;
+    border-bottom: 1px solid rgba(0, 242, 254, 0.2) !important;
+    color: #94A3B8 !important;
+    .platform-text { color: #E2E8F0 !important; }
+    .date-highlight { color: #00F2FE !important; }
   }
 
   .main-site-header {
-    background: #06180E !important;
-    border-bottom: 1px solid rgba(16, 185, 129, 0.2) !important;
-
+    background: #0B192C !important;
+    border-bottom: 1px solid rgba(0, 242, 254, 0.2) !important;
     &.scrolled {
-      background: rgba(6, 24, 14, 0.96) !important;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45) !important;
+      background: rgba(11, 25, 44, 0.97) !important;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45) !important;
     }
-
-    .brand-name { color: #34D399 !important; }
-    .brand-subtext { color: #6EE7B7 !important; }
-
+    .brand-name { color: #00F2FE !important; }
+    .brand-subtext { color: #94A3B8 !important; }
     .header-nav-menu a {
-      color: #D1FAE5 !important;
-      &:hover, &.active { color: #34D399 !important; }
-      &.active::after { background: #34D399 !important; }
+      color: #E2E8F0 !important;
+      &:hover, &.active { color: #00F2FE !important; }
+      &.active::after { background: #00F2FE !important; }
     }
-
-    .dropdown-panel {
-      background: #0B2516 !important;
-      border-color: rgba(16, 185, 129, 0.3) !important;
-      a {
-        color: #D1FAE5 !important;
-        &:hover { background: #113822 !important; color: #34D399 !important; }
-      }
-    }
-
-    .btn-admin-icon, .btn-cart-icon, .btn-mobile-toggle, .btn-theme-trigger {
-      background: #0B2516 !important;
-      color: #A7F3D0 !important;
-      border-color: rgba(16, 185, 129, 0.3) !important;
-    }
-
-    .mobile-nav-drawer {
-      background: #06180E !important;
-      border-color: rgba(16, 185, 129, 0.2) !important;
-      a {
-        color: #D1FAE5 !important;
-        border-color: rgba(16, 185, 129, 0.12) !important;
-      }
+    .btn-theme-trigger, .btn-cart-icon, .btn-admin-icon {
+      background: #11233D !important;
+      border-color: rgba(0, 242, 254, 0.3) !important;
+      color: #F8FAFC !important;
     }
   }
 
-  /* Universal Cards in Night Mode */
-  .timeline-step,
-  .channel-card,
-  .contact-form-panel,
-  .testimonial-luxury-card,
-  .article-luxury-card,
-  .portfolio-card,
-  .luxury-white-card,
-  .service-card-luxury,
-  .pillar-card,
-  .order-success-card,
-  .form-main-card,
-  .order-summary-sidebar,
-  .store-service-card,
-  .hero-stats-capsule {
-    background: #0A2315 !important;
-    border-color: rgba(16, 185, 129, 0.25) !important;
+  .timeline-step, .channel-card, .contact-form-panel, .testimonial-luxury-card,
+  .article-luxury-card, .portfolio-card, .pillar-card, .order-success-card,
+  .form-main-card, .order-summary-sidebar, .store-service-card, .learnspace-course-card, .realm-card-item {
+    background: #11233D !important;
+    border-color: rgba(0, 242, 254, 0.22) !important;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
-    color: #FFFFFF !important;
-
-    h1, h2, h3, h4, strong { color: #FFFFFF !important; }
-    p, small, span:not(.channel-badge):not(.badge-gold):not(.badge-gold-pill):not(.tab-badge-discount):not(.spec-chip) {
-      color: #CBDAD3 !important;
-    }
+    color: #F8FAFC !important;
+    h1, h2, h3, h4, strong { color: #F8FAFC !important; }
+    p, small { color: #CBD5E1 !important; }
   }
 
-  .section-title, .page-title, h1, h2, h3 {
-    color: #FFFFFF !important;
-  }
-  .section-desc, .page-desc {
-    color: #A7F3D0 !important;
-  }
-
-  .contact-us-wrapper,
-  .inner-page-wrapper,
-  .services-page-container,
-  .contact-page-wrapper,
-  .home-wrapper,
-  .about-page-wrapper,
-  .bg-ivory-warm {
-    background: #06180E !important;
-  }
-
-  .luxury-input, input, textarea, select {
-    background: #0B2516 !important;
-    border-color: rgba(16, 185, 129, 0.35) !important;
-    color: #FFFFFF !important;
-    &::placeholder { color: #52796F !important; }
-  }
-
-  .badge-gold {
-    background: rgba(16, 185, 129, 0.16) !important;
-    border-color: rgba(16, 185, 129, 0.4) !important;
-    color: #34D399 !important;
+  .contact-us-wrapper, .inner-page-wrapper, .services-page-container, .contact-page-wrapper, .bg-ivory-warm {
+    background: #0B192C !important;
   }
 }
 
-/* 2. FOREST BRONZE THEME (العنبر والتراث المعماري 🏛️) */
-[data-theme="forest-bronze"], body.theme-forest-bronze {
-  background-color: #0B1C15 !important;
-  color: #FEF3C7 !important;
+/* --------------------------------------------------------------------------
+   THEME 3: IMPERIAL AMETHYST & CHAMPAGNE ROSE (الجمشت الملكي والوردي الشامبين 🍇✨)
+   -------------------------------------------------------------------------- */
+[data-theme="amethyst-rose"], body.theme-amethyst-rose {
+  background-color: #1A0D2E !important;
+  color: #FDF2F8 !important;
 
+  /* Dashboard Tokens */
+  --dash-sidebar-bg: #140A24;
+  --dash-sidebar-border: rgba(244, 114, 182, 0.25);
+  --dash-body-bg: #1A0D2E;
+  --dash-card-bg: #251342;
+  --dash-card-border: rgba(244, 114, 182, 0.22);
+  --dash-text-main: #FFFFFF;
+  --dash-text-muted: #D8B4FE;
+  --dash-accent-gold: #F472B6;
+  --dash-crest-bg: linear-gradient(135deg, rgba(244, 114, 182, 0.25), rgba(20, 10, 36, 0.95));
+  --dash-avatar-bg: #140A24;
+  --dash-user-card-bg: rgba(244, 114, 182, 0.08);
+  --dash-topbar-bg: #21103B;
+  --dash-nav-text: #F5D0FE;
+  --dash-nav-hover-bg: rgba(244, 114, 182, 0.12);
+  --dash-nav-active-bg: linear-gradient(135deg, rgba(244, 114, 182, 0.25) 0%, rgba(30, 16, 53, 0.95) 100%);
+  --dash-nav-active-border: #F472B6;
+  --dash-input-bg: #140A24;
+  --dash-input-border: rgba(244, 114, 182, 0.3);
+  --dash-table-th-bg: #21103B;
+  --dash-table-border: rgba(244, 114, 182, 0.15);
+  --dash-table-hover-bg: #2B164C;
+  --dash-modal-bg: #251342;
+  --dash-tile-bg: #21103B;
+  --dash-tile-hover-bg: #2C1650;
+  --dash-icon-wrap-bg: rgba(244, 114, 182, 0.18);
+  --dash-cms-item-bg: #21103B;
+  --dash-btn-primary-bg: linear-gradient(135deg, #F472B6 0%, #C026D3 100%);
+  --dash-btn-primary-text: #FFFFFF;
+  --dash-btn-primary-shadow: rgba(244, 114, 182, 0.35);
+
+  /* Public Site Styles */
   .site-topbar {
-    background: #071510 !important;
-    border-bottom: 1px solid rgba(217, 119, 6, 0.25) !important;
+    background: #140A24 !important;
+    border-bottom: 1px solid rgba(244, 114, 182, 0.2) !important;
+    color: #E9D5FF !important;
+    .platform-text { color: #FAF5FF !important; }
+    .date-highlight { color: #F472B6 !important; }
+  }
+
+  .main-site-header {
+    background: #1E1035 !important;
+    border-bottom: 1px solid rgba(244, 114, 182, 0.2) !important;
+    &.scrolled {
+      background: rgba(30, 16, 53, 0.97) !important;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45) !important;
+    }
+    .brand-name { color: #F472B6 !important; }
+    .brand-subtext { color: #E9D5FF !important; }
+    .header-nav-menu a {
+      color: #FDF2F8 !important;
+      &:hover, &.active { color: #F472B6 !important; }
+      &.active::after { background: #F472B6 !important; }
+    }
+    .btn-theme-trigger, .btn-cart-icon, .btn-admin-icon {
+      background: #251342 !important;
+      border-color: rgba(244, 114, 182, 0.3) !important;
+      color: #FFFFFF !important;
+    }
+  }
+
+  .timeline-step, .channel-card, .contact-form-panel, .testimonial-luxury-card,
+  .article-luxury-card, .portfolio-card, .pillar-card, .learnspace-course-card, .realm-card-item {
+    background: #251342 !important;
+    border-color: rgba(244, 114, 182, 0.22) !important;
+    color: #FDF2F8 !important;
+    h1, h2, h3, h4, strong { color: #FFFFFF !important; }
+    p, small { color: #E9D5FF !important; }
+  }
+
+  .contact-us-wrapper, .inner-page-wrapper, .services-page-container, .contact-page-wrapper, .bg-ivory-warm {
+    background: #1A0D2E !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   THEME 4: SAUDI MOCHA & DESERT AMBER (القهوة السعودية والعنبر الأصيل ☕🍂)
+   -------------------------------------------------------------------------- */
+[data-theme="mocha-amber"], [data-theme="forest-bronze"], body.theme-mocha-amber, body.theme-forest-bronze {
+  background-color: #FAF6F0 !important;
+  color: #211510 !important;
+
+  /* Dashboard Tokens */
+  --dash-sidebar-bg: #211510;
+  --dash-sidebar-border: rgba(245, 158, 11, 0.28);
+  --dash-body-bg: #FAF6F0;
+  --dash-card-bg: #FFFFFF;
+  --dash-card-border: rgba(245, 158, 11, 0.25);
+  --dash-text-main: #211510;
+  --dash-text-muted: #6B5B52;
+  --dash-accent-gold: #F59E0B;
+  --dash-crest-bg: linear-gradient(135deg, rgba(245, 158, 11, 0.3), rgba(33, 21, 16, 0.95));
+  --dash-avatar-bg: #211510;
+  --dash-user-card-bg: rgba(245, 158, 11, 0.08);
+  --dash-topbar-bg: #FFFFFF;
+  --dash-nav-text: #FDE68A;
+  --dash-nav-hover-bg: rgba(245, 158, 11, 0.12);
+  --dash-nav-active-bg: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(33, 21, 16, 0.95) 100%);
+  --dash-nav-active-border: #F59E0B;
+  --dash-input-bg: #FAF6F0;
+  --dash-input-border: rgba(245, 158, 11, 0.35);
+  --dash-table-th-bg: #F4ECE1;
+  --dash-table-border: rgba(245, 158, 11, 0.2);
+  --dash-table-hover-bg: #FAF6F0;
+  --dash-modal-bg: #FFFFFF;
+  --dash-tile-bg: #FAF6F0;
+  --dash-tile-hover-bg: #F5EAE0;
+  --dash-icon-wrap-bg: rgba(245, 158, 11, 0.18);
+  --dash-cms-item-bg: #FAF6F0;
+  --dash-btn-primary-bg: linear-gradient(135deg, #211510 0%, #3D261C 100%);
+  --dash-btn-primary-text: #FFFFFF;
+  --dash-btn-primary-shadow: rgba(33, 21, 16, 0.35);
+
+  /* Public Site Styles */
+  .site-topbar {
+    background: #180F0B !important;
+    border-bottom: 1px solid rgba(245, 158, 11, 0.25) !important;
     color: #FDE68A !important;
     .platform-text { color: #FEF3C7 !important; }
     .date-highlight { color: #FFFFFF !important; }
   }
 
   .main-site-header {
-    background: #0B1C15 !important;
-    border-bottom: 1px solid rgba(217, 119, 6, 0.25) !important;
-
-    .brand-name { color: #F59E0B !important; }
+    background: #FFFFFF !important;
+    border-bottom: 1px solid rgba(245, 158, 11, 0.2) !important;
+    .brand-name { color: #211510 !important; }
     .header-nav-menu a {
-      color: #FDE68A !important;
+      color: #211510 !important;
       &:hover, &.active { color: #F59E0B !important; }
       &.active::after { background: #F59E0B !important; }
     }
   }
 
-  .timeline-step,
-  .channel-card,
-  .contact-form-panel,
-  .testimonial-luxury-card,
-  .article-luxury-card,
-  .portfolio-card,
-  .pillar-card {
-    background: #0F281C !important;
-    border-color: rgba(217, 119, 6, 0.3) !important;
-    color: #FEF3C7 !important;
-    h1, h2, h3, h4, strong { color: #FFFFFF !important; }
-    p, small { color: #E5D5BA !important; }
+  .timeline-step, .channel-card, .contact-form-panel, .testimonial-luxury-card,
+  .article-luxury-card, .portfolio-card, .pillar-card, .learnspace-course-card, .realm-card-item {
+    background: #FFFFFF !important;
+    border-color: rgba(245, 158, 11, 0.25) !important;
+    color: #211510 !important;
+    h1, h2, h3, h4, strong { color: #211510 !important; }
+    p, small { color: #6B5B52 !important; }
   }
 
-  .contact-us-wrapper,
-  .inner-page-wrapper,
-  .services-page-container,
-  .contact-page-wrapper,
-  .bg-ivory-warm {
-    background: #0B1C15 !important;
+  .contact-us-wrapper, .inner-page-wrapper, .services-page-container, .contact-page-wrapper, .bg-ivory-warm {
+    background: #FAF6F0 !important;
   }
 }
 
-/* 3. WHITE & GREEN THEME (الأخضر والعاجي النقي 🤍) */
-[data-theme="white-green"], body.theme-white-green {
-  background-color: #FFFFFF !important;
+/* --------------------------------------------------------------------------
+   THEME 5: ARABIAN TEAL & CORAL SUNSET (بحر العرب والمرجان الفاخر 🌊🪸)
+   -------------------------------------------------------------------------- */
+[data-theme="teal-coral"], body.theme-teal-coral {
+  background-color: #04292E !important;
+  color: #F8FAFC !important;
 
+  /* Dashboard Tokens */
+  --dash-sidebar-bg: #021B1F;
+  --dash-sidebar-border: rgba(251, 113, 133, 0.25);
+  --dash-body-bg: #04292E;
+  --dash-card-bg: #083B43;
+  --dash-card-border: rgba(251, 113, 133, 0.22);
+  --dash-text-main: #FFFFFF;
+  --dash-text-muted: #99F6E4;
+  --dash-accent-gold: #FB7185;
+  --dash-crest-bg: linear-gradient(135deg, rgba(251, 113, 133, 0.25), rgba(2, 27, 31, 0.95));
+  --dash-avatar-bg: #021B1F;
+  --dash-user-card-bg: rgba(251, 113, 133, 0.08);
+  --dash-topbar-bg: #063138;
+  --dash-nav-text: #CCFBF1;
+  --dash-nav-hover-bg: rgba(251, 113, 133, 0.12);
+  --dash-nav-active-bg: linear-gradient(135deg, rgba(251, 113, 133, 0.25) 0%, rgba(4, 41, 46, 0.95) 100%);
+  --dash-nav-active-border: #FB7185;
+  --dash-input-bg: #021B1F;
+  --dash-input-border: rgba(251, 113, 133, 0.3);
+  --dash-table-th-bg: #063138;
+  --dash-table-border: rgba(251, 113, 133, 0.15);
+  --dash-table-hover-bg: #0A4751;
+  --dash-modal-bg: #083B43;
+  --dash-tile-bg: #063138;
+  --dash-tile-hover-bg: #0A454F;
+  --dash-icon-wrap-bg: rgba(251, 113, 133, 0.18);
+  --dash-cms-item-bg: #063138;
+  --dash-btn-primary-bg: linear-gradient(135deg, #FB7185 0%, #E11D48 100%);
+  --dash-btn-primary-text: #FFFFFF;
+  --dash-btn-primary-shadow: rgba(251, 113, 133, 0.35);
+
+  /* Public Site Styles */
   .site-topbar {
-    background: #F8FAF9 !important;
-    border-bottom: 1px solid #E2ECE6 !important;
-    color: #4B6356 !important;
+    background: #021B1F !important;
+    border-bottom: 1px solid rgba(251, 113, 133, 0.2) !important;
+    color: #99F6E4 !important;
+    .platform-text { color: #E6FFFA !important; }
+    .date-highlight { color: #FB7185 !important; }
   }
 
   .main-site-header {
-    background: #FFFFFF !important;
-    border-bottom: 1px solid #E2ECE6 !important;
-    .brand-name { color: #059669 !important; }
+    background: #04292E !important;
+    border-bottom: 1px solid rgba(251, 113, 133, 0.2) !important;
+    &.scrolled {
+      background: rgba(4, 41, 46, 0.97) !important;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45) !important;
+    }
+    .brand-name { color: #FB7185 !important; }
     .header-nav-menu a {
-      color: #082114 !important;
-      &:hover, &.active { color: #059669 !important; }
-      &.active::after { background: #059669 !important; }
+      color: #E6FFFA !important;
+      &:hover, &.active { color: #FB7185 !important; }
+      &.active::after { background: #FB7185 !important; }
+    }
+    .btn-theme-trigger, .btn-cart-icon, .btn-admin-icon {
+      background: #083B43 !important;
+      border-color: rgba(251, 113, 133, 0.3) !important;
+      color: #FFFFFF !important;
     }
   }
 
-  .contact-us-wrapper,
-  .inner-page-wrapper,
-  .services-page-container,
-  .contact-page-wrapper,
-  .bg-ivory-warm {
-    background: #F8FAF9 !important;
+  .timeline-step, .channel-card, .contact-form-panel, .testimonial-luxury-card,
+  .article-luxury-card, .portfolio-card, .pillar-card, .learnspace-course-card, .realm-card-item {
+    background: #083B43 !important;
+    border-color: rgba(251, 113, 133, 0.22) !important;
+    color: #F8FAFC !important;
+    h1, h2, h3, h4, strong { color: #FFFFFF !important; }
+    p, small { color: #99F6E4 !important; }
+  }
+
+  .contact-us-wrapper, .inner-page-wrapper, .services-page-container, .contact-page-wrapper, .bg-ivory-warm {
+    background: #04292E !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   THEME 6: OBSIDIAN ONYX & PLATINUM SILVER (الأونيكس الفحمي والبلاتين الفضي 🖤⚡)
+   -------------------------------------------------------------------------- */
+[data-theme="onyx-platinum"], body.theme-onyx-platinum {
+  background-color: #0B1120 !important;
+  color: #F8FAFC !important;
+
+  /* Dashboard Tokens */
+  --dash-sidebar-bg: #080C15;
+  --dash-sidebar-border: rgba(96, 165, 250, 0.25);
+  --dash-body-bg: #0B1120;
+  --dash-card-bg: #151F32;
+  --dash-card-border: rgba(96, 165, 250, 0.2);
+  --dash-text-main: #F8FAFC;
+  --dash-text-muted: #94A3B8;
+  --dash-accent-gold: #60A5FA;
+  --dash-crest-bg: linear-gradient(135deg, rgba(96, 165, 250, 0.25), rgba(8, 12, 21, 0.95));
+  --dash-avatar-bg: #080C15;
+  --dash-user-card-bg: rgba(96, 165, 250, 0.08);
+  --dash-topbar-bg: #111827;
+  --dash-nav-text: #E2E8F0;
+  --dash-nav-hover-bg: rgba(96, 165, 250, 0.12);
+  --dash-nav-active-bg: linear-gradient(135deg, rgba(96, 165, 250, 0.25) 0%, rgba(15, 23, 42, 0.95) 100%);
+  --dash-nav-active-border: #60A5FA;
+  --dash-input-bg: #080C15;
+  --dash-input-border: rgba(96, 165, 250, 0.3);
+  --dash-table-th-bg: #111827;
+  --dash-table-border: rgba(96, 165, 250, 0.15);
+  --dash-table-hover-bg: #1A263D;
+  --dash-modal-bg: #151F32;
+  --dash-tile-bg: #111827;
+  --dash-tile-hover-bg: #1A263D;
+  --dash-icon-wrap-bg: rgba(96, 165, 250, 0.18);
+  --dash-cms-item-bg: #111827;
+  --dash-btn-primary-bg: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+  --dash-btn-primary-text: #FFFFFF;
+  --dash-btn-primary-shadow: rgba(59, 130, 246, 0.35);
+
+  /* Public Site Styles */
+  .site-topbar {
+    background: #080C15 !important;
+    border-bottom: 1px solid rgba(96, 165, 250, 0.2) !important;
+    color: #94A3B8 !important;
+    .platform-text { color: #E2E8F0 !important; }
+    .date-highlight { color: #60A5FA !important; }
+  }
+
+  .main-site-header {
+    background: #0F172A !important;
+    border-bottom: 1px solid rgba(96, 165, 250, 0.2) !important;
+    &.scrolled {
+      background: rgba(15, 23, 42, 0.97) !important;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45) !important;
+    }
+    .brand-name { color: #60A5FA !important; }
+    .brand-subtext { color: #94A3B8 !important; }
+    .header-nav-menu a {
+      color: #E2E8F0 !important;
+      &:hover, &.active { color: #60A5FA !important; }
+      &.active::after { background: #60A5FA !important; }
+    }
+    .btn-theme-trigger, .btn-cart-icon, .btn-admin-icon {
+      background: #151F32 !important;
+      border-color: rgba(96, 165, 250, 0.3) !important;
+      color: #FFFFFF !important;
+    }
+  }
+
+  .timeline-step, .channel-card, .contact-form-panel, .testimonial-luxury-card,
+  .article-luxury-card, .portfolio-card, .pillar-card, .learnspace-course-card, .realm-card-item {
+    background: #151F32 !important;
+    border-color: rgba(96, 165, 250, 0.22) !important;
+    color: #F8FAFC !important;
+    h1, h2, h3, h4, strong { color: #FFFFFF !important; }
+    p, small { color: #94A3B8 !important; }
+  }
+
+  .contact-us-wrapper, .inner-page-wrapper, .services-page-container, .contact-page-wrapper, .bg-ivory-warm {
+    background: #0B1120 !important;
   }
 }
 

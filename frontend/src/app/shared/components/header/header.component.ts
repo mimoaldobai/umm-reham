@@ -31,7 +31,7 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
         <!-- Right: Saudi Platform Title -->
         <div class="topbar-platform-info">
           <span class="flag-icon" role="img" aria-label="علم السعودية">🇸🇦</span>
-          <span class="platform-text">منصة سعودية للدعم الأكاديمي والاستشارات – نخدم جميع مناطق المملكة  منصة سعودية للدعم الأكاديمي</span>
+          <span class="platform-text">منصة سعودية للدعم الأكاديمي والاستشارات – نخدم جميع مناطق المملكة</span>
         </div>
 
         <!-- Left: Live Weather, City, Time & Hijri Date -->

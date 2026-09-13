@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThemeService, AppTheme } from '../../../core/services/theme.service';
+import { ThemeService, AppTheme, ThemeOption } from '../../../core/services/theme.service';
 import { AudioService } from '../../../core/services/audio.service';
 
 @Component({
@@ -13,16 +13,24 @@ import { AudioService } from '../../../core/services/audio.service';
       <button 
         class="btn-theme-trigger" 
         (click)="toggleDropdown()"
-        [title]="'الثيم الحالي: ' + currentThemeDetails.nameAr">
+        [title]="'الثيم النشط: ' + currentThemeDetails.nameAr">
+        <div class="dual-tone-swatch" [title]="currentThemeDetails.primaryName + ' + ' + currentThemeDetails.accentName">
+          <span class="swatch-color primary" [style.background-color]="currentThemeDetails.primaryColor"></span>
+          <span class="swatch-color accent" [style.background-color]="currentThemeDetails.accentColor"></span>
+        </div>
         <span class="theme-icon">{{ currentThemeDetails.icon }}</span>
-        <span class="theme-label">{{ currentThemeDetails.nameAr }}</span>
+        <span class="theme-label">{{ currentThemeDetails.nameAr.split(' ')[0] }} {{ currentThemeDetails.nameAr.split(' ')[1] }}</span>
         <span class="theme-arrow" [class.open]="isDropdownOpen">▾</span>
       </button>
 
       <!-- Dropdown Palette Modal/Menu -->
       <div *ngIf="isDropdownOpen" class="theme-dropdown-palette" (click)="$event.stopPropagation()">
         <div class="palette-header">
-          <span>اختر الطابع اللوني المفضل</span>
+          <div class="palette-header-title">
+            <span class="pulse-sparkle">✨</span>
+            <strong>اختر الثيم الموحد للمنصة والداشبورد</strong>
+          </div>
+          <small class="palette-subtitle">ثيمات ثنائية متناغمة تعكس روح وفخامة الهوية الأكاديمية</small>
         </div>
 
         <div class="palette-options-list">
@@ -32,16 +40,30 @@ import { AudioService } from '../../../core/services/audio.service';
             [class.active]="themeService.currentTheme() === opt.id"
             (click)="selectTheme(opt.id)">
             
-            <div class="option-preview-circle" [style.background]="opt.previewColor" [style.border-color]="opt.accentColor">
-              <span class="mini-accent-dot" [style.background]="opt.accentColor"></span>
+            <!-- Dual-Tone Circular Badge -->
+            <div class="dual-tone-preview">
+              <span class="preview-half primary" [style.background-color]="opt.primaryColor" [title]="opt.primaryName"></span>
+              <span class="preview-half accent" [style.background-color]="opt.accentColor" [title]="opt.accentName"></span>
+              <span class="preview-icon">{{ opt.icon }}</span>
             </div>
 
             <div class="option-info">
-              <strong>{{ opt.icon }} {{ opt.nameAr }}</strong>
-              <small>{{ opt.desc }}</small>
+              <div class="option-title-row">
+                <strong class="option-name">{{ opt.nameAr }}</strong>
+              </div>
+              <div class="option-colors-tag">
+                <span class="color-dot-tag" [style.background-color]="opt.primaryColor"></span>
+                <span>{{ opt.primaryName }}</span>
+                <span class="plus-sep">+</span>
+                <span class="color-dot-tag" [style.background-color]="opt.accentColor"></span>
+                <span class="accent-name-text">{{ opt.accentName }}</span>
+              </div>
+              <small class="option-desc">{{ opt.desc }}</small>
             </div>
 
-            <span *ngIf="themeService.currentTheme() === opt.id" class="check-mark">✓</span>
+            <div class="active-indicator-col" *ngIf="themeService.currentTheme() === opt.id">
+              <span class="check-pill">✓ مفعّل</span>
+            </div>
           </button>
         </div>
       </div>
@@ -56,47 +78,63 @@ import { AudioService } from '../../../core/services/audio.service';
     }
 
     .btn-theme-trigger {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
-      background: #F7FAFC;
-      border: 1.5px solid #E2E8F0;
-      color: #2D3748;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1.5px solid rgba(226, 232, 240, 0.9);
+      color: #1E293B;
       padding: 0.42rem 0.85rem;
-      border-radius: var(--radius-full);
+      border-radius: 9999px;
       font-size: 0.82rem;
       font-weight: 700;
       cursor: pointer;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       white-space: nowrap;
       flex-shrink: 0;
       font-family: inherit;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     }
 
     .btn-theme-trigger:hover {
-      background: #EDF2F7;
-      border-color: #0F5132;
-      color: #0F5132;
+      background: #FFFFFF;
+      border-color: var(--theme-accent, #E5B94F);
       transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    .dual-tone-swatch {
+      display: flex;
+      align-items: center;
+      width: 22px;
+      height: 12px;
+      border-radius: 9999px;
+      overflow: hidden;
+      box-shadow: 0 0 0 1.5px rgba(0, 0, 0, 0.1);
+      flex-shrink: 0;
+    }
+
+    .dual-tone-swatch .swatch-color {
+      width: 50%;
+      height: 100%;
     }
 
     .theme-icon {
       font-size: 0.95rem;
-      flex-shrink: 0;
+      line-height: 1;
     }
 
     .theme-label {
       font-size: 0.78rem;
-      font-family: inherit;
-      white-space: nowrap;
-      flex-shrink: 0;
+      font-weight: 700;
+      color: #0F172A;
     }
 
     .theme-arrow {
       font-size: 0.7rem;
-      transition: transform 0.2s;
-      flex-shrink: 0;
+      color: #64748B;
+      transition: transform 0.2s ease;
     }
 
     .theme-arrow.open {
@@ -108,35 +146,65 @@ import { AudioService } from '../../../core/services/audio.service';
       position: absolute;
       top: calc(100% + 8px);
       left: 0;
-      min-width: 260px;
-      background: #0B1C15;
-      border: 1.5px solid rgba(201, 169, 110, 0.4);
-      border-radius: var(--radius-lg);
-      padding: 0.8rem;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(201, 169, 110, 0.15);
+      width: 330px;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 18px;
+      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.04);
+      padding: 0.85rem;
       z-index: 9999;
-      animation: paletteFade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      backdrop-filter: blur(16px);
+      animation: paletteFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    @keyframes paletteFade {
-      from { opacity: 0; transform: translateY(-8px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes paletteFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.97);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
 
     .palette-header {
-      font-size: 0.72rem;
-      color: #839E93;
-      padding: 0.3rem 0.6rem 0.6rem 0.6rem;
-      border-bottom: 1px solid rgba(201, 169, 110, 0.15);
+      padding: 0.35rem 0.5rem 0.75rem 0.5rem;
+      border-bottom: 1px solid #F1F5F9;
       margin-bottom: 0.5rem;
-      font-weight: 700;
+    }
+
+    .palette-header-title {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.84rem;
+      color: #0F172A;
+    }
+
+    .pulse-sparkle {
+      font-size: 0.95rem;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    .palette-subtitle {
+      display: block;
+      font-size: 0.72rem;
+      color: #64748B;
+      margin-top: 0.2rem;
     }
 
     .palette-options-list {
       display: flex;
       flex-direction: column;
-      gap: 0.35rem;
+      gap: 0.45rem;
+      max-height: 380px;
+      overflow-y: auto;
+      padding-right: 0.2rem;
     }
 
     .palette-option-btn {
@@ -144,89 +212,160 @@ import { AudioService } from '../../../core/services/audio.service';
       align-items: center;
       gap: 0.75rem;
       padding: 0.65rem 0.75rem;
-      border-radius: var(--radius-md);
-      background: transparent;
-      border: 1px solid transparent;
-      color: #C1D6CD;
-      text-align: right;
+      border-radius: 12px;
+      border: 1.5px solid transparent;
+      background: #F8FAFC;
       cursor: pointer;
-      transition: all 0.2s;
+      text-align: right;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       width: 100%;
+      font-family: inherit;
     }
 
     .palette-option-btn:hover {
-      background: rgba(201, 169, 110, 0.1);
-      border-color: rgba(201, 169, 110, 0.25);
-      color: #FFFFFF;
+      background: #F1F5F9;
+      border-color: #CBD5E1;
+      transform: translateX(-2px);
     }
 
     .palette-option-btn.active {
-      background: rgba(201, 169, 110, 0.18);
-      border-color: #C9A96E;
-      color: #FFFFFF;
+      background: #F8FAFC;
+      border-color: var(--theme-accent, #E5B94F);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
     }
 
-    .option-preview-circle {
-      width: 26px;
-      height: 26px;
+    /* Dual Tone Circular Preview */
+    .dual-tone-preview {
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
-      border: 2px solid #C9A96E;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      flex-shrink: 0;
+      border: 2px solid #FFFFFF;
+    }
+
+    .preview-half {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+    }
+
+    .preview-half.primary {
+      right: 0;
+    }
+
+    .preview-half.accent {
+      left: 0;
+    }
+
+    .preview-icon {
+      position: absolute;
+      inset: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
-      position: relative;
-    }
-
-    .mini-accent-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
+      font-size: 0.85rem;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
     }
 
     .option-info {
       flex: 1;
+      min-width: 0;
+    }
+
+    .option-title-row {
       display: flex;
-      flex-direction: column;
-      gap: 0.1rem;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    .option-info strong {
-      font-size: 0.84rem;
-      color: #FFFFFF;
+    .option-name {
+      font-size: 0.82rem;
+      color: #0F172A;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .option-info small {
+    .option-colors-tag {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
       font-size: 0.7rem;
-      color: #839E93;
-      line-height: 1.3;
+      color: #475569;
+      margin-top: 0.15rem;
+      font-weight: 600;
     }
 
-    .check-mark {
-      color: #25D366;
-      font-weight: 900;
-      font-size: 0.9rem;
+    .color-dot-tag {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+    }
+
+    .plus-sep {
+      color: #94A3B8;
+      font-size: 0.75rem;
+    }
+
+    .accent-name-text {
+      color: #0F172A;
+      font-weight: 700;
+    }
+
+    .option-desc {
+      display: block;
+      font-size: 0.68rem;
+      color: #64748B;
+      margin-top: 0.2rem;
+      line-height: 1.3;
+      white-space: normal;
+    }
+
+    .active-indicator-col {
+      flex-shrink: 0;
+    }
+
+    .check-pill {
+      background: #ECFDF5;
+      color: #047857;
+      border: 1px solid #A7F3D0;
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 0.2rem 0.45rem;
+      border-radius: 9999px;
     }
   `]
 })
 export class ThemeSwitcherComponent {
   themeService = inject(ThemeService);
-  audio = inject(AudioService);
+  private audio = inject(AudioService);
 
   isDropdownOpen = false;
 
-  get currentThemeDetails() {
+  get currentThemeDetails(): ThemeOption {
     return this.themeService.getThemeDetails(this.themeService.currentTheme());
   }
 
   toggleDropdown(): void {
-    this.isDropdownOpen = !this.isDropdownOpen;
     this.audio.playClick();
+    this.isDropdownOpen = !this.isDropdownOpen;
   }
 
   selectTheme(theme: AppTheme): void {
+    this.audio.playSuccess();
     this.themeService.setTheme(theme);
     this.isDropdownOpen = false;
-    this.audio.playSuccess();
+  }
+
+  @HostListener('document:click')
+  onDocumentClick(): void {
+    this.isDropdownOpen = false;
   }
 }

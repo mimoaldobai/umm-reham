@@ -448,125 +448,7 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
         </div>
       </section>
 
-      <!-- ==========================================
-           SCENE 04 & 05: عوالم أم رهام (SERVICES ECOSYSTEM)
-           ========================================== -->
-      <section class="ecosystem-section section-padding bg-deep-saudi" id="services-ecosystem">
-        <div class="container">
-          <div class="section-badge-center">
-            <span class="badge-gold">دليل المقررات والخدمات المعتمدة</span>
-            <h2 class="section-title">منظومة الأبحاث <span class="gold-gradient-text">والدراسات العليا</span></h2>
-            <p class="section-desc">تصفح كافة التخصصات والمسارات الأكاديمية المدعومة بإشراف نخبة من المستشارين المعتمدين.</p>
-          </div>
 
-          <!-- Category Filter Ribbon -->
-          <div class="services-filter-ribbon">
-            <button 
-              class="services-filter-btn" 
-              [class.active]="selectedCategory === 'all'"
-              (click)="setCategory('all')">
-              <span>✨ كافة المواد والأبحاث ({{ services.length }})</span>
-            </button>
-            <button 
-              *ngFor="let cat of categories" 
-              class="services-filter-btn"
-              [class.active]="selectedCategory === cat.nameAr"
-              (click)="setCategory(cat.nameAr)">
-              <span>{{ cat.nameAr }}</span>
-            </button>
-          </div>
-
-          <!-- LearnSpace-Style Academic Subject / Course Cards Grid -->
-          <div class="services-cards-grid">
-            <div 
-              *ngFor="let s of filteredServicesList(); let idx = index" 
-              class="learnspace-course-card glass-panel"
-              (click)="openServiceModal(s)"
-              (mouseenter)="onHover()">
-              
-              <!-- Card Top Visual Banner -->
-              <div class="course-card-top-bar">
-                <div class="uni-affiliation-tag">
-                  <span class="uni-flag">🇸🇦</span>
-                  <span>{{ getCourseUniTag(s, idx) }}</span>
-                </div>
-                <span class="course-code-pill">{{ getCourseCode(s, idx) }}</span>
-              </div>
-
-              <!-- Main Course Content -->
-              <div class="course-card-body">
-                <div class="course-head-row">
-                  <div class="course-icon-badge">
-                    <span>{{ getServiceIcon(s) }}</span>
-                  </div>
-                  <div class="course-degree-pills">
-                    <span class="degree-pill">{{ getCourseDegree(s, idx) }}</span>
-                    <span *ngIf="s.isFeatured" class="badge-featured-gold">★ الأكثر تسجيلاً</span>
-                  </div>
-                </div>
-
-                <h3 class="course-title">{{ s.nameAr }}</h3>
-                <p class="course-brief">{{ s.shortDescriptionAr }}</p>
-
-                <!-- Course Professor / Specialist Mentor Pill -->
-                <div class="course-instructor-pill">
-                  <span class="inst-avatar">{{ idx % 2 === 0 ? '👨‍🏫' : '👩‍🏫' }}</span>
-                  <div class="inst-info">
-                    <strong>{{ idx % 2 === 0 ? 'د. نورة الشمري' : 'م. فهد القحطاني' }}</strong>
-                    <small>إشراف أكاديمي وبحثي معتمد</small>
-                  </div>
-                  <span class="inst-check">✓</span>
-                </div>
-
-                <!-- Academic Guarantees Checklist -->
-                <div class="course-specs-matrix">
-                  <div class="spec-bullet">
-                    <span class="spec-icon">🛡️</span>
-                    <span>فحص Turnitin بنسبة 0% اقتباس معتمد</span>
-                  </div>
-                  <div class="spec-bullet">
-                    <span class="spec-icon">⚡</span>
-                    <span>تسليم وإنجاز فوري خلال {{ s.estimatedDuration || '48-72 ساعة' }}</span>
-                  </div>
-                  <div class="spec-bullet">
-                    <span class="spec-icon">🔄</span>
-                    <span>تعديلات ومناقشة تفاعلية مستمرة مجاناً</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Course Footer & CTA -->
-              <div class="course-card-footer">
-                <div class="course-pricing-col">
-                  <span class="price-caption">رسوم الدعم والإنجاز:</span>
-                  <div class="price-value-wrap">
-                    <strong *ngIf="s.priceType === 'range'" class="price-num">
-                      <span class="strike-price">{{ (s.priceMin || 200) + 50 }}</span>
-                      <span class="gold-gradient-text">{{ s.priceMin }} - {{ s.priceMax }}</span> 
-                      <small class="curr">ر.س</small>
-                    </strong>
-                    <strong *ngIf="s.priceType === 'quote'" class="price-num quote gold-gradient-text">تسعير مخصص</strong>
-                    <strong *ngIf="s.priceType === 'contact'" class="price-num contact gold-gradient-text">استفسار فوري</strong>
-                  </div>
-                </div>
-
-                <div class="course-action-btns">
-                  <button class="btn-course-details" title="عرض التفاصيل الكاملة">
-                    <span>التفاصيل 📖</span>
-                  </button>
-                  <a [href]="getCourseWhatsAppLink(s)" target="_blank" class="btn-course-enroll" (click)="$event.stopPropagation(); onClick()" style="display: inline-flex; align-items: center; gap: 0.4rem;">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M17.472 14.382c-.301-.15-1.782-.879-2.057-.979-.276-.1-.476-.15-.676.15-.2.301-.776.98-1.026 1.281-.25.301-.45.301-.75.15-.301-.15-1.27-.468-2.42-1.493-.895-.798-1.5-1.784-1.675-2.085-.176-.3-.019-.462.131-.611.136-.135.301-.351.451-.527.151-.175.201-.3.301-.501.101-.2.05-.375-.025-.525-.075-.15-.676-1.63-1.002-2.23-.275-.6-.576-.525-.776-.525-.2 0-.426-.025-.651-.025-.226 0-.602.075-.927.426-.326.35-1.253 1.226-1.253 2.984 0 1.758 1.278 3.46 1.454 3.71.175.25 2.511 3.834 6.084 5.378.85.367 1.514.587 2.031.751.854.271 1.631.233 2.246.141.685-.102 1.782-.728 2.032-1.431.25-.702.25-1.303.175-1.43-.075-.126-.275-.226-.576-.376z"/>
-                      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
-                    </svg>
-                    <span>طلب فوري</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <!-- ==========================================
            SCENE 06: HOW IT WORKS (THE 6-STEP WORKFLOW JOURNEY)
@@ -5423,21 +5305,26 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getServiceIcon(s: ServiceItem): string {
-    const name = s.nameAr || '';
-    const cat = s.categoryNameAr || '';
-    if (name.includes('بحث') || name.includes('رسالة') || name.includes('دراسة')) return '📖';
-    if (name.includes('تخرج') || name.includes('ماجستير') || name.includes('دكتوراه')) return '🎓';
-    if (name.includes('تقرير') || name.includes('تقارير')) return '📑';
-    if (name.includes('عرض') || name.includes('بوربوينت') || name.includes('PowerPoint')) return '🎨';
-    if (name.includes('برمج') || name.includes('تطبيق') || name.includes('موقع') || name.includes('تقن')) return '💻';
-    if (name.includes('سيرة') || name.includes('ATS') || name.includes('لينكد') || name.includes('مهني')) return '📄';
-    if (name.includes('إحصائ') || name.includes('SPSS') || name.includes('تحليل')) return '📊';
-    if (name.includes('ترجم') || name.includes('تدقيق') || name.includes('لغوي')) return '✍️';
-    if (name.includes('استشار') || name.includes('تعليم') || name.includes('تطوير')) return '💡';
-    if (cat.includes('تصميم')) return '🎨';
-    if (cat.includes('برمج')) return '💻';
-    if (cat.includes('مهني')) return '💼';
-    return '✨';
+    const name = (s.nameAr || '').toLowerCase();
+    const slug = (s.slug || '').toLowerCase();
+    if (name.includes('بحث') || name.includes('رسالة') || slug.includes('research')) return '📚';
+    if (name.includes('عرض') || name.includes('بوربوينت') || slug.includes('presentation')) return '📽️';
+    if (name.includes('ميداني') || slug.includes('field')) return '📋';
+    if (name.includes('تدريب') || slug.includes('internship')) return '💼';
+    if (name.includes('صيفي') || slug.includes('summer')) return '☀️';
+    if (name.includes('تخرج') || slug.includes('graduation')) return '🎯';
+    if (name.includes('واجب صغير') || slug.includes('small-assignment')) return '✍️';
+    if (name.includes('مشروع اكسل') || slug.includes('excel-project')) return '📊';
+    if (name.includes('واجب اكسل') || slug.includes('excel-assignment')) return '🧮';
+    if (name.includes('سيرة') || name.includes('ats') || slug.includes('cv')) return '👔';
+    if (name.includes('بورتفوليو') || slug.includes('portfolio')) return '🎨';
+    if (name.includes('مواقع') || slug.includes('web')) return '💻';
+    if (name.includes('إحصائ') || name.includes('spss')) return '📈';
+    if (name.includes('تدقيق') || name.includes('لغوي')) return '🖋️';
+    if (name.includes('ترجم')) return '🌐';
+    if (name.includes('turnitin')) return '🛡️';
+    if (name.includes('مواطن') || name.includes('ضمان') || name.includes('إيجار')) return '🏛️';
+    return '🎓';
   }
 
   getServiceFeatures(s: ServiceItem): string[] {
@@ -5705,22 +5592,66 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getServiceCardImage(s: ServiceItem, idx: number): string {
-    const name = s.nameAr || '';
-    if (name.includes('بحث') || name.includes('رسال')) return 'assets/images/saudi_researcher_testimonial.jpg';
-    if (name.includes('سيرة') || name.includes('ذاتية') || name.includes('ATS')) return 'assets/images/reham_profile_luxury.jpg';
-    if (name.includes('عرض') || name.includes('بوربوينت')) return 'assets/images/farah_3d.jpg';
-    if (name.includes('برمج') || name.includes('مواقع') || name.includes('تقن')) return 'assets/images/saud_3d.jpg';
-    if (name.includes('مواطن') || name.includes('ضمان') || name.includes('إيجار') || name.includes('جدارات')) return 'assets/images/saudi_hologram_map.jpg';
-    if (name.includes('تخرج') || name.includes('مشروع')) return 'assets/images/smart_app_showcase.jpg';
-    if (name.includes('اكسل')) return 'assets/images/taif_city_spotlight.jpg';
-    const fallbacks = [
-      'assets/images/saudi_researcher_testimonial.jpg',
-      'assets/images/saudi_panoramic_hero.jpg',
-      'assets/images/reham_avatar.jpg',
-      'assets/images/smart_app_showcase.jpg',
-      'assets/images/taif_city_spotlight.jpg'
+    const name = (s.nameAr || '').toLowerCase();
+    const slug = (s.slug || '').toLowerCase();
+
+    // 1. بحث جامعي / رسائل عليا
+    if (name.includes('بحث') || name.includes('رسال') || slug.includes('research')) {
+      return 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800&q=80&auto=format&fit=crop';
+    }
+    // 2. عروض تقديمية وبوربوينت
+    if (name.includes('عرض') || name.includes('بوربوينت') || slug.includes('presentation')) {
+      return 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80&auto=format&fit=crop';
+    }
+    // 3. تقارير ميدانية
+    if (name.includes('ميداني') || slug.includes('field')) {
+      return 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80&auto=format&fit=crop';
+    }
+    // 4. تقرير تدريب تعاوني / مهني
+    if (name.includes('تدريب') || slug.includes('internship')) {
+      return 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&q=80&auto=format&fit=crop';
+    }
+    // 5. تقرير تدريب صيفي
+    if (name.includes('صيفي') || slug.includes('summer')) {
+      return 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80&auto=format&fit=crop';
+    }
+    // 6. مشاريع التخرج
+    if (name.includes('تخرج') || slug.includes('graduation')) {
+      return 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80&auto=format&fit=crop';
+    }
+    // 7. واجبات وتكاليف سريعة
+    if (name.includes('واجب صغير') || slug.includes('small-assignment')) {
+      return 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80&auto=format&fit=crop';
+    }
+    // 8. إكسل (واجبات ومشاريع ونماذج مالية)
+    if (name.includes('اكسل') || name.includes('excel') || slug.includes('excel')) {
+      return 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format&fit=crop';
+    }
+    // 9. سيرة ذاتية ATS احترافية
+    if (name.includes('سيرة') || name.includes('ats') || slug.includes('cv')) {
+      return 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&q=80&auto=format&fit=crop';
+    }
+    // 10. بورتفوليو وملف أعمال
+    if (name.includes('بورتفوليو') || slug.includes('portfolio')) {
+      return 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&q=80&auto=format&fit=crop';
+    }
+    // 11. مواقع وبرمجة
+    if (name.includes('مواقع') || slug.includes('web')) {
+      return 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80&auto=format&fit=crop';
+    }
+    // 12. خدمات عامة وتوثيق حكومي
+    if (name.includes('مواطن') || name.includes('ضمان') || name.includes('إيجار')) {
+      return 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80&auto=format&fit=crop';
+    }
+
+    const curatedAcademicImages = [
+      'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format&fit=crop'
     ];
-    return fallbacks[idx % fallbacks.length];
+    return curatedAcademicImages[idx % curatedAcademicImages.length];
   }
 
   // Dynamic Cities Getter & Methods

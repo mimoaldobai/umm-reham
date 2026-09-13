@@ -52,32 +52,9 @@ export interface AcademicOrder {
           </div>
         </div>
 
-        <!-- Sidebar Color Palette Picker (ألوان الهوية والثيمات المعتمدة) -->
-        <div class="sidebar-color-switcher" title="اختيار لون القائمة الجانبية المخصص">
-          <div class="color-switcher-header">
-            <span class="color-switcher-label">لون القائمة:</span>
-            <span class="color-switcher-active-name">{{ getSidebarThemeName() }}</span>
-          </div>
-          <div class="color-dots-row">
-            <button 
-              *ngFor="let c of sidebarColors"
-              type="button" 
-              class="color-dot-btn"
-              [class.dot-emerald]="c.id === 'emerald'"
-              [class.dot-white]="c.id === 'white'"
-              [class.dot-beige]="c.id === 'beige'"
-              [class.dot-black]="c.id === 'black'"
-              [class.dot-blue]="c.id === 'blue'"
-              [class.dot-emerald-night]="c.id === 'emerald-night'"
-              [class.dot-forest-bronze]="c.id === 'forest-bronze'"
-              [class.dot-royal-purple]="c.id === 'royal-purple'"
-              [class.dot-deep-teal]="c.id === 'deep-teal'"
-              [class.selected]="sidebarTheme === c.id" 
-              (click)="setSidebarTheme(c.id)" 
-              [title]="c.nameAr"
-              [style.background-color]="c.hex">
-            </button>
-          </div>
+        <!-- Unified Dual-Tone Theme Switcher -->
+        <div class="sidebar-theme-capsule" title="تغيير ثيم الداشبورد والموقع الشامل">
+          <app-theme-switcher></app-theme-switcher>
         </div>
 
         <!-- Executive User Capsule (Dynamic Authenticated User) -->
@@ -2832,72 +2809,20 @@ export interface AcademicOrder {
 
     .site-link:hover { color: #34D399; }
 
-    /* Sidebar Color Switcher Styles */
-    .sidebar-color-switcher {
-      padding: 0.5rem 0.9rem;
+    /* Unified Sidebar Theme Capsule */
+    .sidebar-theme-capsule {
+      padding: 0.65rem 0.9rem;
       display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
+      align-items: center;
+      justify-content: center;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       background: rgba(0, 0, 0, 0.14);
       transition: all 0.3s ease;
 
-      .color-switcher-header {
+      app-theme-switcher {
+        width: 100%;
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-
-      .color-switcher-label {
-        font-size: 0.68rem;
-        font-weight: 700;
-        opacity: 0.85;
-      }
-
-      .color-switcher-active-name {
-        font-size: 0.65rem;
-        font-weight: 700;
-        color: var(--dash-accent-gold, #C5A869);
-      }
-
-      .color-dots-row {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 0.35rem;
-        flex-wrap: wrap;
-      }
-
-      .color-dot-btn {
-        width: 17px;
-        height: 17px;
-        border-radius: 50%;
-        border: 2px solid rgba(255, 255, 255, 0.2);
-        cursor: pointer;
-        transition: all 0.2s ease;
-        padding: 0;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-
-        &:hover {
-          transform: scale(1.25);
-          box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
-        }
-
-        &.selected {
-          border-color: #FFFFFF !important;
-          transform: scale(1.3);
-          box-shadow: 0 0 10px #C5A869, 0 0 2px #FFFFFF;
-        }
-
-        &.dot-white { background: #FFFFFF; border-color: #CBD5E1; }
-        &.dot-beige { background: #F7F3E9; border-color: #D8CCA8; }
-        &.dot-black { background: #0A0F0D; border-color: #475569; }
-        &.dot-blue { background: #0B1E36; border-color: #60A5FA; }
-        &.dot-emerald { background: #0A2F24; border-color: #C5A869; }
-        &.dot-emerald-night { background: #03140C; border-color: #10B981; }
-        &.dot-forest-bronze { background: #160E06; border-color: #F59E0B; }
-        &.dot-royal-purple { background: #1C0B29; border-color: #C084FC; }
-        &.dot-deep-teal { background: #032326; border-color: #06B6D4; }
+        justify-content: center;
       }
     }
 

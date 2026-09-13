@@ -1221,23 +1221,25 @@ export class ServicesPageComponent implements OnInit {
   }
 
   getServiceIcon(title: string): string {
-    if (title.includes('واجب صغير') || title.includes('واجبات')) return '✏️';
-    if (title.includes('اكسل') || title.includes('Excel')) return '📊';
-    if (title.includes('سيرة') || title.includes('ذاتية')) return '📄';
-    if (title.includes('بورتفوليو') || title.includes('أعمال')) return '🎨';
-    if (title.includes('مواقع') || title.includes('برمجة')) return '💻';
-    if (title.includes('عرض') || title.includes('بوربوينت')) return '📽️';
-    if (title.includes('مواطن')) return '🇸🇦';
-    if (title.includes('ضمان')) return '🛡️';
-    if (title.includes('إيجار') || title.includes('عقد')) return '📝';
-    if (title.includes('جدارات') || title.includes('طاقات') || title.includes('تمهير')) return '💼';
-    if (title.includes('عنوان وطني') || title.includes('سبل')) return '📍';
-    if (title.includes('ساند') || title.includes('تأهيل')) return '🤝';
-    if (title.includes('حظر')) return '⚡';
-    if (title.includes('تخرج') || title.includes('مشروع')) return '🎓';
-    if (title.includes('تقرير') || title.includes('ميداني') || title.includes('تدريب')) return '📑';
-    if (title.includes('بحث')) return '📚';
-    return '✨';
+    const t = (title || '').toLowerCase();
+    if (t.includes('بحث') || t.includes('رسالة') || t.includes('أطروحة')) return '📚';
+    if (t.includes('عرض') || t.includes('بوربوينت') || t.includes('presentation')) return '📽️';
+    if (t.includes('ميداني')) return '📋';
+    if (t.includes('تدريب')) return '💼';
+    if (t.includes('صيفي')) return '☀️';
+    if (t.includes('تخرج') || t.includes('مشروع تخرج')) return '🎯';
+    if (t.includes('واجب صغير') || t.includes('تكليف')) return '✍️';
+    if (t.includes('مشروع اكسل')) return '📊';
+    if (t.includes('واجب اكسل') || t.includes('اكسل')) return '🧮';
+    if (t.includes('سيرة') || t.includes('ats')) return '👔';
+    if (t.includes('بورتفوليو') || t.includes('أعمال')) return '🎨';
+    if (t.includes('مواقع') || t.includes('برمجة')) return '💻';
+    if (t.includes('إحصائ') || t.includes('spss')) return '📈';
+    if (t.includes('تدقيق') || t.includes('لغوي')) return '🖋️';
+    if (t.includes('ترجم')) return '🌐';
+    if (t.includes('turnitin')) return '🛡️';
+    if (t.includes('مواطن') || t.includes('ضمان') || t.includes('إيجار') || t.includes('طاقات')) return '🏛️';
+    return '🎓';
   }
 
   getServiceFeatures(title: string): string[] {
