@@ -32,3 +32,4 @@ appsettings.Development.json
 .idea/
 .DS_Store
 Thumbs.db
+*.zip

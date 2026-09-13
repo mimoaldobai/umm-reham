@@ -37,6 +37,11 @@ public class Testimonial : BaseEntity
     public bool IsActive { get; set; } = true;
     public int SortOrder { get; set; }
 
+    [MaxLength(50)]
+    public string? MediaType { get; set; } = "text"; // "text", "audio", "image", "video"
+    public string? MediaUrl { get; set; }
+    public string? AvatarUrl { get; set; }
+
     // Navigation
     public Service? Service { get; set; }
 }

@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ApiService, ServiceItem, Category, Statistic, Testimonial } from '../../core/services/api.service';
 import { AudioService } from '../../core/services/audio.service';
 import { ThemeService } from '../../core/services/theme.service';
+import { CartService } from '../../core/services/cart.service';
 import { SaudFarahAgentService } from '../../core/services/saud-farah-agent.service';
 import { RewardsService } from '../../core/services/rewards.service';
 import { ServiceModalComponent } from '../../shared/components/service-modal/service-modal.component';
@@ -189,6 +190,14 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
                   <div class="realm-image-gradient"></div>
                   <div class="realm-card-number">#{{ idx < 9 ? '0' + (idx + 1) : (idx + 1) }}</div>
                   <div class="realm-card-icon-tag">{{ getServiceIcon(s) }}</div>
+                  <button 
+                    type="button" 
+                    class="realm-fav-btn" 
+                    [class.favorited]="cartService.isFavorite(s.id)"
+                    (click)="cartService.toggleFavorite(s.id); $event.stopPropagation()"
+                    [title]="cartService.isFavorite(s.id) ? 'إزالة من المفضلة' : 'إضافة للمفضلة'">
+                    {{ cartService.isFavorite(s.id) ? '❤️' : '🤍' }}
+                  </button>
                 </div>
 
                 <div class="realm-card-info">
@@ -1207,6 +1216,38 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       font-size: 1.15rem;
       box-shadow: 0 2px 8px rgba(0,0,0,0.12);
       z-index: 2;
+    }
+
+    .realm-fav-btn {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      color: #718096;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 5;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .realm-fav-btn:hover {
+      transform: scale(1.15);
+      background: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+    }
+
+    .realm-fav-btn.favorited {
+      background: #FFF5F5;
+      border-color: rgba(239, 68, 68, 0.4);
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.35);
     }
 
     .realm-card-info {
@@ -4950,6 +4991,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   api = inject(ApiService);
   audio = inject(AudioService);
   themeService = inject(ThemeService);
+  cartService = inject(CartService);
   agentService = inject(SaudFarahAgentService);
   rewardsService = inject(RewardsService);
 
@@ -5309,25 +5351,20 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getServiceIcon(s: ServiceItem): string {
-    const name = (s.nameAr || '').toLowerCase();
-    const slug = (s.slug || '').toLowerCase();
-    if (name.includes('بحث') || name.includes('رسالة') || slug.includes('research')) return '📚';
-    if (name.includes('عرض') || name.includes('بوربوينت') || slug.includes('presentation')) return '📽️';
-    if (name.includes('ميداني') || slug.includes('field')) return '📋';
-    if (name.includes('تدريب') || slug.includes('internship')) return '💼';
-    if (name.includes('صيفي') || slug.includes('summer')) return '☀️';
-    if (name.includes('تخرج') || slug.includes('graduation')) return '🎯';
-    if (name.includes('واجب صغير') || slug.includes('small-assignment')) return '✍️';
-    if (name.includes('مشروع اكسل') || slug.includes('excel-project')) return '📊';
-    if (name.includes('واجب اكسل') || slug.includes('excel-assignment')) return '🧮';
-    if (name.includes('سيرة') || name.includes('ats') || slug.includes('cv')) return '👔';
-    if (name.includes('بورتفوليو') || slug.includes('portfolio')) return '🎨';
-    if (name.includes('مواقع') || slug.includes('web')) return '💻';
-    if (name.includes('إحصائ') || name.includes('spss')) return '📈';
-    if (name.includes('تدقيق') || name.includes('لغوي')) return '🖋️';
-    if (name.includes('ترجم')) return '🌐';
-    if (name.includes('turnitin')) return '🛡️';
-    if (name.includes('مواطن') || name.includes('ضمان') || name.includes('إيجار')) return '🏛️';
+    if (s.iconSvg) return s.iconSvg;
+    const map: Record<string, string> = {
+      's-uni-1': '📚', 's-uni-2': '📽️', 's-uni-3': '📋', 's-uni-4': '💼',
+      's-uni-5': '🏢', 's-uni-6': '🎯', 's-uni-7': '✍️', 's-uni-8': '📊',
+      's-uni-9': '🧮', 's-uni-10': '👔', 's-uni-11': '🎨', 's-uni-12': '💻',
+      's-gen-1': '🇸🇦', 's-gen-2': '⚖️', 's-gen-3': '👨‍👩‍👧‍👦', 's-gen-4': '⚡',
+      's-gen-5': '🏥', 's-gen-6': '🛡️', 's-gen-7': '🤝', 's-gen-8': '💰',
+      's-gen-9': '📜', 's-gen-10': '🔑', 's-gen-11': '🏠', 's-gen-12': '📑',
+      's-gen-13': '💳', 's-gen-14': '🎖️', 's-gen-15': '🌾', 's-gen-16': '🧑‍💼',
+      's-gen-17': '🚀', 's-gen-18': '👶', 's-gen-19': '📍', 's-gen-20': '🔓',
+      's-sch-1': '🎒', 's-sch-2': '📐', 's-sch-3': '✨', 's-sch-4': '🧭',
+      's-off-1': '📖', 's-off-2': '🖋️', 's-off-3': '🎙️', 's-off-4': '🌐'
+    };
+    if (s.id && map[s.id]) return map[s.id];
     return '🎓';
   }
 
@@ -5596,66 +5633,76 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getServiceCardImage(s: ServiceItem, idx: number): string {
-    const name = (s.nameAr || '').toLowerCase();
-    const slug = (s.slug || '').toLowerCase();
+    if (s.coverImageUrl) return s.coverImageUrl;
 
-    // 1. بحث جامعي / رسائل عليا
-    if (name.includes('بحث') || name.includes('رسال') || slug.includes('research')) {
-      return 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800&q=80&auto=format&fit=crop';
-    }
-    // 2. عروض تقديمية وبوربوينت
-    if (name.includes('عرض') || name.includes('بوربوينت') || slug.includes('presentation')) {
-      return 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80&auto=format&fit=crop';
-    }
-    // 3. تقارير ميدانية
-    if (name.includes('ميداني') || slug.includes('field')) {
-      return 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80&auto=format&fit=crop';
-    }
-    // 4. تقرير تدريب تعاوني / مهني
-    if (name.includes('تدريب') || slug.includes('internship')) {
-      return 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&q=80&auto=format&fit=crop';
-    }
-    // 5. تقرير تدريب صيفي
-    if (name.includes('صيفي') || slug.includes('summer')) {
-      return 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80&auto=format&fit=crop';
-    }
-    // 6. مشاريع التخرج
-    if (name.includes('تخرج') || slug.includes('graduation')) {
-      return 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80&auto=format&fit=crop';
-    }
-    // 7. واجبات وتكاليف سريعة
-    if (name.includes('واجب صغير') || slug.includes('small-assignment')) {
-      return 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80&auto=format&fit=crop';
-    }
-    // 8. إكسل (واجبات ومشاريع ونماذج مالية)
-    if (name.includes('اكسل') || name.includes('excel') || slug.includes('excel')) {
-      return 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format&fit=crop';
-    }
-    // 9. سيرة ذاتية ATS احترافية
-    if (name.includes('سيرة') || name.includes('ats') || slug.includes('cv')) {
-      return 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&q=80&auto=format&fit=crop';
-    }
-    // 10. بورتفوليو وملف أعمال
-    if (name.includes('بورتفوليو') || slug.includes('portfolio')) {
-      return 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&q=80&auto=format&fit=crop';
-    }
-    // 11. مواقع وبرمجة
-    if (name.includes('مواقع') || slug.includes('web')) {
-      return 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80&auto=format&fit=crop';
-    }
-    // 12. خدمات عامة وتوثيق حكومي
-    if (name.includes('مواطن') || name.includes('ضمان') || name.includes('إيجار')) {
-      return 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80&auto=format&fit=crop';
-    }
+    const map: Record<string, string> = {
+      's-uni-1': 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800&q=80&auto=format&fit=crop',
+      's-uni-2': 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80&auto=format&fit=crop',
+      's-uni-3': 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80&auto=format&fit=crop',
+      's-uni-4': 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&q=80&auto=format&fit=crop',
+      's-uni-5': 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80&auto=format&fit=crop',
+      's-uni-6': 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80&auto=format&fit=crop',
+      's-uni-7': 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80&auto=format&fit=crop',
+      's-uni-8': 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format&fit=crop',
+      's-uni-9': 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80&auto=format&fit=crop',
+      's-uni-10': 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&q=80&auto=format&fit=crop',
+      's-uni-11': 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&q=80&auto=format&fit=crop',
+      's-uni-12': 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80&auto=format&fit=crop',
+      's-gen-1': 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80&auto=format&fit=crop',
+      's-gen-2': 'https://images.unsplash.com/photo-1450133064473-71024230f91b?w=800&q=80&auto=format&fit=crop',
+      's-gen-3': 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800&q=80&auto=format&fit=crop',
+      's-gen-4': 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&q=80&auto=format&fit=crop',
+      's-gen-5': 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80&auto=format&fit=crop',
+      's-gen-6': 'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&q=80&auto=format&fit=crop',
+      's-gen-7': 'https://images.unsplash.com/photo-1543269865-cbf427effbad?w=800&q=80&auto=format&fit=crop',
+      's-gen-8': 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=800&q=80&auto=format&fit=crop',
+      's-gen-9': 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&q=80&auto=format&fit=crop',
+      's-gen-10': 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80&auto=format&fit=crop',
+      's-gen-11': 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&q=80&auto=format&fit=crop',
+      's-gen-12': 'https://images.unsplash.com/photo-1554469384-e58fac16e23a?w=800&q=80&auto=format&fit=crop',
+      's-gen-13': 'https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=800&q=80&auto=format&fit=crop',
+      's-gen-14': 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=800&q=80&auto=format&fit=crop',
+      's-gen-15': 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80&auto=format&fit=crop',
+      's-gen-16': 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80&auto=format&fit=crop',
+      's-gen-17': 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80&auto=format&fit=crop',
+      's-gen-18': 'https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=800&q=80&auto=format&fit=crop',
+      's-gen-19': 'https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=800&q=80&auto=format&fit=crop',
+      's-gen-20': 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&q=80&auto=format&fit=crop',
+      's-sch-1': 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80&auto=format&fit=crop',
+      's-sch-2': 'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=800&q=80&auto=format&fit=crop',
+      's-sch-3': 'https://images.unsplash.com/photo-1588072432836-e10032774350?w=800&q=80&auto=format&fit=crop',
+      's-sch-4': 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80&auto=format&fit=crop',
+      's-off-1': 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=800&q=80&auto=format&fit=crop',
+      's-off-2': 'https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800&q=80&auto=format&fit=crop',
+      's-off-3': 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=800&q=80&auto=format&fit=crop',
+      's-off-4': 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80&auto=format&fit=crop'
+    };
 
-    const curatedAcademicImages = [
-      'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800&q=80&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&q=80&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format&fit=crop'
-    ];
-    return curatedAcademicImages[idx % curatedAcademicImages.length];
+    if (s.id && map[s.id]) return map[s.id];
+
+    // Fallback based on keywords with zero duplicates
+    const n = (s.nameAr || '').toLowerCase();
+    if (n.includes('حساب المواطن')) return 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80&auto=format&fit=crop';
+    if (n.includes('اعتراض')) return 'https://images.unsplash.com/photo-1450133064473-71024230f91b?w=800&q=80&auto=format&fit=crop';
+    if (n.includes('عوائل')) return 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800&q=80&auto=format&fit=crop';
+    if (n.includes('طاقات')) return 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&q=80&auto=format&fit=crop';
+    if (n.includes('طبي')) return 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80&auto=format&fit=crop';
+    if (n.includes('ضمان')) return 'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&q=80&auto=format&fit=crop';
+    if (n.includes('إيجار')) return 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80&auto=format&fit=crop';
+    if (n.includes('ريف')) return 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80&auto=format&fit=crop';
+    if (n.includes('جدارات')) return 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80&auto=format&fit=crop';
+    if (n.includes('تمهير')) return 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80&auto=format&fit=crop';
+    if (n.includes('عنوان وطني')) return 'https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=800&q=80&auto=format&fit=crop';
+    if (n.includes('حظر')) return 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&q=80&auto=format&fit=crop';
+    if (n.includes('مطويات')) return 'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=800&q=80&auto=format&fit=crop';
+    if (n.includes('واجبات')) return 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80&auto=format&fit=crop';
+    if (n.includes('مسارات')) return 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80&auto=format&fit=crop';
+    if (n.includes('تنسيق')) return 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=800&q=80&auto=format&fit=crop';
+    if (n.includes('تدقيق') || n.includes('turnitin')) return 'https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800&q=80&auto=format&fit=crop';
+    if (n.includes('تفريغ')) return 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=800&q=80&auto=format&fit=crop';
+    if (n.includes('ترجمة')) return 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80&auto=format&fit=crop';
+
+    return 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800&q=80&auto=format&fit=crop';
   }
 
   // Dynamic Cities Getter & Methods

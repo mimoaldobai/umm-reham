@@ -91,9 +91,16 @@ export interface Testimonial {
   city?: string;
   clientUniversity?: string;
   contentAr: string;
+  contentEn?: string;
   rating?: number;
+  serviceId?: string;
   serviceNameAr?: string;
   createdAt?: string;
+  mediaType?: 'text' | 'audio' | 'image' | 'video';
+  mediaUrl?: string;
+  avatarUrl?: string;
+  isFeatured?: boolean;
+  isActive?: boolean;
 }
 
 export interface PortfolioItem {
@@ -117,6 +124,30 @@ export interface PortfolioItem {
   isFeatured: boolean;
   isActive: boolean;
   completedAt?: string;
+  rating?: number;
+  ratingCount?: number;
+  likesCount?: number;
+}
+
+export interface Article {
+  id: string;
+  titleAr: string;
+  titleEn?: string;
+  slug: string;
+  excerptAr?: string;
+  contentAr?: string;
+  contentEn?: string;
+  coverImageUrl?: string;
+  authorName?: string;
+  categoryId?: string;
+  categoryNameAr?: string;
+  isPublished: boolean;
+  publishAt?: string;
+  viewsCount: number;
+  tags?: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  createdAt?: string;
 }
 
 export interface PageItem {
@@ -182,12 +213,14 @@ export class ApiService {
     { id: 'cat-general', nameAr: 'الخدمات العامة', slug: 'general', descriptionAr: 'عروض تقديمية وبوربوينت احترافي، كتابة المحتوى، سيرة ذاتية ATS، واستشارات تعليمية', sortOrder: 4, isActive: true }
   ];
 
-  private defaultServices: ServiceItem[] = [
+  public defaultServices: ServiceItem[] = [
     // ==========================================
     // 1. الخدمات الجامعية / الطلابية الأساسية (12 خدمة)
     // ==========================================
     {
       id: 's-uni-1',
+      coverImageUrl: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '📚',
       categoryId: 'cat-university',
       nameAr: 'بحث',
       slug: 'academic-research',
@@ -200,6 +233,8 @@ export class ApiService {
     },
     {
       id: 's-uni-2',
+      coverImageUrl: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '📽️',
       categoryId: 'cat-university',
       nameAr: 'عرض تقديمي',
       slug: 'presentation-slides',
@@ -219,6 +254,8 @@ export class ApiService {
     },
     {
       id: 's-uni-3',
+      coverImageUrl: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '📋',
       categoryId: 'cat-university',
       nameAr: 'تقرير ميداني',
       slug: 'field-report',
@@ -231,6 +268,8 @@ export class ApiService {
     },
     {
       id: 's-uni-4',
+      coverImageUrl: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '💼',
       categoryId: 'cat-university',
       nameAr: 'تقرير تدريب',
       slug: 'internship-report',
@@ -243,6 +282,8 @@ export class ApiService {
     },
     {
       id: 's-uni-5',
+      coverImageUrl: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '🏢',
       categoryId: 'cat-university',
       nameAr: 'تقرير صيفي',
       slug: 'summer-training-report',
@@ -255,6 +296,8 @@ export class ApiService {
     },
     {
       id: 's-uni-6',
+      coverImageUrl: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '🎯',
       categoryId: 'cat-university',
       nameAr: 'مشروع تخرج',
       slug: 'graduation-project',
@@ -267,6 +310,8 @@ export class ApiService {
     },
     {
       id: 's-uni-7',
+      coverImageUrl: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '✍️',
       categoryId: 'cat-university',
       nameAr: 'واجب صغير',
       slug: 'small-assignment',
@@ -280,6 +325,8 @@ export class ApiService {
     },
     {
       id: 's-uni-8',
+      coverImageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '📊',
       categoryId: 'cat-university',
       nameAr: 'واجب اكسل',
       slug: 'excel-assignment',
@@ -293,6 +340,8 @@ export class ApiService {
     },
     {
       id: 's-uni-9',
+      coverImageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '🧮',
       categoryId: 'cat-university',
       nameAr: 'مشروع اكسل',
       slug: 'excel-project',
@@ -306,6 +355,8 @@ export class ApiService {
     },
     {
       id: 's-uni-10',
+      coverImageUrl: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '👔',
       categoryId: 'cat-university',
       nameAr: 'سيرة ذاتية',
       slug: 'professional-cv-ats',
@@ -325,6 +376,8 @@ export class ApiService {
     },
     {
       id: 's-uni-11',
+      coverImageUrl: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '🎨',
       categoryId: 'cat-university',
       nameAr: 'بورتفوليو',
       slug: 'portfolio-design',
@@ -343,6 +396,8 @@ export class ApiService {
     },
     {
       id: 's-uni-12',
+      coverImageUrl: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '💻',
       categoryId: 'cat-university',
       nameAr: 'مواقع',
       slug: 'web-development',
@@ -365,6 +420,8 @@ export class ApiService {
     // ==========================================
     {
       id: 's-gen-1',
+      coverImageUrl: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '🇸🇦',
       categoryId: 'cat-general',
       nameAr: 'التسجيل في حساب المواطن',
       slug: 'citizen-account-register',
@@ -378,6 +435,8 @@ export class ApiService {
     },
     {
       id: 's-gen-2',
+      coverImageUrl: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '⚖️',
       categoryId: 'cat-general',
       nameAr: 'رفع اعتراض في حساب المواطن أو تحديث البيانات',
       slug: 'citizen-account-appeal',
@@ -391,6 +450,8 @@ export class ApiService {
     },
     {
       id: 's-gen-3',
+      coverImageUrl: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '👨‍👩‍👧‍👦',
       categoryId: 'cat-general',
       nameAr: 'تسجيل حساب المواطن للعوائل',
       slug: 'citizen-account-families',
@@ -404,6 +465,8 @@ export class ApiService {
     },
     {
       id: 's-gen-4',
+      coverImageUrl: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '⚡',
       categoryId: 'cat-general',
       nameAr: 'التسجيل في طاقات وإكمال الملف 100%',
       slug: 'taqat-register',
@@ -417,6 +480,8 @@ export class ApiService {
     },
     {
       id: 's-gen-5',
+      coverImageUrl: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '🏥',
       categoryId: 'cat-general',
       nameAr: 'التسجيل في الضمان المطور بالتقرير الطبي',
       slug: 'daman-medical-report',
@@ -430,6 +495,8 @@ export class ApiService {
     },
     {
       id: 's-gen-6',
+      coverImageUrl: 'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '🛡️',
       categoryId: 'cat-general',
       nameAr: 'إضافة العقد الجديد في الضمان المطور',
       slug: 'daman-add-contract',
@@ -443,6 +510,8 @@ export class ApiService {
     },
     {
       id: 's-gen-7',
+      coverImageUrl: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '🤝',
       categoryId: 'cat-general',
       nameAr: 'استخراج مشهد ضماني',
       slug: 'daman-certificate',
@@ -456,6 +525,8 @@ export class ApiService {
     },
     {
       id: 's-gen-8',
+      coverImageUrl: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '💰',
       categoryId: 'cat-general',
       nameAr: 'عقد إيجار مع التسجيل في الضمان المطور',
       slug: 'lease-contract-daman',
@@ -469,6 +540,8 @@ export class ApiService {
     },
     {
       id: 's-gen-9',
+      coverImageUrl: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '📜',
       categoryId: 'cat-general',
       nameAr: 'عقد إيجار مع التسجيل في حساب المواطن',
       slug: 'lease-contract-citizen',
@@ -482,6 +555,8 @@ export class ApiService {
     },
     {
       id: 's-gen-10',
+      coverImageUrl: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '🔑',
       categoryId: 'cat-general',
       nameAr: 'تجديد عقد الإيجار مع التحديث',
       slug: 'lease-renewal-update',
@@ -495,6 +570,8 @@ export class ApiService {
     },
     {
       id: 's-gen-11',
+      coverImageUrl: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '🏠',
       categoryId: 'cat-general',
       nameAr: 'عقد إيجار إلكتروني مع العنوان الوطني',
       slug: 'lease-contract-national-address',
@@ -508,6 +585,8 @@ export class ApiService {
     },
     {
       id: 's-gen-12',
+      coverImageUrl: 'https://images.unsplash.com/photo-1554469384-e58fac16e23a?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '📑',
       categoryId: 'cat-general',
       nameAr: 'إلغاء التجديد التلقائي للعقود',
       slug: 'cancel-auto-renewal',
@@ -521,6 +600,8 @@ export class ApiService {
     },
     {
       id: 's-gen-13',
+      coverImageUrl: 'https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '💳',
       categoryId: 'cat-general',
       nameAr: 'جدارات وإكمال الملف إلى 100%',
       slug: 'jadarat-profile',
@@ -534,6 +615,8 @@ export class ApiService {
     },
     {
       id: 's-gen-14',
+      coverImageUrl: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '🎖️',
       categoryId: 'cat-general',
       nameAr: 'تحديث الضمان الاجتماعي للمسجلين بعقد إيجار',
       slug: 'daman-update-lease',
@@ -547,6 +630,8 @@ export class ApiService {
     },
     {
       id: 's-gen-15',
+      coverImageUrl: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '🌾',
       categoryId: 'cat-general',
       nameAr: 'التسجيل في التأهيل الشامل',
       slug: 'taheel-shamel',
@@ -560,6 +645,8 @@ export class ApiService {
     },
     {
       id: 's-gen-16',
+      coverImageUrl: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '🧑‍💼',
       categoryId: 'cat-general',
       nameAr: 'التسجيل في ساند',
       slug: 'saned-register',
@@ -573,6 +660,8 @@ export class ApiService {
     },
     {
       id: 's-gen-17',
+      coverImageUrl: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '🚀',
       categoryId: 'cat-general',
       nameAr: 'التسجيل في تمهير',
       slug: 'tamheer-register',
@@ -586,6 +675,8 @@ export class ApiService {
     },
     {
       id: 's-gen-18',
+      coverImageUrl: 'https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '👶',
       categoryId: 'cat-general',
       nameAr: 'إضافة تابع في الضمان الاجتماعي المطور',
       slug: 'daman-add-dependent',
@@ -599,6 +690,8 @@ export class ApiService {
     },
     {
       id: 's-gen-19',
+      coverImageUrl: 'https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '📍',
       categoryId: 'cat-general',
       nameAr: 'عنوان وطني مطابق 100% عبر سبل',
       slug: 'national-address-spl',
@@ -612,6 +705,8 @@ export class ApiService {
     },
     {
       id: 's-gen-20',
+      coverImageUrl: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '🔓',
       categoryId: 'cat-general',
       nameAr: 'فك حظر فوري بدون تسجيل',
       slug: 'unblock-instant',
@@ -629,6 +724,8 @@ export class ApiService {
     // ==========================================
     {
       id: 's-sch-1',
+      coverImageUrl: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '🎒',
       categoryId: 'cat-schools',
       nameAr: 'حل الواجبات والمهام المدرسية',
       slug: 'school-homework',
@@ -642,6 +739,8 @@ export class ApiService {
     },
     {
       id: 's-sch-2',
+      coverImageUrl: 'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '📐',
       categoryId: 'cat-schools',
       nameAr: 'المطويات والبحوث المدرسية والخرائط المفاهيمية',
       slug: 'school-brochures',
@@ -655,6 +754,8 @@ export class ApiService {
     },
     {
       id: 's-sch-3',
+      coverImageUrl: 'https://images.unsplash.com/photo-1588072432836-e10032774350?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '✨',
       categoryId: 'cat-schools',
       nameAr: 'عروض بوربوينت مدرسية تفاعلية',
       slug: 'school-presentations',
@@ -668,6 +769,8 @@ export class ApiService {
     },
     {
       id: 's-sch-4',
+      coverImageUrl: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '🧭',
       categoryId: 'cat-schools',
       nameAr: 'مشاريع مسارات الثانوية والتقارير الميدانية',
       slug: 'high-school-pathways',
@@ -684,6 +787,8 @@ export class ApiService {
     // ==========================================
     {
       id: 's-off-1',
+      coverImageUrl: 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '📖',
       categoryId: 'cat-office',
       nameAr: 'تنسيق الرسائل العلمية والكتب وفق أدلة الجامعات',
       slug: 'thesis-formatting',
@@ -697,6 +802,8 @@ export class ApiService {
     },
     {
       id: 's-off-2',
+      coverImageUrl: 'https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '🖋️',
       categoryId: 'cat-office',
       nameAr: 'التدقيق اللغوي وفحص الاقتباس (Turnitin)',
       slug: 'proofreading-plagiarism',
@@ -710,6 +817,8 @@ export class ApiService {
     },
     {
       id: 's-off-3',
+      coverImageUrl: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '🎙️',
       categoryId: 'cat-office',
       nameAr: 'التفريغ الصوتي وتحويل الملفات بدقة 100%',
       slug: 'transcription-conversion',
@@ -723,6 +832,8 @@ export class ApiService {
     },
     {
       id: 's-off-4',
+      coverImageUrl: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80&auto=format&fit=crop',
+      iconSvg: '🌐',
       categoryId: 'cat-office',
       nameAr: 'الترجمة الأكاديمية والمهنية المعتمدة',
       slug: 'academic-translation',
@@ -1023,6 +1134,29 @@ export class ApiService {
     );
   }
 
+  createTestimonial(item: Partial<Testimonial>): Observable<Testimonial> {
+    return this.http.post<Testimonial>(`${this.apiUrl}/testimonials`, item).pipe(
+      catchError(() => {
+        const localItem: Testimonial = {
+          id: 't-' + Date.now(),
+          clientName: item.clientName || 'باحث أكاديمي',
+          clientUniversity: item.clientUniversity || 'جامعة سعودية',
+          city: item.city || 'الرياض',
+          contentAr: item.contentAr || '',
+          rating: item.rating || 5,
+          mediaType: item.mediaType || 'text',
+          mediaUrl: item.mediaUrl,
+          avatarUrl: item.avatarUrl,
+          isFeatured: item.isFeatured || false,
+          isActive: item.isActive !== false,
+          createdAt: new Date().toISOString()
+        };
+        this.defaultTestimonials.unshift(localItem);
+        return of(localItem);
+      })
+    );
+  }
+
   // --- SERVICE REQUESTS CRUD ---
   defaultServiceRequests: any[] = [
     {
@@ -1213,6 +1347,158 @@ export class ApiService {
       catchError(() => {
         this.defaultPortfolioItems = this.defaultPortfolioItems.filter(p => p.id !== id);
         return of({ success: true });
+      })
+    );
+  }
+
+  ratePortfolioItem(id: string, rating: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/portfolio/${id}/rate`, { rating }).pipe(
+      catchError(() => {
+        const item = this.defaultPortfolioItems.find(p => p.id === id);
+        if (item) {
+          item.ratingCount = (item.ratingCount || 1) + 1;
+          item.rating = Math.round((((item.rating || 5) * (item.ratingCount - 1)) + rating) / item.ratingCount * 10) / 10;
+        }
+        return of({ success: true });
+      })
+    );
+  }
+
+  likePortfolioItem(id: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/portfolio/${id}/like`, {}).pipe(
+      catchError(() => {
+        const item = this.defaultPortfolioItems.find(p => p.id === id);
+        if (item) {
+          item.likesCount = (item.likesCount || 0) + 1;
+        }
+        return of({ success: true });
+      })
+    );
+  }
+
+  // --- ARTICLES CRUD ---
+  defaultArticles: Article[] = [
+    {
+      id: 'art-1',
+      titleAr: 'دليل الباحث الشامل لتوثيق المراجع بنظام APA الإصدار السابع (2026)',
+      slug: 'apa-7th-edition-guide',
+      excerptAr: 'شرح تطبيقي دقيق لقواعد توثيق الكتب، المقالات المحكمة، المواقع، والتقارير الرسمية وفق أحدث المعايير الأكاديمية.',
+      contentAr: 'يعتبر نظام APA الإصدار السابع من أكثر الأنظمة الأكاديمية استخداماً في العلوم الإنسانية والتربوية والاجتماعية والإدارية. نوضح في هذا الدليل كيفية التوثيق في المتن وقائمة المراجع مع أمثلة عملية معتمدة.',
+      coverImageUrl: 'assets/images/articles/apa-guide.jpg',
+      categoryNameAr: 'الأدلة والتوثيق العلمي',
+      isPublished: true,
+      viewsCount: 1240,
+      tags: '["APA", "توثيق", "مراجع", "دراسات عليا"]',
+      createdAt: '2026-08-15'
+    },
+    {
+      id: 'art-2',
+      titleAr: 'كيف تتجاوز فحص Turnitin بنسبة اقتباس 0% بطرق أكاديمية سليمة؟',
+      slug: 'turnitin-zero-similarity-guide',
+      excerptAr: 'أهم الاستراتيجيات المنهجية لإعادة الصياغة، التلخيص العلمي، واستخدام علامات التنصيص بطريقة احترافية معتمدة.',
+      contentAr: 'فحص الاستلال أو التشابه ليس عائقاً إذا تم تطبيق مبادئ الصياغة العلمية الحرة والتحليل النقدي دون الاعتماد على النسخ الأعمى. نكشف لك أحدث تقنيات الفحص الأكاديمي النظيف.',
+      coverImageUrl: 'assets/images/articles/turnitin-guide.jpg',
+      categoryNameAr: 'الأصالة والنزاهة العلمية',
+      isPublished: true,
+      viewsCount: 1980,
+      tags: '["Turnitin", "اقتباس", "نزاهة", "أبحاث"]',
+      createdAt: '2026-08-18'
+    },
+    {
+      id: 'art-3',
+      titleAr: 'أسرار اجتياز مناقشة رسائل الماجستير والدكتوراه بثقة واقتدار',
+      slug: 'thesis-defense-secrets',
+      excerptAr: 'نصائح عملية في بناء العرض التقديمي (PowerPoint)، الإجابة على أسئلة المحكمين، وتفنيد الملاحظات المنهجية بأسلوب علمي رصين.',
+      contentAr: 'المناقشة هي تتويج جهد سنوات من البحث والتقصي. يتناول هذا الدليل هيكل العرض التقديمي، كيفية إدارة لغة الجسد، والرد الموضوعي على تساؤلات لجنة الحكم والمناقشة.',
+      coverImageUrl: 'assets/images/articles/defense-guide.jpg',
+      categoryNameAr: 'الدراسات العليا والمناقشات',
+      isPublished: true,
+      viewsCount: 890,
+      tags: '["ماجستير", "دكتوراه", "مناقشة", "باوربوينت"]',
+      createdAt: '2026-08-20'
+    },
+    {
+      id: 'art-4',
+      titleAr: 'كيف تختار المقياس الإحصائي المناسب في SPSS لفرضيات دراستك؟',
+      slug: 'spss-statistical-tests-guide',
+      excerptAr: 'دليل مبسط لاختيار اختبارات t-test، الانحدار الخطي، والارتباط بما يتوافق مع طبيعة بياناتك ومتغيراتك.',
+      contentAr: 'التحليل الإحصائي هو عماد الدراسات الميدانية والتطبيقية. يشرح هذا الدليل متى تستخدم الاختبارات المعلمية أو اللامعلمية وتحليل التباين الأحادي ANOVA وتفسير الدلالة الإحصائية p-value بدقة.',
+      coverImageUrl: 'assets/images/articles/spss-guide.jpg',
+      categoryNameAr: 'التحليل الإحصائي',
+      isPublished: true,
+      viewsCount: 1450,
+      tags: '["SPSS", "إحصاء", "فرضيات", "تحليل"]',
+      createdAt: '2026-08-22'
+    }
+  ];
+
+  getArticles(categoryId?: string): Observable<Article[]> {
+    const url = categoryId ? `${this.apiUrl}/articles?categoryId=${categoryId}` : `${this.apiUrl}/articles`;
+    return this.http.get<Article[]>(url).pipe(
+      catchError(() => of(this.defaultArticles.filter(a => a.isPublished)))
+    );
+  }
+
+  getAdminArticles(): Observable<Article[]> {
+    return this.http.get<Article[]>(`${this.apiUrl}/articles/admin/all`).pipe(
+      catchError(() => of(this.defaultArticles))
+    );
+  }
+
+  createArticle(article: Partial<Article>): Observable<Article> {
+    return this.http.post<Article>(`${this.apiUrl}/articles`, article).pipe(
+      catchError(() => {
+        const newArt: Article = {
+          id: 'art-' + Date.now(),
+          titleAr: article.titleAr || '',
+          titleEn: article.titleEn,
+          slug: article.slug || ('art-' + Date.now()),
+          excerptAr: article.excerptAr || '',
+          contentAr: article.contentAr || '',
+          contentEn: article.contentEn,
+          coverImageUrl: article.coverImageUrl || '',
+          categoryNameAr: article.categoryNameAr || 'دراسات وأدلة',
+          categoryId: article.categoryId,
+          isPublished: article.isPublished ?? true,
+          viewsCount: 1,
+          tags: article.tags || '[]',
+          createdAt: new Date().toISOString()
+        };
+        this.defaultArticles.unshift(newArt);
+        return of(newArt);
+      })
+    );
+  }
+
+  updateArticle(id: string, article: Partial<Article>): Observable<any> {
+    return this.http.put(`${this.apiUrl}/articles/${id}`, article).pipe(
+      catchError(() => {
+        const idx = this.defaultArticles.findIndex(a => a.id === id);
+        if (idx !== -1) {
+          this.defaultArticles[idx] = { ...this.defaultArticles[idx], ...article } as Article;
+        }
+        return of({ success: true });
+      })
+    );
+  }
+
+  deleteArticle(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/articles/${id}`).pipe(
+      catchError(() => {
+        this.defaultArticles = this.defaultArticles.filter(a => a.id !== id);
+        return of({ success: true });
+      })
+    );
+  }
+
+  toggleArticlePublish(id: string): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/articles/${id}/toggle-publish`, {}).pipe(
+      catchError(() => {
+        const item = this.defaultArticles.find(a => a.id === id);
+        if (item) {
+          item.isPublished = !item.isPublished;
+        }
+        return of({ success: true, isPublished: item?.isPublished });
       })
     );
   }

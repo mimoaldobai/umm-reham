@@ -28,13 +28,13 @@ export class AuthService {
   private defaultUsers: AdminUser[] = [
     {
       id: 'usr-1',
-      fullName: 'د. نورة الشمري',
+      fullName: 'مدير النظام',
       username: 'admin',
-      email: 'admin@ummreham.sa',
+      email: 'admin@ummreham.com',
       role: 'super_admin',
       roleNameAr: 'مدير عام النظام (Super Admin)',
       isActive: true,
-      lastLogin: 'اليوم، 14:35',
+      lastLogin: 'الآن (متصل)',
       createdAt: '2025-01-10',
       phone: '+966 50 123 4567'
     },

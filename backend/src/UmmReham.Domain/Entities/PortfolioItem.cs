@@ -37,6 +37,9 @@ public class PortfolioItem : BaseEntity
     public string Tags { get; set; } = "[]";
     public bool IsFeatured { get; set; }
     public bool IsActive { get; set; } = true;
+    public double Rating { get; set; } = 5.0;
+    public int RatingCount { get; set; } = 1;
+    public int LikesCount { get; set; } = 0;
     public DateTime? CompletedAt { get; set; }
     public string Metadata { get; set; } = "{}";
 

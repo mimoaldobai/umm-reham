@@ -8,6 +8,7 @@ import { ApiService } from '../../../core/services/api.service';
 import { CartService } from '../../../core/services/cart.service';
 import { ClientAuthService } from '../../../core/services/client-auth.service';
 import { CartDrawerComponent } from '../cart-drawer/cart-drawer.component';
+import { FavoritesDrawerComponent } from '../favorites-drawer/favorites-drawer.component';
 import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.component';
 import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal.component';
 
@@ -18,6 +19,7 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
     CommonModule,
     RouterModule,
     CartDrawerComponent,
+    FavoritesDrawerComponent,
     ThemeSwitcherComponent,
     ClientAuthModalComponent
   ],
@@ -139,6 +141,14 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
             </span>
           </a>
 
+          <!-- Favorites Trigger Icon -->
+          <button type="button" class="btn-favorites-icon" (click)="cartService.toggleFavorites()" title="قائمة المفضلة">
+            <span class="fav-heart-icon">❤️</span>
+            <span class="favorites-badge" *ngIf="cartService.favoritesCount() > 0">
+              {{ cartService.favoritesCount() }}
+            </span>
+          </button>
+
           <!-- Cart Trigger Icon -->
           <button type="button" class="btn-cart-icon" (click)="cartService.toggleCart()" title="سلة الخدمات والطلبات">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -248,6 +258,7 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
           <a routerLink="/" (click)="closeMobileMenu()">الرئيسية</a>
           <a routerLink="/about" (click)="closeMobileMenu()">من نحن</a>
           <a routerLink="/services" (click)="closeMobileMenu()">المتجر والخدمات 🛒</a>
+          <a (click)="cartService.openFavorites(); closeMobileMenu()" style="cursor: pointer;">المفضلة الأكاديمية ❤️ <span *ngIf="cartService.favoritesCount() > 0">({{ cartService.favoritesCount() }})</span></a>
           <a routerLink="/order" (click)="closeMobileMenu()">طلب خدمة ومتابعة ✍️</a>
           <a routerLink="/testimonials" (click)="closeMobileMenu()">آراء العملاء ⭐</a>
           <a routerLink="/articles" (click)="closeMobileMenu()">المقالات والأدلة العلمية 📚</a>
@@ -260,6 +271,9 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
       </div>
 
     </header>
+
+    <!-- Global Favorites Drawer Component -->
+    <app-favorites-drawer></app-favorites-drawer>
 
     <!-- Global Cart Drawer Component -->
     <app-cart-drawer></app-cart-drawer>
@@ -546,6 +560,7 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
       box-shadow: 0 5px 14px rgba(0, 0, 0, 0.3);
     }
 
+    .btn-favorites-icon,
     .btn-cart-icon,
     .btn-theme-icon,
     .btn-admin-icon {
@@ -563,6 +578,7 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
       transition: all 0.2s ease;
     }
 
+    .btn-favorites-icon:hover,
     .btn-cart-icon:hover,
     .btn-theme-icon:hover,
     .btn-admin-icon:hover {
@@ -571,6 +587,17 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
       border-color: var(--theme-badge-border, #CBD5E0);
     }
 
+    .btn-favorites-icon:hover {
+      transform: scale(1.06);
+    }
+
+    .fav-heart-icon {
+      font-size: 1.15rem;
+      line-height: 1;
+      filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.4));
+    }
+
+    .favorites-badge,
     .cart-badge {
       position: absolute;
       top: -4px;
@@ -586,6 +613,11 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
       align-items: center;
       justify-content: center;
       border: 2px solid #FFFFFF;
+    }
+
+    .favorites-badge {
+      background: #EF4444;
+      box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
     }
 
     /* Mobile Hamburger Button */

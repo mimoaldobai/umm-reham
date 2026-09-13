@@ -1,4 +1,4 @@
-import { Injectable, signal, computed, inject } from '@angular/core';
+import { Injectable, signal, computed, inject, effect } from '@angular/core';
 import { AudioService } from './audio.service';
 import { ApiService, ServiceItem, ServiceTemplate } from './api.service';
 import { ClientAuthService } from './client-auth.service';
@@ -34,6 +34,9 @@ export class CartService {
   // UI State: Cart Drawer Open/Closed
   isCartOpen = signal<boolean>(false);
 
+  // UI State: Favorites Drawer Open/Closed
+  isFavoritesOpen = signal<boolean>(false);
+
   // Highlight / Bounce trigger for WhatsApp button
   whatsappBouncing = signal<boolean>(false);
 
@@ -41,6 +44,19 @@ export class CartService {
   totalCount = computed(() => {
     return this._cartItems().reduce((sum, item) => sum + item.quantity, 0);
   });
+
+  favoritesCount = computed(() => {
+    return this._favorites().length;
+  });
+
+  constructor() {
+    // Automatically re-sync active client's private cart & favorites when client account logs in or changes
+    effect(() => {
+      const _ = this.clientAuth.currentClient();
+      this._cartItems.set(this.loadCartFromStorage());
+      this._favorites.set(this.loadFavoritesFromStorage());
+    }, { allowSignalWrites: true });
+  }
 
   totalPrice = computed(() => {
     return this._cartItems().reduce((sum, item) => sum + (item.isQuote ? 0 : item.unitPrice * item.quantity), 0);
@@ -159,6 +175,27 @@ export class CartService {
     return this._favorites().includes(serviceId);
   }
 
+  openFavorites(): void {
+    this.isFavoritesOpen.set(true);
+    this.audio.playClick();
+  }
+
+  closeFavorites(): void {
+    this.isFavoritesOpen.set(false);
+    this.audio.playClick();
+  }
+
+  toggleFavorites(): void {
+    this.isFavoritesOpen.set(!this.isFavoritesOpen());
+    this.audio.playClick();
+  }
+
+  clearFavorites(): void {
+    this._favorites.set([]);
+    this.saveFavoritesToStorage();
+    this.audio.playClick();
+  }
+
   // --- WHATSAPP ORDER URL GENERATOR ---
 
   generateCartWhatsAppUrl(): string {
@@ -258,21 +295,35 @@ export class CartService {
     return `https://wa.me/${cleanPhone}?text=${encoded}`;
   }
 
-  // --- LOCAL STORAGE HELPERS ---
+  // --- LOCAL STORAGE HELPERS (PER-CLIENT ISOLATED STORAGE) ---
 
   private getCartStorageKey(): string {
     const client = this.clientAuth.currentClient();
-    return client ? `ur_cart_items_${client.id}` : 'ur_cart_items';
+    return client ? `ur_cart_items_${client.id}` : 'ur_cart_items_guest';
   }
 
   private loadCartFromStorage(): CartItem[] {
     if (typeof localStorage === 'undefined') return [];
     try {
-      const key = this.getCartStorageKey();
-      const data = localStorage.getItem(key);
-      if (data) return JSON.parse(data);
-      const general = localStorage.getItem('ur_cart_items');
-      return general ? JSON.parse(general) : [];
+      const client = this.clientAuth.currentClient();
+      if (client) {
+        const clientKey = `ur_cart_items_${client.id}`;
+        const data = localStorage.getItem(clientKey);
+        if (data) return JSON.parse(data);
+        // Check if there are guest items to migrate
+        const guestData = localStorage.getItem('ur_cart_items_guest') || localStorage.getItem('ur_cart_items');
+        if (guestData) {
+          const guestItems: CartItem[] = JSON.parse(guestData);
+          localStorage.setItem(clientKey, JSON.stringify(guestItems));
+          localStorage.removeItem('ur_cart_items_guest');
+          localStorage.removeItem('ur_cart_items');
+          return guestItems;
+        }
+        return [];
+      } else {
+        const guest = localStorage.getItem('ur_cart_items_guest') || localStorage.getItem('ur_cart_items');
+        return guest ? JSON.parse(guest) : [];
+      }
     } catch {
       return [];
     }
@@ -283,15 +334,36 @@ export class CartService {
     try {
       const key = this.getCartStorageKey();
       localStorage.setItem(key, JSON.stringify(this._cartItems()));
-      localStorage.setItem('ur_cart_items', JSON.stringify(this._cartItems()));
     } catch {}
+  }
+
+  private getFavoritesStorageKey(): string {
+    const client = this.clientAuth.currentClient();
+    return client ? `ur_favorites_${client.id}` : 'ur_favorites_guest';
   }
 
   private loadFavoritesFromStorage(): string[] {
     if (typeof localStorage === 'undefined') return [];
     try {
-      const data = localStorage.getItem('ur_favorites');
-      return data ? JSON.parse(data) : [];
+      const client = this.clientAuth.currentClient();
+      if (client) {
+        const clientKey = `ur_favorites_${client.id}`;
+        const data = localStorage.getItem(clientKey);
+        if (data) return JSON.parse(data);
+        // Check if there are guest favorites to migrate
+        const guestData = localStorage.getItem('ur_favorites_guest') || localStorage.getItem('ur_favorites');
+        if (guestData) {
+          const guestFavs: string[] = JSON.parse(guestData);
+          localStorage.setItem(clientKey, JSON.stringify(guestFavs));
+          localStorage.removeItem('ur_favorites_guest');
+          localStorage.removeItem('ur_favorites');
+          return guestFavs;
+        }
+        return [];
+      } else {
+        const guest = localStorage.getItem('ur_favorites_guest') || localStorage.getItem('ur_favorites');
+        return guest ? JSON.parse(guest) : [];
+      }
     } catch {
       return [];
     }
@@ -300,7 +372,8 @@ export class CartService {
   private saveFavoritesToStorage(): void {
     if (typeof localStorage === 'undefined') return;
     try {
-      localStorage.setItem('ur_favorites', JSON.stringify(this._favorites()));
+      const key = this.getFavoritesStorageKey();
+      localStorage.setItem(key, JSON.stringify(this._favorites()));
     } catch {}
   }
 }

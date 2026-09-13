@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
-import { ApiService, ServiceItem, Category, Testimonial, PortfolioItem, PageItem, FooterLinkItem } from '../../core/services/api.service';
+import { ApiService, ServiceItem, Category, Testimonial, PortfolioItem, PageItem, FooterLinkItem, Article } from '../../core/services/api.service';
 import { AudioService } from '../../core/services/audio.service';
 import { ThemeService } from '../../core/services/theme.service';
 import { AuthService, AdminUser } from '../../core/services/auth.service';
@@ -47,7 +47,11 @@ export interface AcademicOrder {
         <!-- Brand Header -->
         <div class="sidebar-brand">
           <div class="brand-crest">
-            <img src="assets/images/reham_profile_luxury.jpg" alt="أم رهام" class="admin-brand-avatar" />
+            <div class="brand-emblem-badge" title="منظومة أم رهام للأعمال والأبحاث الأكاديمية">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+            </div>
           </div>
           <div class="brand-text">
             <h2>أم رهام</h2>
@@ -64,18 +68,22 @@ export interface AcademicOrder {
           <app-theme-switcher></app-theme-switcher>
         </div>
 
-        <!-- Executive User Capsule (Dynamic Authenticated User) -->
-        <div class="user-card">
+        <!-- Executive User Capsule (Dynamic Authenticated Admin) -->
+        <div class="user-card" *ngIf="currentAdminUser as user">
           <div class="user-avatar">
-            <img src="assets/images/reham_profile_luxury.jpg" alt="أم رهام" class="admin-user-avatar-img" />
-            <span class="user-live-dot"></span>
+            <img *ngIf="user.avatarUrl" [src]="user.avatarUrl" [alt]="user.fullName" class="admin-user-avatar-img" />
+            <div *ngIf="!user.avatarUrl" class="admin-user-initials-badge">
+              {{ getAdminInitials(user.fullName) }}
+            </div>
+            <span class="user-live-dot" title="متصل الآن"></span>
           </div>
           <div class="user-meta">
             <div class="user-name">
-              <strong>{{ authService.getCurrentUser()?.fullName || 'د. نورة الشمري' }}</strong>
+              <strong>{{ user.fullName }}</strong>
               <span class="verified-pill">موثق ✓</span>
             </div>
-            <small>{{ authService.getCurrentUser()?.roleNameAr || 'مدير عام النظام' }} 🇸🇦</small>
+            <small>{{ user.roleNameAr }} 🇸🇦</small>
+            <span class="user-handle" *ngIf="user.username">@{{ user.username }}</span>
           </div>
         </div>
 
@@ -148,6 +156,16 @@ export interface AcademicOrder {
             </span>
             <span class="btn-text">نصوص وصفحات الموقع (CMS)</span>
             <span class="btn-badge">{{ pages.length }}</span>
+          </button>
+
+          <button class="nav-btn" [class.active]="activeTab === 'articles'" (click)="setTab('articles')">
+            <span class="btn-icon">
+              <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+              </svg>
+            </span>
+            <span class="btn-text">المقالات والأدلة العلمية</span>
+            <span class="btn-badge">{{ articles.length }}</span>
           </button>
 
           <button class="nav-btn" [class.active]="activeTab === 'categories'" (click)="setTab('categories')">
@@ -1094,6 +1112,72 @@ export interface AcademicOrder {
                     </button>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===================================================
+               TAB 4.5: ARTICLES & KNOWLEDGE CMS
+               =================================================== -->
+          <div *ngIf="activeTab === 'articles'" class="dash-pane">
+            <div class="section-card">
+              <div class="section-card-head">
+                <div class="search-input-box">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <input type="text" [(ngModel)]="articleSearchQuery" placeholder="ابحث بعنوان المقال أو التصنيف..." />
+                </div>
+                <button class="btn-action-primary" (click)="openAddArticleModal()">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  <span>كتابة مقال ودليل جديد</span>
+                </button>
+              </div>
+
+              <div class="table-frame">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>عنوان المقال</th>
+                      <th class="th-nowrap">التصنيف</th>
+                      <th class="th-nowrap">المشاهدات</th>
+                      <th class="th-nowrap">حالة النشر</th>
+                      <th class="th-nowrap">الإجراءات</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let a of filteredArticlesList()">
+                      <td>
+                        <strong class="cell-primary-text">{{ a.titleAr }}</strong>
+                        <small class="d-block text-muted">الرابط: /articles/{{ a.slug }}</small>
+                      </td>
+                      <td class="cell-nowrap">
+                        <span class="badge-role">{{ a.categoryNameAr || 'أدلة وبحوث' }}</span>
+                      </td>
+                      <td class="cell-nowrap">
+                        <strong>{{ a.viewsCount || 0 }}</strong> مشاهدة
+                      </td>
+                      <td class="cell-nowrap">
+                        <button class="btn-toggle-switch" [class.active]="a.isPublished" (click)="toggleArticlePublish(a)">
+                          {{ a.isPublished ? 'منشور ✓' : 'متوقف ⏸️' }}
+                        </button>
+                      </td>
+                      <td class="cell-nowrap">
+                        <div class="table-actions">
+                          <button class="btn-icon-action edit" (click)="editArticle(a)" title="تعديل المقال">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                          </button>
+                          <button class="btn-icon-action del" (click)="deleteArticle(a.id)" title="حذف المقال">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr *ngIf="filteredArticlesList().length === 0">
+                      <td colspan="5" style="text-align: center; padding: 2rem; color: #888;">
+                        لا توجد مقالات مطابقة، أضف مقالاً جديداً بالضغط على "كتابة مقال ودليل جديد".
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -2250,6 +2334,29 @@ export interface AcademicOrder {
                 <input type="text" class="form-input" [(ngModel)]="reviewForm.city" />
               </div>
             </div>
+            <div class="two-column-section">
+              <div class="form-row">
+                <label>نوع التقييم والوسائط:</label>
+                <select class="form-input" [(ngModel)]="reviewForm.mediaType">
+                  <option value="text">💬 تقييم نصي عادي</option>
+                  <option value="audio">🎙️ تسجيل صوتي (بصمة صوت)</option>
+                  <option value="image">📸 صورة شهادة أو محادثة معتمدة</option>
+                  <option value="video">🎥 مقطع فيديو توثيقي</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <label>تقييم النجوم:</label>
+                <select class="form-input" [(ngModel)]="reviewForm.rating">
+                  <option [value]="5">⭐⭐⭐⭐⭐ ممتاز (5 نجوم)</option>
+                  <option [value]="4">⭐⭐⭐⭐ جيد جداً (4 نجوم)</option>
+                  <option [value]="3">⭐⭐⭐ جيد (3 نجوم)</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row" *ngIf="reviewForm.mediaType && reviewForm.mediaType !== 'text'">
+              <label>رابط ملف الوسائط (تسجيل صوتي / صورة / فيديو):</label>
+              <input type="text" class="form-input" [(ngModel)]="reviewForm.mediaUrl" placeholder="https://... أو assets/audio/..." />
+            </div>
             <div class="form-row">
               <label>نص التقييم والتجربة:</label>
               <textarea class="form-textarea" rows="3" [(ngModel)]="reviewForm.contentAr"></textarea>
@@ -2613,6 +2720,39 @@ export interface AcademicOrder {
       object-fit: cover;
       transform: scale(1.08);
       display: block;
+    }
+
+    
+    .brand-emblem-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--theme-accent, #DFC698), rgba(223, 198, 152, 0.4));
+      color: #0A192F;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    }
+    .admin-user-initials-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--theme-accent, #52B788), rgba(82, 183, 136, 0.5));
+      color: #0B192C;
+      font-weight: 800;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+    .user-handle {
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.55);
+      direction: ltr;
+      display: inline-block;
+      margin-top: 1px;
     }
 
     .brand-text h2 {
@@ -4804,7 +4944,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     this.isMobileSidebarOpen = false;
   }
 
-  activeTab: 'analytics' | 'orders' | 'clients' | 'coupons' | 'portfolio' | 'pages' | 'categories' | 'services' | 'testimonials' | 'users' | 'footer' | 'agents' | 'settings' = 'analytics';
+  activeTab: 'analytics' | 'orders' | 'clients' | 'coupons' | 'portfolio' | 'pages' | 'articles' | 'categories' | 'services' | 'testimonials' | 'users' | 'footer' | 'agents' | 'settings' = 'analytics';
 
   // Clients Management State & Getters
   clientSearchQuery = '';
@@ -5137,6 +5277,33 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     isActive: true
   };
 
+    get currentAdminUser(): AdminUser {
+    return this.authService.getCurrentUser() || {
+      id: 'usr-1',
+      fullName: 'مدير النظام',
+      username: 'admin',
+      email: 'admin@ummreham.com',
+      role: 'super_admin',
+      roleNameAr: 'مدير عام النظام (Super Admin)',
+      isActive: true,
+      lastLogin: 'الآن (متصل)',
+      createdAt: '2025-01-10'
+    };
+  }
+
+  getAdminInitials(name: string): string {
+    if (!name) return 'م';
+    const parts = name.trim().split(' ');
+    if (parts.length >= 2) return parts[0][0] + parts[1][0];
+    return name.slice(0, 2);
+  }
+
+  articles: Article[] = [];
+  articleSearchQuery = '';
+  isArticleModalOpen = false;
+  editingArticleId: string | null = null;
+  articleForm: Partial<Article> = { titleAr: '', slug: '', excerptAr: '', contentAr: '', categoryNameAr: 'أدلة وبحوث', isPublished: true };
+
   ngOnInit(): void {
     if (typeof localStorage !== 'undefined') {
       localStorage.removeItem('ummreham_sidebar_color');
@@ -5165,6 +5332,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     this.api.getCategories().subscribe(res => this.categories = res);
     this.api.getTestimonials().subscribe(res => this.testimonials = res);
     this.api.getPortfolioItems().subscribe(res => this.portfolioItems = res);
+    this.api.getAdminArticles().subscribe(res => this.articles = res);
     this.api.getPages().subscribe(res => {
       if (res && res.length > 0) {
         this.pages = res;
@@ -6007,7 +6175,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
 
   openAddReviewModal(): void {
     this.editingReviewId = null;
-    this.reviewForm = { clientName: '', city: 'الرياض', clientUniversity: 'جامعة الملك سعود', contentAr: '' };
+    this.reviewForm = { clientName: '', city: 'الرياض', clientUniversity: 'جامعة الملك سعود', contentAr: '', rating: 5, mediaType: 'text', mediaUrl: '', isFeatured: false };
     this.isReviewModalOpen = true;
   }
 
@@ -6024,29 +6192,105 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   saveReview(): void {
     if (!this.reviewForm.clientName) return;
     if (this.editingReviewId) {
+      this.api.updateTestimonial(this.editingReviewId, this.reviewForm).subscribe();
       const idx = this.testimonials.findIndex(t => t.id === this.editingReviewId);
       if (idx !== -1) {
         this.testimonials[idx] = { ...this.testimonials[idx], ...this.reviewForm } as Testimonial;
       }
-      this.showToast('تم تحديث التقييم بنجاح');
+      this.showToast('تم تحديث التقييم وحفظه في قاعدة البيانات بنجاح ✓');
     } else {
-      const newT: Testimonial = {
-        id: 't_' + Date.now(),
-        clientName: this.reviewForm.clientName || '',
-        clientUniversity: this.reviewForm.clientUniversity || 'جامعة سعودية',
-        city: this.reviewForm.city || 'الرياض',
-        contentAr: this.reviewForm.contentAr || '',
-        rating: 5
-      };
-      this.testimonials.unshift(newT);
-      this.showToast('تمت إضافة التقييم بنجاح');
+      this.api.createTestimonial(this.reviewForm).subscribe(created => {
+        if (created && !this.testimonials.some(t => t.id === created.id)) {
+          this.testimonials.unshift(created);
+        }
+      });
+      this.showToast('تمت إضافة التقييم وتفعيله فوراً على الموقع ✓');
     }
     this.isReviewModalOpen = false;
+    this.audio.playSuccess();
   }
 
   deleteTestimonial(id: string): void {
-    this.testimonials = this.testimonials.filter(t => t.id !== id);
-    this.showToast('تم حذف التقييم بنجاح');
+    if (confirm('هل أنت متأكد من حذف هذا التقييم؟')) {
+      this.api.deleteTestimonial(id).subscribe();
+      this.testimonials = this.testimonials.filter(t => t.id !== id);
+      this.showToast('تم حذف التقييم بنجاح');
+      this.audio.playClick();
+    }
+  }
+
+  // --- ARTICLES CMS METHODS ---
+  filteredArticlesList(): Article[] {
+    if (!this.articleSearchQuery) return this.articles;
+    const q = this.articleSearchQuery.toLowerCase();
+    return this.articles.filter(a =>
+      a.titleAr.toLowerCase().includes(q) ||
+      (a.categoryNameAr && a.categoryNameAr.toLowerCase().includes(q))
+    );
+  }
+
+  openAddArticleModal(): void {
+    this.editingArticleId = null;
+    this.articleForm = {
+      titleAr: '',
+      slug: '',
+      excerptAr: '',
+      contentAr: '',
+      categoryNameAr: 'أدلة وبحوث',
+      coverImageUrl: 'assets/images/articles/apa-guide.jpg',
+      isPublished: true
+    };
+    this.isArticleModalOpen = true;
+  }
+
+  editArticle(a: Article): void {
+    this.editingArticleId = a.id;
+    this.articleForm = { ...a };
+    this.isArticleModalOpen = true;
+  }
+
+  closeArticleModal(): void {
+    this.isArticleModalOpen = false;
+  }
+
+  saveArticle(): void {
+    if (!this.articleForm.titleAr) {
+      this.showToast('⚠️ يرجى كتابة عنوان المقال');
+      return;
+    }
+    if (this.editingArticleId) {
+      this.api.updateArticle(this.editingArticleId, this.articleForm).subscribe();
+      const idx = this.articles.findIndex(a => a.id === this.editingArticleId);
+      if (idx !== -1) {
+        this.articles[idx] = { ...this.articles[idx], ...this.articleForm } as Article;
+      }
+      this.showToast('تم تحديث المقال وحفظه في قاعدة البيانات بنجاح! 💾✓');
+    } else {
+      this.api.createArticle(this.articleForm).subscribe(created => {
+        if (created) {
+          this.articles.unshift(created);
+        }
+      });
+      this.showToast('تم نشر المقال بنجاح وإتاحته للعملاء في الموقع! 📚✓');
+    }
+    this.isArticleModalOpen = false;
+    this.audio.playSuccess();
+  }
+
+  deleteArticle(id: string): void {
+    if (confirm('هل أنت متأكد من حذف هذا المقال نهائياً؟')) {
+      this.api.deleteArticle(id).subscribe();
+      this.articles = this.articles.filter(a => a.id !== id);
+      this.showToast('تم حذف المقال بنجاح');
+      this.audio.playClick();
+    }
+  }
+
+  toggleArticlePublish(a: Article): void {
+    this.api.toggleArticlePublish(a.id).subscribe();
+    a.isPublished = !a.isPublished;
+    this.showToast(`تم ${a.isPublished ? 'نشر وتفعيل' : 'إيقاف وتعليق'} المقال بنجاح!`);
+    this.audio.playClick();
   }
 
   syncMascotFormFromService(): void {

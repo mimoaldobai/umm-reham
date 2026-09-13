@@ -430,8 +430,9 @@ import confetti from 'canvas-confetti';
       max-height: 92vh;
       overflow-y: auto;
       border-radius: var(--radius-xl);
-      background: #0B1C15;
-      border: 1px solid rgba(201, 169, 110, 0.35);
+      background: linear-gradient(180deg, var(--theme-primary, #0B192C) 0%, #060e18 100%);
+      border: 1.5px solid rgba(var(--theme-accent-rgb, 229, 185, 79), 0.35);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.75), 0 0 35px rgba(var(--theme-accent-rgb, 229, 185, 79), 0.12);
       box-shadow: 0 25px 60px rgba(0,0,0,0.7);
       animation: slideUp 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       display: flex;
@@ -449,7 +450,7 @@ import confetti from 'canvas-confetti';
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      background: rgba(16, 40, 30, 0.85);
+      background: rgba(var(--theme-primary-rgb, 11, 25, 44), 0.95);
     }
 
     .tags-row {
@@ -519,7 +520,7 @@ import confetti from 'canvas-confetti';
     .modal-steps-tabs {
       display: flex;
       border-bottom: 1px solid rgba(201, 169, 110, 0.15);
-      background: rgba(11, 28, 21, 0.9);
+      background: rgba(var(--theme-primary-rgb, 11, 25, 44), 0.9);
     }
 
     .step-tab {
@@ -551,15 +552,15 @@ import confetti from 'canvas-confetti';
     }
 
     .step-tab.active {
-      color: #DFC698;
-      background: rgba(201, 169, 110, 0.08);
-      border-bottom-color: #C9A96E;
+      color: var(--theme-accent, #DFC698);
+      background: rgba(var(--theme-accent-rgb, 229, 185, 79), 0.1);
+      border-bottom-color: var(--theme-accent, #C9A96E);
     }
 
     .step-tab.active .tab-num {
-      background: #C9A96E;
-      color: #0B1C15;
-      font-weight: 700;
+      background: var(--theme-accent, #C9A96E);
+      color: #06130D;
+      font-weight: 800;
     }
 
     .modal-body {
@@ -599,8 +600,8 @@ import confetti from 'canvas-confetti';
 
     /* Multi-Templates Picker Styles */
     .modal-templates-picker {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1.5px solid rgba(201, 169, 110, 0.3);
+      background: rgba(var(--theme-primary-rgb, 11, 25, 44), 0.45);
+      border: 1.5px solid rgba(var(--theme-accent-rgb, 229, 185, 79), 0.35);
       border-radius: var(--radius-md);
       padding: 1rem;
       display: flex;
@@ -637,8 +638,8 @@ import confetti from 'canvas-confetti';
     }
 
     .modal-tpl-card {
-      background: rgba(11, 28, 21, 0.7);
-      border: 1.5px solid rgba(201, 169, 110, 0.25);
+      background: rgba(var(--theme-primary-rgb, 11, 25, 44), 0.75);
+      border: 1.5px solid rgba(var(--theme-accent-rgb, 229, 185, 79), 0.25);
       border-radius: var(--radius-sm);
       padding: 0.75rem;
       cursor: pointer;
@@ -650,14 +651,16 @@ import confetti from 'canvas-confetti';
     }
 
     .modal-tpl-card:hover {
-      border-color: #C9A96E;
-      background: rgba(201, 169, 110, 0.08);
+      border-color: var(--theme-accent, #C9A96E);
+      background: rgba(var(--theme-accent-rgb, 229, 185, 79), 0.12);
+      transform: translateY(-2px);
     }
 
     .modal-tpl-card.selected {
-      border-color: #52B788;
-      background: rgba(82, 183, 136, 0.15);
-      box-shadow: 0 0 15px rgba(82, 183, 136, 0.25);
+      border-color: var(--theme-accent, #52B788);
+      background: rgba(var(--theme-accent-rgb, 229, 185, 79), 0.18);
+      box-shadow: 0 0 20px rgba(var(--theme-accent-rgb, 229, 185, 79), 0.35);
+      transform: translateY(-2px);
     }
 
     .tpl-card-top {
@@ -715,9 +718,9 @@ import confetti from 'canvas-confetti';
     }
 
     .tpl-select-radio {
-      font-size: 0.72rem;
-      color: #52B788;
-      font-weight: 700;
+      font-size: 0.74rem;
+      color: var(--theme-accent, #52B788);
+      font-weight: 800;
     }
 
     /* Modal Qty Row */
@@ -745,8 +748,8 @@ import confetti from 'canvas-confetti';
       display: flex;
       align-items: center;
       gap: 0.4rem;
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(201, 169, 110, 0.4);
+      background: rgba(0, 0, 0, 0.35);
+      border: 1.5px solid rgba(var(--theme-accent-rgb, 229, 185, 79), 0.4);
       border-radius: var(--radius-full);
       padding: 2px 6px;
     }
@@ -768,8 +771,8 @@ import confetti from 'canvas-confetti';
     }
 
     .btn-m-step:hover {
-      background: #C9A96E;
-      color: #0B1C15;
+      background: var(--theme-accent, #C9A96E);
+      color: #06130D;
     }
 
     .m-step-val {
@@ -795,9 +798,9 @@ import confetti from 'canvas-confetti';
     }
 
     .btn-modal-add-cart {
-      background: rgba(201, 169, 110, 0.15);
-      border: 1.5px solid #C9A96E;
-      color: #DFC698;
+      background: rgba(var(--theme-accent-rgb, 229, 185, 79), 0.14);
+      border: 1.5px solid var(--theme-accent, #C9A96E);
+      color: var(--theme-accent, #DFC698);
       padding: 0.75rem 1.2rem;
       border-radius: var(--radius-full);
       font-family: var(--font-family-arabic);
@@ -811,8 +814,8 @@ import confetti from 'canvas-confetti';
     }
 
     .btn-modal-add-cart:hover {
-      background: #C9A96E;
-      color: #0B1C15;
+      background: var(--theme-accent, #C9A96E);
+      color: #06130D;
       transform: translateY(-2px);
     }
 
@@ -1242,20 +1245,20 @@ import confetti from 'canvas-confetti';
 
     .btn-primary-order {
       flex: 2;
-      background: linear-gradient(135deg, #C9A96E 0%, #A47833 100%);
+      background: var(--theme-accent-gradient, linear-gradient(135deg, #C9A96E 0%, #A47833 100%));
       color: #06130D;
-      font-weight: 700;
-      padding: 0.8rem 1.3rem;
+      font-weight: 800;
+      padding: 0.85rem 1.4rem;
       border-radius: var(--radius-full);
-      font-size: 0.94rem;
+      font-size: 0.95rem;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.55rem;
       cursor: pointer;
       border: none;
-      box-shadow: 0 4px 18px rgba(201, 169, 110, 0.35);
-      transition: transform 0.2s;
+      box-shadow: 0 4px 20px rgba(var(--theme-accent-rgb, 229, 185, 79), 0.35);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .btn-primary-order:hover { transform: translateY(-2px); }
 

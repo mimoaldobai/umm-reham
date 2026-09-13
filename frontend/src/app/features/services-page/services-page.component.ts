@@ -97,7 +97,7 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
               <!-- Card Header -->
               <div class="card-header-row">
                 <div class="card-icon-emblem">
-                  <span>{{ getServiceIcon(s.nameAr) }}</span>
+                  <span>{{ s.iconSvg || getServiceIcon(s.nameAr) }}</span>
                 </div>
                 <div class="card-badges-group">
                   <span class="service-category-badge">{{ s.categoryNameAr }}</span>
@@ -1270,8 +1270,9 @@ export class ServicesPageComponent implements OnInit {
     if (t.includes('بحث') || t.includes('رسالة') || t.includes('أطروحة')) return '📚';
     if (t.includes('عرض') || t.includes('بوربوينت') || t.includes('presentation')) return '📽️';
     if (t.includes('ميداني')) return '📋';
+    if (t.includes('تدريب تعاوني')) return '💼';
+    if (t.includes('تدريب صيفي')) return '🏢';
     if (t.includes('تدريب')) return '💼';
-    if (t.includes('صيفي')) return '☀️';
     if (t.includes('تخرج') || t.includes('مشروع تخرج')) return '🎯';
     if (t.includes('واجب صغير') || t.includes('تكليف')) return '✍️';
     if (t.includes('مشروع اكسل')) return '📊';
@@ -1280,10 +1281,29 @@ export class ServicesPageComponent implements OnInit {
     if (t.includes('بورتفوليو') || t.includes('أعمال')) return '🎨';
     if (t.includes('مواقع') || t.includes('برمجة')) return '💻';
     if (t.includes('إحصائ') || t.includes('spss')) return '📈';
-    if (t.includes('تدقيق') || t.includes('لغوي')) return '🖋️';
+    if (t.includes('تدقيق') || t.includes('turnitin')) return '🖋️';
+    if (t.includes('تفريغ')) return '🎙️';
     if (t.includes('ترجم')) return '🌐';
-    if (t.includes('turnitin')) return '🛡️';
-    if (t.includes('مواطن') || t.includes('ضمان') || t.includes('إيجار') || t.includes('طاقات')) return '🏛️';
+    if (t.includes('تنسيق')) return '📖';
+    if (t.includes('مطويات')) return '📐';
+    if (t.includes('واجبات')) return '🎒';
+    if (t.includes('مسارات')) return '🧭';
+    if (t.includes('حظر')) return '🔓';
+    if (t.includes('عنوان وطني')) return '📍';
+    if (t.includes('تمهير')) return '🚀';
+    if (t.includes('جدارات')) return '🧑‍💼';
+    if (t.includes('ريف')) return '🌾';
+    if (t.includes('وثيقة') || t.includes('عمل حر')) return '🎖️';
+    if (t.includes('تمويل')) return '💳';
+    if (t.includes('عقد إيجار')) return '🔑';
+    if (t.includes('شكوى مالية')) return '💰';
+    if (t.includes('تظلم')) return '📜';
+    if (t.includes('طبي')) return '🏥';
+    if (t.includes('ضمان')) return '🛡️';
+    if (t.includes('عوائل')) return '👨‍👩‍👧‍👦';
+    if (t.includes('اعتراض')) return '⚖️';
+    if (t.includes('طاقات')) return '⚡';
+    if (t.includes('حساب المواطن')) return '🇸🇦';
     return '🎓';
   }
 

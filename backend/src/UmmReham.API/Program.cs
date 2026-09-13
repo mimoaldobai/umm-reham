@@ -1,5 +1,6 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using UmmReham.Infrastructure;
@@ -80,6 +81,15 @@ using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await context.Database.EnsureCreatedAsync();
+
+    // Safely ensure all new columns exist in SQLite database
+    try { await context.Database.ExecuteSqlRawAsync("ALTER TABLE testimonials ADD COLUMN AvatarUrl TEXT;"); } catch {}
+    try { await context.Database.ExecuteSqlRawAsync("ALTER TABLE testimonials ADD COLUMN MediaType TEXT DEFAULT 'text';"); } catch {}
+    try { await context.Database.ExecuteSqlRawAsync("ALTER TABLE testimonials ADD COLUMN MediaUrl TEXT;"); } catch {}
+    try { await context.Database.ExecuteSqlRawAsync("ALTER TABLE portfolio_items ADD COLUMN LikesCount INTEGER DEFAULT 0;"); } catch {}
+    try { await context.Database.ExecuteSqlRawAsync("ALTER TABLE portfolio_items ADD COLUMN Rating REAL DEFAULT 5.0;"); } catch {}
+    try { await context.Database.ExecuteSqlRawAsync("ALTER TABLE portfolio_items ADD COLUMN RatingCount INTEGER DEFAULT 1;"); } catch {}
+
     await SeedData.SeedAsync(context);
 }
 

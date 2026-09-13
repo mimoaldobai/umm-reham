@@ -79,6 +79,29 @@ public class PortfolioController : ControllerBase
         return NoContent();
     }
 
+    [HttpPost("{id}/rate")]
+    public async Task<ActionResult> Rate(Guid id, [FromBody] RatePortfolioDto dto)
+    {
+        var e = await _repo.GetByIdAsync(id);
+        if (e == null) return NotFound();
+        var rating = Math.Clamp(dto.Rating, 1, 5);
+        var totalRating = (e.Rating * e.RatingCount) + rating;
+        e.RatingCount++;
+        e.Rating = Math.Round(totalRating / e.RatingCount, 1);
+        await _repo.UpdateAsync(e);
+        return Ok(new { rating = e.Rating, ratingCount = e.RatingCount });
+    }
+
+    [HttpPost("{id}/like")]
+    public async Task<ActionResult> Like(Guid id)
+    {
+        var e = await _repo.GetByIdAsync(id);
+        if (e == null) return NotFound();
+        e.LikesCount++;
+        await _repo.UpdateAsync(e);
+        return Ok(new { likesCount = e.LikesCount });
+    }
+
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(Guid id) { await _repo.DeleteAsync(id); return NoContent(); }
 
@@ -86,7 +109,8 @@ public class PortfolioController : ControllerBase
         p.Id, p.ServiceId, p.CategoryId, p.TitleAr, p.TitleEn,
         p.DescriptionAr, p.DescriptionEn, p.ClientName, p.University,
         p.Specialization, p.Degree, p.CoverImageUrl, p.FileUrl, p.VideoUrl, p.GalleryImages, p.Tags,
-        p.IsFeatured, p.IsActive, p.CompletedAt, p.Service?.NameAr, p.Category?.NameAr);
+        p.IsFeatured, p.IsActive, p.CompletedAt, p.Service?.NameAr, p.Category?.NameAr,
+        p.Rating, p.RatingCount, p.LikesCount);
 }
 
 // ========================
@@ -206,7 +230,10 @@ public class TestimonialsController : ControllerBase
             Rating = Math.Clamp(dto.Rating ?? 5, 1, 5),
             ServiceId = dto.ServiceId,
             IsFeatured = false,
-            IsActive = true // Automatically active so it appears immediately!
+            IsActive = true, // Automatically active so it appears immediately!
+            MediaType = string.IsNullOrWhiteSpace(dto.MediaType) ? "text" : dto.MediaType,
+            MediaUrl = dto.MediaUrl,
+            AvatarUrl = dto.AvatarUrl
         };
         await _repo.AddAsync(entity);
         return Ok(MapToDto(entity));
@@ -228,7 +255,10 @@ public class TestimonialsController : ControllerBase
             ContentEn = dto.ContentEn,
             Rating = dto.Rating,
             ServiceId = dto.ServiceId,
-            IsFeatured = dto.IsFeatured
+            IsFeatured = dto.IsFeatured,
+            MediaType = string.IsNullOrWhiteSpace(dto.MediaType) ? "text" : dto.MediaType,
+            MediaUrl = dto.MediaUrl,
+            AvatarUrl = dto.AvatarUrl
         };
         await _repo.AddAsync(entity);
         return Ok(MapToDto(entity));
@@ -251,6 +281,9 @@ public class TestimonialsController : ControllerBase
         e.Rating = dto.Rating;
         e.ServiceId = dto.ServiceId;
         e.IsFeatured = dto.IsFeatured;
+        e.MediaType = dto.MediaType ?? e.MediaType;
+        e.MediaUrl = dto.MediaUrl;
+        e.AvatarUrl = dto.AvatarUrl;
         await _repo.UpdateAsync(e);
         return NoContent();
     }
@@ -263,7 +296,8 @@ public class TestimonialsController : ControllerBase
         t.ClientPhone, t.ClientEmail, t.Country, t.City,
         t.ClientUniversity,
         t.ContentAr, t.ContentEn, t.Rating, t.ServiceId, t.IsFeatured,
-        t.Service?.NameAr, t.CreatedAt);
+        t.Service?.NameAr, t.CreatedAt,
+        t.MediaType, t.MediaUrl, t.AvatarUrl);
 }
 
 // ========================
@@ -601,22 +635,69 @@ public class ArticlesController : ControllerBase
             a.SeoTitle, a.SeoDescription, a.PublishAt, a.ViewsCount, a.CreatedAt));
     }
 
-    [Authorize] [HttpPost]
-    public async Task<ActionResult> Create([FromBody] CreateArticleDto dto)
+    [HttpGet("admin/all")]
+    public async Task<ActionResult<IEnumerable<ArticleDto>>> GetAllAdmin()
     {
-        await _repo.AddAsync(new Article
+        var items = await _repo.GetAllAsync();
+        return Ok(items.Select(a => new ArticleDto(
+            a.Id, a.TitleAr, a.TitleEn, a.Slug, a.ExcerptAr,
+            a.CoverImageUrl, a.Author?.FullName, a.Category?.NameAr,
+            a.IsPublished, a.PublishAt, a.ViewsCount, a.CreatedAt)));
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<ArticleDto>> Create([FromBody] CreateArticleDto dto)
+    {
+        var entity = new Article
         {
-            TitleAr = dto.TitleAr, TitleEn = dto.TitleEn, Slug = dto.Slug,
+            TitleAr = dto.TitleAr, TitleEn = dto.TitleEn, Slug = string.IsNullOrWhiteSpace(dto.Slug) ? ("article-" + Guid.NewGuid().ToString("N")[..8]) : dto.Slug,
             ExcerptAr = dto.ExcerptAr, ContentAr = dto.ContentAr, ContentEn = dto.ContentEn,
             CoverImageUrl = dto.CoverImageUrl, Tags = dto.Tags ?? "[]",
             CategoryId = dto.CategoryId, IsPublished = dto.IsPublished,
             SeoTitle = dto.SeoTitle, SeoDescription = dto.SeoDescription,
             PublishAt = dto.IsPublished ? DateTime.UtcNow : null
-        });
-        return Ok();
+        };
+        await _repo.AddAsync(entity);
+        return Ok(new ArticleDto(
+            entity.Id, entity.TitleAr, entity.TitleEn, entity.Slug, entity.ExcerptAr,
+            entity.CoverImageUrl, null, null,
+            entity.IsPublished, entity.PublishAt, entity.ViewsCount, entity.CreatedAt));
     }
 
-    [Authorize] [HttpDelete("{id}")]
+    [HttpPut("{id}")]
+    public async Task<ActionResult> Update(Guid id, [FromBody] UpdateArticleDto dto)
+    {
+        var a = await _repo.GetByIdAsync(id);
+        if (a == null) return NotFound();
+        a.TitleAr = dto.TitleAr;
+        a.TitleEn = dto.TitleEn;
+        if (!string.IsNullOrWhiteSpace(dto.Slug)) a.Slug = dto.Slug;
+        a.ExcerptAr = dto.ExcerptAr;
+        a.ContentAr = dto.ContentAr;
+        a.ContentEn = dto.ContentEn;
+        a.CoverImageUrl = dto.CoverImageUrl;
+        a.Tags = dto.Tags ?? "[]";
+        a.CategoryId = dto.CategoryId;
+        a.IsPublished = dto.IsPublished;
+        a.SeoTitle = dto.SeoTitle;
+        a.SeoDescription = dto.SeoDescription;
+        if (a.IsPublished && a.PublishAt == null) a.PublishAt = DateTime.UtcNow;
+        await _repo.UpdateAsync(a);
+        return NoContent();
+    }
+
+    [HttpPatch("{id}/toggle-publish")]
+    public async Task<ActionResult> TogglePublish(Guid id)
+    {
+        var a = await _repo.GetByIdAsync(id);
+        if (a == null) return NotFound();
+        a.IsPublished = !a.IsPublished;
+        if (a.IsPublished && a.PublishAt == null) a.PublishAt = DateTime.UtcNow;
+        await _repo.UpdateAsync(a);
+        return Ok(new { isPublished = a.IsPublished });
+    }
+
+    [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(Guid id) { await _repo.DeleteAsync(id); return NoContent(); }
 }
 

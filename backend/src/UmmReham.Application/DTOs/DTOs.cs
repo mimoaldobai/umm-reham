@@ -82,7 +82,8 @@ public record PortfolioItemDto(
     string? CoverImageUrl, string? FileUrl, string? VideoUrl,
     string? GalleryImages, string? Tags,
     bool IsFeatured, bool IsActive, DateTime? CompletedAt,
-    string? ServiceNameAr, string? CategoryNameAr);
+    string? ServiceNameAr, string? CategoryNameAr,
+    double Rating = 5.0, int RatingCount = 1, int LikesCount = 0);
 
 public record CreatePortfolioItemDto(
     Guid? ServiceId, Guid? CategoryId,
@@ -92,6 +93,8 @@ public record CreatePortfolioItemDto(
     string? CoverImageUrl, string? FileUrl, string? VideoUrl,
     string? GalleryImages, string? Tags,
     bool IsFeatured = false, bool IsActive = true, DateTime? CompletedAt = null);
+
+public record RatePortfolioDto(int Rating = 5, string? Comment = null);
 
 // ========================
 // PAGE DTOs
@@ -120,7 +123,8 @@ public record TestimonialDto(
     string? ClientPhone, string? ClientEmail, string? Country, string? City,
     string? ClientUniversity, string ContentAr, string? ContentEn,
     int? Rating, Guid? ServiceId, bool IsFeatured,
-    string? ServiceNameAr, DateTime CreatedAt);
+    string? ServiceNameAr, DateTime CreatedAt,
+    string? MediaType = "text", string? MediaUrl = null, string? AvatarUrl = null);
 
 public record CreateTestimonialDto(
     string ClientName = "",
@@ -134,7 +138,10 @@ public record CreateTestimonialDto(
     string? ContentEn = null,
     int? Rating = 5,
     Guid? ServiceId = null,
-    bool IsFeatured = false);
+    bool IsFeatured = false,
+    string? MediaType = "text",
+    string? MediaUrl = null,
+    string? AvatarUrl = null);
 
 // ========================
 // STATISTIC DTOs
@@ -181,6 +188,13 @@ public record ArticleDetailDto(
     DateTime? PublishAt, int ViewsCount, DateTime CreatedAt);
 
 public record CreateArticleDto(
+    string TitleAr, string? TitleEn, string Slug,
+    string? ExcerptAr, string ContentAr, string? ContentEn,
+    string? CoverImageUrl, string? Tags,
+    Guid? CategoryId, bool IsPublished = false,
+    string? SeoTitle = null, string? SeoDescription = null);
+
+public record UpdateArticleDto(
     string TitleAr, string? TitleEn, string Slug,
     string? ExcerptAr, string ContentAr, string? ContentEn,
     string? CoverImageUrl, string? Tags,
