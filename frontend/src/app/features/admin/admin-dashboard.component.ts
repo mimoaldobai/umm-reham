@@ -36,10 +36,13 @@ export interface AcademicOrder {
   template: `
     <div class="dash-shell" dir="rtl">
       
+      <!-- Mobile Backdrop Overlay (غشاوة معتمة لإغلاق القائمة على الجوال والأيباد) -->
+      <div class="dash-sidebar-backdrop" *ngIf="isMobileSidebarOpen" (click)="closeMobileSidebar()"></div>
+
       <!-- =========================================================
            1. EXECUTIVE HARMONIOUS SIDEBAR (القائمة الجانبية الفاخرة)
            ========================================================= -->
-      <aside class="dash-sidebar" [attr.data-sidebar-theme]="sidebarTheme">
+      <aside class="dash-sidebar" [class.mobile-open]="isMobileSidebarOpen" [attr.data-sidebar-theme]="sidebarTheme">
         
         <!-- Brand Header -->
         <div class="sidebar-brand">
@@ -50,6 +53,10 @@ export interface AcademicOrder {
             <h2>أم رهام</h2>
             <span>لوحة الإدارة والتحكم الأكاديمي</span>
           </div>
+          <!-- Mobile Close Button -->
+          <button type="button" class="dash-sidebar-close-btn" (click)="closeMobileSidebar()" aria-label="إغلاق القائمة">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
         </div>
 
         <!-- Unified Dual-Tone Theme Switcher -->
@@ -247,6 +254,11 @@ export interface AcademicOrder {
         <!-- Header Topbar (ترويسة لوحة التحكم التنفيذية المطورة) -->
         <header class="dash-topbar">
           
+          <!-- Mobile Sidebar Toggle Button (زر فتح القائمة على الجوال والأيباد) -->
+          <button type="button" class="dash-sidebar-toggle-btn" (click)="toggleMobileSidebar()" aria-label="تبديل القائمة الجانبية">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+
           <!-- Dynamic Breadcrumb & Live System Status -->
           <div class="topbar-title-suite">
             <div class="topbar-breadcrumb">
@@ -5131,6 +5143,211 @@ export interface AcademicOrder {
         justify-items: center;
       }
     }
+
+    /* =========================================================
+       DYNAMIC RESPONSIVE SYSTEM (MOBILE, IPAD, TABLET & DESKTOP)
+       ========================================================= */
+    .dash-sidebar-toggle-btn {
+      display: none;
+    }
+
+    .dash-sidebar-close-btn {
+      display: none;
+    }
+
+    .dash-sidebar-backdrop {
+      display: none;
+    }
+
+    @media (max-width: 1024px) {
+      .dash-sidebar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        height: 100vh;
+        width: 295px;
+        max-width: 86vw;
+        z-index: 1200;
+        transform: translateX(105%);
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+        box-shadow: none;
+        overflow-y: auto;
+      }
+
+      .dash-sidebar.mobile-open {
+        transform: translateX(0);
+        box-shadow: -12px 0 50px rgba(0, 0, 0, 0.6);
+      }
+
+      .dash-sidebar-backdrop {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.65);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        z-index: 1150;
+        animation: dashBackdropFade 0.25s ease forwards;
+      }
+
+      @keyframes dashBackdropFade {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      .dash-sidebar-toggle-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: var(--dash-card-bg, #FFFFFF);
+        border: 1.5px solid var(--dash-card-border, rgba(197, 168, 105, 0.35));
+        color: var(--dash-text-main, #0A2F24);
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      }
+
+      .dash-sidebar-toggle-btn:hover {
+        background: rgba(197, 168, 105, 0.15);
+        transform: scale(1.04);
+      }
+
+      .dash-sidebar-close-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        color: #FFFFFF;
+        cursor: pointer;
+        margin-right: auto;
+        flex-shrink: 0;
+        transition: all 0.2s ease;
+      }
+
+      .dash-sidebar-close-btn:hover {
+        background: rgba(255, 255, 255, 0.25);
+        transform: scale(1.05);
+      }
+
+      .dash-viewport {
+        width: 100vw;
+        max-width: 100vw;
+        overflow-x: hidden;
+      }
+
+      .dash-topbar {
+        padding: 0 1rem;
+        gap: 0.75rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .dash-topbar {
+        height: auto;
+        min-height: 60px;
+        padding: 0.55rem 0.85rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .topbar-title-suite {
+        gap: 0;
+      }
+
+      .crumb-prefix, .crumb-separator {
+        display: none;
+      }
+
+      .crumb-current {
+        font-size: 0.95rem;
+        max-width: 160px;
+      }
+
+      .topbar-live-status {
+        display: none;
+      }
+
+      .topbar-clock-capsule .clock-label {
+        display: none;
+      }
+
+      .topbar-clock-capsule {
+        padding: 0.35rem 0.55rem;
+        font-size: 0.75rem;
+      }
+
+      .topbar-tool-btn.sound-btn {
+        display: none;
+      }
+
+      .btn-topbar-order {
+        padding: 0.42rem 0.75rem;
+        font-size: 0.76rem;
+      }
+
+      .dash-main-area {
+        padding: 0.85rem 0.65rem;
+      }
+
+      .section-card {
+        padding: 0.95rem 0.85rem;
+      }
+
+      .section-card-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.65rem;
+      }
+
+      .head-actions-group {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .table-frame {
+        -webkit-overflow-scrolling: touch;
+        overflow-x: auto;
+        border-radius: 8px;
+        width: 100%;
+      }
+
+      .data-table {
+        min-width: 650px;
+      }
+
+      .modal-dialog, .admin-modal-card {
+        max-width: 95vw !important;
+        width: 95vw !important;
+        max-height: 92vh !important;
+        margin: 1rem auto;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .crumb-current {
+        max-width: 120px;
+        font-size: 0.88rem;
+      }
+
+      .topbar-actions-suite {
+        gap: 0.35rem;
+      }
+
+      .btn-topbar-order span.btn-text {
+        display: none;
+      }
+    }
   `]
 })
 export class AdminDashboardComponent implements OnInit, OnDestroy {
@@ -5142,6 +5359,18 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   agentService = inject(SaudFarahAgentService);
   rewardsService = inject(RewardsService);
   router = inject(Router);
+
+  // Responsive Mobile / iPad Sidebar Drawer State
+  isMobileSidebarOpen = false;
+
+  toggleMobileSidebar(): void {
+    this.isMobileSidebarOpen = !this.isMobileSidebarOpen;
+    this.audio.playClick();
+  }
+
+  closeMobileSidebar(): void {
+    this.isMobileSidebarOpen = false;
+  }
 
   activeTab: 'analytics' | 'orders' | 'clients' | 'coupons' | 'portfolio' | 'pages' | 'categories' | 'services' | 'testimonials' | 'users' | 'footer' | 'agents' | 'settings' = 'analytics';
 
@@ -5603,6 +5832,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
 
   setTab(tab: any): void {
     this.activeTab = tab;
+    this.closeMobileSidebar();
     this.audio.playClick();
   }
 
@@ -5852,6 +6082,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
 
   handleLogout(): void {
     this.audio.playClick();
+    this.closeMobileSidebar();
     if (confirm('هل أنت متأكد من رغبتك في تسجيل الخروج من لوحة التحكم؟')) {
       this.authService.logout();
       this.showToast('تم تسجيل الخروج بنجاح. أهلاً بك دائماً!');

@@ -1055,12 +1055,35 @@ h1, h2, h3, h4, h5, p, span, button {
   overflow-wrap: break-word;
 }
 
-/* Smooth kinetic momentum scrolling for all scrollables on iOS */
+/* Smooth kinetic momentum scrolling for all scrollables on iOS / Mobile / Tablet */
 .cart-items-scrollable,
 .template-pills-row,
 .category-filters-container,
-.mobile-drawer {
+.mobile-drawer,
+.table-frame,
+.dash-main-area,
+.dash-sidebar,
+.palette-options-list {
   -webkit-overflow-scrolling: touch;
+}
+
+/* Responsive Table Framing across all screen sizes */
+.table-frame {
+  overflow-x: auto;
+  max-width: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(197, 168, 105, 0.4) transparent;
+
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(197, 168, 105, 0.4);
+    border-radius: 4px;
+  }
 }
 
 /* Prevent auto zoom on input focus on iOS Safari */
@@ -1074,4 +1097,5 @@ h1, h2, h3, h4, h5, p, span, button {
     font-size: 16px !important;
   }
 }
+
 

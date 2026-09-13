@@ -672,8 +672,43 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
         font-size: 0.62rem;
       }
       .btn-consultation-cta {
-        padding: 0.45rem 0.85rem;
-        font-size: 0.82rem;
+        padding: 0.45rem 0.8rem;
+        font-size: 0.8rem;
+      }
+      .header-action-group {
+        gap: 0.45rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header-inner-container {
+        padding: 0 0.5rem;
+      }
+      .brand-subtext {
+        display: none;
+      }
+      .ur-logo-emblem svg {
+        width: 36px;
+        height: 36px;
+      }
+      .brand-name {
+        font-size: 1.05rem;
+      }
+      .btn-consultation-cta {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.76rem;
+      }
+      .btn-consultation-cta span:not(.btn-icon) {
+        display: none;
+      }
+      .btn-client-label {
+        display: none;
+      }
+      .btn-client-login-trigger {
+        padding: 0.4rem 0.55rem;
+      }
+      .header-action-group {
+        gap: 0.35rem;
       }
     }
 

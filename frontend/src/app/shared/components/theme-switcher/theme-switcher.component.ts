@@ -341,6 +341,23 @@ import { AudioService } from '../../../core/services/audio.service';
       padding: 0.2rem 0.45rem;
       border-radius: 9999px;
     }
+
+    @media (max-width: 640px) {
+      .theme-label {
+        display: none;
+      }
+      .btn-theme-trigger {
+        padding: 0.36rem 0.55rem;
+        gap: 0.32rem;
+      }
+      .theme-dropdown-palette {
+        width: min(315px, calc(100vw - 20px));
+        left: 0;
+        right: auto;
+        max-height: 80vh;
+        overflow-y: auto;
+      }
+    }
   `]
 })
 export class ThemeSwitcherComponent {
