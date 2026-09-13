@@ -1384,6 +1384,411 @@ body,
 }
 
 /* ==========================================================================
+   LUXURY FOOTER: COMPLETE CONTRAST & THEME SYNCHRONIZATION
+   ========================================================================== */
+.luxury-footer {
+  background: var(--theme-footer-bg, linear-gradient(180deg, #0B2516 0%, #06180E 100%)) !important;
+  color: var(--theme-footer-text, #E2E8F0) !important;
+  border-top: 1.5px solid var(--theme-footer-border, rgba(201, 169, 110, 0.35)) !important;
+
+  /* Force Headings to Pure Crisp White across all dark footer themes */
+  h1, h2, h3, h4, h5, h6, strong,
+  .logo-text h3,
+  .footer-nav-col h4,
+  .hours-row strong,
+  .pillar-info strong,
+  .vision-year {
+    color: #FFFFFF !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35) !important;
+  }
+
+  /* Pillar items in footer top bar */
+  .trust-pillars-bar {
+    background: var(--theme-footer-pillars-bg, rgba(17, 42, 31, 0.75)) !important;
+    border-bottom: 1px solid var(--theme-footer-border, rgba(201, 169, 110, 0.2)) !important;
+  }
+
+  .pillar-info strong {
+    color: #FFFFFF !important;
+    font-weight: 800 !important;
+  }
+
+  .pillar-info span {
+    color: #CBD5E1 !important;
+    font-size: 0.82rem !important;
+  }
+
+  .vision-badge {
+    background: var(--theme-footer-card-bg, rgba(255, 255, 255, 0.08)) !important;
+    border: 1px solid var(--theme-footer-border, rgba(201, 169, 110, 0.4)) !important;
+  }
+
+  .vision-title {
+    color: var(--theme-footer-accent, #DFC698) !important;
+    font-weight: 700 !important;
+  }
+
+  /* Main footer brand & description */
+  .logo-text h3 {
+    color: #FFFFFF !important;
+    font-weight: 800 !important;
+  }
+
+  .logo-text span {
+    color: var(--theme-footer-accent, #DFC698) !important;
+    font-weight: 600 !important;
+  }
+
+  .brand-desc {
+    color: #E2E8F0 !important;
+    line-height: 1.8 !important;
+    font-size: 0.95rem !important;
+  }
+
+  /* Navigation Links */
+  .footer-nav-col h4 {
+    color: #FFFFFF !important;
+    font-weight: 800 !important;
+    &::after {
+      background: var(--theme-footer-accent, #DFC698) !important;
+    }
+  }
+
+  .footer-nav-col ul li a {
+    color: #CBD5E1 !important;
+    transition: all 0.2s ease !important;
+    &:hover {
+      color: var(--theme-footer-accent, #DFC698) !important;
+      padding-right: 6px !important;
+    }
+  }
+
+  /* Working hours card */
+  .working-hours-card {
+    background: var(--theme-footer-card-bg, rgba(255, 255, 255, 0.06)) !important;
+    border: 1px solid var(--theme-footer-border, rgba(201, 169, 110, 0.3)) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  .hours-row span {
+    color: #94A3B8 !important;
+  }
+
+  .hours-row strong {
+    color: #FFFFFF !important;
+  }
+
+  .hours-row .gold-gradient-text {
+    background: none !important;
+    -webkit-text-fill-color: initial !important;
+    color: var(--theme-footer-accent, #DFC698) !important;
+    font-weight: 800 !important;
+  }
+
+  /* Social links */
+  .social-btn {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid var(--theme-footer-border, rgba(201, 169, 110, 0.3)) !important;
+    color: var(--theme-footer-accent, #DFC698) !important;
+
+    &:hover {
+      background: var(--theme-footer-accent, #DFC698) !important;
+      color: #06180E !important;
+      transform: translateY(-3px) !important;
+    }
+
+    &.wa-social:hover {
+      background: #25D366 !important;
+      border-color: #25D366 !important;
+      color: #FFFFFF !important;
+    }
+  }
+
+  /* Footer bottom */
+  .footer-bottom {
+    border-top: 1px solid var(--theme-footer-border, rgba(255, 255, 255, 0.1)) !important;
+    color: #CBD5E1 !important;
+  }
+
+  .footer-bottom p {
+    color: #CBD5E1 !important;
+  }
+
+  .footer-bottom strong {
+    color: #FFFFFF !important;
+  }
+
+  .bottom-links a {
+    color: #CBD5E1 !important;
+    &:hover {
+      color: var(--theme-footer-accent, #DFC698) !important;
+    }
+  }
+
+  .bottom-links span {
+    color: rgba(255, 255, 255, 0.3) !important;
+  }
+}
+
+/* ==========================================================================
+   CLIENT AUTH MODAL: HIGH-CONTRAST LUXURY LIGHT CARD STYLING
+   ========================================================================== */
+.client-modal-card {
+  background: #FFFFFF !important;
+  border: 1.5px solid var(--theme-card-border, #CBD5E1) !important;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3), 0 0 35px rgba(0, 0, 0, 0.08) !important;
+  color: #0F172A !important;
+
+  /* Headings & Subtitles */
+  .tab-intro h3 {
+    color: var(--theme-heading, #0F172A) !important;
+    font-size: 1.35rem !important;
+    font-weight: 800 !important;
+    margin-bottom: 0.35rem !important;
+  }
+
+  .tab-intro p {
+    color: #475569 !important;
+    font-size: 0.88rem !important;
+    font-weight: 500 !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Top Bar */
+  .crest-tag {
+    background: var(--theme-badge-bg, rgba(201, 169, 110, 0.12)) !important;
+    border: 1.5px solid var(--theme-badge-border, rgba(201, 169, 110, 0.35)) !important;
+    color: var(--theme-accent, #0F5132) !important;
+    font-weight: 800 !important;
+  }
+
+  .btn-close-modal {
+    background: #F1F5F9 !important;
+    border: 1px solid #E2E8F0 !important;
+    color: #64748B !important;
+    transition: all 0.2s ease !important;
+
+    &:hover {
+      background: #FEE2E2 !important;
+      color: #EF4444 !important;
+      border-color: #FCA5A5 !important;
+    }
+  }
+
+  /* Modal Tabs Header */
+  .modal-tabs-header {
+    background: #F1F5F9 !important;
+    border: 1px solid #E2E8F0 !important;
+    padding: 0.35rem !important;
+    border-radius: 14px !important;
+  }
+
+  .tab-btn {
+    font-weight: 700 !important;
+    font-size: 0.92rem !important;
+    border-radius: 10px !important;
+    color: #64748B !important;
+    transition: all 0.2s ease !important;
+
+    &:hover:not(.active) {
+      background: #E2E8F0 !important;
+      color: #0F172A !important;
+    }
+
+    &.active {
+      background: var(--theme-cta-bg, linear-gradient(135deg, #0F5132 0%, #1A6B44 100%)) !important;
+      color: var(--theme-cta-text, #FFFFFF) !important;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18) !important;
+    }
+  }
+
+  /* Form Labels & Required Marker */
+  .field-label {
+    color: var(--theme-heading, #0F172A) !important;
+    font-size: 0.86rem !important;
+    font-weight: 800 !important;
+    margin-bottom: 0.25rem !important;
+
+    .req {
+      color: #EF4444 !important;
+    }
+  }
+
+  /* Input Fields */
+  .client-input,
+  .modal-country-select {
+    background: #F8FAFC !important;
+    border: 1.5px solid #CBD5E1 !important;
+    color: #0F172A !important;
+    font-weight: 600 !important;
+    font-size: 0.92rem !important;
+    border-radius: 12px !important;
+    transition: all 0.2s ease !important;
+
+    &::placeholder {
+      color: #94A3B8 !important;
+      font-weight: 400 !important;
+    }
+
+    &:focus {
+      background: #FFFFFF !important;
+      border-color: var(--theme-accent, #0F5132) !important;
+      box-shadow: 0 0 0 3px rgba(15, 81, 50, 0.15) !important;
+    }
+  }
+
+  .modal-dial-badge {
+    background: #F1F5F9 !important;
+    border: 1.5px solid #CBD5E1 !important;
+    color: var(--theme-accent, #0F5132) !important;
+    font-weight: 800 !important;
+  }
+
+  .field-icon {
+    color: #64748B !important;
+  }
+
+  .btn-eye {
+    color: #64748B !important;
+    &:hover {
+      color: var(--theme-accent, #0F5132) !important;
+    }
+  }
+
+  /* Primary Action Button */
+  .btn-primary-auth {
+    background: var(--theme-cta-bg, linear-gradient(135deg, #0F5132 0%, #1A6B44 100%)) !important;
+    color: var(--theme-cta-text, #FFFFFF) !important;
+    border: none !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18) !important;
+    font-weight: 800 !important;
+    font-size: 1rem !important;
+
+    &:hover:not(:disabled) {
+      filter: brightness(1.1) !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25) !important;
+    }
+  }
+
+  /* Demo Accounts Box */
+  .demo-accounts-box {
+    background: #F8FAFC !important;
+    border: 1.5px dashed #CBD5E1 !important;
+    border-radius: 14px !important;
+    padding: 0.9rem 1.1rem !important;
+  }
+
+  .demo-title {
+    color: #334155 !important;
+    font-weight: 800 !important;
+    font-size: 0.8rem !important;
+  }
+
+  .btn-demo-chip {
+    background: #F1F5F9 !important;
+    border: 1px solid #CBD5E1 !important;
+    color: #1E293B !important;
+    font-weight: 700 !important;
+    transition: all 0.2s ease !important;
+
+    &:hover {
+      background: var(--theme-cta-bg, #0F5132) !important;
+      color: #FFFFFF !important;
+      border-color: transparent !important;
+      transform: translateY(-1px) !important;
+    }
+  }
+
+  /* Switch Mode Link */
+  .switch-mode-text {
+    color: #475569 !important;
+    font-size: 0.86rem !important;
+
+    a {
+      color: var(--theme-accent, #0F5132) !important;
+      font-weight: 800 !important;
+      text-decoration: underline !important;
+    }
+  }
+
+  /* Profile Tab */
+  .profile-hero-card {
+    background: #F8FAFC !important;
+    border: 1.5px solid #E2E8F0 !important;
+    border-radius: 16px !important;
+
+    h4 {
+      color: #0F172A !important;
+      font-weight: 800 !important;
+    }
+
+    .hero-tag-badge {
+      color: var(--theme-accent, #0F5132) !important;
+      font-weight: 700 !important;
+    }
+
+    .hero-joined-date {
+      color: #64748B !important;
+    }
+  }
+
+  /* Orders Tab */
+  .order-item-card {
+    background: #F8FAFC !important;
+    border: 1.5px solid #E2E8F0 !important;
+    border-radius: 14px !important;
+
+    .order-service-name {
+      color: #0F172A !important;
+      font-weight: 800 !important;
+    }
+
+    .order-date,
+    .order-price {
+      color: #475569 !important;
+      font-weight: 600 !important;
+    }
+  }
+
+  .empty-orders-view {
+    h4 {
+      color: #0F172A !important;
+      font-weight: 800 !important;
+    }
+    p {
+      color: #475569 !important;
+    }
+  }
+}
+
+/* ==========================================================================
+   DARK MODALS CONTRAST PROTECTION (SERVICE MODAL & ADD REVIEW MODAL)
+   ========================================================================== */
+.service-modal-container,
+.add-review-modal-backdrop .modal-card {
+  background: var(--theme-footer-bg, #0B1C15) !important;
+  border-color: var(--theme-footer-border, rgba(201, 169, 110, 0.35)) !important;
+  color: #E2EAE6 !important;
+
+  h1, h2, h3, h4, h5, h6, strong, .service-title, .header-titles h3 {
+    color: #FFFFFF !important;
+  }
+
+  p, small:not(.field-hint), .detail-section p, .header-titles p {
+    color: #CBDAD3 !important;
+  }
+
+  .form-group label {
+    color: #FFFFFF !important;
+  }
+
+  .info-value, .final-row {
+    color: #FFFFFF !important;
+  }
+}
+
+/* ==========================================================================
    ACTIVE THEORY SPATIAL ENGINE & KINETIC 3D UTILITIES
    ========================================================================== */
 

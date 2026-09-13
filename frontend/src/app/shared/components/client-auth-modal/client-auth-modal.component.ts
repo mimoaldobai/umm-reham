@@ -435,18 +435,18 @@ import { COUNTRIES_DATA, CountryCodeItem } from '../../../core/data/countries.da
     .modal-tabs-header {
       display: flex;
       gap: 0.5rem;
-      background: var(--dash-sidebar-bg, rgba(4, 20, 14, 0.8));
+      background: #F1F5F9;
       padding: 0.35rem;
       border-radius: 14px;
       margin-bottom: 1.5rem;
-      border: 1px solid var(--theme-footer-border, rgba(197, 168, 105, 0.2));
+      border: 1px solid #E2E8F0;
     }
 
     .tab-btn {
       flex: 1;
       background: transparent;
       border: none;
-      color: var(--theme-text-muted, #A7F3D0);
+      color: #64748B;
       padding: 0.65rem 0.5rem;
       font-size: 0.9rem;
       font-weight: 700;
@@ -458,12 +458,12 @@ import { COUNTRIES_DATA, CountryCodeItem } from '../../../core/data/countries.da
       &.active {
         background: var(--theme-cta-bg, linear-gradient(135deg, #059669 0%, #047857 100%));
         color: var(--theme-cta-text, #FFFFFF);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
       }
 
       &:hover:not(.active) {
-        background: rgba(255, 255, 255, 0.06);
-        color: #FFFFFF;
+        background: #E2E8F0;
+        color: #0F172A;
       }
     }
 
@@ -480,13 +480,13 @@ import { COUNTRIES_DATA, CountryCodeItem } from '../../../core/data/countries.da
       &.error {
         background: rgba(239, 68, 68, 0.15);
         border: 1px solid rgba(239, 68, 68, 0.4);
-        color: #FCA5A5;
+        color: #EF4444;
       }
 
       &.success {
         background: rgba(16, 185, 129, 0.15);
         border: 1px solid rgba(16, 185, 129, 0.4);
-        color: #6EE7B7;
+        color: #059669;
       }
     }
 
@@ -496,12 +496,13 @@ import { COUNTRIES_DATA, CountryCodeItem } from '../../../core/data/countries.da
         margin: 0 0 0.35rem;
         font-size: 1.25rem;
         font-weight: 800;
-        color: #FFFFFF;
+        color: var(--theme-heading, #0F172A);
       }
       p {
         margin: 0;
-        font-size: 0.82rem;
-        color: #A7F3D0;
+        font-size: 0.84rem;
+        color: #475569;
+        font-weight: 500;
       }
     }
 
@@ -532,9 +533,9 @@ import { COUNTRIES_DATA, CountryCodeItem } from '../../../core/data/countries.da
     }
 
     .field-label {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: #E2ECE7;
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: var(--theme-heading, #0F172A);
       .req { color: #EF4444; }
     }
 
@@ -549,29 +550,32 @@ import { COUNTRIES_DATA, CountryCodeItem } from '../../../core/data/countries.da
       right: 0.85rem;
       font-size: 0.95rem;
       pointer-events: none;
+      color: #64748B;
     }
 
     .client-input {
       width: 100%;
-      background: var(--dash-input-bg, rgba(4, 20, 14, 0.85));
-      border: 1.5px solid var(--dash-input-border, rgba(197, 168, 105, 0.3));
-      color: var(--theme-heading, #FFFFFF);
+      background: #F8FAFC;
+      border: 1.5px solid #CBD5E1;
+      color: #0F172A;
       padding: 0.75rem 2.6rem 0.75rem 0.85rem;
       border-radius: 12px;
       font-size: 0.9rem;
+      font-weight: 600;
       font-family: inherit;
       box-sizing: border-box;
       transition: all 0.2s;
 
       &:focus {
         outline: none;
-        border-color: var(--theme-accent, #C5A869);
-        box-shadow: 0 0 0 3px rgba(var(--theme-accent-rgb, 197, 168, 105), 0.2);
-        background: var(--dash-input-bg, rgba(4, 20, 14, 0.95));
+        border-color: var(--theme-accent, #0F5132);
+        box-shadow: 0 0 0 3px rgba(15, 81, 50, 0.15);
+        background: #FFFFFF;
       }
 
       &::placeholder {
-        color: var(--theme-text-muted, rgba(255, 255, 255, 0.3));
+        color: #94A3B8;
+        font-weight: 400;
       }
     }
 
@@ -587,15 +591,16 @@ import { COUNTRIES_DATA, CountryCodeItem } from '../../../core/data/countries.da
       padding: 0.75rem 0.6rem !important;
       cursor: pointer;
       font-size: 0.82rem;
-      background: var(--dash-input-bg, rgba(4, 20, 14, 0.95));
-      color: var(--theme-heading, #FFFFFF);
-      border: 1.5px solid var(--dash-input-border, rgba(197, 168, 105, 0.3));
+      background: #F8FAFC;
+      color: #0F172A;
+      border: 1.5px solid #CBD5E1;
+      font-weight: 600;
     }
 
     .modal-dial-badge {
-      background: var(--theme-badge-bg, rgba(197, 168, 105, 0.18));
-      border: 1.5px solid var(--theme-badge-border, rgba(197, 168, 105, 0.4));
-      color: var(--theme-accent, #C5A869);
+      background: #F1F5F9;
+      border: 1.5px solid #CBD5E1;
+      color: var(--theme-accent, #0F5132);
       padding: 0.75rem 0.85rem;
       border-radius: 12px;
       font-weight: 800;
@@ -624,15 +629,16 @@ import { COUNTRIES_DATA, CountryCodeItem } from '../../../core/data/countries.da
       left: 0.75rem;
       background: none;
       border: none;
-      color: var(--theme-accent, #A7F3D0);
+      color: #64748B;
       cursor: pointer;
       font-size: 1rem;
+      &:hover { color: var(--theme-accent, #0F5132); }
     }
 
     .btn-primary-auth {
       background: var(--theme-cta-bg, linear-gradient(135deg, #059669 0%, #047857 100%));
       color: var(--theme-cta-text, #FFFFFF);
-      border: 1.5px solid var(--theme-footer-border, rgba(197, 168, 105, 0.4));
+      border: none;
       padding: 0.85rem 1.5rem;
       border-radius: 12px;
       font-size: 0.95rem;
@@ -643,13 +649,13 @@ import { COUNTRIES_DATA, CountryCodeItem } from '../../../core/data/countries.da
       justify-content: center;
       gap: 0.5rem;
       font-family: inherit;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
       transition: all 0.2s;
 
       &:hover:not(:disabled) {
         transform: translateY(-2px);
         filter: brightness(1.1);
-        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.45);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
       }
 
       &:disabled {
@@ -661,16 +667,16 @@ import { COUNTRIES_DATA, CountryCodeItem } from '../../../core/data/countries.da
     .demo-accounts-box {
       margin-top: 1.25rem;
       padding: 0.85rem;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px dashed var(--theme-footer-border, rgba(197, 168, 105, 0.3));
+      background: #F8FAFC;
+      border: 1.5px dashed #CBD5E1;
       border-radius: 12px;
     }
 
     .demo-title {
       display: block;
-      font-size: 0.75rem;
-      color: var(--theme-accent, #C5A869);
-      font-weight: 700;
+      font-size: 0.78rem;
+      color: #334155;
+      font-weight: 800;
       margin-bottom: 0.5rem;
     }
 
@@ -681,9 +687,9 @@ import { COUNTRIES_DATA, CountryCodeItem } from '../../../core/data/countries.da
     }
 
     .btn-demo-chip {
-      background: var(--theme-badge-bg, rgba(16, 185, 129, 0.15));
-      border: 1px solid var(--theme-badge-border, rgba(16, 185, 129, 0.35));
-      color: var(--theme-heading, #D1FAE5);
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      color: #1E293B;
       padding: 0.35rem 0.75rem;
       border-radius: 8px;
       font-size: 0.78rem;
@@ -693,9 +699,9 @@ import { COUNTRIES_DATA, CountryCodeItem } from '../../../core/data/countries.da
       transition: all 0.2s;
 
       &:hover {
-        background: var(--theme-accent, #10B981);
+        background: var(--theme-cta-bg, #0F5132);
         color: var(--theme-cta-text, #FFFFFF);
-        border-color: var(--theme-accent, #10B981);
+        border-color: transparent;
         transform: translateY(-1px);
       }
     }
@@ -703,12 +709,12 @@ import { COUNTRIES_DATA, CountryCodeItem } from '../../../core/data/countries.da
     .switch-mode-text {
       text-align: center;
       margin-top: 1.25rem;
-      font-size: 0.82rem;
-      color: var(--theme-text-muted, #A7F3D0);
+      font-size: 0.84rem;
+      color: #475569;
 
       a {
-        color: var(--theme-accent, #C5A869);
-        font-weight: 700;
+        color: var(--theme-accent, #0F5132);
+        font-weight: 800;
         margin-right: 0.35rem;
         text-decoration: underline;
         cursor: pointer;
@@ -720,8 +726,8 @@ import { COUNTRIES_DATA, CountryCodeItem } from '../../../core/data/countries.da
       display: flex;
       align-items: center;
       gap: 1.25rem;
-      background: rgba(4, 20, 14, 0.8);
-      border: 1px solid rgba(197, 168, 105, 0.3);
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
       padding: 1.25rem;
       border-radius: 16px;
       margin-bottom: 1.5rem;
@@ -737,8 +743,9 @@ import { COUNTRIES_DATA, CountryCodeItem } from '../../../core/data/countries.da
       font-size: 1.4rem;
       font-weight: 900;
       color: #FFFFFF;
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
       border: 2px solid #C5A869;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
       flex-shrink: 0;
     }
 
@@ -751,20 +758,19 @@ import { COUNTRIES_DATA, CountryCodeItem } from '../../../core/data/countries.da
         margin: 0;
         font-size: 1.2rem;
         font-weight: 800;
-        color: #FFFFFF;
+        color: #0F172A;
       }
     }
 
     .hero-tag-badge {
       font-size: 0.8rem;
-      color: #6EE7B7;
-      font-weight: 600;
+      color: #059669;
+      font-weight: 700;
     }
 
     .hero-joined-date {
-      font-size: 0.72rem;
-      color: #A7F3D0;
-      opacity: 0.8;
+      font-size: 0.76rem;
+      color: #64748B;
     }
 
     .profile-actions-row {
@@ -776,7 +782,7 @@ import { COUNTRIES_DATA, CountryCodeItem } from '../../../core/data/countries.da
     .btn-save-profile {
       flex: 2;
       background: linear-gradient(135deg, #059669 0%, #047857 100%);
-      border: 1px solid rgba(197, 168, 105, 0.4);
+      border: none;
       color: #FFFFFF;
       padding: 0.75rem 1rem;
       border-radius: 10px;
@@ -784,13 +790,14 @@ import { COUNTRIES_DATA, CountryCodeItem } from '../../../core/data/countries.da
       font-weight: 700;
       cursor: pointer;
       font-family: inherit;
+      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
     }
 
     .btn-logout {
       flex: 1;
-      background: rgba(239, 68, 68, 0.15);
-      border: 1px solid rgba(239, 68, 68, 0.4);
-      color: #FCA5A5;
+      background: #FEE2E2;
+      border: 1px solid #FCA5A5;
+      color: #DC2626;
       padding: 0.75rem 1rem;
       border-radius: 10px;
       font-size: 0.9rem;
@@ -799,7 +806,7 @@ import { COUNTRIES_DATA, CountryCodeItem } from '../../../core/data/countries.da
       font-family: inherit;
 
       &:hover {
-        background: rgba(239, 68, 68, 0.3);
+        background: #FECACA;
       }
     }
 
@@ -811,8 +818,8 @@ import { COUNTRIES_DATA, CountryCodeItem } from '../../../core/data/countries.da
     }
 
     .order-item-card {
-      background: rgba(4, 20, 14, 0.8);
-      border: 1px solid rgba(197, 168, 105, 0.25);
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
       border-radius: 14px;
       padding: 1rem;
       display: flex;
@@ -829,8 +836,8 @@ import { COUNTRIES_DATA, CountryCodeItem } from '../../../core/data/countries.da
     .order-code-badge {
       font-size: 0.8rem;
       font-weight: 800;
-      color: #C5A869;
-      background: rgba(197, 168, 105, 0.12);
+      color: var(--theme-accent, #0F5132);
+      background: #F1F5F9;
       padding: 0.2rem 0.6rem;
       border-radius: 6px;
       letter-spacing: 0.5px;
@@ -844,19 +851,19 @@ import { COUNTRIES_DATA, CountryCodeItem } from '../../../core/data/countries.da
 
       &.in_progress {
         background: rgba(245, 158, 11, 0.15);
-        color: #FBBF24;
+        color: #D97706;
         border: 1px solid rgba(245, 158, 11, 0.35);
       }
 
       &.completed {
         background: rgba(16, 185, 129, 0.15);
-        color: #34D399;
+        color: #059669;
         border: 1px solid rgba(16, 185, 129, 0.35);
       }
 
       &.pending {
         background: rgba(59, 130, 246, 0.15);
-        color: #60A5FA;
+        color: #2563EB;
         border: 1px solid rgba(59, 130, 246, 0.35);
       }
     }
@@ -865,30 +872,30 @@ import { COUNTRIES_DATA, CountryCodeItem } from '../../../core/data/countries.da
       margin: 0;
       font-size: 0.95rem;
       font-weight: 700;
-      color: #FFFFFF;
+      color: #0F172A;
     }
 
     .order-footer-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-top: 1px solid #E2E8F0;
       padding-top: 0.5rem;
       font-size: 0.8rem;
-      color: #CBDAD3;
+      color: #475569;
     }
 
     .btn-track-mini {
-      color: #C5A869;
+      color: var(--theme-accent, #0F5132);
       font-weight: 700;
       text-decoration: none;
-      background: rgba(197, 168, 105, 0.15);
+      background: #F1F5F9;
       padding: 0.25rem 0.65rem;
       border-radius: 6px;
       font-size: 0.78rem;
 
       &:hover {
-        background: rgba(197, 168, 105, 0.3);
+        background: #E2E8F0;
       }
     }
 
@@ -896,8 +903,8 @@ import { COUNTRIES_DATA, CountryCodeItem } from '../../../core/data/countries.da
       text-align: center;
       padding: 2.5rem 1rem;
       .empty-icon { font-size: 2.5rem; display: block; margin-bottom: 0.75rem; }
-      h4 { margin: 0 0 0.5rem; font-size: 1.1rem; color: #FFFFFF; }
-      p { margin: 0 0 1.5rem; font-size: 0.85rem; color: #A7F3D0; }
+      h4 { margin: 0 0 0.5rem; font-size: 1.1rem; color: #0F172A; font-weight: 800; }
+      p { margin: 0 0 1.5rem; font-size: 0.85rem; color: #475569; }
     }
 
     .btn-new-order {
