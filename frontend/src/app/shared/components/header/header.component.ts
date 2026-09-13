@@ -1182,6 +1182,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onNavClick(): void {
     this.audio.playClick();
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }
   }
 
   toggleMobileMenu(): void {

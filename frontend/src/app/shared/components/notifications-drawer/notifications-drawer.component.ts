@@ -124,8 +124,8 @@ import { AudioService } from '../../../core/services/audio.service';
       width: 100%;
       max-width: 440px;
       height: 100%;
-      background: #0C1E17;
-      border-left: 1.5px solid rgba(201, 169, 110, 0.35);
+      background: var(--theme-primary, #0A2F24);
+      border-left: 1.5px solid rgba(var(--theme-accent-rgb, 229, 185, 79), 0.35);
       display: flex;
       flex-direction: column;
       box-shadow: -15px 0 50px rgba(0, 0, 0, 0.65);
@@ -156,13 +156,13 @@ import { AudioService } from '../../../core/services/audio.service';
       width: 42px;
       height: 42px;
       border-radius: 12px;
-      background: rgba(201, 169, 110, 0.15);
-      border: 1px solid rgba(201, 169, 110, 0.35);
+      background: rgba(var(--theme-accent-rgb, 229, 185, 79), 0.15);
+      border: 1px solid rgba(var(--theme-accent-rgb, 229, 185, 79), 0.35);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.3rem;
-      box-shadow: 0 0 16px rgba(201, 169, 110, 0.2);
+      box-shadow: 0 0 16px rgba(var(--theme-accent-rgb, 229, 185, 79), 0.25);
     }
 
     .notif-header h3 {
@@ -214,13 +214,13 @@ import { AudioService } from '../../../core/services/audio.service';
     }
 
     .notif-count-badge strong {
-      color: #DFC698;
+      color: var(--theme-accent, #E5B94F);
     }
 
     .btn-mark-all {
       background: none;
       border: none;
-      color: #DFC698;
+      color: var(--theme-accent, #E5B94F);
       font-size: 0.74rem;
       font-weight: 700;
       cursor: pointer;
@@ -246,7 +246,7 @@ import { AudioService } from '../../../core/services/audio.service';
     .empty-icon-glow {
       font-size: 3.5rem;
       margin-bottom: 1rem;
-      filter: drop-shadow(0 0 20px rgba(201, 169, 110, 0.3));
+      filter: drop-shadow(0 0 20px rgba(var(--theme-accent-rgb, 229, 185, 79), 0.35));
     }
 
     .notif-empty h4 {
@@ -268,9 +268,9 @@ import { AudioService } from '../../../core/services/audio.service';
       align-items: center;
       gap: 0.5rem;
       padding: 0.75rem 1.5rem;
-      background: linear-gradient(135deg, #0F5132 0%, #1A6B44 100%);
+      background: var(--theme-gradient, linear-gradient(135deg, #0A2F24 0%, #051A14 100%));
       color: #FFFFFF;
-      border: 1.5px solid rgba(201, 169, 110, 0.4);
+      border: 1.5px solid rgba(var(--theme-accent-rgb, 229, 185, 79), 0.4);
       text-decoration: none;
       font-weight: 700;
       font-size: 0.9rem;
@@ -308,13 +308,13 @@ import { AudioService } from '../../../core/services/audio.service';
 
     .notif-card:hover {
       background: rgba(255, 255, 255, 0.06);
-      border-color: rgba(201, 169, 110, 0.3);
+      border-color: rgba(var(--theme-accent-rgb, 229, 185, 79), 0.35);
       transform: translateY(-2px);
     }
 
     .notif-card.unread {
-      background: rgba(201, 169, 110, 0.06);
-      border-color: rgba(201, 169, 110, 0.35);
+      background: rgba(var(--theme-accent-rgb, 229, 185, 79), 0.08);
+      border-color: rgba(var(--theme-accent-rgb, 229, 185, 79), 0.35);
     }
 
     .notif-card-icon-wrap {
@@ -362,8 +362,8 @@ import { AudioService } from '../../../core/services/audio.service';
       font-weight: 700;
       padding: 1px 6px;
       border-radius: 4px;
-      background: rgba(201, 169, 110, 0.2);
-      color: #DFC698;
+      background: rgba(var(--theme-accent-rgb, 229, 185, 79), 0.2);
+      color: var(--theme-accent, #E5B94F);
     }
 
     .notif-time {
@@ -375,8 +375,8 @@ import { AudioService } from '../../../core/services/audio.service';
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: #10B981;
-      box-shadow: 0 0 6px #10B981;
+      background: var(--theme-accent, #E5B94F);
+      box-shadow: 0 0 6px var(--theme-accent, #E5B94F);
     }
 
     .notif-card-title {
@@ -406,7 +406,7 @@ import { AudioService } from '../../../core/services/audio.service';
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      color: #DFC698;
+      color: var(--theme-accent, #E5B94F);
       font-size: 0.75rem;
       font-weight: 700;
       text-decoration: none;

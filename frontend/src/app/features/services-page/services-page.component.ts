@@ -1344,6 +1344,9 @@ export class ServicesPageComponent implements OnInit {
   bouncingServices: { [serviceId: string]: boolean } = {};
 
   ngOnInit(): void {
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }
     this.api.getCategories().subscribe(cats => this.categories = cats);
     this.api.getServices().subscribe(srvs => {
       this.services = srvs;

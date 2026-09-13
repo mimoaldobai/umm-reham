@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet, RouterModule, Router } from '@angular/router';
+import { RouterOutlet, RouterModule, Router, NavigationEnd } from '@angular/router';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { AudioService } from './core/services/audio.service';
@@ -31,6 +31,23 @@ export class App {
   audio = inject(AudioService);
   authService = inject(AuthService);
   agentService = inject(SaudFarahAgentService);
+
+  constructor() {
+    this.router.events.subscribe(evt => {
+      if (evt instanceof NavigationEnd) {
+        if (typeof window !== 'undefined') {
+          window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        }
+      }
+    });
+  }
+
+  onNavTabClick(): void {
+    this.audio.playClick();
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }
+  }
 
   isAdminRoute(): boolean {
     return this.router.url ? this.router.url.startsWith('/admin') : false;

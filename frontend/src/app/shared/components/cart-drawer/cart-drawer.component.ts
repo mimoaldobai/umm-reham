@@ -215,12 +215,12 @@ import { AudioService } from '../../../core/services/audio.service';
       width: 42px;
       height: 42px;
       border-radius: var(--radius-md);
-      background: linear-gradient(135deg, #1B4332 0%, #0D251A 100%);
-      color: #DFC698;
+      background: var(--theme-gradient, linear-gradient(135deg, #1B4332 0%, #0D251A 100%));
+      color: var(--theme-accent, #DFC698);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 12px rgba(27, 67, 50, 0.2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
     .cart-title {

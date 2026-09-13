@@ -123,8 +123,8 @@ import { AudioService } from '../../../core/services/audio.service';
       width: 100%;
       max-width: 440px;
       height: 100%;
-      background: rgba(14, 28, 22, 0.96);
-      border-left: 1px solid rgba(212, 175, 55, 0.25);
+      background: var(--theme-primary, #0A2F24);
+      border-left: 1.5px solid rgba(var(--theme-accent-rgb, 229, 185, 79), 0.35);
       display: flex;
       flex-direction: column;
       box-shadow: -15px 0 50px rgba(0, 0, 0, 0.6);
@@ -235,8 +235,8 @@ import { AudioService } from '../../../core/services/audio.service';
       align-items: center;
       gap: 0.6rem;
       padding: 0.8rem 1.6rem;
-      background: linear-gradient(135deg, #0F5132 0%, #1A6B44 100%) !important;
-      border: 1.5px solid rgba(201, 169, 110, 0.5) !important;
+      background: var(--theme-gradient, linear-gradient(135deg, #0A2F24 0%, #051A14 100%)) !important;
+      border: 1.5px solid rgba(var(--theme-accent-rgb, 229, 185, 79), 0.5) !important;
       color: #FFFFFF;
       text-decoration: none;
       font-weight: 700;
@@ -271,7 +271,7 @@ import { AudioService } from '../../../core/services/audio.service';
     }
 
     .fav-count-banner strong {
-      color: #E5B94F;
+      color: var(--theme-accent, #E5B94F);
     }
 
     .btn-clear-text {
@@ -303,7 +303,7 @@ import { AudioService } from '../../../core/services/audio.service';
 
     .fav-item-card:hover {
       background: rgba(255, 255, 255, 0.06);
-      border-color: rgba(212, 175, 55, 0.3);
+      border-color: rgba(var(--theme-accent-rgb, 229, 185, 79), 0.35);
       transform: translateY(-1.5px);
     }
 
@@ -338,7 +338,7 @@ import { AudioService } from '../../../core/services/audio.service';
 
     .fav-item-category {
       font-size: 0.7rem;
-      color: #E5B94F;
+      color: var(--theme-accent, #E5B94F);
       font-weight: 700;
       display: block;
       margin-bottom: 2px;
@@ -373,8 +373,9 @@ import { AudioService } from '../../../core/services/audio.service';
 
     .gold-guarantee-pill {
       font-size: 0.68rem;
-      color: #E5B94F;
-      background: rgba(229, 185, 79, 0.12);
+      color: var(--theme-accent, #E5B94F);
+      background: rgba(var(--theme-accent-rgb, 229, 185, 79), 0.15);
+      border: 1px solid rgba(var(--theme-accent-rgb, 229, 185, 79), 0.3);
       padding: 1px 6px;
       border-radius: 6px;
       font-weight: 600;
@@ -396,9 +397,9 @@ import { AudioService } from '../../../core/services/audio.service';
       justify-content: center;
       gap: 0.4rem;
       padding: 0.55rem;
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid rgba(16, 185, 129, 0.35);
-      color: #10B981;
+      background: rgba(var(--theme-accent-rgb, 229, 185, 79), 0.15);
+      border: 1px solid rgba(var(--theme-accent-rgb, 229, 185, 79), 0.35);
+      color: var(--theme-accent, #E5B94F);
       border-radius: 8px;
       font-weight: 700;
       font-size: 0.82rem;
@@ -407,8 +408,8 @@ import { AudioService } from '../../../core/services/audio.service';
     }
 
     .btn-quick-cart:hover {
-      background: #10B981;
-      color: #FFFFFF;
+      background: var(--theme-accent, #E5B94F);
+      color: var(--theme-primary, #0A2F24);
     }
 
     .btn-quick-wa {
@@ -470,20 +471,20 @@ import { AudioService } from '../../../core/services/audio.service';
       align-items: center;
       justify-content: center;
       gap: 0.6rem;
-      background: linear-gradient(135deg, #E5B94F, #C9A96E);
-      color: #0A2F24;
+      background: var(--theme-accent-gradient, linear-gradient(135deg, #E5B94F, #C9A96E));
+      color: var(--theme-primary, #0A2F24);
       border: none;
       border-radius: 12px;
       font-weight: 800;
       font-size: 0.92rem;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(229, 185, 79, 0.25);
+      box-shadow: 0 4px 15px rgba(var(--theme-accent-rgb, 229, 185, 79), 0.3);
       transition: all 0.2s ease;
     }
 
     .btn-add-all-cart:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(229, 185, 79, 0.4);
+      box-shadow: 0 6px 20px rgba(var(--theme-accent-rgb, 229, 185, 79), 0.5);
     }
 
     .btn-close-ghost {
