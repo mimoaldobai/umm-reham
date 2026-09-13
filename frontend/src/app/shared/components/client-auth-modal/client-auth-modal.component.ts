@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ClientAuthService, ClientUser, ClientOrderSummary } from '../../../core/services/client-auth.service';
 import { AudioService } from '../../../core/services/audio.service';
 import { CartService } from '../../../core/services/cart.service';
+import { NotificationService } from '../../../core/services/notification.service';
 import { COUNTRIES_DATA, CountryCodeItem } from '../../../core/data/countries.data';
 
 @Component({
@@ -924,6 +925,7 @@ export class ClientAuthModalComponent {
   auth = inject(ClientAuthService);
   audio = inject(AudioService);
   cart = inject(CartService);
+  notifService = inject(NotificationService);
 
   loginIdentifier = '';
   loginPassword = '';
@@ -1022,6 +1024,7 @@ export class ClientAuthModalComponent {
     this.feedbackMessage = res.message;
     this.isError = !res.success;
     if (res.success) {
+      this.notifService.triggerNewClientRegistered(this.regForm.fullName, fullPhone, this.regForm.university);
       this.refreshData();
     }
   }

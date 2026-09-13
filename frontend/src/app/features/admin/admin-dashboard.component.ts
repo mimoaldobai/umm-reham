@@ -11,6 +11,8 @@ import { SaudFarahAgentService } from '../../core/services/saud-farah-agent.serv
 import { RewardsService, CouponItem, WelcomeRewardConfig } from '../../core/services/rewards.service';
 import { ClientAuthService, ClientUser, ClientWithStats } from '../../core/services/client-auth.service';
 import { COUNTRIES_DATA } from '../../core/data/countries.data';
+import { NotificationService } from '../../core/services/notification.service';
+import { AdminNotificationsModalComponent } from '../../shared/components/admin-notifications-modal/admin-notifications-modal.component';
 
 
 export interface AcademicOrder {
@@ -32,7 +34,7 @@ export interface AcademicOrder {
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, ThemeSwitcherComponent],
+  imports: [CommonModule, FormsModule, RouterModule, ThemeSwitcherComponent, AdminNotificationsModalComponent],
   template: `
     <div class="dash-shell" dir="rtl">
       
@@ -108,6 +110,18 @@ export interface AcademicOrder {
             </span>
             <span class="btn-text">طلبات وأبحاث الباحثين</span>
             <span class="btn-badge">{{ orders.length }}</span>
+          </button>
+
+          <!-- Notifications & Broadcast Hub in Nav -->
+          <button class="nav-btn" (click)="openAdminNotifications()">
+            <span class="btn-icon">
+              <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+              </svg>
+            </span>
+            <span class="btn-text">الإشعارات وبث الخصومات</span>
+            <span class="btn-badge notif-nav-badge" *ngIf="notifService.adminUnreadCount() > 0">{{ notifService.adminUnreadCount() }}</span>
           </button>
 
           <button class="nav-btn" [class.active]="activeTab === 'clients'" (click)="setTab('clients')">
@@ -308,6 +322,14 @@ export interface AcademicOrder {
             <!-- Sound Effects Switcher -->
             <button type="button" class="topbar-tool-btn sound-btn" (click)="toggleSound()" [title]="audio.isSoundEnabled ? 'كتم التأثيرات الصوتية' : 'تشغيل التأثيرات الصوتية'">
               <span>{{ audio.isSoundEnabled ? '🔊' : '🔇' }}</span>
+            </button>
+
+            <!-- Notifications Bell Trigger -->
+            <button type="button" class="topbar-tool-btn notif-btn" (click)="openAdminNotifications()" title="مركز الإشعارات والتنبيهات المباشرة وبث الخصومات">
+              <span class="bell-icon">🔔</span>
+              <span class="topbar-notif-badge" *ngIf="notifService.adminUnreadCount() > 0">
+                {{ notifService.adminUnreadCount() }}
+              </span>
             </button>
 
             <!-- Link to Client Storefront -->
@@ -2650,6 +2672,9 @@ export interface AcademicOrder {
         </div>
       </div>
 
+      <!-- Admin Notifications Modal & Broadcast Hub -->
+      <app-admin-notifications-modal (tabSelected)="setTab($event)"></app-admin-notifications-modal>
+
     </div>
   `,
   styles: [`
@@ -4720,6 +4745,36 @@ export interface AcademicOrder {
        DYNAMIC RESPONSIVE SYSTEM (MOBILE, IPAD, TABLET & DESKTOP)
        تنسيق متجاوب ذكي واحترافي لجميع الشاشات (كمبيوتر، لابتوب، آيباد، تابلت، جوال)
        ========================================================= */
+    .notif-btn {
+      position: relative;
+    }
+    .topbar-notif-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background: #EF4444;
+      color: #FFFFFF;
+      font-size: 0.68rem;
+      font-weight: 800;
+      min-width: 17px;
+      height: 17px;
+      padding: 0 4px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid #0A2F24;
+      box-shadow: 0 0 8px rgba(239, 68, 68, 0.7);
+      animation: notifPulse 2s infinite;
+    }
+    .notif-nav-badge {
+      background: #EF4444 !important;
+      color: #FFFFFF !important;
+      font-weight: 800;
+      box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
+      animation: notifPulse 2s infinite;
+    }
+
     .dash-sidebar-toggle-btn {
       display: none;
     }
@@ -5110,7 +5165,12 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   clientAuthService = inject(ClientAuthService);
   agentService = inject(SaudFarahAgentService);
   rewardsService = inject(RewardsService);
+  notifService = inject(NotificationService);
   router = inject(Router);
+
+  openAdminNotifications(): void {
+    this.notifService.openAdminModal();
+  }
 
   // Responsive Mobile / iPad Sidebar Drawer State
   isMobileSidebarOpen = false;
@@ -5931,6 +5991,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     this.api.updateRequestStatus(ord.id, newStatus).subscribe();
     this.showToast(`تم تحديث حالة الطلب (${ord.orderNumber}) إلى: ${this.getStatusLabel(newStatus)} ✓`);
     this.audio.playSuccess();
+    this.notifService.triggerOrderStatusChangeNotification(ord.orderNumber, this.getStatusLabel(newStatus), ord.clientName);
   }
 
   deleteOrder(id: string): void {
@@ -6010,6 +6071,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     this.isOrderModalOpen = false;
     this.showToast(`تم تسجيل الطلب الجديد (${orderNum}) وحفظه في قاعدة البيانات بنجاح!`);
     this.audio.playSuccess();
+    this.notifService.triggerNewOrderCreated(orderNum, this.orderForm.clientName, this.orderForm.serviceTitle, this.orderForm.price || 500);
   }
 
   filteredOrders(): AcademicOrder[] {
@@ -6385,6 +6447,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
         }
       });
       this.showToast('تمت إضافة التقييم وتفعيله فوراً على الموقع ✓');
+      this.notifService.triggerNewReview(this.reviewForm.clientName, this.reviewForm.rating || 5);
     }
     this.isReviewModalOpen = false;
     this.audio.playSuccess();

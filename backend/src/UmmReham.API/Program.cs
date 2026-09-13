@@ -90,6 +90,29 @@ using (var scope = app.Services.CreateScope())
     try { await context.Database.ExecuteSqlRawAsync("ALTER TABLE portfolio_items ADD COLUMN Rating REAL DEFAULT 5.0;"); } catch {}
     try { await context.Database.ExecuteSqlRawAsync("ALTER TABLE portfolio_items ADD COLUMN RatingCount INTEGER DEFAULT 1;"); } catch {}
 
+    // Ensure Notifications table exists in SQLite database
+    try 
+    { 
+        await context.Database.ExecuteSqlRawAsync(@"
+            CREATE TABLE IF NOT EXISTS Notifications (
+                Id TEXT PRIMARY KEY,
+                Title TEXT NOT NULL,
+                Message TEXT NOT NULL,
+                Type TEXT NOT NULL,
+                Target TEXT NOT NULL,
+                Icon TEXT NULL,
+                Link TEXT NULL,
+                ActionLabel TEXT NULL,
+                IsRead INTEGER NOT NULL,
+                RecipientType TEXT NOT NULL,
+                CreatedAt TEXT NOT NULL,
+                UpdatedAt TEXT NOT NULL
+            );
+        "); 
+    } 
+    catch {}
+    try { await context.Database.ExecuteSqlRawAsync("ALTER TABLE Notifications ADD COLUMN UpdatedAt TEXT;"); } catch {}
+
     await SeedData.SeedAsync(context);
 }
 

@@ -24,6 +24,7 @@ public class AppDbContext : DbContext
     public DbSet<Article> Articles => Set<Article>();
     public DbSet<SocialLink> SocialLinks => Set<SocialLink>();
     public DbSet<AppUser> AppUsers => Set<AppUser>();
+    public DbSet<PlatformNotification> Notifications => Set<PlatformNotification>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

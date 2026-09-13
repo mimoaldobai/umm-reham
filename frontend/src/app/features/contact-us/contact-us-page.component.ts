@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AudioService } from '../../core/services/audio.service';
 import { ApiService } from '../../core/services/api.service';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   selector: 'app-contact-us-page',
@@ -639,6 +640,7 @@ import { ApiService } from '../../core/services/api.service';
 export class ContactUsPageComponent {
   private audio = inject(AudioService);
   private api = inject(ApiService);
+  private notifService = inject(NotificationService);
 
   formModel = {
     name: '',
@@ -676,6 +678,13 @@ export class ContactUsPageComponent {
       this.isSubmitting = false;
       this.messageSent = true;
       this.audio.playNotification();
+
+      // Trigger admin inquiry notification
+      this.notifService.triggerNewInquiry(
+        this.formModel.name,
+        this.formModel.subject || 'استفسار أكاديمي جديد',
+        this.formModel.phone
+      );
     }, 600);
   }
 }

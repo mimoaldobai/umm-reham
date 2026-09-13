@@ -11,6 +11,8 @@ import { CartDrawerComponent } from '../cart-drawer/cart-drawer.component';
 import { FavoritesDrawerComponent } from '../favorites-drawer/favorites-drawer.component';
 import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.component';
 import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal.component';
+import { NotificationService } from '../../../core/services/notification.service';
+import { NotificationsDrawerComponent } from '../notifications-drawer/notifications-drawer.component';
 
 @Component({
   selector: 'app-header',
@@ -21,7 +23,8 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
     CartDrawerComponent,
     FavoritesDrawerComponent,
     ThemeSwitcherComponent,
-    ClientAuthModalComponent
+    ClientAuthModalComponent,
+    NotificationsDrawerComponent
   ],
   template: `
     <!-- ==========================================
@@ -161,6 +164,14 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
             </span>
           </button>
 
+          <!-- Notification Bell Trigger Icon -->
+          <button type="button" class="btn-notif-icon" (click)="notifService.toggleClientDrawer()" title="مركز التنبيهات والإشعارات">
+            <span class="notif-bell-icon">🔔</span>
+            <span class="notif-badge" *ngIf="notifService.clientUnreadCount() > 0">
+              {{ notifService.clientUnreadCount() }}
+            </span>
+          </button>
+
           <!-- Client Profile / Login Trigger -->
           <ng-container *ngIf="!clientAuth.isAuthenticated()">
             <button type="button" class="btn-client-login-trigger" (click)="openClientTab('login')" title="تسجيل الدخول أو إنشاء حساب طالب">
@@ -262,6 +273,7 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
           <a routerLink="/about" (click)="closeMobileMenu()">من نحن</a>
           <a routerLink="/services" (click)="closeMobileMenu()">المتجر والخدمات 🛒</a>
           <a (click)="cartService.openFavorites(); closeMobileMenu()" style="cursor: pointer;">المفضلة الأكاديمية ❤️ <span *ngIf="cartService.favoritesCount() > 0">({{ cartService.favoritesCount() }})</span></a>
+          <a (click)="notifService.openClientDrawer(); closeMobileMenu()" style="cursor: pointer;">الإشعارات والتنبيهات 🔔 <span *ngIf="notifService.clientUnreadCount() > 0" class="mobile-notif-pill">{{ notifService.clientUnreadCount() }} جديد</span></a>
           <a routerLink="/order" (click)="closeMobileMenu()">طلب خدمة ومتابعة ✍️</a>
           <a routerLink="/testimonials" (click)="closeMobileMenu()">آراء العملاء ⭐</a>
           <a routerLink="/articles" (click)="closeMobileMenu()">المقالات والأدلة العلمية 📚</a>
@@ -282,6 +294,9 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
 
     <!-- Client Account & Profile Modal Component -->
     <app-client-auth-modal></app-client-auth-modal>
+
+    <!-- Client Notifications Drawer Component -->
+    <app-notifications-drawer></app-notifications-drawer>
   `,
   styles: [`
     :host {
@@ -564,6 +579,7 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
 
     .btn-favorites-icon,
     .btn-cart-icon,
+    .btn-notif-icon,
     .btn-theme-icon,
     .btn-admin-icon {
       background: #F7FAFC;
@@ -582,6 +598,7 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
 
     .btn-favorites-icon:hover,
     .btn-cart-icon:hover,
+    .btn-notif-icon:hover,
     .btn-theme-icon:hover,
     .btn-admin-icon:hover {
       background: var(--theme-badge-bg, #EDF2F7);
@@ -589,7 +606,8 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
       border-color: var(--theme-badge-border, #CBD5E0);
     }
 
-    .btn-favorites-icon:hover {
+    .btn-favorites-icon:hover,
+    .btn-notif-icon:hover {
       transform: scale(1.06);
     }
 
@@ -599,8 +617,20 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
       filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.4));
     }
 
+    .notif-bell-icon {
+      font-size: 1.15rem;
+      line-height: 1;
+      display: inline-block;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-notif-icon:hover .notif-bell-icon {
+      transform: rotate(15deg) scale(1.1);
+    }
+
     .favorites-badge,
-    .cart-badge {
+    .cart-badge,
+    .notif-badge {
       position: absolute;
       top: -4px;
       right: -4px;
@@ -608,13 +638,36 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
       color: #FFFFFF;
       font-size: 0.7rem;
       font-weight: 800;
-      width: 18px;
+      min-width: 18px;
       height: 18px;
-      border-radius: 50%;
+      padding: 0 4px;
+      border-radius: 999px;
       display: flex;
       align-items: center;
       justify-content: center;
       border: 2px solid #FFFFFF;
+    }
+
+    .notif-badge {
+      background: #EF4444;
+      box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
+      animation: notifPulse 2s infinite;
+    }
+
+    @keyframes notifPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+      100% { transform: scale(1); }
+    }
+
+    .mobile-notif-pill {
+      background: #EF4444;
+      color: #fff;
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: 700;
+      margin-right: 6px;
     }
 
     .favorites-badge {
@@ -989,6 +1042,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   api = inject(ApiService);
   cartService = inject(CartService);
   clientAuth = inject(ClientAuthService);
+  notifService = inject(NotificationService);
   router = inject(Router);
 
   isScrolled = false;

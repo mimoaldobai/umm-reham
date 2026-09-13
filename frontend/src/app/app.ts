@@ -8,6 +8,7 @@ import { AuthService } from './core/services/auth.service';
 import { SaudFarahAgentService } from './core/services/saud-farah-agent.service';
 import { AdminLoginModalComponent } from './shared/components/admin-login-modal/admin-login-modal.component';
 import { SaudFarahWelcomeComponent } from './shared/components/saud-farah-welcome/saud-farah-welcome.component';
+import { LiveNotificationToastComponent } from './shared/components/live-notification-toast/live-notification-toast.component';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,8 @@ import { SaudFarahWelcomeComponent } from './shared/components/saud-farah-welcom
     HeaderComponent, 
     FooterComponent, 
     AdminLoginModalComponent,
-    SaudFarahWelcomeComponent
+    SaudFarahWelcomeComponent,
+    LiveNotificationToastComponent
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss'

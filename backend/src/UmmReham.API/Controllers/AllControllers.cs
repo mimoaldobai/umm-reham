@@ -831,3 +831,78 @@ public class MediaController : ControllerBase
         return NoContent();
     }
 }
+
+// ========================
+// NOTIFICATIONS CONTROLLER
+// ========================
+[ApiController]
+[Route("api/[controller]")]
+public class NotificationsController : ControllerBase
+{
+    private readonly UmmReham.Infrastructure.Data.AppDbContext _context;
+    public NotificationsController(UmmReham.Infrastructure.Data.AppDbContext context) => _context = context;
+
+    [HttpGet]
+    public async Task<ActionResult> GetAll([FromQuery] string recipient = "client", [FromQuery] string? target = null)
+    {
+        var query = _context.Notifications.AsQueryable();
+        query = query.Where(n => n.RecipientType == recipient);
+        if (!string.IsNullOrEmpty(target) && target != "all")
+        {
+            query = query.Where(n => n.Target == "all" || n.Target == target);
+        }
+        var list = await Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync(
+            query.OrderByDescending(n => n.CreatedAt));
+        return Ok(list);
+    }
+
+    [HttpPost("broadcast")]
+    public async Task<ActionResult> Broadcast([FromBody] PlatformNotification notification)
+    {
+        if (string.IsNullOrWhiteSpace(notification.Title))
+            return BadRequest("Title is required");
+
+        notification.Id = Guid.NewGuid();
+        notification.CreatedAt = DateTime.UtcNow;
+        notification.IsRead = false;
+        if (string.IsNullOrEmpty(notification.RecipientType))
+            notification.RecipientType = "client";
+
+        _context.Notifications.Add(notification);
+        await _context.SaveChangesAsync();
+        return Ok(notification);
+    }
+
+    [HttpPatch("{id}/read")]
+    public async Task<ActionResult> MarkAsRead(Guid id)
+    {
+        var notif = await _context.Notifications.FindAsync(id);
+        if (notif == null) return NotFound();
+        notif.IsRead = true;
+        await _context.SaveChangesAsync();
+        return Ok(new { success = true });
+    }
+
+    [HttpPost("read-all")]
+    public async Task<ActionResult> MarkAllAsRead([FromQuery] string recipient = "client")
+    {
+        var items = await Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync(
+            _context.Notifications.Where(n => n.RecipientType == recipient && !n.IsRead));
+        foreach (var item in items) item.IsRead = true;
+        await _context.SaveChangesAsync();
+        return Ok(new { success = true, count = items.Count });
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> Delete(Guid id)
+    {
+        var notif = await _context.Notifications.FindAsync(id);
+        if (notif != null)
+        {
+            _context.Notifications.Remove(notif);
+            await _context.SaveChangesAsync();
+        }
+        return NoContent();
+    }
+}
+

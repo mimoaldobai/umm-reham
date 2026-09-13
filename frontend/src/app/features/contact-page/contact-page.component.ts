@@ -5,6 +5,7 @@ import { RouterModule, ActivatedRoute } from '@angular/router';
 import { ApiService, ServiceItem, Category, OrderTrackingResult } from '../../core/services/api.service';
 import { AudioService } from '../../core/services/audio.service';
 import { ClientAuthService } from '../../core/services/client-auth.service';
+import { NotificationService } from '../../core/services/notification.service';
 import { COUNTRIES_DATA, CountryCodeItem, RegionItem, CityItem } from '../../core/data/countries.data';
 
 @Component({
@@ -19,6 +20,7 @@ export class ContactPageComponent implements OnInit {
   private audio = inject(AudioService);
   private route = inject(ActivatedRoute);
   clientAuth = inject(ClientAuthService);
+  private notifService = inject(NotificationService);
 
   // Active Tab: 'new_order' | 'track_order'
   activeTab: 'new_order' | 'track_order' = 'new_order';
@@ -380,6 +382,14 @@ export class ContactPageComponent implements OnInit {
         this.submittedOrderDetails = { ...orderPayload, ...res };
         this.audio.playSuccess();
 
+        // Trigger real-time Notification for Admin & Client
+        this.notifService.triggerNewOrderCreated(
+          this.currentTrackingCode,
+          this.requestModel.clientName,
+          this.requestModel.serviceName || 'طلب خدمة أكاديمية',
+          this.finalEstimatedPrice
+        );
+
         // Register order in customer's profile history
         if (this.clientAuth.isAuthenticated()) {
           this.clientAuth.addClientOrder({
@@ -415,6 +425,14 @@ export class ContactPageComponent implements OnInit {
         this.orderSubmitted = true;
         this.submittedOrderDetails = orderPayload;
         this.audio.playSuccess();
+
+        // Trigger notification in fallback mode too
+        this.notifService.triggerNewOrderCreated(
+          this.currentTrackingCode,
+          this.requestModel.clientName,
+          this.requestModel.serviceName || 'طلب خدمة أكاديمية',
+          this.finalEstimatedPrice
+        );
       }
     });
   }
