@@ -60,8 +60,8 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
                       <path d="M34 1.5 L34 4" stroke-width="1.8" stroke-linecap="round" />
                       <path d="M39 3.5 L37 5.5" stroke-width="1.8" stroke-linecap="round" />
                     </g>
-                    <path d="M7 13 V25 C7 31.5 11.5 35 16.5 35 C21.5 35 26 31.5 26 25 V13 H20.5 V24.8 C20.5 27.5 18.8 29.5 16.5 29.5 C14.2 29.5 12.5 27.5 12.5 24.8 V13 Z" fill="#0F5132" />
-                    <path d="M25 13 H34.5 C38.5 13 41.5 15.8 41.5 19.5 C41.5 22.8 39.2 24.8 36.2 25.4 L41.5 35 H35.2 L30.8 26.2 H29.5 V35 H25 Z M29.5 17.5 V22 H34 C35.8 22 36.8 21.2 36.8 19.8 C36.8 18.4 35.8 17.5 34 17.5 Z" fill="#0F5132" />
+                    <path d="M7 13 V25 C7 31.5 11.5 35 16.5 35 C21.5 35 26 31.5 26 25 V13 H20.5 V24.8 C20.5 27.5 18.8 29.5 16.5 29.5 C14.2 29.5 12.5 27.5 12.5 24.8 V13 Z" fill="var(--theme-accent, #0F5132)" />
+                    <path d="M25 13 H34.5 C38.5 13 41.5 15.8 41.5 19.5 C41.5 22.8 39.2 24.8 36.2 25.4 L41.5 35 H35.2 L30.8 26.2 H29.5 V35 H25 Z M29.5 17.5 V22 H34 C35.8 22 36.8 21.2 36.8 19.8 C36.8 18.4 35.8 17.5 34 17.5 Z" fill="var(--theme-accent, #0F5132)" />
                   </svg>
                 </div>
               </div>
@@ -92,7 +92,7 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
                 <!-- Pillar 1: تعليم -->
                 <div class="pillar-card" (mouseenter)="onHover()">
                   <div class="pillar-icon-circle">
-                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0F5132" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
                       <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
                     </svg>
@@ -103,7 +103,7 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
                 <!-- Pillar 2: استشارات -->
                 <div class="pillar-card" (mouseenter)="onHover()">
                   <div class="pillar-icon-circle">
-                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0F5132" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <circle cx="12" cy="12" r="10"/>
                       <polyline points="12 6 12 12 16 14"/>
                     </svg>
@@ -114,7 +114,7 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
                 <!-- Pillar 3: تطوير -->
                 <div class="pillar-card" (mouseenter)="onHover()">
                   <div class="pillar-icon-circle">
-                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0F5132" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <line x1="9" y1="18" x2="15" y2="18"/>
                       <line x1="10" y1="22" x2="14" y2="22"/>
                       <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/>
@@ -126,7 +126,7 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
                 <!-- Pillar 4: إنجاز -->
                 <div class="pillar-card" (mouseenter)="onHover()">
                   <div class="pillar-icon-circle">
-                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0F5132" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <circle cx="12" cy="12" r="10"/>
                       <circle cx="12" cy="12" r="6"/>
                       <circle cx="12" cy="12" r="2"/>
@@ -975,11 +975,12 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       height: 44px;
       border-radius: 50%;
       background: #FFFFFF;
+      color: var(--theme-accent, #0F5132);
       display: flex;
       align-items: center;
       justify-content: center;
       box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
-      transition: transform 0.25s ease;
+      transition: transform 0.25s ease, color 0.3s ease;
     }
 
     .pillar-card:hover .pillar-icon-circle {

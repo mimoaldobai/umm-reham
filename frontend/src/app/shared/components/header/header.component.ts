@@ -401,9 +401,10 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
     .brand-name {
       font-size: 1.35rem;
       font-weight: 800;
-      color: #0F5132;
+      color: var(--theme-accent, #0F5132);
       line-height: 1.15;
       letter-spacing: -0.3px;
+      transition: color 0.3s ease;
     }
 
     .brand-subtext {
@@ -449,7 +450,7 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
 
     .header-nav-menu a:hover,
     .header-nav-menu a.active {
-      color: #0F5132;
+      color: var(--theme-accent, #0F5132);
     }
 
     .header-nav-menu a.active::after {
@@ -459,7 +460,7 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
       left: 0;
       right: 0;
       height: 2.5px;
-      background: #0F5132;
+      background: var(--theme-accent, #0F5132);
       border-radius: 4px;
     }
 
@@ -523,10 +524,10 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
       flex-shrink: 0;
     }
 
-    /* Green Consultation Button (مطابق تماماً للصورة) */
+    /* Dynamic Theme Consultation Button */
     .btn-consultation-cta {
-      background: #0F5132;
-      color: #FFFFFF !important;
+      background: var(--theme-cta-bg, #0F5132);
+      color: var(--theme-cta-text, #FFFFFF) !important;
       padding: 0.55rem 1.15rem;
       border-radius: 7px;
       font-size: 0.9rem;
@@ -535,14 +536,14 @@ import { ClientAuthModalComponent } from '../client-auth-modal/client-auth-modal
       display: flex;
       align-items: center;
       gap: 0.45rem;
-      box-shadow: 0 3px 8px rgba(15, 81, 50, 0.25);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
       transition: all 0.25s ease;
     }
 
     .btn-consultation-cta:hover {
-      background: #0A3E26;
+      filter: brightness(1.1);
       transform: translateY(-1px);
-      box-shadow: 0 5px 14px rgba(15, 81, 50, 0.35);
+      box-shadow: 0 5px 14px rgba(0, 0, 0, 0.3);
     }
 
     .btn-cart-icon,

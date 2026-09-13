@@ -222,9 +222,9 @@ button {
 }
 
 .badge-gold {
-  background: rgba(197, 168, 105, 0.14) !important;
-  color: #9B7E3E !important;
-  border: 1.5px solid rgba(197, 168, 105, 0.45) !important;
+  background: var(--theme-badge-bg, rgba(197, 168, 105, 0.14)) !important;
+  color: var(--theme-badge-text, #9B7E3E) !important;
+  border: 1.5px solid var(--theme-badge-border, rgba(197, 168, 105, 0.45)) !important;
   padding: 0.4rem 1.4rem !important;
   border-radius: 9999px !important;
   font-size: 0.9rem !important;
@@ -232,25 +232,28 @@ button {
   display: inline-flex !important;
   align-items: center !important;
   gap: 0.45rem !important;
-  box-shadow: 0 2px 10px rgba(197, 168, 105, 0.15) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08) !important;
   margin-bottom: 0.9rem !important;
+  transition: all 0.3s ease !important;
 }
 
 .section-title {
   font-family: var(--font-family-arabic) !important;
   font-size: clamp(2rem, 3.4vw, 2.75rem) !important;
   font-weight: 800 !important;
-  color: #0A2F24 !important;
+  color: var(--theme-heading, #0A2F24) !important;
   line-height: 1.35 !important;
   margin-bottom: 0.85rem !important;
+  transition: color 0.3s ease !important;
 }
 
 .section-desc {
-  color: #485A53 !important;
+  color: var(--theme-text-muted, #485A53) !important;
   font-size: 1.05rem !important;
   line-height: 1.75 !important;
   max-width: 720px !important;
   margin: 0 auto !important;
+  transition: color 0.3s ease !important;
 }
 
 /* Glassmorphic Luxury Panels */
@@ -570,6 +573,25 @@ html, body, .admin-layout, .dash-sidebar, .dash-topbar, .section-card, .metric-c
   --dash-btn-primary-bg: linear-gradient(135deg, #0A2F24 0%, #124E3D 100%);
   --dash-btn-primary-text: #FFFFFF;
   --dash-btn-primary-shadow: rgba(10, 47, 36, 0.3);
+
+  /* Public Site Theme Tokens: Typography, CTA & Footer */
+  --theme-heading: #0A2F24;
+  --theme-text-body: #2D3748;
+  --theme-text-muted: #526860;
+  --theme-accent: #0F5132;
+  --theme-accent-gold: #E5B94F;
+  --theme-cta-bg: linear-gradient(135deg, #0F5132 0%, #1A6B44 100%);
+  --theme-cta-text: #FFFFFF;
+  --theme-badge-bg: rgba(229, 185, 79, 0.14);
+  --theme-badge-border: rgba(229, 185, 79, 0.45);
+  --theme-badge-text: #9B7E3E;
+  --theme-footer-bg: linear-gradient(180deg, #0B2516 0%, #06180E 100%);
+  --theme-footer-pillars-bg: rgba(17, 42, 31, 0.85);
+  --theme-footer-border: rgba(201, 169, 110, 0.3);
+  --theme-footer-heading: #FFFFFF;
+  --theme-footer-text: #A3B8B0;
+  --theme-footer-card-bg: rgba(255, 255, 255, 0.05);
+  --theme-footer-accent: #E5B94F;
 }
 
 /* --------------------------------------------------------------------------
@@ -609,6 +631,25 @@ html, body, .admin-layout, .dash-sidebar, .dash-topbar, .section-card, .metric-c
   --dash-btn-primary-bg: linear-gradient(135deg, #00F2FE 0%, #0284C7 100%);
   --dash-btn-primary-text: #0B192C;
   --dash-btn-primary-shadow: rgba(0, 242, 254, 0.35);
+
+  /* Public Site Theme Tokens: Typography, CTA & Footer */
+  --theme-heading: #FFFFFF;
+  --theme-text-body: #E2E8F0;
+  --theme-text-muted: #94A3B8;
+  --theme-accent: #00F2FE;
+  --theme-accent-gold: #00F2FE;
+  --theme-cta-bg: linear-gradient(135deg, #00F2FE 0%, #0284C7 100%);
+  --theme-cta-text: #07101E;
+  --theme-badge-bg: rgba(0, 242, 254, 0.14);
+  --theme-badge-border: rgba(0, 242, 254, 0.4);
+  --theme-badge-text: #00F2FE;
+  --theme-footer-bg: linear-gradient(180deg, #07101E 0%, #030810 100%);
+  --theme-footer-pillars-bg: rgba(11, 25, 44, 0.95);
+  --theme-footer-border: rgba(0, 242, 254, 0.25);
+  --theme-footer-heading: #FFFFFF;
+  --theme-footer-text: #94A3B8;
+  --theme-footer-card-bg: rgba(17, 35, 61, 0.7);
+  --theme-footer-accent: #00F2FE;
 
   /* Public Site Styles */
   .site-topbar {
@@ -694,6 +735,25 @@ html, body, .admin-layout, .dash-sidebar, .dash-topbar, .section-card, .metric-c
   --dash-btn-primary-text: #FFFFFF;
   --dash-btn-primary-shadow: rgba(244, 114, 182, 0.35);
 
+  /* Public Site Theme Tokens: Typography, CTA & Footer */
+  --theme-heading: #FFFFFF;
+  --theme-text-body: #FDF2F8;
+  --theme-text-muted: #D8B4FE;
+  --theme-accent: #F472B6;
+  --theme-accent-gold: #F472B6;
+  --theme-cta-bg: linear-gradient(135deg, #F472B6 0%, #C026D3 100%);
+  --theme-cta-text: #FFFFFF;
+  --theme-badge-bg: rgba(244, 114, 182, 0.15);
+  --theme-badge-border: rgba(244, 114, 182, 0.45);
+  --theme-badge-text: #F472B6;
+  --theme-footer-bg: linear-gradient(180deg, #140A24 0%, #0B0515 100%);
+  --theme-footer-pillars-bg: rgba(26, 13, 46, 0.95);
+  --theme-footer-border: rgba(244, 114, 182, 0.25);
+  --theme-footer-heading: #FFFFFF;
+  --theme-footer-text: #D8B4FE;
+  --theme-footer-card-bg: rgba(37, 19, 66, 0.7);
+  --theme-footer-accent: #F472B6;
+
   /* Public Site Styles */
   .site-topbar {
     background: #140A24 !important;
@@ -776,6 +836,25 @@ html, body, .admin-layout, .dash-sidebar, .dash-topbar, .section-card, .metric-c
   --dash-btn-primary-text: #FFFFFF;
   --dash-btn-primary-shadow: rgba(33, 21, 16, 0.35);
 
+  /* Public Site Theme Tokens: Typography, CTA & Footer */
+  --theme-heading: #211510;
+  --theme-text-body: #38271E;
+  --theme-text-muted: #6B5B52;
+  --theme-accent: #D97706;
+  --theme-accent-gold: #F59E0B;
+  --theme-cta-bg: linear-gradient(135deg, #D97706 0%, #B45309 100%);
+  --theme-cta-text: #FFFFFF;
+  --theme-badge-bg: rgba(245, 158, 11, 0.15);
+  --theme-badge-border: rgba(245, 158, 11, 0.45);
+  --theme-badge-text: #B45309;
+  --theme-footer-bg: linear-gradient(180deg, #1C110C 0%, #0F0906 100%);
+  --theme-footer-pillars-bg: rgba(33, 21, 16, 0.95);
+  --theme-footer-border: rgba(245, 158, 11, 0.25);
+  --theme-footer-heading: #FFFFFF;
+  --theme-footer-text: #D4C5B9;
+  --theme-footer-card-bg: rgba(48, 32, 24, 0.7);
+  --theme-footer-accent: #F59E0B;
+
   /* Public Site Styles */
   .site-topbar {
     background: #180F0B !important;
@@ -847,6 +926,25 @@ html, body, .admin-layout, .dash-sidebar, .dash-topbar, .section-card, .metric-c
   --dash-btn-primary-bg: linear-gradient(135deg, #FB7185 0%, #E11D48 100%);
   --dash-btn-primary-text: #FFFFFF;
   --dash-btn-primary-shadow: rgba(251, 113, 133, 0.35);
+
+  /* Public Site Theme Tokens: Typography, CTA & Footer */
+  --theme-heading: #FFFFFF;
+  --theme-text-body: #F0FDFA;
+  --theme-text-muted: #99F6E4;
+  --theme-accent: #FB7185;
+  --theme-accent-gold: #FB7185;
+  --theme-cta-bg: linear-gradient(135deg, #FB7185 0%, #E11D48 100%);
+  --theme-cta-text: #FFFFFF;
+  --theme-badge-bg: rgba(251, 113, 133, 0.15);
+  --theme-badge-border: rgba(251, 113, 133, 0.45);
+  --theme-badge-text: #FB7185;
+  --theme-footer-bg: linear-gradient(180deg, #021B1F 0%, #010D0F 100%);
+  --theme-footer-pillars-bg: rgba(4, 41, 46, 0.95);
+  --theme-footer-border: rgba(251, 113, 133, 0.25);
+  --theme-footer-heading: #FFFFFF;
+  --theme-footer-text: #99F6E4;
+  --theme-footer-card-bg: rgba(8, 59, 67, 0.7);
+  --theme-footer-accent: #FB7185;
 
   /* Public Site Styles */
   .site-topbar {
@@ -929,6 +1027,25 @@ html, body, .admin-layout, .dash-sidebar, .dash-topbar, .section-card, .metric-c
   --dash-btn-primary-text: #FFFFFF;
   --dash-btn-primary-shadow: rgba(59, 130, 246, 0.35);
 
+  /* Public Site Theme Tokens: Typography, CTA & Footer */
+  --theme-heading: #FFFFFF;
+  --theme-text-body: #F8FAFC;
+  --theme-text-muted: #94A3B8;
+  --theme-accent: #60A5FA;
+  --theme-accent-gold: #60A5FA;
+  --theme-cta-bg: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+  --theme-cta-text: #FFFFFF;
+  --theme-badge-bg: rgba(96, 165, 250, 0.15);
+  --theme-badge-border: rgba(96, 165, 250, 0.45);
+  --theme-badge-text: #60A5FA;
+  --theme-footer-bg: linear-gradient(180deg, #080C15 0%, #030509 100%);
+  --theme-footer-pillars-bg: rgba(15, 23, 42, 0.95);
+  --theme-footer-border: rgba(96, 165, 250, 0.25);
+  --theme-footer-heading: #FFFFFF;
+  --theme-footer-text: #94A3B8;
+  --theme-footer-card-bg: rgba(21, 31, 50, 0.7);
+  --theme-footer-accent: #60A5FA;
+
   /* Public Site Styles */
   .site-topbar {
     background: #080C15 !important;
@@ -971,6 +1088,59 @@ html, body, .admin-layout, .dash-sidebar, .dash-topbar, .section-card, .metric-c
   .contact-us-wrapper, .inner-page-wrapper, .services-page-container, .contact-page-wrapper, .bg-ivory-warm {
     background: #0B1120 !important;
   }
+}
+
+/* ==========================================================================
+   UNIVERSAL THEME SYNCHRONIZATION: TYPOGRAPHY, BUTTONS, CARDS & FOOTER
+   ========================================================================== */
+
+/* Dark Theme Typography Overrides across all sections and inner pages */
+[data-theme="sapphire-cyan"], [data-theme="emerald-night"], body.theme-sapphire-cyan, body.theme-emerald-night,
+[data-theme="amethyst-rose"], body.theme-amethyst-rose,
+[data-theme="teal-coral"], body.theme-teal-coral,
+[data-theme="onyx-platinum"], body.theme-onyx-platinum {
+  .section-title, .page-title, h1, h2, h3, h4, h5, h6 {
+    color: var(--theme-heading, #FFFFFF) !important;
+  }
+  .section-desc, .page-subtitle, .lead-text {
+    color: var(--theme-text-muted, #94A3B8) !important;
+  }
+  .bg-deep-saudi, .bg-ivory-warm, .bg-ivory-surface {
+    background: var(--dash-body-bg, #0B192C) !important;
+    color: var(--theme-text-body, #F8FAFC) !important;
+  }
+}
+
+/* Universal Button and Brand Synchronization with active theme */
+.btn-consultation-cta {
+  background: var(--theme-cta-bg, #0F5132) !important;
+  color: var(--theme-cta-text, #FFFFFF) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2) !important;
+}
+
+.ur-svg path {
+  fill: var(--theme-accent, #0F5132) !important;
+  transition: fill 0.3s ease;
+}
+
+.ur-svg g circle, .ur-svg g path {
+  stroke: var(--theme-accent-gold, #E5B94F) !important;
+  fill: var(--theme-accent-gold, #E5B94F) !important;
+}
+
+.pillar-icon-circle svg {
+  stroke: var(--theme-accent, #0F5132) !important;
+  transition: stroke 0.3s ease;
+}
+
+.hero-avatar-ur-badge .ur-svg path {
+  fill: var(--theme-accent, #0F5132) !important;
+}
+
+.btn-hero-translucent {
+  background: rgba(var(--theme-primary-rgb, 10, 47, 36), 0.7) !important;
+  border-color: var(--theme-accent, rgba(255, 255, 255, 0.4)) !important;
+  transition: all 0.3s ease !important;
 }
 
 /* ==========================================================================

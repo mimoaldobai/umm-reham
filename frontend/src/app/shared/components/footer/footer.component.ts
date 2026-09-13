@@ -145,16 +145,18 @@ import { AudioService } from '../../../core/services/audio.service';
   `,
   styles: [`
     .luxury-footer {
-      background: linear-gradient(180deg, #0B2516 0%, #06180E 100%);
-      color: #F9F7F1;
-      border-top: 1.5px solid rgba(201, 169, 110, 0.35);
+      background: var(--theme-footer-bg, linear-gradient(180deg, #0B2516 0%, #06180E 100%));
+      color: var(--theme-footer-text, #F9F7F1);
+      border-top: 1.5px solid var(--theme-footer-border, rgba(201, 169, 110, 0.35));
       position: relative;
+      transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
     }
 
     .trust-pillars-bar {
-      background: rgba(17, 42, 31, 0.75);
-      border-bottom: 1px solid rgba(201, 169, 110, 0.2);
+      background: var(--theme-footer-pillars-bg, rgba(17, 42, 31, 0.75));
+      border-bottom: 1px solid var(--theme-footer-border, rgba(201, 169, 110, 0.2));
       padding: 1.6rem 0;
+      transition: background 0.4s ease, border-color 0.4s ease;
     }
 
     .pillars-grid {
@@ -181,34 +183,37 @@ import { AudioService } from '../../../core/services/audio.service';
 
     .pillar-info strong {
       font-size: 0.95rem;
-      color: #FFFFFF;
+      color: var(--theme-footer-heading, #FFFFFF);
+      transition: color 0.3s ease;
     }
 
     .pillar-info span {
       font-size: 0.78rem;
-      color: #A3B8B0;
+      color: var(--theme-footer-text, #A3B8B0);
+      transition: color 0.3s ease;
     }
 
     .vision-badge {
       display: flex;
       flex-direction: column;
       align-items: center;
-      background: rgba(201, 169, 110, 0.1);
-      border: 1px solid rgba(201, 169, 110, 0.4);
+      background: var(--theme-footer-card-bg, rgba(201, 169, 110, 0.1));
+      border: 1px solid var(--theme-footer-border, rgba(201, 169, 110, 0.4));
       padding: 0.4rem 1rem;
       border-radius: var(--radius-sm);
+      transition: all 0.3s ease;
     }
 
     .vision-title {
       font-size: 0.72rem;
-      color: #DFC698;
+      color: var(--theme-footer-accent, #DFC698);
       font-weight: 600;
     }
 
     .vision-year {
       font-size: 1.25rem;
       font-weight: 800;
-      color: #FFFFFF;
+      color: var(--theme-footer-heading, #FFFFFF);
       font-family: var(--font-family-latin);
     }
 
@@ -235,12 +240,13 @@ import { AudioService } from '../../../core/services/audio.service';
       height: 48px;
       border-radius: 50%;
       padding: 2px;
-      background: linear-gradient(135deg, #FBE6B3 0%, #C9A96E 50%, #96753C 100%);
-      box-shadow: 0 4px 15px rgba(201, 169, 110, 0.4);
+      background: linear-gradient(135deg, var(--theme-footer-accent, #DFC698) 0%, var(--theme-accent, #C9A96E) 50%, var(--theme-primary, #0A2F24) 100%);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      transition: background 0.4s ease;
     }
 
     .footer-avatar-img {
@@ -255,17 +261,17 @@ import { AudioService } from '../../../core/services/audio.service';
 
     .logo-text h3 {
       font-size: 1.5rem;
-      color: #FFFFFF;
+      color: var(--theme-footer-heading, #FFFFFF);
       margin: 0;
     }
 
     .logo-text span {
       font-size: 0.8rem;
-      color: #C9A96E;
+      color: var(--theme-footer-accent, #C9A96E);
     }
 
     .brand-desc {
-      color: #A3B8B0;
+      color: var(--theme-footer-text, #A3B8B0);
       font-size: 0.95rem;
       line-height: 1.7;
       margin-bottom: 1.5rem;
@@ -280,13 +286,13 @@ import { AudioService } from '../../../core/services/audio.service';
     .social-btn {
       width: 40px;
       height: 40px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(201, 169, 110, 0.3);
+      background: var(--theme-footer-card-bg, rgba(255, 255, 255, 0.06));
+      border: 1px solid var(--theme-footer-border, rgba(201, 169, 110, 0.3));
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #DFC698;
+      color: var(--theme-footer-accent, #DFC698);
       font-size: 1.1rem;
       transition: all 0.3s;
     }
@@ -298,7 +304,7 @@ import { AudioService } from '../../../core/services/audio.service';
     }
 
     .social-btn:hover {
-      background: #C9A96E;
+      background: var(--theme-footer-accent, #C9A96E);
       color: #0B1C15;
       transform: translateY(-3px);
     }
@@ -312,7 +318,7 @@ import { AudioService } from '../../../core/services/audio.service';
 
     .footer-nav-col h4 {
       font-size: 1.15rem;
-      color: #FFFFFF;
+      color: var(--theme-footer-heading, #FFFFFF);
       margin-bottom: 1.2rem;
       position: relative;
       padding-bottom: 0.5rem;
@@ -325,7 +331,8 @@ import { AudioService } from '../../../core/services/audio.service';
       right: 0;
       width: 35px;
       height: 2px;
-      background: #C9A96E;
+      background: var(--theme-footer-accent, #C9A96E);
+      transition: background 0.3s ease;
     }
 
     .footer-nav-col ul {
@@ -336,24 +343,25 @@ import { AudioService } from '../../../core/services/audio.service';
     }
 
     .footer-nav-col a {
-      color: #A3B8B0;
+      color: var(--theme-footer-text, #A3B8B0);
       font-size: 0.92rem;
       transition: color 0.2s, padding-right 0.2s;
     }
 
     .footer-nav-col a:hover {
-      color: #C9A96E;
+      color: var(--theme-footer-accent, #C9A96E);
       padding-right: 6px;
     }
 
     .working-hours-card {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(201, 169, 110, 0.2);
+      background: var(--theme-footer-card-bg, rgba(255, 255, 255, 0.04));
+      border: 1px solid var(--theme-footer-border, rgba(201, 169, 110, 0.2));
       border-radius: var(--radius-md);
       padding: 1.2rem;
       display: flex;
       flex-direction: column;
       gap: 0.9rem;
+      transition: all 0.3s ease;
     }
 
     .hours-row {
@@ -364,23 +372,24 @@ import { AudioService } from '../../../core/services/audio.service';
     }
 
     .hours-row span {
-      color: #A3B8B0;
+      color: var(--theme-footer-text, #A3B8B0);
       font-size: 0.8rem;
     }
 
     .hours-row strong {
-      color: #FFFFFF;
+      color: var(--theme-footer-heading, #FFFFFF);
     }
 
     .footer-bottom {
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-top: 1px solid var(--theme-footer-border, rgba(255, 255, 255, 0.08));
       padding-top: 2rem;
       padding-bottom: 3.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      color: #94A89E;
+      color: var(--theme-footer-text, #94A89E);
       font-size: 0.88rem;
+      transition: border-color 0.3s ease, color 0.3s ease;
     }
 
     .bottom-links {
@@ -390,11 +399,12 @@ import { AudioService } from '../../../core/services/audio.service';
     }
 
     .bottom-links a {
-      color: #A3B8B0;
+      color: var(--theme-footer-text, #A3B8B0);
+      transition: color 0.2s ease;
     }
 
     .bottom-links a:hover {
-      color: #C9A96E;
+      color: var(--theme-footer-accent, #C9A96E);
     }
 
     @media (max-width: 900px) {
