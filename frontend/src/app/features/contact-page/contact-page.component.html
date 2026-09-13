@@ -262,7 +262,7 @@
               <h4>المتطلبات والجدول الزمني</h4>
             </div>
 
-            <div class="three-fields-row">
+            <div class="two-fields-row">
               <div class="form-group">
                 <label for="university">الجامعة / المدرسة / الجهة:</label>
                 <input 
@@ -284,42 +284,17 @@
                   <option value="مهني">مسار مهني ووظيفي</option>
                 </select>
               </div>
-
-              <div class="form-group">
-                <label for="pageCount">عدد الصفحات التقريبي:</label>
-                <input 
-                  id="pageCount"
-                  type="number" 
-                  class="lux-input" 
-                  [(ngModel)]="requestModel.pageCount" 
-                  name="pageCount" 
-                  min="1" 
-                  max="500" />
-              </div>
             </div>
 
-            <div class="two-fields-row">
-              <div class="form-group">
-                <label for="specialization">التخصص الأكاديمي الدقيق:</label>
-                <input 
-                  id="specialization"
-                  type="text" 
-                  class="lux-input" 
-                  [(ngModel)]="requestModel.specialization" 
-                  name="specialization" 
-                  placeholder="مثال: إدارة الموارد البشرية، الذكاء الاصطناعي..." />
-              </div>
-
-              <div class="form-group">
-                <label for="deadline">الموعد النهائي المطلوب:</label>
-                <input 
-                  id="deadline"
-                  type="text" 
-                  class="lux-input" 
-                  [(ngModel)]="requestModel.deadline" 
-                  name="deadline" 
-                  placeholder="مثال: خلال 5 أيام أو 2026-09-25" />
-              </div>
+            <div class="form-group">
+              <label for="deadline">الموعد النهائي المطلوب:</label>
+              <input 
+                id="deadline"
+                type="text" 
+                class="lux-input" 
+                [(ngModel)]="requestModel.deadline" 
+                name="deadline" 
+                placeholder="مثال: خلال 5 أيام أو 2026-09-25" />
             </div>
 
             <div class="form-group">
