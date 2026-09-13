@@ -4718,6 +4718,7 @@ export interface AcademicOrder {
 
     /* =========================================================
        DYNAMIC RESPONSIVE SYSTEM (MOBILE, IPAD, TABLET & DESKTOP)
+       تنسيق متجاوب ذكي واحترافي لجميع الشاشات (كمبيوتر، لابتوب، آيباد، تابلت، جوال)
        ========================================================= */
     .dash-sidebar-toggle-btn {
       display: none;
@@ -4731,25 +4732,72 @@ export interface AcademicOrder {
       display: none;
     }
 
-    @media (max-width: 1024px) {
+    /* 1. Laptops & Large Desktops (شاشات الكمبيوتر واللابتوب الكبيرة) */
+    @media (min-width: 1025px) {
+      .dash-sidebar {
+        width: 275px;
+        min-width: 275px;
+        position: relative;
+        transform: none !important;
+        height: 100vh;
+      }
+      .dash-sidebar-toggle-btn {
+        display: none !important;
+      }
+      .dash-sidebar-close-btn {
+        display: none !important;
+      }
+      .dash-sidebar-backdrop {
+        display: none !important;
+      }
+      .dash-topbar {
+        height: 72px;
+        min-height: 72px;
+        padding: 0 1.8rem;
+      }
+      .dash-main-area {
+        padding: 1.5rem 2rem;
+      }
+      .kpi-row {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 1.25rem;
+      }
+      .two-column-section {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1.5rem;
+      }
+      .data-table {
+        min-width: 100%;
+      }
+      .dash-modal-box {
+        max-width: 620px;
+      }
+    }
+
+    /* 2. Tablets & iPads (أجهزة الآيباد والتابلت من 769px إلى 1024px) */
+    @media (min-width: 769px) and (max-width: 1024px) {
       .dash-sidebar {
         position: fixed;
         top: 0;
         right: 0;
         bottom: 0;
         height: 100vh;
-        width: 295px;
+        width: 300px;
         max-width: 86vw;
         z-index: 1200;
         transform: translateX(105%);
         transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
         box-shadow: none;
         overflow-y: auto;
+        scrollbar-width: none;
+      }
+      .dash-sidebar::-webkit-scrollbar {
+        display: none;
       }
 
       .dash-sidebar.mobile-open {
         transform: translateX(0);
-        box-shadow: -12px 0 50px rgba(0, 0, 0, 0.6);
+        box-shadow: -15px 0 50px rgba(0, 0, 0, 0.6);
       }
 
       .dash-sidebar-backdrop {
@@ -4761,11 +4809,6 @@ export interface AcademicOrder {
         -webkit-backdrop-filter: blur(5px);
         z-index: 1150;
         animation: dashBackdropFade 0.25s ease forwards;
-      }
-
-      @keyframes dashBackdropFade {
-        from { opacity: 0; }
-        to { opacity: 1; }
       }
 
       .dash-sidebar-toggle-btn {
@@ -4784,9 +4827,108 @@ export interface AcademicOrder {
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
       }
 
-      .dash-sidebar-toggle-btn:hover {
-        background: rgba(197, 168, 105, 0.15);
-        transform: scale(1.04);
+      .dash-sidebar-close-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        color: #FFFFFF;
+        cursor: pointer;
+        margin-right: auto;
+        flex-shrink: 0;
+      }
+
+      .dash-topbar {
+        height: 68px;
+        padding: 0 1.25rem;
+        gap: 0.85rem;
+      }
+
+      .topbar-live-status {
+        display: none !important;
+      }
+
+      .topbar-clock-capsule .clock-label {
+        display: none;
+      }
+
+      .kpi-row {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1rem;
+      }
+
+      .dash-main-area {
+        padding: 1.2rem 1.4rem;
+      }
+
+      .table-frame {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .data-table {
+        min-width: 720px;
+      }
+
+      .dash-modal-box {
+        max-width: 82vw;
+      }
+    }
+
+    /* 3. Mobile Phones (شاشات الهواتف الذكية 768px وأقل) */
+    @media (max-width: 768px) {
+      .dash-sidebar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        height: 100vh;
+        width: 305px;
+        max-width: 88vw;
+        z-index: 1200;
+        transform: translateX(105%);
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+        box-shadow: none;
+        overflow-y: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      .dash-sidebar::-webkit-scrollbar {
+        display: none;
+      }
+
+      .dash-sidebar.mobile-open {
+        transform: translateX(0);
+        box-shadow: -15px 0 50px rgba(0, 0, 0, 0.65);
+      }
+
+      .dash-sidebar-backdrop {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.65);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        z-index: 1150;
+        animation: dashBackdropFade 0.25s ease forwards;
+      }
+
+      .dash-sidebar-toggle-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 9px;
+        background: var(--dash-card-bg, #FFFFFF);
+        border: 1.5px solid var(--dash-card-border, rgba(197, 168, 105, 0.35));
+        color: var(--dash-text-main, #0A2F24);
+        cursor: pointer;
+        flex-shrink: 0;
       }
 
       .dash-sidebar-close-btn {
@@ -4802,82 +4944,85 @@ export interface AcademicOrder {
         cursor: pointer;
         margin-right: auto;
         flex-shrink: 0;
-        transition: all 0.2s ease;
       }
 
-      .dash-sidebar-close-btn:hover {
-        background: rgba(255, 255, 255, 0.25);
-        transform: scale(1.05);
-      }
-
-      .dash-viewport {
-        width: 100vw;
-        max-width: 100vw;
-        overflow-x: hidden;
-      }
-
+      /* Single crisp row with no overflow on mobile */
       .dash-topbar {
-        padding: 0 1rem;
-        gap: 0.75rem;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .dash-topbar {
-        height: auto;
-        min-height: 60px;
-        padding: 0.55rem 0.85rem;
-        flex-wrap: wrap;
+        height: 58px;
+        min-height: 58px;
+        padding: 0.45rem 0.85rem;
+        flex-wrap: nowrap;
         gap: 0.5rem;
+        justify-content: space-between;
       }
 
       .topbar-title-suite {
+        flex: 1;
+        min-width: 0;
         gap: 0;
       }
 
-      .crumb-prefix, .crumb-separator {
-        display: none;
+      .crumb-prefix, .crumb-separator, .topbar-live-status {
+        display: none !important;
       }
 
       .crumb-current {
         font-size: 0.95rem;
-        max-width: 160px;
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
-      .topbar-live-status {
-        display: none;
+      /* Hide duplicate desktop tools on mobile topbar */
+      .topbar-clock-capsule,
+      .topbar-theme-capsule,
+      .topbar-tool-btn.sound-btn,
+      .topbar-tool-btn.site-view-btn {
+        display: none !important;
       }
 
-      .topbar-clock-capsule .clock-label {
-        display: none;
-      }
-
-      .topbar-clock-capsule {
-        padding: 0.35rem 0.55rem;
-        font-size: 0.75rem;
-      }
-
-      .topbar-tool-btn.sound-btn {
-        display: none;
+      .topbar-actions-suite {
+        gap: 0.35rem;
+        flex-shrink: 0;
       }
 
       .btn-topbar-order {
-        padding: 0.42rem 0.75rem;
+        padding: 0.42rem 0.78rem;
         font-size: 0.76rem;
+        border-radius: 8px;
+        white-space: nowrap;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
       }
 
       .dash-main-area {
         padding: 0.85rem 0.65rem;
       }
 
+      .dash-pane {
+        gap: 1rem;
+      }
+
+      .kpi-row {
+        grid-template-columns: 1fr !important;
+        gap: 0.75rem;
+      }
+
+      .card-kpi {
+        padding: 0.95rem 1rem;
+      }
+
       .section-card {
-        padding: 0.95rem 0.85rem;
+        padding: 1rem 0.85rem;
+        border-radius: 12px;
       }
 
       .section-card-head {
         flex-direction: column;
         align-items: flex-start;
-        gap: 0.65rem;
+        gap: 0.75rem;
       }
 
       .head-actions-group {
@@ -4887,38 +5032,73 @@ export interface AcademicOrder {
         gap: 0.5rem;
       }
 
-      .table-frame {
-        -webkit-overflow-scrolling: touch;
-        overflow-x: auto;
-        border-radius: 8px;
+      .head-actions-group button, .head-actions-group a {
+        flex: 1;
+        min-width: 130px;
+        justify-content: center;
+      }
+
+      .search-box-wrap, .search-input-box {
         width: 100%;
       }
 
-      .data-table {
-        min-width: 650px;
+      .search-input-box input {
+        width: 100%;
+        box-sizing: border-box;
       }
 
-      .modal-dialog, .admin-modal-card {
+      /* Mobile Horizontal Touch Table */
+      .table-frame {
+        -webkit-overflow-scrolling: touch;
+        overflow-x: auto;
+        border-radius: 10px;
+        width: 100%;
+        scrollbar-width: thin;
+        scrollbar-color: #C5A869 #F1F5F9;
+        box-shadow: inset -8px 0 12px -8px rgba(0, 0, 0, 0.15);
+      }
+
+      .table-frame::-webkit-scrollbar {
+        height: 6px;
+      }
+
+      .table-frame::-webkit-scrollbar-thumb {
+        background: #C5A869;
+        border-radius: 6px;
+      }
+
+      .table-frame::-webkit-scrollbar-track {
+        background: #F1F5F9;
+      }
+
+      .data-table {
+        min-width: 680px;
+      }
+
+      .data-table th, .data-table td {
+        padding: 0.72rem 0.85rem;
+        font-size: 0.76rem;
+      }
+
+      .ord-num-plain {
+        white-space: nowrap;
+        font-size: 0.82rem;
+        min-width: 105px;
+      }
+
+      .dash-modal-box {
         max-width: 95vw !important;
         width: 95vw !important;
-        max-height: 92vh !important;
+        max-height: 90vh !important;
+        padding: 1.25rem 1rem !important;
         margin: 1rem auto;
+        border-radius: 14px;
       }
     }
 
-    @media (max-width: 480px) {
-      .crumb-current {
-        max-width: 120px;
-        font-size: 0.88rem;
-      }
-
-      .topbar-actions-suite {
-        gap: 0.35rem;
-      }
-
-      .btn-topbar-order span.btn-text {
-        display: none;
-      }
+    @keyframes dashBackdropFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
   `]
 })
