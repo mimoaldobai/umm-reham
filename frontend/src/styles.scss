@@ -676,6 +676,7 @@ html, body, .admin-layout, .dash-sidebar, .dash-topbar, .section-card, .metric-c
   --theme-badge-border: rgba(0, 180, 216, 0.35);
   --theme-badge-text: #0077B6;
   --theme-card-border: rgba(0, 150, 199, 0.18);
+  --theme-hero-overlay: linear-gradient(180deg, rgba(8, 22, 42, 0.88) 0%, rgba(6, 16, 32, 0.92) 55%, rgba(4, 11, 22, 0.96) 100%);
   --theme-footer-bg: linear-gradient(180deg, #08162A 0%, #040B15 100%);
   --theme-footer-pillars-bg: rgba(11, 25, 44, 0.95);
   --theme-footer-border: rgba(0, 180, 216, 0.25);
@@ -765,6 +766,7 @@ html, body, .admin-layout, .dash-sidebar, .dash-topbar, .section-card, .metric-c
   --theme-badge-border: rgba(217, 70, 239, 0.35);
   --theme-badge-text: #9333EA;
   --theme-card-border: rgba(192, 38, 211, 0.18);
+  --theme-hero-overlay: linear-gradient(180deg, rgba(28, 10, 40, 0.88) 0%, rgba(20, 7, 29, 0.92) 55%, rgba(13, 4, 20, 0.96) 100%);
   --theme-footer-bg: linear-gradient(180deg, #1C0A28 0%, #0D0414 100%);
   --theme-footer-pillars-bg: rgba(26, 13, 46, 0.95);
   --theme-footer-border: rgba(217, 70, 239, 0.25);
@@ -854,6 +856,7 @@ html, body, .admin-layout, .dash-sidebar, .dash-topbar, .section-card, .metric-c
   --theme-badge-border: rgba(245, 158, 11, 0.35);
   --theme-badge-text: #D97706;
   --theme-card-border: rgba(217, 119, 6, 0.18);
+  --theme-hero-overlay: linear-gradient(180deg, rgba(33, 21, 16, 0.88) 0%, rgba(24, 14, 10, 0.92) 55%, rgba(15, 9, 6, 0.96) 100%);
   --theme-footer-bg: linear-gradient(180deg, #1C110C 0%, #0F0906 100%);
   --theme-footer-pillars-bg: rgba(33, 21, 16, 0.95);
   --theme-footer-border: rgba(245, 158, 11, 0.25);
@@ -943,6 +946,7 @@ html, body, .admin-layout, .dash-sidebar, .dash-topbar, .section-card, .metric-c
   --theme-badge-border: rgba(13, 148, 136, 0.35);
   --theme-badge-text: #0F766E;
   --theme-card-border: rgba(13, 148, 136, 0.18);
+  --theme-hero-overlay: linear-gradient(180deg, rgba(3, 43, 48, 0.88) 0%, rgba(2, 33, 37, 0.92) 55%, rgba(1, 20, 22, 0.96) 100%);
   --theme-footer-bg: linear-gradient(180deg, #021B1F 0%, #010D0F 100%);
   --theme-footer-pillars-bg: rgba(4, 41, 46, 0.95);
   --theme-footer-border: rgba(13, 148, 136, 0.25);
@@ -1032,6 +1036,7 @@ html, body, .admin-layout, .dash-sidebar, .dash-topbar, .section-card, .metric-c
   --theme-badge-border: rgba(59, 130, 246, 0.35);
   --theme-badge-text: #2563EB;
   --theme-card-border: rgba(59, 130, 246, 0.18);
+  --theme-hero-overlay: linear-gradient(180deg, rgba(15, 23, 42, 0.88) 0%, rgba(11, 17, 32, 0.92) 55%, rgba(6, 9, 18, 0.96) 100%);
   --theme-footer-bg: linear-gradient(180deg, #0B1120 0%, #030712 100%);
   --theme-footer-pillars-bg: rgba(15, 23, 42, 0.95);
   --theme-footer-border: rgba(59, 130, 246, 0.25);
@@ -1194,9 +1199,75 @@ body,
 }
 
 .btn-hero-translucent {
-  background: rgba(10, 47, 36, 0.65) !important;
-  border-color: rgba(255, 255, 255, 0.4) !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.4) !important;
+  color: #FFFFFF !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  font-weight: 700 !important;
   transition: all 0.3s ease !important;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.28) !important;
+    border-color: #FFFFFF !important;
+    transform: translateY(-2px) !important;
+  }
+}
+
+/* Hero Banner & 4 Pillars Contrast Protection */
+.hero-banner-content {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+
+  .hero-main-heading {
+    color: #FFFFFF !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45) !important;
+  }
+
+  .hero-main-subtext {
+    color: rgba(255, 255, 255, 0.92) !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35) !important;
+  }
+}
+
+.btn-hero-white {
+  background: #FFFFFF !important;
+  color: var(--theme-heading, #0A2F24) !important;
+  font-weight: 800 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2) !important;
+
+  &:hover {
+    background: #F8FAFC !important;
+    transform: translateY(-2px) !important;
+  }
+}
+
+.hero-four-pillars .pillar-card {
+  background: #FFFFFF !important;
+  border: 1.5px solid var(--theme-card-border, rgba(255, 255, 255, 0.2)) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+
+  .pillar-label {
+    color: var(--theme-heading, #0F172A) !important;
+    font-size: 0.96rem !important;
+    font-weight: 800 !important;
+    display: block !important;
+  }
+
+  .pillar-icon-circle {
+    background: var(--theme-badge-bg, rgba(229, 185, 79, 0.14)) !important;
+    color: var(--theme-accent, #0F5132) !important;
+    svg {
+      stroke: var(--theme-accent, #0F5132) !important;
+    }
+  }
+
+  &:hover {
+    border-color: var(--theme-accent) !important;
+    transform: translateY(-4px) !important;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22) !important;
+  }
 }
 
 /* ==========================================================================
@@ -1206,8 +1277,7 @@ body,
 .reward-review-box,
 .order-redirect-card,
 .vip-whatsapp-card,
-.featured-voice-bar,
-.hero-banner-content {
+.featured-voice-bar {
   background: var(--theme-footer-bg, linear-gradient(135deg, #0A2F24 0%, #06180E 100%)) !important;
   border-color: var(--theme-footer-border, rgba(201, 169, 110, 0.35)) !important;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.22) !important;
