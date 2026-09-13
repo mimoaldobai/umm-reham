@@ -98,6 +98,7 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
                     </svg>
                   </div>
                   <span class="pillar-label">تعليم</span>
+                  <span class="pillar-sub">بحوث وحلول أكاديمية</span>
                 </div>
 
                 <!-- Pillar 2: استشارات -->
@@ -109,6 +110,7 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
                     </svg>
                   </div>
                   <span class="pillar-label">استشارات</span>
+                  <span class="pillar-sub">ماجستير ودكتوراه</span>
                 </div>
 
                 <!-- Pillar 3: تطوير -->
@@ -121,6 +123,7 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
                     </svg>
                   </div>
                   <span class="pillar-label">تطوير</span>
+                  <span class="pillar-sub">حقائب وتدريب متقدم</span>
                 </div>
 
                 <!-- Pillar 4: إنجاز -->
@@ -133,6 +136,7 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
                     </svg>
                   </div>
                   <span class="pillar-label">إنجاز</span>
+                  <span class="pillar-sub">سرعة وسرية تامة</span>
                 </div>
 
               </div>

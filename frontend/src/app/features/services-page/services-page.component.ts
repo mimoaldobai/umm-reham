@@ -395,10 +395,16 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
     .category-filters-container {
       display: flex;
       justify-content: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.8rem;
       overflow-x: auto;
       padding-bottom: 0.5rem;
       -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
 
     .category-filters-row {
@@ -409,11 +415,11 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
       padding: 0.45rem;
       border-radius: var(--radius-full);
       border: 1.5px solid rgba(197, 168, 105, 0.35);
-      box-shadow: 0 4px 15px rgba(10, 47, 36, 0.05);
+      box-shadow: 0 6px 20px rgba(10, 47, 36, 0.06);
     }
 
     .cat-filter-btn {
-      padding: 0.65rem 1.2rem;
+      padding: 0.65rem 1.3rem;
       border-radius: var(--radius-full);
       background: transparent;
       border: none;
@@ -425,24 +431,27 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
       white-space: nowrap;
       display: flex;
       align-items: center;
-      gap: 0.4rem;
-      transition: all 0.2s;
-    }
+      gap: 0.45rem;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 
-    .cat-filter-btn:hover {
-      color: #0A2F24;
-      background: #FAF7F2;
-    }
+      &:hover:not(.active) {
+        color: var(--theme-heading, #0A2F24);
+        background: #FAF7F2;
+        transform: translateY(-2px);
+      }
 
-    .cat-filter-btn.active {
-      background: var(--theme-cta-bg, linear-gradient(135deg, #0A2F24 0%, #051A14 100%));
-      color: var(--theme-cta-text, #FFFFFF);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+      &.active {
+        background: var(--theme-cta-bg, linear-gradient(135deg, #0A2F24 0%, #051A14 100%));
+        color: var(--theme-cta-text, #FFFFFF);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transform: translateY(-1px);
+      }
     }
 
     .badge-count {
       font-size: 0.75rem;
-      opacity: 0.85;
+      opacity: 0.9;
+      font-weight: 800;
     }
 
     /* Catalog Info Bar */
@@ -452,9 +461,10 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
       justify-content: space-between;
       margin-bottom: 1.8rem;
       padding: 0.75rem 1.25rem;
-      background: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.85);
       border-radius: var(--radius-md);
       border: 1px solid rgba(197, 168, 105, 0.25);
+      box-shadow: 0 4px 15px rgba(10, 47, 36, 0.03);
     }
 
     .results-count {
@@ -466,7 +476,7 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
       font-size: 0.82rem;
       color: #065F46;
       background: #ECFDF5;
-      padding: 0.25rem 0.75rem;
+      padding: 0.3rem 0.85rem;
       border-radius: var(--radius-full);
       font-weight: 700;
       border: 1px solid #A7F3D0;
@@ -475,28 +485,56 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
     /* Curated Services Grid */
     .services-curated-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-      gap: 1.75rem;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 1.85rem;
+
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+        gap: 1.35rem;
+      }
     }
 
     /* Luxury Card */
     .service-luxury-card {
       padding: 1.8rem;
-      border-radius: var(--radius-lg);
-      border: 1.5px solid rgba(197, 168, 105, 0.35);
+      border-radius: 20px;
+      border: 1.5px solid var(--theme-card-border, rgba(197, 168, 105, 0.3));
       background: #FFFFFF;
       box-shadow: 0 8px 30px rgba(10, 47, 36, 0.05);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       position: relative;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
+      overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 
-    .service-luxury-card:hover {
-      transform: translateY(-6px);
-      border-color: #C5A869;
-      box-shadow: 0 16px 40px rgba(10, 47, 36, 0.12);
+      /* Top Glowing Accent Line on Hover */
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3.5px;
+        background: var(--theme-cta-bg, linear-gradient(135deg, #C5A869 0%, #0F5132 100%));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      &:hover {
+        transform: translateY(-6px);
+        border-color: var(--theme-accent, #C5A869);
+        box-shadow: 0 20px 45px rgba(10, 47, 36, 0.12), 0 0 15px rgba(197, 168, 105, 0.12);
+
+        &::before {
+          opacity: 1;
+        }
+
+        .card-icon-emblem {
+          transform: scale(1.1) rotate(4deg);
+          border-color: var(--theme-accent, #C5A869);
+        }
+      }
     }
 
     .card-header-row {
@@ -507,15 +545,17 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
     }
 
     .card-icon-emblem {
-      width: 48px;
-      height: 48px;
-      border-radius: var(--radius-md);
-      background: #FAF7F2;
-      border: 1.5px solid #C5A869;
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #FFFFFF 0%, #FAF8F5 100%);
+      border: 1.5px solid rgba(197, 168, 105, 0.35);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.6rem;
+      font-size: 1.65rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
     }
 
     .card-badges-group {
@@ -815,62 +855,64 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
     .card-buttons-row {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      margin-top: 0.4rem;
+      gap: 0.55rem;
+      margin-top: 0.6rem;
     }
 
     .btn-request-quote {
-      flex: 1.5;
-      padding: 0.65rem 0.9rem;
-      border-radius: var(--radius-full);
+      flex: 1.6;
+      padding: 0.72rem 1rem;
+      border-radius: 12px;
       background: var(--theme-cta-bg, linear-gradient(135deg, #0A2F24 0%, #051A14 100%));
       color: var(--theme-cta-text, #FFFFFF);
-      border: 1.5px solid transparent;
+      border: none;
       font-family: var(--font-family-arabic);
-      font-size: 0.84rem;
+      font-size: 0.86rem;
       font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.4rem;
-      transition: all 0.25s;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .btn-request-quote:hover {
       filter: brightness(1.1);
       transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
     }
 
     .btn-add-cart {
-      flex: 1.5;
-      padding: 0.65rem 0.9rem;
-      border-radius: var(--radius-full);
+      flex: 1.6;
+      padding: 0.72rem 1rem;
+      border-radius: 12px;
       background: var(--theme-cta-bg, linear-gradient(135deg, #0A2F24 0%, #051A14 100%));
       color: var(--theme-cta-text, #FFFFFF);
-      border: 1.5px solid transparent;
+      border: none;
       font-family: var(--font-family-arabic);
-      font-size: 0.84rem;
+      font-size: 0.86rem;
       font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.4rem;
-      transition: all 0.25s;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .btn-add-cart:hover {
       filter: brightness(1.1);
       transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
     }
 
     .btn-card-whatsapp {
       flex: 1;
-      padding: 0.65rem 0.75rem;
-      border-radius: var(--radius-full);
+      padding: 0.72rem 0.85rem;
+      border-radius: 12px;
       background: #25D366;
       color: #FFFFFF;
       border: none;
@@ -889,9 +931,10 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
     .btn-card-whatsapp:hover {
       background: #128C7E;
       transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(37, 211, 102, 0.45);
     }
 
-    /* Bouncing WhatsApp Effect (وينط يتقفز عشان تختاره) */
+    /* Bouncing WhatsApp Effect */
     .btn-card-whatsapp.bounce-active {
       animation: whatsappLeap 0.7s cubic-bezier(0.28, 0.84, 0.42, 1) 3;
     }
@@ -904,21 +947,23 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
     }
 
     .btn-card-details {
-      padding: 0.65rem 0.8rem;
-      border-radius: var(--radius-full);
-      background: #FAF7F2;
-      border: 1px solid #D5CCBC;
-      color: #485A53;
+      padding: 0.72rem 0.9rem;
+      border-radius: 12px;
+      background: #F8FAFC;
+      border: 1.5px solid #CBD5E1;
+      color: #475569;
       font-family: var(--font-family-arabic);
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
     }
 
     .btn-card-details:hover {
-      background: #EBE4D5;
-      color: #0A2F24;
+      background: #FFFFFF;
+      border-color: var(--theme-accent, #C5A869);
+      color: var(--theme-heading, #0A2F24);
+      transform: translateY(-2px);
     }
 
     /* Empty fallback */

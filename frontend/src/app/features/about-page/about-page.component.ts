@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AudioService } from '../../core/services/audio.service';
@@ -33,20 +33,23 @@ import { AudioService } from '../../core/services/audio.service';
               انطلقت <strong>منظومة أم رهام</strong> برؤية سعودية طموحة تهدف إلى إرساء أعلى معايير الجودة في البحث العلمي والدراسات العليا والخدمات العامة، وتوفير الدعم الأكاديمي والمهني الرصين للباحثين والطلاب في كافة أنحاء المملكة.
             </p>
 
-            <!-- Quick Trust Bar -->
+            <!-- Quick Trust Bar: Interactive Floating Stats Capsule -->
             <div class="hero-stats-capsule">
-              <div class="stat-capsule-item">
-                <strong class="gold-gradient-text">+25,000</strong>
+              <div class="stat-capsule-item" (mouseenter)="onHover()">
+                <div class="stat-icon-badge">🎓</div>
+                <strong class="gold-gradient-text">+{{ formatNumber(displayCountSuccess) }}</strong>
                 <span>قصة نجاح أكاديمية أنجزناها</span>
               </div>
               <div class="stat-divider"></div>
-              <div class="stat-capsule-item">
-                <strong class="gold-gradient-text">100%</strong>
+              <div class="stat-capsule-item" (mouseenter)="onHover()">
+                <div class="stat-icon-badge">🛡️</div>
+                <strong class="gold-gradient-text">{{ displayCountOriginality }}%</strong>
                 <span>أصالة وفحص Turnitin معتمد 0% اقتباس</span>
               </div>
               <div class="stat-divider"></div>
-              <div class="stat-capsule-item">
-                <strong class="gold-gradient-text">+40</strong>
+              <div class="stat-capsule-item" (mouseenter)="onHover()">
+                <div class="stat-icon-badge">📍</div>
+                <strong class="gold-gradient-text">+{{ displayCountCities }}</strong>
                 <span>مدينة وجامعة داخل المملكة</span>
               </div>
             </div>
@@ -290,37 +293,70 @@ import { AudioService } from '../../core/services/audio.service';
       align-items: center;
       justify-content: space-around;
       width: 100%;
-      max-width: 880px;
-      padding: 1.8rem 2.5rem;
-      border-radius: 24px;
-      background: #FFFFFF;
-      border: 1.5px solid rgba(197, 168, 105, 0.35);
-      box-shadow: 0 12px 35px rgba(10, 47, 36, 0.06);
+      max-width: 900px;
+      padding: 1.6rem 2.2rem;
+      border-radius: 28px;
+      background: linear-gradient(165deg, #FFFFFF 0%, #FAF8F5 100%);
+      border: 1.5px solid var(--theme-card-border, rgba(197, 168, 105, 0.35));
+      box-shadow: 0 16px 40px rgba(10, 47, 36, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+      gap: 1rem;
     }
 
     .stat-capsule-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.25rem;
+      flex: 1;
+      padding: 0.8rem 1rem;
+      border-radius: 20px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+
+      &:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+
+        .stat-icon-badge {
+          transform: scale(1.15) rotate(6deg);
+        }
+      }
+    }
+
+    .stat-icon-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(197, 168, 105, 0.14);
+      border: 1.5px solid rgba(197, 168, 105, 0.35);
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.35rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .stat-capsule-item strong {
-      font-size: 2.1rem;
+      font-size: 2.2rem;
       font-weight: 900;
       font-family: var(--font-family-latin);
+      line-height: 1.1;
     }
 
     .stat-capsule-item span {
       font-size: 0.88rem;
       color: #485A53;
       font-weight: 700;
+      text-align: center;
     }
 
     .stat-divider {
       width: 1.5px;
-      height: 45px;
-      background: rgba(15, 81, 50, 0.12);
+      height: 50px;
+      background: rgba(197, 168, 105, 0.25);
     }
 
     /* ==========================================
@@ -632,8 +668,45 @@ import { AudioService } from '../../core/services/audio.service';
     }
   `]
 })
-export class AboutPageComponent {
+export class AboutPageComponent implements OnInit {
   audio = inject(AudioService);
+
+  displayCountSuccess = 0;
+  displayCountOriginality = 0;
+  displayCountCities = 0;
+
+  ngOnInit(): void {
+    this.animateCounters();
+  }
+
+  animateCounters(): void {
+    const duration = 1600;
+    const steps = 35;
+    const intervalTime = duration / steps;
+    let step = 0;
+
+    const timer = setInterval(() => {
+      step++;
+      const progress = step / steps;
+      // Smooth cubic ease-out
+      const ease = 1 - Math.pow(1 - progress, 3);
+
+      this.displayCountSuccess = Math.round(25000 * ease);
+      this.displayCountOriginality = Math.round(100 * ease);
+      this.displayCountCities = Math.round(40 * ease);
+
+      if (step >= steps) {
+        this.displayCountSuccess = 25000;
+        this.displayCountOriginality = 100;
+        this.displayCountCities = 40;
+        clearInterval(timer);
+      }
+    }, intervalTime);
+  }
+
+  formatNumber(num: number): string {
+    return num.toLocaleString('en-US');
+  }
 
   onHover(): void {
     this.audio.playHover();
