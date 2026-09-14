@@ -206,9 +206,13 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
 
           <!-- Mobile Carousel Indicators & Touch Navigation -->
           <div class="uni-mobile-nav-bar">
-            <button type="button" class="btn-uni-mob-prev" (click)="scrollRealms('prev')">‹ السابق</button>
+            <button type="button" class="btn-uni-mob-prev" (click)="scrollRealms('prev')" title="الخدمة السابقة" aria-label="السابق">
+              <span>‹</span>
+            </button>
             <div class="uni-mob-hint">مرّر للجانب للتنقل بين الخدمات ↔</div>
-            <button type="button" class="btn-uni-mob-next" (click)="scrollRealms('next')">التالي ›</button>
+            <button type="button" class="btn-uni-mob-next" (click)="scrollRealms('next')" title="الخدمة التالية" aria-label="التالي">
+              <span>›</span>
+            </button>
           </div>
 
           <!-- Bottom Pill Button (كل الخدمات › كما بالصورة 2) -->
@@ -5824,18 +5828,29 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
 
     /* Mobile adjustments for testimonials */
     @media (max-width: 768px) {
+      .reviews-premium-section {
+        padding: 2.2rem 0 3.2rem !important;
+      }
       .testim-section-top-row {
         flex-direction: column;
         align-items: flex-start;
+        margin-bottom: 1.25rem !important;
+        gap: 0.85rem !important;
       }
       .testim-header-controls {
         width: 100%;
         justify-content: space-between;
       }
       .testimonial-glass-card {
-        flex: 0 0 calc(100vw - 3.5rem);
-        max-width: 360px;
-        padding: 1.5rem 1.25rem;
+        flex: 0 0 calc(100vw - 3.2rem);
+        max-width: 350px;
+        padding: 1.35rem 1.15rem;
+        gap: 0.9rem;
+        border-radius: 20px;
+      }
+      .testim-card-body p {
+        font-size: 0.88rem !important;
+        line-height: 1.6 !important;
       }
     }
 
@@ -5849,9 +5864,9 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     .uni-mobile-nav-bar {
       display: none;
       align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      margin: 0.5rem 0 1.25rem;
+      justify-content: center;
+      gap: 0.85rem;
+      margin: 0.85rem 0 1.5rem;
       padding: 0 0.5rem;
 
       @media (max-width: 768px) {
@@ -5859,21 +5874,50 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       }
 
       button {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
         background: #FFFFFF;
-        border: 1.5px solid rgba(197, 168, 105, 0.4);
+        border: 1.5px solid rgba(197, 168, 105, 0.45);
         color: #0A2F24;
-        padding: 0.45rem 1rem;
-        border-radius: var(--radius-full);
-        font-size: 0.85rem;
-        font-weight: 700;
+        font-size: 1.35rem;
+        font-weight: 800;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         cursor: pointer;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+
+        &:active {
+          transform: scale(0.92);
+          background: #0A2F24;
+          color: #E5B94F;
+        }
       }
 
       .uni-mob-hint {
-        font-size: 0.78rem;
-        color: #64748B;
-        font-weight: 600;
+        font-size: 0.82rem;
+        color: #485A53;
+        font-weight: 700;
+        white-space: nowrap;
+        background: rgba(197, 168, 105, 0.14);
+        padding: 0.4rem 0.95rem;
+        border-radius: var(--radius-full);
+        border: 1px solid rgba(197, 168, 105, 0.28);
+      }
+    }
+
+    /* Sovereign Guarantees Bottom Clearance on Mobile */
+    @media (max-width: 768px) {
+      .guarantees-vision-section {
+        padding: 2.5rem 0 5.5rem !important;
+      }
+      .realms-guarantees-bar {
+        padding: 1.25rem 1rem !important;
+        gap: 0.85rem !important;
       }
     }
 `]

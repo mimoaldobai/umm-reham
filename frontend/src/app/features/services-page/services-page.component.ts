@@ -79,28 +79,30 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
 
           <!-- Services Results Count & Filter Notice -->
           <div class="catalog-info-bar">
-            <span class="results-count">
-              عرض <strong>{{ filteredServices.length }}</strong> خدمة متاحة
-            </span>
+            <div class="catalog-info-top-row">
+              <span class="results-count">
+                عرض <strong>{{ filteredServices.length }}</strong> خدمة متاحة
+              </span>
 
-            <!-- View Mode Switcher: Carousel vs Grid -->
-            <div class="view-mode-toggle">
-              <button 
-                type="button" 
-                class="btn-toggle-mode" 
-                [class.active]="viewMode === 'slider'" 
-                (click)="setViewMode('slider')" 
-                title="عرض شريطي أفقي">
-                <span>↔ سلايدر</span>
-              </button>
-              <button 
-                type="button" 
-                class="btn-toggle-mode" 
-                [class.active]="viewMode === 'grid'" 
-                (click)="setViewMode('grid')" 
-                title="عرض شبكي رأسي مناسب للهاتف">
-                <span>⊞ شبكة</span>
-              </button>
+              <!-- View Mode Switcher: Carousel vs Grid -->
+              <div class="view-mode-toggle">
+                <button 
+                  type="button" 
+                  class="btn-toggle-mode" 
+                  [class.active]="viewMode === 'slider'" 
+                  (click)="setViewMode('slider')" 
+                  title="عرض شريطي أفقي">
+                  <span>↔ سلايدر</span>
+                </button>
+                <button 
+                  type="button" 
+                  class="btn-toggle-mode" 
+                  [class.active]="viewMode === 'grid'" 
+                  (click)="setViewMode('grid')" 
+                  title="عرض شبكي رأسي مناسب للهاتف">
+                  <span>⊞ شبكة</span>
+                </button>
+              </div>
             </div>
 
             <span class="payment-note-badge">
@@ -478,6 +480,11 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
       &::-webkit-scrollbar {
         display: none;
       }
+
+      @media (max-width: 768px) {
+        justify-content: flex-start !important;
+        padding: 0 0.5rem 0.65rem !important;
+      }
     }
 
     .category-filters-row {
@@ -489,6 +496,11 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
       border-radius: var(--radius-full);
       border: 1.5px solid rgba(197, 168, 105, 0.35);
       box-shadow: 0 6px 20px rgba(10, 47, 36, 0.06);
+
+      @media (max-width: 768px) {
+        padding: 0.35rem;
+        gap: 0.4rem;
+      }
     }
 
     .cat-filter-btn {
@@ -506,6 +518,11 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
       align-items: center;
       gap: 0.45rem;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+      @media (max-width: 768px) {
+        padding: 0.48rem 0.95rem;
+        font-size: 0.82rem;
+      }
 
       &:hover:not(.active) {
         color: var(--theme-heading, #0A2F24);
@@ -530,29 +547,57 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
     /* Catalog Info Bar */
     .catalog-info-bar {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
+      flex-direction: column;
+      gap: 0.75rem;
       margin-bottom: 1.8rem;
-      padding: 0.75rem 1.25rem;
-      background: rgba(255, 255, 255, 0.85);
+      padding: 0.85rem 1.25rem;
+      background: rgba(255, 255, 255, 0.9);
       border-radius: var(--radius-md);
       border: 1px solid rgba(197, 168, 105, 0.25);
       box-shadow: 0 4px 15px rgba(10, 47, 36, 0.03);
+
+      @media (min-width: 769px) {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .catalog-info-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      width: 100%;
+
+      @media (min-width: 769px) {
+        width: auto;
+        gap: 1.5rem;
+      }
     }
 
     .results-count {
       font-size: 0.88rem;
       color: #485A53;
+      white-space: nowrap;
     }
 
     .payment-note-badge {
       font-size: 0.82rem;
       color: #065F46;
       background: #ECFDF5;
-      padding: 0.3rem 0.85rem;
+      padding: 0.35rem 0.85rem;
       border-radius: var(--radius-full);
       font-weight: 700;
       border: 1px solid #A7F3D0;
+      text-align: center;
+      box-sizing: border-box;
+      white-space: nowrap;
+
+      @media (max-width: 768px) {
+        width: 100%;
+        white-space: normal;
+      }
     }
 
     /* View Mode Switcher (Slider vs Grid) */
@@ -562,6 +607,7 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
       padding: 3px;
       border-radius: var(--radius-full);
       border: 1px solid rgba(0, 0, 0, 0.08);
+      flex-shrink: 0;
 
       .btn-toggle-mode {
         border: none;
@@ -569,10 +615,14 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
         color: #64748B;
         font-weight: 700;
         font-size: 0.82rem;
-        padding: 0.35rem 0.95rem;
+        padding: 0.35rem 0.85rem;
         border-radius: var(--radius-full);
         cursor: pointer;
         transition: all 0.2s ease;
+        white-space: nowrap !important;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
 
         &.active {
           background: #0A2F24;
@@ -1174,25 +1224,27 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
     .card-buttons-row {
       display: flex;
       align-items: center;
-      gap: 0.55rem;
+      gap: 0.5rem;
       margin-top: 0.6rem;
+      flex-wrap: wrap;
     }
 
     .btn-request-quote {
-      flex: 1.6;
+      flex: 1 1 100%;
       padding: 0.72rem 1rem;
       border-radius: 12px;
       background: var(--theme-cta-bg, linear-gradient(135deg, #0A2F24 0%, #051A14 100%));
       color: var(--theme-cta-text, #FFFFFF);
       border: none;
       font-family: var(--font-family-arabic);
-      font-size: 0.86rem;
+      font-size: 0.88rem;
       font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.4rem;
+      white-space: nowrap !important;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -1204,20 +1256,21 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
     }
 
     .btn-add-cart {
-      flex: 1.6;
+      flex: 1 1 100%;
       padding: 0.72rem 1rem;
       border-radius: 12px;
       background: var(--theme-primary, #0A2F24);
       color: var(--theme-accent, #E5B94F);
       border: 1.5px solid var(--theme-accent, #E5B94F);
       font-family: var(--font-family-arabic);
-      font-size: 0.86rem;
+      font-size: 0.88rem;
       font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.4rem;
+      white-space: nowrap !important;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -1229,22 +1282,28 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
     }
 
     .btn-card-whatsapp {
-      flex: 1;
+      flex: 1 1 calc(56% - 0.25rem);
+      min-width: 95px;
       padding: 0.72rem 0.85rem;
       border-radius: 12px;
       background: #25D366;
       color: #FFFFFF;
       border: none;
       font-family: var(--font-family-arabic);
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.35rem;
+      white-space: nowrap !important;
       box-shadow: 0 3px 12px rgba(37, 211, 102, 0.3);
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+      span {
+        white-space: nowrap !important;
+      }
     }
 
     .btn-card-whatsapp:hover {
@@ -1266,15 +1325,19 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
     }
 
     .btn-card-details {
-      padding: 0.72rem 0.9rem;
+      flex: 1 1 calc(40% - 0.25rem);
+      min-width: 70px;
+      padding: 0.72rem 0.85rem;
       border-radius: 12px;
       background: #F8FAFC;
       border: 1.5px solid #CBD5E1;
       color: #475569;
       font-family: var(--font-family-arabic);
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 700;
       cursor: pointer;
+      white-space: nowrap !important;
+      text-align: center;
       transition: all 0.2s;
     }
 
@@ -1283,6 +1346,21 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
       border-color: var(--theme-accent, #C5A869);
       color: var(--theme-heading, #0A2F24);
       transform: translateY(-2px);
+    }
+
+    @media (min-width: 640px) {
+      .card-buttons-row {
+        flex-wrap: nowrap;
+      }
+      .btn-request-quote, .btn-add-cart {
+        flex: 1.6;
+      }
+      .btn-card-whatsapp {
+        flex: 1;
+      }
+      .btn-card-details {
+        flex: 0.8;
+      }
     }
 
     /* Empty fallback */
