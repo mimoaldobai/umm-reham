@@ -707,8 +707,9 @@ export class PortfolioPageComponent implements OnInit {
   }
 
   getSampleWhatsAppLink(title: string): string {
+    const phone = (typeof window !== 'undefined' && localStorage.getItem('ur_whatsapp_number')) || '966572651058';
     const text = encodeURIComponent('السلام عليكم أم رهام 🌟\nأرغب بالاستفسار وطلب مشروع أكاديمي مماثل لـ:\n"' + title + '"');
-    return 'https://wa.me/?text=' + text;
+    return `https://wa.me/${phone.replace(/[^0-9]/g, '')}?text=${text}`;
   }
 }
 
@@ -1668,7 +1669,8 @@ export class ArticlesPageComponent implements OnInit {
   }
 
   getArticleWhatsAppLink(title: string): string {
+    const phone = (typeof window !== 'undefined' && localStorage.getItem('ur_whatsapp_number')) || '966572651058';
     const text = encodeURIComponent('السلام عليكم أم رهام 🌟\nأرغب في استشارة أكاديمية حول موضوع المقال:\n"' + title + '"');
-    return 'https://wa.me/?text=' + text;
+    return `https://wa.me/${phone.replace(/[^0-9]/g, '')}?text=${text}`;
   }
 }

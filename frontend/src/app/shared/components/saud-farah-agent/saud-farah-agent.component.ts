@@ -823,8 +823,9 @@ export class SaudFarahAgentComponent implements OnInit {
   }
 
   sendToWhatsApp(context: string): void {
+    const phone = (typeof window !== 'undefined' && localStorage.getItem('ur_whatsapp_number')) || '966572651058';
     const text = encodeURIComponent(`السلام عليكم، تحدثت مع ${this.activeAgent === 'saud' ? 'سعود' : 'فرح'} في موقع أم رهام وأرغب في تأكيد الطلب التالي:\n\n${context}`);
-    window.open(`https://wa.me/?text=${text}`, '_blank');
+    window.open(`https://wa.me/${phone.replace(/[^0-9]/g, '')}?text=${text}`, '_blank');
   }
 
   onCardTilt(event: MouseEvent): void {

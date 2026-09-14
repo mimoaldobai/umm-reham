@@ -438,8 +438,9 @@ export class SaudFarahAgentService {
       this.messagesSubject.next([...this.messagesSubject.value, maleMsg]);
       this.speak(maleText, 'saud', () => {
         setTimeout(() => {
-          const femaleText = 'ولأنك عميل جديد ومميز عندنا اليوم في منصة أم رهام، يسعدني تقديم خصم ترحيبي فوري لك! 🎁 السعر الحصري لك الآن هو ' + discountPrice + ' ريال سعودي فقط بدلاً من ' + originalPrice + ' ر.س! 🎉';
-          const whatsappUrl = 'https://wa.me/?text=' + encodeURIComponent('السلام عليكم، تحدثت مع ' + this.maleName() + ' و' + this.femaleName() + ' وأرغب في اعتماد عرض (' + serviceTitle + ') بسعر العرض الحصري ' + discountPrice + ' ر.س.');
+          const phone = (typeof window !== 'undefined' && localStorage.getItem('ur_whatsapp_number')) || '966572651058';
+          const femaleText = 'ولأنك تستحق التميز، يسرنا تقديم خصم خاص لك الآن بقيمة ' + discountPrice + ' ر.س فقط بدلاً من ' + originalPrice + ' ر.س! اضغط على الزر أدناه لتأكيد طلبك مباشرة عبر واتساب 🌸';
+          const whatsappUrl = `https://wa.me/${phone.replace(/[^0-9]/g, '')}?text=` + encodeURIComponent('السلام عليكم، تحدثت مع ' + this.maleName() + ' و' + this.femaleName() + ' وأرغب في اعتماد عرض (' + serviceTitle + ') بسعر العرض الحصري ' + discountPrice + ' ر.س.');
 
           const femaleMsg: AgentChatMessage = {
             id: 'msg_female_' + Date.now(),

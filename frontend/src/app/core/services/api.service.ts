@@ -1472,6 +1472,52 @@ export class ApiService {
     );
   }
 
+  saveSetting(key: string, value: string): Observable<any> {
+    if (typeof window !== 'undefined') {
+      if (key === 'whatsapp_number') localStorage.setItem('ur_whatsapp_number', value);
+      if (key === 'order_discount_percent') localStorage.setItem('ur_order_discount', value);
+    }
+    return this.http.put(`${this.apiUrl}/settings/${key}`, { value }).pipe(
+      catchError(() => {
+        const idx = this.defaultSettings.findIndex(s => s.key === key);
+        if (idx !== -1) this.defaultSettings[idx].value = value;
+        else this.defaultSettings.push({ key, value });
+        return of({ success: true });
+      })
+    );
+  }
+
+  getDiscountPercent(): Observable<number> {
+    return this.getSetting('order_discount_percent').pipe(
+      map(val => val ? Number(val) : 15)
+    );
+  }
+
+  getWhatsAppNumber(): Observable<string> {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('ur_whatsapp_number');
+      if (stored) return of(stored);
+    }
+    return this.getSetting('whatsapp_number').pipe(
+      map(val => {
+        const res = val || '966572651058';
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('ur_whatsapp_number', res);
+        }
+        return res;
+      })
+    );
+  }
+
+  getWhatsAppPhoneSync(): string {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('ur_whatsapp_number');
+      if (stored) return stored.replace(/[^0-9]/g, '');
+    }
+    const fromDefault = this.defaultSettings.find(s => s.key === 'whatsapp_number')?.value;
+    return (fromDefault || '966572651058').replace(/[^0-9]/g, '');
+  }
+
   updateArticle(id: string, article: Partial<Article>): Observable<any> {
     return this.http.put(`${this.apiUrl}/articles/${id}`, article).pipe(
       catchError(() => {
@@ -1697,29 +1743,6 @@ export class ApiService {
         const found = settings.find(s => s.key === key);
         return found ? found.value : '';
       })
-    );
-  }
-
-  saveSetting(key: string, value: string): Observable<any> {
-    return this.http.put(`${this.apiUrl}/settings/${key}`, { value }).pipe(
-      catchError(() => {
-        const idx = this.defaultSettings.findIndex(s => s.key === key);
-        if (idx !== -1) this.defaultSettings[idx].value = value;
-        else this.defaultSettings.push({ key, value });
-        return of({ success: true });
-      })
-    );
-  }
-
-  getDiscountPercent(): Observable<number> {
-    return this.getSetting('order_discount_percent').pipe(
-      map(val => val ? Number(val) : 15)
-    );
-  }
-
-  getWhatsAppNumber(): Observable<string> {
-    return this.getSetting('whatsapp_number').pipe(
-      map(val => val || '966572651058')
     );
   }
 

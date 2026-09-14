@@ -1528,7 +1528,7 @@ export class ServiceModalComponent implements OnInit {
     if (!this.service) return;
     this.audio.playSuccess();
 
-    const phone = '966572651058';
+    const phone = this.api.getWhatsAppPhoneSync();
     const lines = [
       'السلام عليكم ورحمة الله وبركاته 🌸',
       '*طلب خدمة جديد — منصة أم رهام الأكاديمية*',

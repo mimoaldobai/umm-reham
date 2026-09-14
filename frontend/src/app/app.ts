@@ -9,6 +9,7 @@ import { SaudFarahAgentService } from './core/services/saud-farah-agent.service'
 import { AdminLoginModalComponent } from './shared/components/admin-login-modal/admin-login-modal.component';
 import { SaudFarahWelcomeComponent } from './shared/components/saud-farah-welcome/saud-farah-welcome.component';
 import { LiveNotificationToastComponent } from './shared/components/live-notification-toast/live-notification-toast.component';
+import { ApiService } from './core/services/api.service';
 
 @Component({
   selector: 'app-root',
@@ -31,6 +32,13 @@ export class App {
   audio = inject(AudioService);
   authService = inject(AuthService);
   agentService = inject(SaudFarahAgentService);
+  apiService = inject(ApiService);
+
+  getWhatsAppLink(): string {
+    const phone = this.apiService.getWhatsAppPhoneSync();
+    const text = encodeURIComponent('السلام عليكم ورحمة الله وبركاته، أود الاستفسار عن خدمات منصة أم رهام الأكاديمية 🌸');
+    return `https://wa.me/${phone}?text=${text}`;
+  }
 
   constructor() {
     this.router.events.subscribe(evt => {

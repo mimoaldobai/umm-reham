@@ -196,11 +196,19 @@ export class CartService {
     this.audio.playClick();
   }
 
+  getWhatsAppPhone(): string {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('ur_whatsapp_number');
+      if (stored) return stored.replace(/[^0-9]/g, '');
+    }
+    return '966572651058';
+  }
+
   // --- WHATSAPP ORDER URL GENERATOR ---
 
   generateCartWhatsAppUrl(): string {
     const items = this._cartItems();
-    const cleanPhone = '966572651058';
+    const cleanPhone = this.getWhatsAppPhone();
 
     if (items.length === 0) {
       const text = encodeURIComponent('السلام عليكم ورحمة الله وبركاته 🌸\nأرغب بالاستفسار عن خدمات منصة أم رهام الأكاديمية.');
@@ -255,7 +263,7 @@ export class CartService {
   }
 
   generateSingleServiceWhatsAppUrl(service: ServiceItem, template?: ServiceTemplate, quantity = 1): string {
-    const cleanPhone = '966572651058';
+    const cleanPhone = this.getWhatsAppPhone();
     const lines: string[] = [
       'السلام عليكم ورحمة الله وبركاته 🌸',
       '*طلب خدمة مباشرة — منصة أم رهام الأكاديمية*',

@@ -204,6 +204,13 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
             </button>
           </div>
 
+          <!-- Mobile Carousel Indicators & Touch Navigation -->
+          <div class="uni-mobile-nav-bar">
+            <button type="button" class="btn-uni-mob-prev" (click)="scrollRealms('prev')">‹ السابق</button>
+            <div class="uni-mob-hint">مرّر للجانب للتنقل بين الخدمات ↔</div>
+            <button type="button" class="btn-uni-mob-next" (click)="scrollRealms('next')">التالي ›</button>
+          </div>
+
           <!-- Bottom Pill Button (كل الخدمات › كما بالصورة 2) -->
           <div class="uni-all-services-btn-row">
             <a routerLink="/services" class="btn-all-universities-pill" (click)="onHover()">
@@ -342,42 +349,137 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
             <!-- ==========================================
            SCENE: آراء العملاء (Premium Testimonials)
            ========================================== -->
+      <!-- ==========================================
+           SCENE: آراء العملاء (Premium Testimonials & Real Voice)
+           ========================================== -->
       <section class="reviews-premium-section section-padding" id="customer-reviews-section">
         <div class="container">
-          <div class="section-badge-center">
-            <span class="badge-gold">⭐️ شهادات وثقة الباحثين والطلاب</span>
-            <h2 class="section-title">آراء وتجارب العملاء مع <span class="gold-gradient-text">أم رهام</span></h2>
-            <p class="section-desc">آراء حقيقية من المنصة، لنجاحات مستمرة ودعم أكاديمي متواصل</p>
-          </div>
+          
+          <div class="testim-section-top-row">
+            <div class="section-badge-right">
+              <span class="badge-gold">⭐️ شهادات وثقة الباحثين والطلاب — معتمدة 100%</span>
+              <h2 class="section-title">آراء وتجارب العملاء مع <span class="gold-gradient-text">أم رهام</span></h2>
+              <p class="section-desc">آراء وتجارب حقيقية موثقة من منسوبي كبرى الجامعات السعودية والدراسات العليا</p>
+            </div>
 
-          <div class="premium-testimonials-carousel" *ngIf="testimonials && testimonials.length > 0">
-            <div class="testimonial-glass-card" *ngFor="let t of testimonials">
-              <div class="testim-header">
-                <div class="testim-avatar-wrapper">
-                  <div class="testim-avatar" *ngIf="t.imageUrl">
-                    <img [src]="t.imageUrl" [alt]="t.clientName" />
-                  </div>
-                  <div class="testim-avatar-placeholder" *ngIf="!t.imageUrl">
-                    {{ t.clientName ? t.clientName.charAt(0) : 'ع' }}
-                  </div>
-                </div>
-                <div class="testim-meta">
-                  <h4 class="testim-name">{{ t.clientName }}</h4>
-                  <p class="testim-title" *ngIf="t.clientTitle || t.clientUniversity">{{ t.clientTitle }} {{ t.clientUniversity ? '• ' + t.clientUniversity : '' }}</p>
-                  <div class="testim-rating">
-                    <span class="star-icon" *ngFor="let s of [1,2,3,4,5]" [class.active]="s <= (t.rating || 5)">★</span>
-                  </div>
-                </div>
+            <!-- Controls: Status Pill + Navigation Buttons -->
+            <div class="testim-header-controls">
+              <div class="testim-trust-chip">
+                <span class="trust-stars">★★★★★</span>
+                <span class="trust-score">4.9 / 5</span>
+                <span class="trust-count">(+1,200 باحث وباحثة)</span>
               </div>
-              <div class="testim-body">
-                <p class="testim-quote">"{{ t.contentAr }}"</p>
+
+              <div class="testim-nav-btn-group">
+                <button type="button" class="btn-testim-nav prev" (click)="scrollTestimonials('prev')" title="الرأي السابق" aria-label="السابق">
+                  <span>›</span>
+                </button>
+                <button type="button" class="btn-testim-play-pause" (click)="toggleTestimAutoScroll()" [title]="isTestimAutoScrollPaused ? 'تشغيل الحركة التلقائية' : 'إيقاف مؤقت للحركة'">
+                  <span>{{ isTestimAutoScrollPaused ? '▶' : '⏸' }}</span>
+                </button>
+                <button type="button" class="btn-testim-nav next" (click)="scrollTestimonials('next')" title="الرأي التالي" aria-label="التالي">
+                  <span>‹</span>
+                </button>
               </div>
             </div>
           </div>
-          
-          <div class="premium-testimonials-empty" *ngIf="!testimonials || testimonials.length === 0">
-            <p>جاري تحميل آراء العملاء...</p>
+
+          <!-- Carousel Track (Snap & Glide) -->
+          <div class="premium-testimonials-carousel" 
+               #testimTrack
+               (mouseenter)="pauseTestimAutoScroll()"
+               (mouseleave)="resumeTestimAutoScroll()"
+               (touchstart)="pauseTestimAutoScroll()"
+               (touchend)="resumeTestimAutoScroll()">
+            
+            <div class="testimonial-glass-card" 
+                 *ngFor="let t of testimonials; let idx = index"
+                 [class.active-card]="idx === activeTestimIndex">
+              
+              <!-- Card Top Bar: Monogram/Avatar + Meta + Rating -->
+              <div class="testim-header">
+                <div class="testim-avatar-wrapper">
+                  <div class="testim-avatar" *ngIf="t.avatarUrl || t.imageUrl">
+                    <img [src]="t.avatarUrl || t.imageUrl" [alt]="t.clientName" />
+                  </div>
+                  <div class="testim-avatar-placeholder" *ngIf="!(t.avatarUrl || t.imageUrl)">
+                    {{ t.clientName ? t.clientName.charAt(0) : 'ع' }}
+                  </div>
+                  <span class="verified-avatar-badge" title="عميل موثق">✓</span>
+                </div>
+
+                <div class="testim-meta">
+                  <div class="testim-name-row">
+                    <h4 class="testim-name">{{ t.clientName }}</h4>
+                    <span class="verified-text-chip">✅ باحث موثق</span>
+                  </div>
+                  <p class="testim-title">
+                    <span *ngIf="t.clientUniversity" class="uni-tag">🏛️ {{ t.clientUniversity }}</span>
+                    <span *ngIf="t.city && !t.clientUniversity" class="city-tag">📍 {{ t.city }}</span>
+                    <span *ngIf="t.clientTitle" class="title-tag"> • {{ t.clientTitle }}</span>
+                  </p>
+                  <div class="testim-rating">
+                    <span class="star-icon" *ngFor="let s of [1,2,3,4,5]" [class.active]="s <= (t.rating || 5)">★</span>
+                    <span class="rating-number">5.0</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quote Body -->
+              <div class="testim-body">
+                <div class="quote-symbol">“</div>
+                <p class="testim-quote">{{ t.contentAr }}</p>
+              </div>
+
+              <!-- Multimedia: Voice Note / Image Proof if available -->
+              <div class="testim-media-pill" *ngIf="t.mediaType === 'audio' || t.audioUrl">
+                <button type="button" class="btn-voice-preview" (click)="toggleAudioReview()">
+                  <span class="voice-icon">🎙️</span>
+                  <span>رسالة صوتية من العميل</span>
+                  <span class="voice-bars">
+                    <span class="bar b1"></span>
+                    <span class="bar b2"></span>
+                    <span class="bar b3"></span>
+                    <span class="bar b4"></span>
+                  </span>
+                </button>
+              </div>
+
+              <div class="testim-media-pill" *ngIf="t.mediaType === 'image' && t.mediaUrl">
+                <a [href]="t.mediaUrl" target="_blank" class="image-proof-link">
+                  <span>📸 صورة إشادة واعتماد البحث</span>
+                </a>
+              </div>
+
+              <!-- Card Footer -->
+              <div class="testim-card-footer">
+                <span class="testim-date">{{ t.createdAt ? (t.createdAt | slice:0:10) : 'معتمد مؤخراً' }}</span>
+                <span class="testim-guarantee-badge">🛡️ منجز ومجاز 100%</span>
+              </div>
+
+            </div>
           </div>
+
+          <!-- Pagination Dots & CTA Button -->
+          <div class="testim-bottom-actions">
+            <div class="testim-dots-row" *ngIf="testimonials && testimonials.length > 1">
+              <span *ngFor="let t of testimonials; let i = index" 
+                    class="testim-dot" 
+                    [class.active]="i === activeTestimIndex"
+                    (click)="scrollToTestimonial(i)"></span>
+            </div>
+
+            <div class="testim-add-cta-row">
+              <a routerLink="/testimonials" class="btn-all-reviews-gold" (click)="onHover()">
+                <span>عرض جميع آراء العملاء والشهادات</span>
+                <span class="chevron">›</span>
+              </a>
+              <a [href]="getWhatsAppLink('السلام عليكم، تعاملت معكم وأرغب بتقديم شهادة ورأي حول خدمتكم الرائعة 🌸')" target="_blank" class="btn-send-review-wa" (click)="onClick()">
+                <span>✍️ شاركنا تجربتك</span>
+              </a>
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -534,7 +636,7 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
             <div class="video-play-overlay">
               <div class="video-pulse-glow"></div>
               <a 
-                href="https://wa.me/?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%B4%D8%A7%D9%87%D8%AF%D8%AA%20%D8%B9%D8%B1%D8%B6%20%D8%A7%D9%84%D9%85%D9%86%D8%B5%D8%A9%20%D9%88%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A8%D8%AF%D8%A1%20%D8%B7%D9%84%D8%A8%D9%8A" 
+                [href]="getWhatsAppLink('السلام عليكم، شاهدت عرض المنصة وأرغب ببدء طلبي 🌸')" 
                 target="_blank" 
                 class="btn-big-play-glow">
                 ▶
@@ -549,7 +651,7 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
           <div class="video-footer-cta">
             <span>جاهز لبدء بحثك أو مشروعك؟</span>
             <a 
-              href="https://wa.me/?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%20%D8%A3%D9%85%20%D8%B1%D9%87%D8%A7%D9%85" 
+              [href]="getWhatsAppLink('السلام عليكم، أرغب بالتواصل والاستشارة الأكاديمية مع أم رهام 🌸')" 
               target="_blank" 
               class="btn-video-wa"
               style="display: inline-flex; align-items: center; gap: 0.5rem;">
@@ -578,7 +680,7 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
           
           <div class="coupon-actions">
             <a 
-              href="https://wa.me/?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%AD%D8%B5%D9%84%D8%AA%20%D8%B9%D9%84%D9%89%20%D9%83%D9%88%D8%A8%D9%88%D9%86%20%D8%AE%D8%B5%D9%85%20SAUDI2026%20%D9%88%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%AA%D8%B7%D8%A8%D9%8A%D9%82%D9%87%20%D8%B9%D9%84%D9%89%20%D8%B7%D9%84%D8%A8%D9%8A" 
+              [href]="getWhatsAppLink('السلام عليكم، حصلت على كوبون خصم SAUDI2026 وأرغب بتطبيقه على طلبي 🎁')" 
               target="_blank" 
               class="btn-use-coupon-wa" 
               (click)="closeDiscountModal()"
@@ -5301,9 +5403,88 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     /* ==========================================
        PREMIUM TESTIMONIALS (Masonry / Carousel)
        ========================================== */
-    .reviews-premium-section {
-      background: linear-gradient(180deg, #F9FAFB 0%, #FFFFFF 100%);
+        .reviews-premium-section {
+      background: radial-gradient(circle at 50% 0%, #FFFFFF 0%, #F8FAFC 60%, #F1F5F9 100%);
       overflow: hidden;
+      position: relative;
+    }
+
+    .testim-section-top-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1.5rem;
+      margin-bottom: 2.2rem;
+      flex-wrap: wrap;
+    }
+
+    .section-badge-right {
+      text-align: right;
+    }
+
+    .testim-header-controls {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .testim-trust-chip {
+      background: rgba(229, 185, 79, 0.12);
+      border: 1px solid rgba(229, 185, 79, 0.35);
+      border-radius: var(--radius-full);
+      padding: 0.45rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      color: #0A2F24;
+      font-weight: 700;
+
+      .trust-stars {
+        color: #E5B94F;
+        letter-spacing: 1px;
+      }
+      .trust-count {
+        color: #64748B;
+        font-weight: 500;
+        font-size: 0.78rem;
+      }
+    }
+
+    .testim-nav-btn-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      button {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: #FFFFFF;
+        border: 1.5px solid rgba(10, 47, 36, 0.12);
+        color: #0A2F24;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.35rem;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+        &:hover {
+          background: #0A2F24;
+          color: #E5B94F;
+          border-color: #E5B94F;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(10, 47, 36, 0.18);
+        }
+      }
+
+      .btn-testim-play-pause {
+        font-size: 1rem;
+        width: 36px;
+        height: 36px;
+      }
     }
 
     .premium-testimonials-carousel {
@@ -5311,46 +5492,40 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
       gap: 1.5rem;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
-      padding: 1rem 1.5rem 3rem 1.5rem;
+      scroll-behavior: smooth;
+      padding: 1.25rem 0.5rem 2.2rem 0.5rem;
       scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
-    .premium-testimonials-carousel::-webkit-scrollbar {
-      display: none;
+      -webkit-overflow-scrolling: touch;
+      box-sizing: border-box;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
 
     .testimonial-glass-card {
       scroll-snap-align: center;
-      flex: 0 0 calc(100% - 3rem);
-      max-width: 450px;
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(229, 185, 79, 0.2);
-      border-radius: 20px;
-      padding: 2rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      flex: 0 0 380px;
+      max-width: 85vw;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1.5px solid rgba(197, 168, 105, 0.3);
+      border-radius: 24px;
+      padding: 2rem 1.75rem;
+      box-shadow: 0 12px 35px rgba(10, 47, 36, 0.06);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       gap: 1.25rem;
-    }
-    
-    @media (min-width: 768px) {
-      .testimonial-glass-card {
-        flex: 0 0 calc(50% - 1.5rem);
-      }
-    }
-    @media (min-width: 1024px) {
-      .testimonial-glass-card {
-        flex: 0 0 calc(33.333% - 1.5rem);
-      }
-    }
+      box-sizing: border-box;
 
-    .testimonial-glass-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(229, 185, 79, 0.1);
-      border-color: rgba(229, 185, 79, 0.4);
+      &:hover, &.active-card {
+        transform: translateY(-6px);
+        border-color: #E5B94F;
+        box-shadow: 0 20px 48px rgba(10, 47, 36, 0.12), 0 0 20px rgba(229, 185, 79, 0.2);
+      }
     }
 
     .testim-header {
@@ -5360,80 +5535,346 @@ import { AddReviewModalComponent } from '../../shared/components/add-review-moda
     }
 
     .testim-avatar-wrapper {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 2px solid #E5B94F;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #F1F5F9;
+      position: relative;
+      width: 54px;
+      height: 54px;
       flex-shrink: 0;
-    }
 
-    .testim-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+      .testim-avatar {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 2px solid #E5B94F;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 
-    .testim-avatar-placeholder {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #0F5132;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .testim-avatar-placeholder {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #0A2F24 0%, #164E3D 100%);
+        color: #E5B94F;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 1.35rem;
+        border: 2px solid #E5B94F;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      }
+
+      .verified-avatar-badge {
+        position: absolute;
+        bottom: -2px;
+        right: -2px;
+        width: 18px;
+        height: 18px;
+        background: #10B981;
+        color: #FFFFFF;
+        border-radius: 50%;
+        font-size: 0.68rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        border: 2px solid #FFFFFF;
+      }
     }
 
     .testim-meta {
       flex: 1;
-    }
 
-    .testim-name {
-      margin: 0;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #0A2F24;
-    }
+      .testim-name-row {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
 
-    .testim-title {
-      margin: 0;
-      font-size: 0.85rem;
-      color: #64748B;
-      margin-top: 0.2rem;
-    }
+        .testim-name {
+          font-size: 1.05rem;
+          font-weight: 800;
+          color: #0A2F24;
+          margin: 0;
+        }
 
-    .testim-rating {
-      display: flex;
-      gap: 0.2rem;
-      margin-top: 0.3rem;
-    }
+        .verified-text-chip {
+          font-size: 0.7rem;
+          background: rgba(16, 185, 129, 0.12);
+          color: #059669;
+          padding: 2px 7px;
+          border-radius: var(--radius-full);
+          font-weight: 700;
+        }
+      }
 
-    .testim-rating .star-icon {
-      color: #CBD5E1;
-      font-size: 0.95rem;
-    }
+      .testim-title {
+        font-size: 0.82rem;
+        color: #64748B;
+        margin: 0.2rem 0 0.35rem;
 
-    .testim-rating .star-icon.active {
-      color: #E5B94F;
+        .uni-tag {
+          color: #0F5132;
+          font-weight: 600;
+        }
+      }
+
+      .testim-rating {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+
+        .star-icon {
+          color: #CBD5E1;
+          font-size: 1rem;
+          &.active {
+            color: #E5B94F;
+          }
+        }
+
+        .rating-number {
+          font-size: 0.78rem;
+          color: #94A3B8;
+          margin-right: 4px;
+          font-weight: 600;
+        }
+      }
     }
 
     .testim-body {
       position: relative;
+      padding-right: 1.5rem;
+
+      .quote-symbol {
+        position: absolute;
+        top: -0.6rem;
+        right: -0.2rem;
+        font-size: 2.4rem;
+        line-height: 1;
+        color: rgba(229, 185, 79, 0.45);
+        font-family: Georgia, serif;
+      }
+
+      .testim-quote {
+        font-size: 0.96rem;
+        line-height: 1.75;
+        color: #1E293B;
+        margin: 0;
+      }
     }
 
-    .testim-quote {
-      margin: 0;
-      font-size: 1rem;
-      line-height: 1.7;
-      color: #334155;
-      font-style: italic;
+    .testim-media-pill {
+      background: #F8FAFC;
+      border: 1px dashed rgba(197, 168, 105, 0.5);
+      border-radius: 12px;
+      padding: 0.5rem 0.85rem;
+
+      .btn-voice-preview {
+        background: none;
+        border: none;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        cursor: pointer;
+        font-size: 0.82rem;
+        color: #0A2F24;
+        font-weight: 700;
+        width: 100%;
+
+        .voice-bars {
+          display: flex;
+          align-items: center;
+          gap: 2px;
+          margin-right: auto;
+
+          .bar {
+            width: 3px;
+            height: 14px;
+            background: #E5B94F;
+            border-radius: 2px;
+            animation: soundWave 1.2s infinite ease-in-out;
+            &.b1 { animation-delay: 0.1s; height: 10px; }
+            &.b2 { animation-delay: 0.3s; height: 16px; }
+            &.b3 { animation-delay: 0.2s; height: 12px; }
+            &.b4 { animation-delay: 0.4s; height: 8px; }
+          }
+        }
+      }
+
+      .image-proof-link {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #059669;
+        font-size: 0.82rem;
+        font-weight: 700;
+        text-decoration: none;
+      }
     }
-    
-    .premium-testimonials-empty {
-      text-align: center;
-      padding: 3rem;
-      color: #64748B;
-      font-size: 1.1rem;
+
+    @keyframes soundWave {
+      0%, 100% { transform: scaleY(0.5); }
+      50% { transform: scaleY(1.3); }
+    }
+
+    .testim-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+      padding-top: 0.85rem;
+      font-size: 0.78rem;
+
+      .testim-date {
+        color: #94A3B8;
+      }
+
+      .testim-guarantee-badge {
+        color: #059669;
+        font-weight: 700;
+        background: rgba(16, 185, 129, 0.08);
+        padding: 2px 8px;
+        border-radius: var(--radius-full);
+      }
+    }
+
+    .testim-bottom-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+
+      .testim-dots-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        .testim-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: #CBD5E1;
+          cursor: pointer;
+          transition: all 0.3s ease;
+
+          &.active {
+            width: 24px;
+            border-radius: 10px;
+            background: #E5B94F;
+          }
+        }
+      }
+
+      .testim-add-cta-row {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .btn-all-reviews-gold {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: #0A2F24;
+          color: #FFFFFF;
+          padding: 0.75rem 2rem;
+          border-radius: var(--radius-full);
+          font-weight: 700;
+          font-size: 0.92rem;
+          text-decoration: none;
+          box-shadow: 0 4px 15px rgba(10, 47, 36, 0.15);
+          transition: all 0.25s ease;
+
+          &:hover {
+            background: #144939;
+            transform: translateY(-2px);
+          }
+        }
+
+        .btn-send-review-wa {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: rgba(37, 211, 102, 0.12);
+          color: #059669;
+          border: 1.5px solid #25D366;
+          padding: 0.7rem 1.6rem;
+          border-radius: var(--radius-full);
+          font-weight: 700;
+          font-size: 0.9rem;
+          text-decoration: none;
+          transition: all 0.25s ease;
+
+          &:hover {
+            background: #25D366;
+            color: #FFFFFF;
+            transform: translateY(-2px);
+          }
+        }
+      }
+    }
+
+    /* Mobile adjustments for testimonials */
+    @media (max-width: 768px) {
+      .testim-section-top-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .testim-header-controls {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .testimonial-glass-card {
+        flex: 0 0 calc(100vw - 3.5rem);
+        max-width: 360px;
+        padding: 1.5rem 1.25rem;
+      }
+    }
+
+    /* Hide overlapping absolute arrows for services carousel on mobile */
+    @media (max-width: 768px) {
+      .uni-carousel-arrow {
+        display: none !important;
+      }
+    }
+
+    .uni-mobile-nav-bar {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin: 0.5rem 0 1.25rem;
+      padding: 0 0.5rem;
+
+      @media (max-width: 768px) {
+        display: flex;
+      }
+
+      button {
+        background: #FFFFFF;
+        border: 1.5px solid rgba(197, 168, 105, 0.4);
+        color: #0A2F24;
+        padding: 0.45rem 1rem;
+        border-radius: var(--radius-full);
+        font-size: 0.85rem;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      .uni-mob-hint {
+        font-size: 0.78rem;
+        color: #64748B;
+        font-weight: 600;
+      }
     }
 `]
 })
@@ -5452,6 +5893,13 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   categories: Category[] = [];
   stats: Statistic[] = [];
   testimonials: Testimonial[] = [];
+  whatsappNumber: string = '966572651058';
+
+  // Testimonials Carousel Controls & Glide State
+  @ViewChild('testimTrack') testimTrackRef?: ElementRef<HTMLDivElement>;
+  testimAutoScrollTimer: any = null;
+  isTestimAutoScrollPaused = false;
+  activeTestimIndex = 0;
   selectedService: ServiceItem | null = null;
   isAddReviewModalOpen = false;
   isReviewPlaying = false;
@@ -5534,6 +5982,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.initHeroParticles();
     this.startRealmsAutoScroll();
+    this.startTestimAutoScroll();
   }
 
   ngOnDestroy(): void {
@@ -5543,13 +5992,25 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.realmsAutoScrollTimer) {
       clearInterval(this.realmsAutoScrollTimer);
     }
+    if (this.testimAutoScrollTimer) {
+      clearInterval(this.testimAutoScrollTimer);
+    }
   }
 
   private loadData(): void {
     this.api.getServices().subscribe(res => this.services = res);
     this.api.getCategories().subscribe(res => this.categories = res);
     this.api.getStatistics().subscribe(res => this.stats = res);
-    this.api.getTestimonials().subscribe(res => this.testimonials = res);
+    this.api.getTestimonials().subscribe(res => {
+      if (res && res.length > 0) {
+        this.testimonials = res;
+      } else {
+        this.testimonials = this.api.defaultTestimonials;
+      }
+    });
+    this.api.getWhatsAppNumber().subscribe(num => {
+      if (num) this.whatsappNumber = num.replace(/[^0-9]/g, '');
+    });
   }
 
   // Active Theory Particle Cosmos Engine
@@ -5987,7 +6448,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       '━━━━━━━━━━━━━━━━━━━━',
       '✨ *أرجو تزويدي بتفاصيل الخدمة وتأكيد الحجز، شكراً لكم 🌸*'
     ];
-    return `https://wa.me/?text=${encodeURIComponent(lines.join('\n'))}`;
+    return this.getWhatsAppLink(lines.join('\n'));
   }
 
   heroServiceType = '';
@@ -6051,7 +6512,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       '🛡️ *الضمان:* الدفع بعد الإنجاز والاستلام المعتمد 100%',
       '✨ *أرجو تزويدي بالخيارات والبدء بالطلب، شكراً لكم 🌸*'
     ];
-    window.open(`https://wa.me/?text=${encodeURIComponent(lines.join('\n'))}`, '_blank');
+    window.open(this.getWhatsAppLink(lines.join('\n')), '_blank');
   }
 
   // Floating Welcome Coupon Modal Methods
@@ -6108,7 +6569,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.audio.playClick();
     const need = this.needsList.find(n => n.id === this.selectedNeedId) || this.needsList[0];
     const text = `السلام عليكم ورحمة الله، أرغب بمعرفة تفاصيل مسار (${need.name}) عبر منصة أم رهام.`;
-    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+    window.open(this.getWhatsAppLink(text), '_blank');
   }
 
   // "عوالم وخدمات أم رهام" Auto-Moving Carousel Methods
@@ -6234,7 +6695,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.audio.playClick();
     const c = this.activeCityData;
     const text = `السلام عليكم ورحمة الله، أنا من مدينة (${c.name}) وأرغب ببدء مشروعي وبحثي مع منصة أم رهام.`;
-    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+    window.open(this.getWhatsAppLink(text), '_blank');
   }
 
   // Customer Testimonial Audio Player Methods
@@ -6281,5 +6742,78 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   closeTranscriptModal(): void {
     this.audio.playClick();
     this.isTranscriptOpen = false;
+  }
+
+  // --- TESTIMONIALS GLIDE & CONTROLS ---
+  startTestimAutoScroll(): void {
+    if (typeof window === 'undefined') return;
+    if (this.testimAutoScrollTimer) clearInterval(this.testimAutoScrollTimer);
+    this.testimAutoScrollTimer = setInterval(() => {
+      if (this.isTestimAutoScrollPaused) return;
+      this.scrollTestimonials('next', false);
+    }, 4500);
+  }
+
+  pauseTestimAutoScroll(): void {
+    this.isTestimAutoScrollPaused = true;
+  }
+
+  resumeTestimAutoScroll(): void {
+    setTimeout(() => {
+      this.isTestimAutoScrollPaused = false;
+    }, 1500);
+  }
+
+  toggleTestimAutoScroll(): void {
+    this.isTestimAutoScrollPaused = !this.isTestimAutoScrollPaused;
+    this.audio.playClick();
+  }
+
+  scrollTestimonials(dir: 'prev' | 'next', playSound = true): void {
+    if (playSound) this.audio.playClick();
+    if (!this.testimTrackRef || !this.testimTrackRef.nativeElement) return;
+    const el = this.testimTrackRef.nativeElement;
+    const card = el.querySelector('.testimonial-glass-card') as HTMLElement;
+    const scrollAmount = card ? (card.offsetWidth + 24) : 380;
+    
+    if (dir === 'next') {
+      const maxScroll = el.scrollWidth - el.clientWidth;
+      if (Math.abs(el.scrollLeft) >= maxScroll - 40) {
+        el.scrollTo({ left: 0, behavior: 'smooth' });
+        this.activeTestimIndex = 0;
+      } else {
+        el.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        if (this.activeTestimIndex < this.testimonials.length - 1) {
+          this.activeTestimIndex++;
+        }
+      }
+    } else {
+      if (Math.abs(el.scrollLeft) <= 40) {
+        el.scrollTo({ left: -(el.scrollWidth - el.clientWidth), behavior: 'smooth' });
+        this.activeTestimIndex = this.testimonials.length - 1;
+      } else {
+        el.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        if (this.activeTestimIndex > 0) {
+          this.activeTestimIndex--;
+        }
+      }
+    }
+  }
+
+  scrollToTestimonial(index: number): void {
+    this.audio.playClick();
+    this.activeTestimIndex = index;
+    if (!this.testimTrackRef || !this.testimTrackRef.nativeElement) return;
+    const el = this.testimTrackRef.nativeElement;
+    const cards = el.querySelectorAll('.testimonial-glass-card');
+    if (cards[index]) {
+      (cards[index] as HTMLElement).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+  }
+
+  getWhatsAppLink(customText?: string): string {
+    const clean = (this.whatsappNumber || '966572651058').replace(/[^0-9]/g, '');
+    const text = customText || 'السلام عليكم ورحمة الله وبركاته، أود الاستفسار عن خدمات منصة أم رهام الأكاديمية 🌸';
+    return `https://wa.me/${clean}?text=${encodeURIComponent(text)}`;
   }
 }

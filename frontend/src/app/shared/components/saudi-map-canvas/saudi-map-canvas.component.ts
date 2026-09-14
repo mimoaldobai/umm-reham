@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, OnDestroy, ElementRef, ViewChild, inj
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AudioService } from '../../../core/services/audio.service';
+import { ApiService } from '../../../core/services/api.service';
 import * as L from 'leaflet';
 
 export interface AcademicLocation {
@@ -772,6 +773,7 @@ export class SaudiMapCanvasComponent implements OnInit, AfterViewInit, OnDestroy
   @ViewChild('mapContainer') mapContainerRef!: ElementRef<HTMLDivElement>;
 
   private audio = inject(AudioService);
+  private api = inject(ApiService);
   private platformId = inject(PLATFORM_ID);
 
   private map: L.Map | null = null;
@@ -1278,7 +1280,8 @@ export class SaudiMapCanvasComponent implements OnInit, AfterViewInit, OnDestroy
 
   requestFromLocation(loc: AcademicLocation): void {
     this.audio.playClick();
+    const phone = this.api.getWhatsAppPhoneSync();
     const text = encodeURIComponent(`السلام عليكم ورحمة الله وبركاته 🌿\nأرغب بطلب خدمة أكاديمية وبحثية معتمدة من منصة أم رهام لمنطقة (${loc.flag} ${loc.nameAr} — ${loc.countryAr}).`);
-    window.open(`https://wa.me/966572651058?text=${text}`, '_blank');
+    window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
   }
 }

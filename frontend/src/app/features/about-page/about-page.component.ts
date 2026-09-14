@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AudioService } from '../../core/services/audio.service';
+import { ApiService } from '../../core/services/api.service';
 
 @Component({
   selector: 'app-about-page',
@@ -205,7 +206,7 @@ import { AudioService } from '../../core/services/audio.service';
               <p>تواصل مع فريق مستشارينا الأكاديميين الآن واحصل على خطة عمل واستشارة فورية معتمدة.</p>
             </div>
             <div class="cta-btns-group">
-              <a href="https://wa.me/966572651058?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%20%D8%A3%D9%85%20%D8%B1%D9%87%D8%A7%D9%85" 
+              <a [href]="getWhatsAppLink()" 
                  target="_blank" 
                  class="btn-saudi-gold"
                  (click)="onClick()"
@@ -670,6 +671,13 @@ import { AudioService } from '../../core/services/audio.service';
 })
 export class AboutPageComponent implements OnInit {
   audio = inject(AudioService);
+  api = inject(ApiService);
+
+  getWhatsAppLink(): string {
+    const phone = this.api.getWhatsAppPhoneSync();
+    const text = encodeURIComponent('السلام عليكم ورحمة الله، أرغب بالتواصل مع منصة أم رهام الأكاديمية 🌸');
+    return `https://wa.me/${phone}?text=${text}`;
+  }
 
   displayCountSuccess = 0;
   displayCountOriginality = 0;

@@ -654,15 +654,17 @@ export class ContactUsPageComponent {
   messageSent = false;
 
   getWhatsAppLink(): string {
+    const phone = this.api.getWhatsAppPhoneSync();
     const text = encodeURIComponent('السلام عليكم أم رهام 🌟\nأرغب بالتواصل المباشر والاستفسار عن خدمات المنصة.');
-    return `https://wa.me/966572651058?text=${text}`;
+    return `https://wa.me/${phone}?text=${text}`;
   }
 
   getWhatsAppMessageLink(): string {
+    const phone = this.api.getWhatsAppPhoneSync();
     const text = encodeURIComponent(
       `السلام عليكم ورحمة الله 🌟\nأنا: ${this.formModel.name}\nالموضوع: ${this.formModel.subject}\nرسالتي: ${this.formModel.message}`
     );
-    return `https://wa.me/966572651058?text=${text}`;
+    return `https://wa.me/${phone}?text=${text}`;
   }
 
   onActionClick(): void {

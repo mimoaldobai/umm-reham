@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AudioService } from '../../../core/services/audio.service';
+import { ApiService } from '../../../core/services/api.service';
 
 @Component({
   selector: 'app-footer',
@@ -69,7 +70,7 @@ import { AudioService } from '../../../core/services/audio.service';
               منصة سعودية رائدة في تقديم الحلول والخدمات التعليمية والبحثية والتقنية. نجمع بين أصالة الهوية ودقة الإنجاز لنصنع مستقبلك الأكاديمي والمهني.
             </p>
             <div class="social-links">
-              <a href="https://wa.me/?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D8%A8%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%20%D8%A3%D9%85%20%D8%B1%D9%87%D8%A7%D9%85" target="_blank" class="social-btn wa-social" (mouseenter)="onHover()" (click)="onClick()" title="واتساب" aria-label="واتساب">
+              <a [href]="getWhatsAppLink()" target="_blank" class="social-btn wa-social" (mouseenter)="onHover()" (click)="onClick()" title="واتساب" aria-label="واتساب">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M17.472 14.382c-.301-.15-1.782-.879-2.057-.979-.276-.1-.476-.15-.676.15-.2.301-.776.98-1.026 1.281-.25.301-.45.301-.75.15-.301-.15-1.27-.468-2.42-1.493-.895-.798-1.5-1.784-1.675-2.085-.176-.3-.019-.462.131-.611.136-.135.301-.351.451-.527.151-.175.201-.3.301-.501.101-.2.05-.375-.025-.525-.075-.15-.676-1.63-1.002-2.23-.275-.6-.576-.525-.776-.525-.2 0-.426-.025-.651-.025-.226 0-.602.075-.927.426-.326.35-1.253 1.226-1.253 2.984 0 1.758 1.278 3.46 1.454 3.71.175.25 2.511 3.834 6.084 5.378.85.367 1.514.587 2.031.751.854.271 1.631.233 2.246.141.685-.102 1.782-.728 2.032-1.431.25-.702.25-1.303.175-1.43-.075-.126-.275-.226-.576-.376z"/>
                   <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
@@ -420,8 +421,21 @@ import { AudioService } from '../../../core/services/audio.service';
     }
   `]
 })
-export class FooterComponent {
+export class FooterComponent implements OnInit {
+  private api = inject(ApiService);
   audio = inject(AudioService);
+  whatsappNumber = '966572651058';
+
+  ngOnInit(): void {
+    this.api.getWhatsAppNumber().subscribe(num => {
+      if (num) this.whatsappNumber = num.replace(/[^0-9]/g, '');
+    });
+  }
+
+  getWhatsAppLink(): string {
+    const text = encodeURIComponent('السلام عليكم ورحمة الله وبركاته، أود الاستفسار عن خدمات منصة أم رهام الأكاديمية 🌸');
+    return `https://wa.me/${this.whatsappNumber || '966572651058'}?text=${text}`;
+  }
 
   onHover(): void {
     this.audio.playHover();

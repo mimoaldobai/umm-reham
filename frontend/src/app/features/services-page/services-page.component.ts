@@ -82,16 +82,38 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
             <span class="results-count">
               عرض <strong>{{ filteredServices.length }}</strong> خدمة متاحة
             </span>
+
+            <!-- View Mode Switcher: Carousel vs Grid -->
+            <div class="view-mode-toggle">
+              <button 
+                type="button" 
+                class="btn-toggle-mode" 
+                [class.active]="viewMode === 'slider'" 
+                (click)="setViewMode('slider')" 
+                title="عرض شريطي أفقي">
+                <span>↔ سلايدر</span>
+              </button>
+              <button 
+                type="button" 
+                class="btn-toggle-mode" 
+                [class.active]="viewMode === 'grid'" 
+                (click)="setViewMode('grid')" 
+                title="عرض شبكي رأسي مناسب للهاتف">
+                <span>⊞ شبكة</span>
+              </button>
+            </div>
+
             <span class="payment-note-badge">
               🛡️ جميع الخدمات: الدفع بعد الإنجاز والاستلام
             </span>
           </div>
 
-          <!-- Services Showcase Slider (التنقل يمين ويسار مع أسهم التحكم والبطاقة البارزة) -->
-          <div class="services-showcase-wrapper">
+          <!-- Services Showcase Slider & Grid Wrapper -->
+          <div class="services-showcase-wrapper" [class.grid-active]="viewMode === 'grid'">
 
-            <!-- Right Arrow (السابق - يمين) -->
+            <!-- Right Arrow (السابق - يمين) - only in slider mode -->
             <button 
+              *ngIf="viewMode === 'slider'"
               type="button" 
               class="svc-carousel-arrow arrow-right" 
               (click)="scrollServicesCarousel('prev')" 
@@ -100,8 +122,9 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
               <span>›</span>
             </button>
 
-            <!-- Left Arrow (التالي - يسار) -->
+            <!-- Left Arrow (التالي - يسار) - only in slider mode -->
             <button 
+              *ngIf="viewMode === 'slider'"
               type="button" 
               class="svc-carousel-arrow arrow-left" 
               (click)="scrollServicesCarousel('next')" 
@@ -110,8 +133,10 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
               <span>‹</span>
             </button>
 
-            <!-- Horizontal Track (يمين ويسار) -->
-            <div class="services-horizontal-track" #servicesTrack (scroll)="onServicesTrackScroll()">
+            <!-- Horizontal Track or Grid Layout -->
+            <div [ngClass]="viewMode === 'slider' ? 'services-horizontal-track' : 'services-grid-layout'" 
+                 #servicesTrack 
+                 (scroll)="viewMode === 'slider' ? onServicesTrackScroll() : null">
               <div 
                 *ngFor="let s of filteredServices; let idx = index" 
                 class="service-luxury-card"
@@ -275,11 +300,15 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
             </div>
             </div>
 
-            <!-- Bottom Counter & Dots Indicator -->
-            <div class="services-slider-nav-footer" *ngIf="filteredServices.length > 1">
-              <span class="svc-counter-pill">
-                الخدمة <strong>{{ activeCardIndex + 1 }}</strong> من <strong>{{ filteredServices.length }}</strong>
-              </span>
+            <!-- Bottom Counter & Dots Indicator (Only in Slider Mode) -->
+            <div class="services-slider-nav-footer" *ngIf="viewMode === 'slider' && filteredServices.length > 1">
+              <div class="mob-slider-controls">
+                <button type="button" class="btn-mob-svc-nav" (click)="scrollServicesCarousel('prev')" aria-label="السابق">‹ السابق</button>
+                <span class="svc-counter-pill">
+                  الخدمة <strong>{{ activeCardIndex + 1 }}</strong> من <strong>{{ filteredServices.length }}</strong>
+                </span>
+                <button type="button" class="btn-mob-svc-nav" (click)="scrollServicesCarousel('next')" aria-label="التالي">التالي ›</button>
+              </div>
               <div class="svc-dots-bar">
                 <button 
                   *ngFor="let s of filteredServices; let idx = index"
@@ -524,6 +553,95 @@ import { ServiceModalComponent } from '../../shared/components/service-modal/ser
       border-radius: var(--radius-full);
       font-weight: 700;
       border: 1px solid #A7F3D0;
+    }
+
+    /* View Mode Switcher (Slider vs Grid) */
+    .view-mode-toggle {
+      display: inline-flex;
+      background: #F1F5F9;
+      padding: 3px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+
+      .btn-toggle-mode {
+        border: none;
+        background: transparent;
+        color: #64748B;
+        font-weight: 700;
+        font-size: 0.82rem;
+        padding: 0.35rem 0.95rem;
+        border-radius: var(--radius-full);
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &.active {
+          background: #0A2F24;
+          color: #E5B94F;
+          box-shadow: 0 2px 8px rgba(10, 47, 36, 0.15);
+        }
+      }
+    }
+
+    /* Grid Layout for clean vertical scrolling */
+    .services-grid-layout {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin: 1.25rem 0 3rem;
+      width: 100%;
+      box-sizing: border-box;
+
+      @media (max-width: 640px) {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+
+      .service-luxury-card {
+        flex: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+    }
+
+    /* Mobile Slider Controls below the cards */
+    .mob-slider-controls {
+      display: none;
+      align-items: center;
+      gap: 1rem;
+
+      @media (max-width: 768px) {
+        display: flex;
+      }
+
+      .btn-mob-svc-nav {
+        background: #FFFFFF;
+        border: 1.5px solid rgba(197, 168, 105, 0.4);
+        color: #0A2F24;
+        padding: 0.4rem 0.9rem;
+        border-radius: var(--radius-full);
+        font-size: 0.82rem;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .svc-carousel-arrow {
+        display: none !important;
+      }
+      .services-showcase-wrapper {
+        padding: 0 !important;
+      }
+      .services-horizontal-track {
+        padding: 1rem 0.75rem 1.5rem !important;
+        gap: 1rem !important;
+      }
+      .services-horizontal-track .service-luxury-card {
+        flex: 0 0 calc(100vw - 3.5rem) !important;
+        max-width: 360px !important;
+        margin: 0 auto;
+      }
     }
 
     /* Services Showcase Horizontal Carousel (يمين ويسار بدون تداخل) */
@@ -1293,6 +1411,13 @@ export class ServicesPageComponent implements OnInit {
   activeService: ServiceItem | null = null;
   @ViewChild('servicesTrack') servicesTrackRef?: ElementRef<HTMLDivElement>;
   activeCardIndex = 0;
+  viewMode: 'slider' | 'grid' = 'slider';
+  whatsappNumber: string = '966572651058';
+
+  setViewMode(mode: 'slider' | 'grid'): void {
+    this.viewMode = mode;
+    this.audio.playClick();
+  }
 
   scrollServicesCarousel(dir: 'next' | 'prev'): void {
     this.audio.playClick();
@@ -1353,6 +1478,9 @@ export class ServicesPageComponent implements OnInit {
   bouncingServices: { [serviceId: string]: boolean } = {};
 
   ngOnInit(): void {
+    this.api.getWhatsAppNumber().subscribe(num => {
+      if (num) this.whatsappNumber = num.replace(/[^0-9]/g, '');
+    });
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     }
@@ -1499,7 +1627,7 @@ export class ServicesPageComponent implements OnInit {
 
   orderQuoteViaWhatsApp(service: ServiceItem): void {
     this.audio.playClick();
-    const phone = '966572651058';
+    const phone = (this.whatsappNumber || '966572651058').replace(/[^0-9]/g, '');
     const lines = [
       'السلام عليكم ورحمة الله وبركاته 🌸',
       '*طلب تسعيرة خدمة — منصة أم رهام الأكاديمية*',
